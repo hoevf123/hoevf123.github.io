@@ -469,11 +469,21 @@
             //Title Label Creation
             {
                 var lbl_title= new MyObject("lbl_title",600,100,1200,100);
-                lbl_title.value="Cashmart Image & Object Creattion test";
+                lbl_title.value="Cashmart Image & Object Creation test";
             }
             //Player Creation
             {
-                player = new MyObject("cm_player",200,200,200,200);
+                player = new MyObject("cm_player",200,600,200,200);
+                var player_cust = Maple2CM.findNpcByName("bishop");
+                if(player_cust !=null){
+                    player.imgSrc=player_cust.imgSrc;
+                    player.value=player_cust.name;
+                }
+                else{
+                    player.value="CashMart Player";
+                }
+                
+                
             }
 
             //Button Creation
@@ -492,7 +502,13 @@
                         var temp_customer = new MyObject("cashmart_customer_"+ _npc_name,800,300,200,200,true);
                         temp_customer.value=_npc_name + " // " + _prod_name  ;
                         temp_customer.imgSrc=pickedNpcRequires.npc.imgSrc;
-                        setTimeout((function(){this.removeCustomObject();}).bind(temp_customer),2000);
+                        setTimeout((function(){
+                            this.removeCustomObject();
+                            var aud = new Audio("res/sounds/MapleStory2_UI/System_Right_01.mp3");
+                            aud.load();
+                            aud.play();
+                            console.log("good removing");
+                            }).bind(temp_customer),2000);
                     }
                 }
             }
