@@ -6,7 +6,7 @@
     
 </head>
 <body>
-    <canvas width="1024" height="800" id="canvas">CANVAS NOT SUPPORTED</canvas>
+    <canvas width="1280" height="800" id="canvas">CANVAS NOT SUPPORTED</canvas>
     <script type="text/javascript" src="module_customobject.js"></script>
     <script type="text/javascript" src="md_cashmart.js" data-comment="cashmart logical module(ES6)"></script> 
     
@@ -80,53 +80,28 @@
         }
 
         
-        MySrc=new CustomScreen("canvas");
+        var MySrc=new CustomScreen("canvas");
+        var cm = new CustomMusic();
         MySrc.StartLoadScreen();
         MySrc.addCustomScreenEventListener();
 
-        //Question List Creation Class Definition.
-        {
-            var btn_questionList = new Array(); //reserved variable, it will be used and replaced(inserted) as variant questionnaire blocks.
-            btn_questionList.flush = function(){
-                for(var a in this)
-                    if(this[a]!=undefined&&this[a].constructor==MyObject)
-                        this[a].remove();
-            }
-            btn_questionList.inputQuestion=function(){
-                this.flush();
-                this.length=0;
-                var lastVariable = undefined;
-                for(var a in arguments){
-                    if(typeof arguments[a] === "string"){
-                        lastVariable = new MyObject("btn_qustionnaireList"+(a).toString(),256,160+64*this.length,512,64);
-                        lastVariable.value =arguments[a];
-                        this.push(lastVariable);
-                    }
-                    else if(typeof arguments[a] === "function" && lastVariable !== undefined ){
-                        lastVariable.onclick = arguments[a];
-                    }
-                    else{
-                        lastVariable = undefined;
-                    }
-                }
-            }
-            btn_questionList.appendQuestion=function() {
-                var origin_length = this.length;
-                for (var a in arguments) {
-                    this[a + i] = new MyObject("btn_qustionnaireList" + (a + i).toString(), 256, 160 + 64 * (a + i), 512, 64);
-                    this[a + i].value = arguments[a];
-                }
-            }
-        }
-
+        
         /* Default Initializing Part End*/
 
-        Activity_Title();
+        Activity_cm_title();
 
         function Activity_Title(){
             /* Activity Initialization */
             {
                 MySrc.resetCustomScreenState();
+                cm.clear();
+                var music_bgm_BGM_Massive_02 = cm.appendMusic("BGM_Massive_02.mp3");
+                var music_system_right=cm.appendMusic("res/sounds/MapleStory2_UI/System_Right_01.mp3");
+                var music_system_summon_portal = cm.appendMusic("res/sounds/MapleStory2_UI/System_Summon_Portal_01.mp3");
+                music_bgm_BGM_Massive_02.loop=true;
+                music_bgm_BGM_Massive_02.play();
+                
+                
             }
 
             /* Code Entry - Global Variable */
@@ -136,6 +111,7 @@
                 var Maple2CM = new Maple2CashMart();
                 var visitedCustomers = [];
                 var player = null;
+                var loc_counters, loc_entries, loc_prod_receivers;
                 
             }
             /* Code Entry - Cashamart Metadata Load */
@@ -473,8 +449,8 @@
             }
             //Player Creation
             {
-                player = new MyObject("cm_player",200,600,200,200);
-                var player_cust = Maple2CM.findNpcByName("bishop");
+                player = new MyObject("cm_player",150,600,150,150);
+                var player_cust = Maple2CM.findNpcByName("비숍의하루");
                 if(player_cust !=null){
                     player.imgSrc=player_cust.imgSrc;
                     player.value=player_cust.name;
@@ -482,13 +458,11 @@
                 else{
                     player.value="CashMart Player";
                 }
-                
-                
             }
 
             //Button Creation
             {
-                var btn_createByOrderEditor = new MyObject("btn_summon_customer",250,250,200,200);
+                var btn_createByOrderEditor = new MyObject("btn_summon_customer",150,300,150,150);
                 btn_createByOrderEditor.value="Summon Customer";
                 btn_createByOrderEditor.onclick=function(){
                     var pickedNpcRequires = Maple2CM.pickNpcRequires();
@@ -499,18 +473,95 @@
                         if(req_prod !=null){
                             _prod_name=req_prod.name;
                         }
-                        var temp_customer = new MyObject("cashmart_customer_"+ _npc_name,800,300,200,200,true);
+                        var _summon_posX=800;
+                        var _summon_posY=300;
+                        var _summon_width=150;
+                        var _summon_height=150;
+                        
+                        console.log(loc_entries);
+                        if(loc_entries !== undefined && loc_entries.length >=1){
+                            var _idx_randEntry = Math.floor(Math.random()*loc_entries.length);
+                            var _pickedEntry = loc_entries[_idx_randEntry];
+                            _summon_posX=_pickedEntry.x;
+                            _summon_posY=_pickedEntry.y;
+                        }
+                        var temp_customer = new MyObject("cashmart_customer_"+ _npc_name,_summon_posX,_summon_posY,_summon_width,_summon_height);
                         temp_customer.value=_npc_name + " // " + _prod_name  ;
                         temp_customer.imgSrc=pickedNpcRequires.npc.imgSrc;
-                        setTimeout((function(){
-                            this.removeCustomObject();
-                            var aud = new Audio("res/sounds/MapleStory2_UI/System_Right_01.mp3");
-                            aud.load();
-                            aud.play();
-                            console.log("good removing");
-                            }).bind(temp_customer),2000);
+                        temp_customer.speed_y=180;
+                        temp_customer.onmove=(function(){
+                            console.log("this : " + this);
+                            if(this.speed_y != 0 && loc_counters.reduce((function(prev,curr){return (prev || curr.isObjectIn(this.x,this.y, this.width, this.height));}).bind(this),false) == true){
+                                this.speed_y=0;
+                                setTimeout((function(){
+                                    this.removeCustomObject();
+                                    var aud = new Audio("res/sounds/MapleStory2_UI/System_Right_01.mp3");
+                                    aud.load();
+                                    aud.play();
+                                    console.log("good removing");
+                                    }).bind(this),2000);
+                            };
+                        }).bind(temp_customer);
+                        music_system_summon_portal.play();
+                        // var tmp_aud=new Audio("res/sounds/MapleStory2_UI/System_Summon_Portal_01.mp3");
+                        // tmp_aud.load();
+                        // tmp_aud.play();
+                        
                     }
                 }
+            }
+            //Location Creation
+            {
+                var _temp_resultset=(function CreateCashier(counters){
+                    var _loc_counters=[];
+                    var _loc_entries=[];
+                    var _loc_prod_receivers=[];
+                    var _width=150;
+                    var _height=150;
+                    var _padding=150;
+                    var centerX = 720;
+                    var _posX = centerX - (_width+_padding)*(counters/2);
+                    var _posY = 600;
+                    var _entry_posY = 150;
+                    var _prod_receiver_posY = 750;
+                    for(var i=0;i<counters;i++){
+                        var _counter = new MyObject("loc_counter" + (i+1),_posX,_posY,_width,_height);  //create counter
+                        _counter.value ="counter " + (i+1); 
+                        var _entry = new MyObject("loc_entry" + (i+1),_posX,_entry_posY,_width,_height);//create cashmart customer's entry
+                        var _prod_receiver = new MyObject("loc_prod_receiver" + (i+1),_posX,_prod_receiver_posY,_width,_height);//create cashmart customer's entry
+                        _loc_counters.push(_counter);
+                        _loc_entries.push(_entry);
+                        _loc_prod_receivers.py
+                        _posX += _width + _padding;
+                    }
+                    return [_loc_counters, _loc_entries,_loc_prod_receivers];
+                })(4);
+                loc_counters=_temp_resultset[0];
+                loc_entries=_temp_resultset[1];
+                loc_prod_receivers=_temp_resultset[2];
+                console.log(loc_counters,loc_entries);
+            }
+        }
+        function Activity_cm_title(){
+            /* Activity Initialization */
+            {
+                MySrc.resetCustomScreenState();
+                cm.clear();
+                var music_bgm_BGM_GuildBattle_01 = cm.appendMusic("BGM_GuildBattle_01.mp3");
+                music_bgm_BGM_GuildBattle_01.loop=true;
+                music_bgm_BGM_GuildBattle_01.play();
+            }
+            //Title Background Image and Test Button Creation
+            {
+                var bg_cashmart_title=new MyObject("bg_cashmart_title",640,360,1280,720);
+                bg_cashmart_title.imgSrc="res/images/bg_cashmart_title.png";
+
+                var btn_cashmart_test_start= new MyObject("btn_cashmart_test_start",600,500,600,200);
+                btn_cashmart_test_start.imgSrc="res/images/btn_cashmart_test_start.png";
+                btn_cashmart_test_start.onclick=function(){
+                    Activity_Title();
+                }
+                
             }
         }
         var canvas=document.getElementById("canvas");

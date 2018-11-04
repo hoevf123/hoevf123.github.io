@@ -129,6 +129,7 @@
             context.strokeText(str,this.x,top);
         }
         this.objectPoint=new Array();/* Useless, CustomObject's drawLinePoint */
+        this.onmove = function(){}; /* Act When Object Moves */
         /* Useless, Delete All objectPoint's Parameter */
         function objectPointClear()
         {
@@ -143,6 +144,8 @@
             time/=1000;
             this.x+=this.speed_x*time;
             this.y+=this.speed_y*time;
+            if((this.speed_x != 0 || this.speed_y != 0) && this.onmove != undefined )
+                this.onmove();
         }
         /* Distinguish another Object is in CustomObject's Area */
         this.isObjectIn=function(x,y,width,height,closePathTrue)
@@ -639,6 +642,62 @@
         /* Found Failed CustomObject's name is objName */
     }
 }
+
+
+/* Custom Music Manage Player*/
+{
+    function CustomMusic(){
+        this.storedMusics=[];
+        this.appendMusic = function appendMusic(URL){
+            if(this.storedMusics[URL] == undefined){
+                this.storedMusics[URL]=new Audio(URL);
+                this.storedMusics[URL].load();
+            }
+            return this.storedMusics[URL];
+        }
+        this.removeMusic=(function(URL){
+            if(this.storedMusics[URL]!= undefined){
+                try{
+                    this.stop(URL);
+                }
+                catch(e){
+                    console.log("exception");
+                }
+                delete this.storedMusics[URL];
+            }
+        }).bind(this);
+        this.clear=function(){
+            console.log(this.storedMusics);
+            var st = this;
+            console.log(Object.keys(this.storedMusics));
+            Object.keys(this.storedMusics).map((function(arg){
+                console.log("deleting music file " + arg);
+                this.removeMusic(arg);
+            }).bind(st));
+            delete this.storedMusics;
+            this.storedMusics=[];
+        }
+        this.play=function playMusic(URL){
+            try{
+                this.stop(URL);
+                this.storedMusics[URL].play();
+            }
+            catch(e){
+                console.log("CustomMusic :: file \""+ URL+" play failed.");
+            }
+        }
+        this.stop=function stopMusic(URL){
+            try{
+                this.storedMusics[URL].pause();
+                this.storesMusics[URL].currentTime=0;
+            }
+            catch(e){
+                console.log("CustomMusic :: file \""+ URL+" stop failed.");
+            }
+        }
+    }
+}
+
 /* Stuff Functions */
 {
     function func1(){//(Unused)Toggle REMOVE & CREATE OBJECT TEST function
