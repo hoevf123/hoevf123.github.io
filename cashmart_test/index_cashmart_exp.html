@@ -495,11 +495,7 @@
                                 this.speed_y=0;
                                 setTimeout((function(){
                                     this.removeCustomObject();
-                                    var aud = new Audio("res/sounds/MapleStory2_UI/System_Right_01.mp3");
-                                    (function(){
-                                        aud.load();
-                                        aud.play();
-                                    })();
+                                    music_system_right.play();
                                     console.log("good removing");
                                     }).bind(this),2000);
                             };
