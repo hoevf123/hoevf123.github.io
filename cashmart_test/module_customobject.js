@@ -650,9 +650,13 @@
         this.storedMusics=[];
         this.appendMusic = function appendMusic(URL){
             if(this.storedMusics[URL] == undefined){
-                this.storedMusics[URL]=new Audio(URL);
-                this.storedMusics[URL].load();
+                (function(){
+                    this.storedMusics[URL]=new Audio(URL);
+                    this.storedMusics[URL].load();
+                    console.log("HELLO :: new music " + URL + " Load Completed.");
+                }).bind(this)();
             }
+            console.log("HELLO, WORLD");
             return this.storedMusics[URL];
         }
         this.removeMusic=(function(URL){
