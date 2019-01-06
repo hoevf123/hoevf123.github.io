@@ -49,6 +49,29 @@ class Maple2CashMart{
         this.products=[];
         this.npcs=[];
         this.npcRequires=[];
+        this.players=[];
+        this.stage_productRequires=[]; //used for cashmart play
+    }
+    onkeydown(){
+        switch(e.key){
+            case 39:    //up
+                break;
+            case 40:    //left
+                break
+            case 41:    //down
+                break;
+            case 42:    //right
+                break;
+        }
+    }
+    attatchEvent(){
+        window.addEventListener('keydown',this.onkeydown);
+    }
+    addPlayer(player){
+        this.players.push(players);
+    }
+    removePlayer(player){
+        this.players.pop(players);
     }
     appendNpcs(){
         Array.prototype.forEach.call(arguments,(element) => {

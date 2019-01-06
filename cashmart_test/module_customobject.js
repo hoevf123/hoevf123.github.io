@@ -648,15 +648,28 @@
 {
     function CustomMusic(){
         this.storedMusics=[];
+        this.loadingResources=[];
         this.appendMusic = function appendMusic(URL){
             if(this.storedMusics[URL] == undefined){
                 (function(){
                     this.storedMusics[URL]=new Audio(URL);
+                    this.storedMusics[URL].onload=function(){
+                        console.log("loading music complete");
+                    }
+                    this.storedMusics[URL].onloadstart=function(){
+                        console.log("loding music start " + URL);
+                        this.loadingResources.push(this.storedMusics[URL]);
+                        console.log("loading resources : " + this.loadingResources);
+                    }.bind(this);
+                    this.storedMusics[URL].onloadedmetadata=function(){
+                        console.log("loading complete " + URL);
+                        this.loadingResources.pop(this.loadingResources);
+                        console.log("loading resources : " + this.loadingResources);
+                    }.bind(this);
                     this.storedMusics[URL].load();
-                    console.log("HELLO :: new music " + URL + " Load Completed.");
+                    console.log("CustomMusic :: new music " + URL + " Load Completed.");
                 }).bind(this)();
             }
-            console.log("HELLO, WORLD");
             return this.storedMusics[URL];
         }
         this.removeMusic=(function(URL){

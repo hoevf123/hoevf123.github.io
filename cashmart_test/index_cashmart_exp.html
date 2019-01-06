@@ -100,8 +100,6 @@
                 var music_system_summon_portal = cm.appendMusic("res/sounds/MapleStory2_UI/System_Summon_Portal_01.mp3");
                 music_bgm_BGM_Massive_02.loop=true;
                 music_bgm_BGM_Massive_02.play();
-                
-                
             }
 
             /* Code Entry - Global Variable */
@@ -113,6 +111,18 @@
                 var player = null;
                 var loc_counters, loc_entries, loc_prod_receivers;
                 
+            }
+            {
+                var bg_wait = new MyObject("bg_wait",640,360,1280,720);
+                bg_wait.eventTransparent=false;
+                bg_wait.draw=function(ctx){
+                    ctx.fillStyle="#000000";
+                    ctx.fillRect(0,0,canvas.width,canvas.height);
+                    ctx.strokeStyle="yellow";
+                    ctx.textAlign="center";
+                    ctx.textBaseline="middle";
+                    ctx.strokeText("Loading",this.x,this.y);
+                }
             }
             /* Code Entry - Cashamart Metadata Load */
             {
@@ -392,15 +402,15 @@
                     /* 2 -  Specific of A(Some) Group(s) Required NPCs : 25 Persons */
                     /* Artists : 2 People */
                     ["슈테판", "전문가용 미술용품", "이젤"],
-                    ["어흥이", "전문가용 미술용품", "이젤"],
+                    ["어흥이", "전문가용 미술용품"],
                     /* Tria Person : 1 Person */
                     ["근위대원", "수호자의 방패", "영웅의 장검"],
                     /* Mechanics : 5 People */
-                    ["공돌이(소)", "나무 절단기", "세공용 드릴", "풀무", "모루", "담금질 화로", "용광로"],
-                    ["공돌이(대)", "공돌이(소)", "나무 절단기", "세공용 드릴", "풀무", "모루", "담금질 화로", "용광로"],
-                    ["박사", "공돌이(소)", "나무 절단기", "세공용 드릴", "풀무", "모루", "담금질 화로", "용광로"],
-                    ["피치", "공돌이(소)", "나무 절단기", "세공용 드릴", "풀무", "모루", "담금질 화로", "용광로"],
-                    ["오필리아", "공돌이(소)", "나무 절단기", "세공용 드릴", "풀무", "모루", "담금질 화로", "용광로"],
+                    ["공돌이(소)", "나무 절단기", "세공용 드릴"],
+                    ["공돌이(대)", "나무 절단기", "세공용 드릴"],
+                    ["박사", "나무 절단기", "세공용 드릴"],
+                    ["피치", "풀무", "모루", "담금질 화로", "용광로"],
+                    ["오필리아", "풀무", "모루", "담금질 화로", "용광로"],
                     /* Magicians : 2 People */
                     ["별지기", "힐링 약초 화분", "보석 조립 테이블", "마법의 물약병", "포션 정수기"],
                     ["마녀", "힐링 약초 화분", "보석 조립 테이블", "마법의 물약병", "포션 정수기"],
@@ -408,7 +418,7 @@
                     ["의사", "수술용품 트레이", "수술용 침대 의자", "수술용 조명", "링거 고정대"],
                     ["쉐도우월드 대피소 의사", "수술용품 트레이", "수술용 침대 의자", "수술용 조명", "링거 고정대"],
                     /* Flying Riding Liker Kids : 1 Person */
-                    ["붉은머리 통통한 꼬마", "루디브리엄 로켓", "경비행기 모형"],
+                    ["붉은머리 통통한 꼬마", "루디브리엄 로켓", "경비행기 모형", "미니 보트"],
 
                     /* Gaming and Playing Likers : 3 People */
                     ["루비", "대전 게임 오락기", "아케이드 오락기", "미니 탁구대", "미니 축구게임 테이블", "미니 당구대", "인형뽑기 기계", "댄스댄스 머신", "포토스티커 머신"],
