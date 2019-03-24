@@ -41,7 +41,6 @@ class CashMart_Customer{
     }
 }
 
-
 class Maple2CashMart{
     constructor(){
         this.stages=[1,2,3];
@@ -51,6 +50,9 @@ class Maple2CashMart{
         this.npcRequires=[];
         this.players=[];
         this.stage_productRequires=[]; //used for cashmart play
+        /* info - How to write stage_productRequires 
+            this.stage_productRequires = [ ["a","b", "c"] ]        
+        */
     }
     onkeydown(){
         switch(e.key){
@@ -114,7 +116,7 @@ class Maple2CashMart{
             var idx_npcRequires=Math.floor(this.npcRequires.length * Math.random());
             return this.npcRequires[idx_npcRequires]
         }
-        return this.findNpcRequireByNpc(npc_name);
+        return this.findNpcRequireByNpc(this.findNpcByName(npc_name));
     }
     pickRandomProduct(){
         if(this.products.length < 1){
@@ -138,8 +140,8 @@ class Maple2CashMart{
     findNpcRequireByNpc(_Npc){
         return (this.npcRequires.find((e)=>{
             console.log("compare : " + e + " and " + _Npc + "\n" );
-            if(!(e instanceof Npc));
-            else if(e.name === _Npc.name){
+            if(!(e.npc instanceof Npc));
+            else if(e.npc.name === _Npc.name){
                 return e;
             }
         }));
