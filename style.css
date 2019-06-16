@@ -1,0 +1,35 @@
+*{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size:10pt;
+    text-shadow: 1px 1px 1px #000000;
+    color:rgb(255, 255, 255);
+}
+
+.header{
+    display:block;
+}
+.background-light-pink{
+    background-color:rgb(255,168,203); /* MapleStory2 Light Pink Default Color (R:255[ff], G:168[A8], B:203[CB])*/
+}
+[data-comment="guild_name"], 
+[data-comment="title"],
+[data-comment="level"],
+[data-comment="ch_name"]{
+
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size:12pt;
+    text-shadow: 1px 1px 1px #000000;
+    color:rgb(255, 255, 255);
+}
+div[data-comment="character-tag"],
+span[data-comment="character-tag"]{
+    background-color:lightpink; 
+    border-radius: 50px; 
+    width:320px; 
+    height:52sp; 
+    padding:2sp; 
+    margin:2px;
+}
+.tag-center{
+    display:inline-block;
+}

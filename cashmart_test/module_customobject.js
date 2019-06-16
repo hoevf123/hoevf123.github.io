@@ -177,8 +177,18 @@
         /* Important : Logic of drawing All CustomObject(s) Stored in CustomObjectList, drawType arguments's value is must be "image" */
         /* Notice 1 : this.draw function can be overridden by another code access!! */
         /* Notice 2 : There has no Situation to drawing using objectPoint Array variable */
-        this.draw=function(context,drawType){
+        this.draw=function(context,drawType,customScreen){
             if(this.display==false)return;
+            var relative_cam=new Object();
+            relative_cam.x=0;
+            relative_cam.y=0;
+            relative_cam.z=0;
+            /* Set releative Camera if it exist */
+            if(customScreen!==undefined && customScreen.customCamera !== undefined){
+                relative_cam.x=customScreen.customCamera.posX;
+                relative_cam.y=customScreen.customCamera.posY;
+                relative_cam.z=customScreen.customCamera.posZ;
+            }
             if(drawType=="image"){
                 context.beginPath();
                 var direction=this.direction/Math.abs(this.direction);/* Makes Direction value only 1(left to right), -1(right to left). */
@@ -186,7 +196,9 @@
                 image.src=this.imgSrc;
                 context.save();//must be written
                 context.scale(direction,1);/* flip x using direction variable */
-                context.drawImage(image,(this.x-this.width/2)*direction,this.y-this.height/2,this.width*direction,this.height);
+                context.drawImage(image,(this.x-relative_cam.x-this.width/2)*direction,
+                    this.y-relative_cam.y-this.height/2,
+                    this.width*direction,this.height);
                 context.scale(1,1);//restore origin state
                 context.restore();//must be written
             }
@@ -199,11 +211,11 @@
                 context.strokeStyle = this.strokeStyle;
                 context.lineWidth = this.lineWidth;
                 /* Draw First and Second Line */
-                context.moveTo(this.objectPoint[0].x, this.objectPoint[0].y);
-                context.lineTo(this.objectPoint[0].x, this.objectPoint[0].y);
+                context.moveTo(this.objectPoint[0].x-relative_cam.x, this.objectPoint[0].y-relative_cam.y);
+                context.lineTo(this.objectPoint[0].x-relative_cam.x, this.objectPoint[0].y-relative_cam.y);
                 /* ..and Draw rest of objectPoint */
                 for (idx = 1; idx < this.objectPoint.length; idx++) {
-                    context.LineTo(this.objectPoint[idx].x, this.objectPoint[idx].y);
+                    context.LineTo(this.objectPoint[idx].x-relative_cam.x, this.objectPoint[idx].y-relative_cam.y);
                 }
                 context.stroke();/* Draw The line(s) */
             }
@@ -322,6 +334,14 @@
             return undefined;
         }
     }
+
+    var CustomCamera = function(x,y,z,targetCustomObject){
+        this.posX=x;
+        this.posY=y;
+        this.posZ=z;
+        this.targetCustomObject=targetCustomObject;
+    }
+
     /* CustomScreen : an Object What is Displayed, Run One Program , logical Partition. */
     /* Important : It must be needed to Manage CustomObjectList, Display CustomObject(image), EventInput, ReDefinable Timer, ETC... */
     var CustomScreen=function(CanvasName){
@@ -331,18 +351,29 @@
         var time=30;/* Important : Call Image Per Miliseconds, Timer which is undefined call time value */
         var CanvasName=CanvasName;/* Important : It Must be Exist Canvas Element's Id value */
         var canvas=document.getElementById(CanvasName);/* get Element */
-        var context=canvas.getContext("2d");/* Get Context */
+        var buf_canvas=document.createElement("canvas");
+        var context=buf_canvas.getContext("2d");/* Get Context */
         var screenLoad=null;/* Important : EventListener Handle Check Variable From Returning this.StartLoadScreen() Method */
         var timerLoad=null;/* Important : EventListener Handle Check Variable From Returning this.StartLoadScreen() Method */
         var TimerFunctionList=[];/* Timer(CustomTimer, Interval) Handle Stored Array, Linear Variant Queue */
         var handler_OnclickListener=null;/* unused */
         this.mouseEvent=undefined;/* unused */
-        this.isFullScreen=false;
+        this.customCamera = new CustomCamera(0,0,0);
+        this.isFullScreen=true;
+
+        
         /* Important : Draw CustomObjectList's Drawing Logic Definition, Called By StartLoadScreen Function */
         function CustomWM_PAINT(timestamp_mills)
         {
-            context.clearRect(0,0,canvas.width,canvas.height);/* Erase the Canvas's Drawings */
+            //adjust buffer's canvas size
+            buf_canvas.width=canvas.width;
+            buf_canvas.height=canvas.height;
+            //clear buffer screen
+            context.clearRect(0,0,buf_canvas.width,buf_canvas.height);/* Erase the Canvas's Drawings */
+            //fill default color to white
+            context.fillStyle="rgba(255,255,255,1)";
             context.beginPath();
+            context.fillRect(0,0,buf_canvas.width,buf_canvas.height);
             context.globalComopsiteOperation="source-over";//set Deafault GlobalCompositeOperation
             var idx;
             /* check all CustomObjectList array value */
@@ -364,6 +395,8 @@
                     CustomObjectList[idx].draw(context,"image");/* draw CustomObject using CustomObject[idx].draw Method */
                     //                       CustomObjectList[idx].displayName(context);/* draw CustomObject's State(id, name, position, name) */
                 }
+                //BitBlt the buffer canvas to current displaying canvas.
+                canvas.getContext('2d').drawImage(buf_canvas,0,0);
             }
         }
         /* Important : Move CustomObjectList's Moving Logic Definition, Called By StartLoadScreen Function */
@@ -546,11 +579,19 @@
         }
 
         /* Global Window resize event */
-        this.onresize = (function(event){
-            if(this.canvas !== undefined && this.isFullScreen===true){
-                this.canvas.width = window.innerWidth;
-                this.canvas.height = window.innerHeight;
+        var resize=(function resize(){
+            console.log("resize activated");
+            console.log("isFullScreen : " + this.isFullScreen);
+            if(this.isFullScreen == true){
+                if(canvas!==undefined && canvas !== null){
+                    canvas.width=window.innerWidth;
+                    canvas.height=window.innerHeight;
+                }
             }
+        }).bind(this);
+
+        this.onresize = (function(event){
+            resize();
         }).bind(this);
 
         /* Important : Definiton Of Decreasing CustomObject's attackcool variable, managing Animation, restricting attack, ETC... */
@@ -734,72 +775,161 @@
 
 /* Custom Music Manage Player*/
 {
-    function CustomMusic(){
+    function CustomMusicManager(){
+        this.constructor=CustomMusicManager;
         this.storedMusics=[];
         this.loadingResources=[];
+        this.eventWaitings=[];
+        this.overallVolume = 100;
+        this.mute=false;
         this.appendMusic = function appendMusic(URL){
             if(this.storedMusics[URL] == undefined){
                 (function(){
-                    this.storedMusics[URL]=new Audio(URL);
-                    this.storedMusics[URL].onload=function(){
-                        console.log("loading music complete");
-                    }
-                    this.storedMusics[URL].onloadstart=function(){
-                        console.log("loding music start " + URL);
-                        this.loadingResources.push(this.storedMusics[URL]);
-                        console.log("loading resources : " + this.loadingResources);
-                    }.bind(this);
-                    this.storedMusics[URL].onloadedmetadata=function(){
-                        console.log("loading complete " + URL);
-                        this.loadingResources.pop(this.loadingResources);
-                        console.log("loading resources : " + this.loadingResources);
-                    }.bind(this);
-                    this.storedMusics[URL].load();
-                    console.log("CustomMusic :: new music " + URL + " Load Completed.");
+                   this.storedMusics[URL]=new CustomMusic(URL,this);                   
                 }).bind(this)();
             }
             return this.storedMusics[URL];
         }
-        this.removeMusic=(function(URL){
-            if(this.storedMusics[URL]!= undefined){
+        this.deleteMusic=(function deleteMusic(URL){
+            if(this.storedMusics[URL]!==undefined){
                 try{
-                    this.stop(URL);
+                    this.storedMusics[URL].stop();
+                    delete this.storedMusics[URL];
+                    console.log("music "+ URL + " removed");
                 }
                 catch(e){
-                    console.log("exception");
+                    console.log("music "+ URL + " delete removed");
                 }
-                delete this.storedMusics[URL];
+                
             }
         }).bind(this);
-        this.clear=function(){
-            console.log(this.storedMusics);
-            var st = this;
-            console.log(Object.keys(this.storedMusics));
-            Object.keys(this.storedMusics).map((function(arg){
-                console.log("deleting music file " + arg);
-                this.removeMusic(arg);
-            }).bind(st));
-            delete this.storedMusics;
-            this.storedMusics=[];
+        this.clear=(function clearStoredMusics(){
+            Object.keys(this.storedMusics).forEach(function(key){
+                var element = this.storedMusics[key];
+                if(element instanceof CustomMusic)
+                     element.stop();
+                delete this.storedMusics[key];
+            }.bind(this));
+            console.log("flushed Musics");
+            this.storedMusics.splice(0,this.storedMusics.length);
+        }).bind(this);
+
+        //Global CustomMusic Control Functions.
+        this.play=(function playMusic(URL){
+            if(this.storedMusics[URL]!==undefined){
+                try{
+                    this.storedMusics[URL].play();
+                }
+                catch(e){
+                    console.log("music "+ URL +" play failed");
+                }
+            }
+        }).bind(this);
+        this.stop=(function stopMusic(URL){
+            if(this.storedMusics[URL]!==undefined){
+                try{
+                    this.storedMusics[URL].stop();
+                }
+                catch(e){
+                    console.log("music "+ URL +" stop failed");
+                }
+            }
+        }).bind(this);
+        this.pause=(function pauseMusic(URL){
+            if(this.storedMusics[URL]!==undefined){
+                try{
+                    this.storedMusics[URL].pause();
+                }
+                catch(e){
+                    console.log("music "+ URL +" pause failed");
+                }
+            }
+        }).bind(this);
+        this.loop=(function loopMusic(URL,isLoop){
+            if(this.storedMusics[URL]!==undefined){
+                var ret_val;
+                try{
+                    ret_val=this.storedMusics[URL].loop(isLoop);
+                }
+                catch(e){
+                    console.log("music "+ URL +" stop failed");
+                }
+                finally{
+                    return ret_val;
+                }
+            }
+        }).bind(this);
+        this.resume=(function resumeMusic(URL){
+            if(this.storedMusics[URL]!==undefined){
+                try{
+                    this.storedMusics[URL].resume();
+                }
+                catch(e){
+                    console.log("music "+ URL +" resume failed");
+                }
+            }
+        }).bind(this);
+    }
+    function CustomMusic(URL,music_manager){
+        this.constructor=CustomMusic;
+        this.music_manager=music_manager;
+        this.status="stop";
+        this.source=new Audio(URL);
+        this.source.onload=function(){
+            console.log("loading music complete");
         }
-        this.play=function playMusic(URL){
+        this.source.onloadstart=(function(){
+            if(this.music_manager!==undefined){
+                this.music_manager.loadingResources.push(this);
+            }
+        }).bind(this);
+        this.source.onloadedmetadata=(function(){
+            console.log("loading complete " + URL);
+            
+        }).bind(this);
+        this.source.oncanplay=(function(URL){
+            if(this.status=="play"){
+                console.log("play pending music");
+                if(this.music_manager!==undefined){
+                    this.music_manager.loadingResources.pop(this);
+                }
+                this.resume();
+            }
+            console.log("music "+ URL +" is ready to play.");
+        }).bind(this);
+        this.play=(function playMusic(){
             try{
-                this.stop(URL);
-                this.storedMusics[URL].play();
+                this.status="play";
+                this.stop();
+                this.resume();
+                console.log("CustomMusic :: file \""+ this.source.src+" played.");
             }
             catch(e){
-                console.log("CustomMusic :: file \""+ URL+" play failed.");
+                console.log("CustomMusic :: file \""+ this.source.src+" play failed.");
             }
-        }
-        this.stop=function stopMusic(URL){
+        }).bind(this);
+        this.stop=(function stopMusic(){
+            this.status="stop";
             try{
-                this.storedMusics[URL].pause();
-                this.storesMusics[URL].currentTime=0;
+                this.pause();
+                this.source.currentTime=0;
+                console.log("CustomMusic :: file \""+ this.source.src+" stopped.")
             }
             catch(e){
-                console.log("CustomMusic :: file \""+ URL+" stop failed.");
+                console.log("CustomMusic :: file \""+ this.source.src+" stop failed.");
             }
-        }
+        }).bind(this);
+        this.pause=(function pauseMusic(){
+            this.status="stop";
+            return this.source.pause();
+        }).bind(this);
+        this.resume=(function resumeMusic(){
+            this.status="play";
+            this.source.play();
+        }).bind(this);
+        this.loop=(function(isLoop){
+            return (this.source.loop=isLoop);
+        }).bind(this);
     }
 }
 
@@ -842,6 +972,74 @@
         var y= e.offsetY;
     }
 }
+/*MyObject Class (Button Object) Declaration.*/
+{
+    var MyObject = function(name,x,y,width,height,isdraggable){
+        this.prototype = AddCustomObject(CustomObjectList,CustomObjectList_Wait,x,y,width,height,name,undefined,true,undefined,false);
+        this.prototype.draw=draw;
+        //this.prototype.onclick=onclick;
+        this.prototype.onmousemove=onmove;
+        this.prototype.onmousedown=onmousedown;
+        this.prototype.onmouseup=onmouseup;
+        this.prototype.selected=false;
+        this.prototype.isdraggable=isdraggable||false;
+        this.constructor=MyObject;
+        this.ancestor=undefined;
+        this.decendent=undefined;
+        /* Object Drawing Method */
+        function draw(context,image){
+            context.beginPath();
+            context.strokeStyle=this.strokeStyle;
+            if(this.imgSrc !== undefined && typeof(this.imgSrc) == "string"){
+                context.beginPath();
+                var direction=this.direction/Math.abs(this.direction);/* Makes Direction value only 1(left to right), -1(right to left). */
+                var image=new Image();
+                image.src=this.imgSrc;
+                context.save();//must be written
+                context.scale(direction,1);/* flip x using direction variable */
+                context.drawImage(image,(this.x-this.width/2)*direction,this.y-this.height/2,this.width*direction,this.height);
+                context.scale(1,1);//restore origin state
+                context.restore();//must be written
+            }
+            //Draw Content's name.
+            {
+                //Drawing Text
+                if(this.value!==undefined){
+                    var temp_fontSize = (this.width/this.value.toString().length);
+                    temp_fontSize=(temp_fontSize>this.height)?this.height:temp_fontSize;
+                    context.font= temp_fontSize+"px Arial";
+                    context.textAlign="center";
+                    context.textBaseline="middle";
+                    context.fillText(this.value,this.x,this.y);
+                }
+            }
+
+            //Draw Surrounded Line Rectangle.
+            context.strokeRect(this.x-this.width/2, this.y-this.height/2, this.width, this.height);
+        }
+        function onclick(event){
+            //this.strokeStyle  = (this.strokeStyle == "red" ? "black" : "red");
+        }
+        function onmousedown(event){
+            this.selected=true;
+            this.strokeStyle="red";
+            this.eventTransparent=true;
+        }
+        function onmove(event){
+            if(this.isdraggable&&this.selected){
+                this.x=event.offsetX;
+                this.y=event.offsetY;
+            }
+        }
+        function onmouseup(event){
+            this.selected=false;
+            this.strokeStyle="black";
+            this.eventTransparent=false;
+        }
+        return this.prototype;
+    }
+}
+
 
 /*
   function Activity_Xxx(){...} means Seperate Game Default Settings.(reset Objects, Placing New Objects, ETC...)

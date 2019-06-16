@@ -1,0 +1,385 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>캐시마트 아르바이트 2D 테스트(CustomObject Version)</title>
+    <style>
+        *{
+            padding:0px;
+            margin:0px;
+        }
+        html, body { width:100%; height:100%; }
+        canvas{display:block;}
+    </style>
+</head>
+<body>
+    <canvas width="1280" height="800" id="canvas">CANVAS NOT SUPPORTED</canvas>
+    <script type="text/javascript" src="fengari-web.js"></script> <!-- LUA Module -->
+    <script type="text/javascript" src="module_customobject_es6.js"></script>
+    <script type="text/javascript" src="md_cashmart.js" data-comment="cashmart logical module(ES6)"></script> 
+    <script type="text/javascript" src="md_cashmart_graphic.js" data-comment="cashmart adaptive graphical module"></script>
+    
+    <script type="text/javascript">
+
+        var MySrc=new CustomScreen("canvas");
+        MySrc.customCamera.x=100;
+        MySrc.customCamera.y=200;
+        var cm = new CustomMusicManager();
+        MySrc.isFullScreen=true;
+        MySrc.StartLoadScreen();
+        MySrc.addCustomScreenEventListener();
+
+        
+        /* Default Initializing Part End*/
+
+        Activity_cm_title();
+
+        function Activity_Title(){
+            /* Activity Initialization */
+            {
+                MySrc.resetCustomScreenState();
+                cm.clear();
+                var music_bgm_BGM_Massive_02 = cm.appendMusic("BGM_Massive_02.mp3");
+                window.bgm = music_bgm_BGM_Massive_02;
+                var music_system_accept=cm.appendMusic("res/sounds/MapleStory2_UI/System_TutorialComplete.mp3");
+                var music_system_right=cm.appendMusic("res/sounds/MapleStory2_UI/System_Right_01.mp3");
+                var music_system_wrong=cm.appendMusic("res/sounds/MapleStory2_UI/System_Wrong_01.mp3");
+                var music_system_summon_portal = cm.appendMusic("res/sounds/MapleStory2_UI/System_Summon_Portal_01.mp3");
+                var music_system_tutorial_complete = cm.appendMusic("res/sounds/MapleStory2_UI/System_TutorialComplete.mp3");
+                var music_system_tutorial_target = cm.appendMusic("res/sounds/MapleStory2_UI/System_TutorialTarget.mp3");
+                music_bgm_BGM_Massive_02.loop(true);
+                music_bgm_BGM_Massive_02.play();
+                music_system_tutorial_target.play();
+            }
+
+            /* Code Entry - Global Variable */
+            {
+                //var foo = new MyObject("foo",100,100,120,80,true);
+                //var bar = new MyObject("bar",100,100,120,80,true);
+                var Maple2CM = new Maple2CashMart();
+                var visitedCustomers = [];
+                var player = null;
+                var loc_counters, loc_entries, loc_prod_receivers;
+                
+            }
+            {
+                var bg_wait = new MyObject("bg_wait",640,360,1280,720);
+                bg_wait.eventTransparent=false;
+                bg_wait.draw=function(ctx){
+                    ctx.fillStyle="#000000";
+                    ctx.fillRect(0,0,canvas.width,canvas.height);
+                    ctx.strokeStyle="yellow";
+                    ctx.textAlign="center";
+                    ctx.textBaseline="middle";
+                    ctx.strokeText("Loading",this.x,this.y);
+                }
+            }
+            /* Code Entry - Cashamart Metadata Load */
+            {
+                
+                
+                
+            }
+
+            //Title Label Creation
+            {
+                var lbl_title= new MyObject("lbl_title",600,100,1200,100);
+                lbl_title.value="Cashmart Image & Object Creation test";
+            }
+            //Player Creation
+            {
+                player = new MyObject("cm_player",150,600,150,150);
+                var player_cust = Maple2CM.findNpcByName("비숍의하루");
+                if(player_cust !=null){
+                    player.imgSrc=player_cust.imgSrc;
+                    player.value=player_cust.name;
+                }
+                else{
+                    player.value="CashMart Player";
+                }
+                //player's movement enrollment
+                console.log("안녕, ", player_cust);
+                var _t = player;
+                _t.onkeydown=function(e){
+                    const VK_LEFT = 37;
+                    const VK_RIGHT = 39;
+                    const VK_UP = 38;
+                    const VK_DOWN = 40;
+                    const VK_SPACE = 0x20;
+
+                    let CH_LEFT = VK_LEFT;
+                    let CH_RIGHT = VK_RIGHT;
+                    let CH_UP = VK_UP; 
+                    let CH_DOWN = VK_DOWN;
+                    let CH_ACTION_INTERACT_KEY = VK_SPACE;
+
+                    switch(e.keyCode){
+                        case CH_LEFT:
+                            this.speed_x-=this.width;
+                            break;
+                        case CH_RIGHT:
+                            this.speed_x+=this.width;
+                            break;
+                        case CH_UP:
+                            this.speed_y-=this.width;
+                            break;
+                        case CH_DOWN:
+                            this.speed_y+=this.width;
+                            break;
+                        case CH_ACTION_INTERACT_KEY:
+                            break;
+                        case 'S'.charCodeAt(0):
+                            if(btn_createByOrderEditor!=undefined){
+                                btn_createByOrderEditor.onclick();
+                            }
+                            break;
+                    }
+                }
+                _t.onkeyup=function(e){
+                    const VK_LEFT = 37;
+                    const VK_RIGHT = 39;
+                    const VK_UP = 38;
+                    const VK_DOWN = 40;
+                    const VK_SPACE = 0x20;
+
+                    let CH_LEFT = VK_LEFT;
+                    let CH_RIGHT = VK_RIGHT;
+                    let CH_UP = VK_UP;
+                    let CH_DOWN = VK_DOWN;
+                    let CH_ACTION_INTERACT_KEY = VK_SPACE;
+
+                    switch(e.keyCode){
+                        case CH_LEFT:
+                            this.speed_x+=this.width;
+                            break;
+                        case CH_RIGHT:
+                            this.speed_x-=this.width;
+                            break;
+                        case CH_UP:
+                            this.speed_y+=this.width;
+                            break;
+                        case CH_DOWN:
+                            this.speed_y-=this.width;
+                            break;
+                        case CH_ACTION_INTERACT_KEY:
+                            /*
+                                
+                            */
+                            break;
+                    }
+                };
+            }
+
+            //Button Creation
+            {
+                var btn_createByOrderEditor = new MyObject("btn_summon_customer",150,300,150,150);
+                btn_createByOrderEditor.value="Summon Customer";
+                btn_createByOrderEditor.onclick=function(){
+                    var pickedNpcRequires = Maple2CM.pickNpcRequires();
+                    if(pickedNpcRequires!==null){
+                        var _summon_posX=800;
+                        var _summon_posY=300;
+                        var _summon_width=150;
+                        var _summon_height=150;
+                        
+                        var _npc_name = pickedNpcRequires.npc.name;
+                        console.log(loc_entries);
+                        if(loc_entries !== undefined && loc_entries.length >=1){
+                            var _idx_randEntry = Math.floor(Math.random()*loc_entries.length);
+                            var _pickedEntry = loc_entries[_idx_randEntry];
+                            _summon_posX=_pickedEntry.x;
+                            _summon_posY=_pickedEntry.y;
+                        }
+                        var temp_customer = new MyObject("cashmart_customer_"+ _npc_name,_summon_posX,_summon_posY,_summon_width,_summon_height);
+                        Maple2CM.addRemainingCustomers(temp_customer);
+                        temp_customer.value=_npc_name;
+                        temp_customer.imgSrc=pickedNpcRequires.npc.imgSrc;
+                        temp_customer.speed_y=180;
+                        temp_customer.oninteract=(function(event){
+                            if(this.requiredProduct==undefined){
+                                console.log("물건 받기");
+                                /* function definition */
+                                var findNpcByName=Maple2CM.findNpcByName;
+
+                                /* code entry */
+                                var pickedNpcRequires = Maple2CM.pickNpcRequires(this.value);
+                                console.log("요구사항 선택 : ", pickedNpcRequires);
+                                var req_prod = Maple2CM.pickProductByNpcRequires(pickedNpcRequires);
+                                console.log("선택된 물건 : " + req_prod);
+                                music_system_tutorial_complete.play();
+
+                                if(req_prod !=null){
+                                    console.log("물건 받기 성공");  
+                                    _prod_name=req_prod.name;
+                                    this.requiredProduct = new MyObject(_prod_name,this.x, this.y - this.height, this.width, this.height);
+                                    this.requiredProduct.value = _prod_name;
+                                    music_system_accept.play();
+                                    setTimeout((function(){
+                                        this.oninteract();
+                                    }).bind(this),2000);
+                                }
+                                else{
+                                    music_system_wrong.play();
+                                    this.removeCustomObject();
+                                }
+                            }
+                            else{
+                                var isProdDeliveredRight=true;
+                                console.log("제거 코드");
+                                if(event==undefined||event.deliveredProduct==undefined){
+                                    /* Skip processing */
+                                }
+                                else if(event.deliveredProduct.constructor==MyObject){
+                                    /* 이곳에 물건 검수 체킹 코드를 넣으면 됩니다. */
+
+                                }
+                                if(this.requiredProduct!==undefined){
+                                    this.requiredProduct.removeCustomObject();
+                                    delete this.requiredProduct;
+                                }
+                                if(isProdDeliveredRight){
+                                    console.log("good delivering");
+                                    setTimeout((function(){
+                                        console.log("hello");
+                                        this.speed_y=-180;
+                                        this.onmove=(function(){
+                                            console.log("moving");
+                                            if(this.speed_y != 0 && loc_entries.reduce((function(prev,curr){return (prev || curr.isObjectIn(this.x,this.y, this.width, this.height));}).bind(this),false) == true){
+                                                Maple2CM.removeRemainingCustomers(this);
+                                                if(Maple2CM.isRemaingCustomerEmpty()){
+                                                    setTimeout(function(){
+                                                        if(Maple2CM.isRemaingCustomerEmpty()){
+                                                            music_system_tutorial_target.play();
+                                                            console.log("next round");
+                                                        }
+                                                    },4000);
+                                                };
+                                                this.removeCustomObject();
+                                                console.log("good removing");
+                                            };
+                                         }).bind(this);
+                                    }).bind(this),2000);
+                                    music_system_right.play();
+                                }
+                                else{
+                                    console.log("wrong delivering");
+                                    music_system_wrong.play();
+                                }
+                                
+                            }
+                        }).bind(temp_customer);
+
+                        temp_customer.onmove=(function(){
+                            console.log("this : " + this);
+                            if(this.speed_y != 0 && loc_counters.reduce((function(prev,curr){return (prev || curr.isObjectIn(this.x,this.y, this.width, this.height));}).bind(this),false) == true){
+                                this.speed_y=0;
+                                this.oninteract();
+                            };
+                        }).bind(temp_customer);
+                        music_system_summon_portal.play();
+                        // var tmp_aud=new Audio("res/sounds/MapleStory2_UI/System_Summon_Portal_01.mp3");
+                        // tmp_aud.load();
+                        // tmp_aud.play();
+                        
+                    }
+                }
+            }
+            //Location Creation
+            {
+                var _temp_resultset=(function CreateCashier(counters){
+                    var _loc_counters=[];
+                    var _loc_entries=[];
+                    var _loc_prod_receivers=[];
+                    var _width=150;
+                    var _height=150;
+                    var _padding=150;
+                    var centerX = 720;
+                    var _posX = centerX - (_width+_padding)*(counters/2);
+                    var _posY = 600;
+                    var _entry_posY = 150;
+                    var _prod_receiver_posY = 750;
+                    for(var i=0;i<counters;i++){
+                        var _counter = new MyObject("loc_counter" + (i+1),_posX,_posY,_width,_height);  //create counter
+                        _counter.value ="counter " + (i+1); 
+                        var _entry = new MyObject("loc_entry" + (i+1),_posX,_entry_posY,_width,_height);//create cashmart customer's entry
+                        var _prod_receiver = new MyObject("loc_prod_receiver" + (i+1),_posX,_prod_receiver_posY,_width,_height);//create cashmart customer's entry
+                        _loc_counters.push(_counter);
+                        _loc_entries.push(_entry);
+                        _loc_prod_receivers.push(_prod_receiver);
+                        _posX += _width + _padding;
+                    }
+                    return [_loc_counters, _loc_entries,_loc_prod_receivers];
+                })(4);
+                loc_counters=_temp_resultset[0];
+                loc_entries=_temp_resultset[1];
+                loc_prod_receivers=_temp_resultset[2];
+                console.log(loc_counters,loc_entries);
+            }
+            //loading label remove
+            {
+                bg_wait.removeCustomObject();
+            }
+        }
+        function Activity_Infernog_invasion(){
+            {
+                MySrc.resetCustomScreenState();
+                cm.clear();
+                var music_bgm_BGM_CrimsonBarlogBoss_Intro_01 = cm.appendMusic("BGM_CrimsonBarlogBoss_Intro_01.mp3");
+                var music_bgm_BGM_CrimsonBarlogBoss_Loop_01 = cm.appendMusic("BGM_CrimsonBarlogBoss_Loop_01.mp3");
+                music_bgm_BGM_CrimsonBarlogBoss_Loop_01.loop(true);
+            }
+            /* Object Definition */
+            {
+                var background = new MyObject("background",500,500,1000,1000,false);
+                background.imgSrc = "./res/images/invasion_infernog/background_sky.png";
+                
+                var player = new MyObject("player",0,0,100,180,false);
+                player.imgSrc = "./res/images/bishop.png";
+                player.max_hp = 4300;
+                player.hp = player.max_hp;
+
+                var boss = new MyObject("Eternal Infernog",0,0,100,180,false);
+                boss.max_hp = Infinity;
+                boss.hp = Infinity;
+                
+                var ship = new MyObject("ship_plate",0,-160,1000,180);
+                var respawn_point = new MyObject("respawn_point",0,0,0,0,false);
+            }
+            /* play */
+            {
+                music_bgm_BGM_CrimsonBarlogBoss_Loop_01.play();
+                music_bgm_BGM_CrimsonBarlogBoss_Loop_01.play();
+            }
+        }
+        function Activity_cm_title(){
+            /* Activity Initialization */
+            {
+                MySrc.resetCustomScreenState();
+                cm.clear();
+                var music_bgm_BGM_GuildBattle_01 = cm.appendMusic("BGM_GuildBattle_01.mp3");
+                music_bgm_BGM_GuildBattle_01.loop(true);
+                music_bgm_BGM_GuildBattle_01.play("BGM_GuildBattle_01.mp3");
+                //music_bgm_BGM_GuildBattle_01.play();
+            }
+            //Title Background Image and Test Button Creation
+            {
+                var bg_cashmart_title=new MyObject("bg_cashmart_title",640,360,1280,720);
+                bg_cashmart_title.imgSrc="res/images/bg_cashmart_title.png";
+
+                var btn_cashmart_test_start= new MyObject("btn_cashmart_test_start",600,500,600,200);
+                btn_cashmart_test_start.imgSrc="res/images/btn_cashmart_test_start.png";
+                btn_cashmart_test_start.onclick=function(){
+                    Activity_Title();
+                }
+                
+            }
+        }
+        var canvas=document.getElementById("canvas");
+        var context=canvas.getContext("2d");
+
+        context.beginPath();
+        context.fillRect(0,0,100,100);
+
+    </script>
+</body>
+</html>

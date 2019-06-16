@@ -3,85 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <title>캐시마트 아르바이트 2D 테스트(CustomObject Version)</title>
-    
+    <style>
+        *{
+            padding:0px;
+            margin:0px;
+        }
+        html, body { width:100%; height:100%; }
+        canvas{display:block;}
+    </style>
 </head>
 <body>
     <canvas width="1280" height="800" id="canvas">CANVAS NOT SUPPORTED</canvas>
+    <script type="text/javascript" src="fengari-web.js"></script> <!-- LUA Module -->
     <script type="text/javascript" src="module_customobject.js"></script>
     <script type="text/javascript" src="md_cashmart.js" data-comment="cashmart logical module(ES6)"></script> 
+    <script type="text/javascript" src="md_cashmart_graphic.js" data-comment="cashmart adaptive graphical module"></script>
     
     <script type="text/javascript">
-        /*MyObject Class (Button Object) Declaration.*/
-        {
-            var MyObject = function(name,x,y,width,height,isdraggable){
-                this.prototype = AddCustomObject(CustomObjectList,CustomObjectList_Wait,x,y,width,height,name,undefined,true,undefined,false);
-                this.prototype.draw=draw;
-                //this.prototype.onclick=onclick;
-                this.prototype.onmousemove=onmove;
-                this.prototype.onmousedown=onmousedown;
-                this.prototype.onmouseup=onmouseup;
-                this.prototype.selected=false;
-                this.prototype.isdraggable=isdraggable||false;
-                this.constructor=MyObject;
-                this.ancestor=undefined;
-                this.decendent=undefined;
-                /* Object Drawing Method */
-                function draw(context,image){
-                    context.beginPath();
-                    context.strokeStyle=this.strokeStyle;
-                    if(this.imgSrc !== undefined && typeof(this.imgSrc) == "string"){
-                        context.beginPath();
-                        var direction=this.direction/Math.abs(this.direction);/* Makes Direction value only 1(left to right), -1(right to left). */
-                        var image=new Image();
-                        image.src=this.imgSrc;
-                        context.save();//must be written
-                        context.scale(direction,1);/* flip x using direction variable */
-                        context.drawImage(image,(this.x-this.width/2)*direction,this.y-this.height/2,this.width*direction,this.height);
-                        context.scale(1,1);//restore origin state
-                        context.restore();//must be written
-                    }
-                    //Draw Content's name.
-                    {
-                        //Drawing Text
-                        if(this.value!==undefined){
-                            var temp_fontSize = (this.width/this.value.toString().length);
-                            temp_fontSize=(temp_fontSize>this.height)?this.height:temp_fontSize;
-                            context.font= temp_fontSize+"px Arial";
-                            context.textAlign="center";
-                            context.textBaseline="middle";
-                            context.fillText(this.value,this.x,this.y);
-                        }
-                    }
 
-                    //Draw Surrounded Line Rectangle.
-                    context.strokeRect(this.x-this.width/2, this.y-this.height/2, this.width, this.height);
-                }
-                function onclick(event){
-                    //this.strokeStyle  = (this.strokeStyle == "red" ? "black" : "red");
-                }
-                function onmousedown(event){
-                    this.selected=true;
-                    this.strokeStyle="red";
-                    this.eventTransparent=true;
-                }
-                function onmove(event){
-                    if(this.isdraggable&&this.selected){
-                        this.x=event.offsetX;
-                        this.y=event.offsetY;
-                    }
-                }
-                function onmouseup(event){
-                    this.selected=false;
-                    this.strokeStyle="black";
-                    this.eventTransparent=false;
-                }
-                return this.prototype;
-            }
-        }
-
-        
         var MySrc=new CustomScreen("canvas");
-        var cm = new CustomMusic();
+        MySrc.customCamera.x=100;
+        MySrc.customCamera.y=200;
+        var cm = new CustomMusicManager();
         MySrc.isFullScreen=true;
         MySrc.StartLoadScreen();
         MySrc.addCustomScreenEventListener();
@@ -97,12 +40,17 @@
                 MySrc.resetCustomScreenState();
                 cm.clear();
                 var music_bgm_BGM_Massive_02 = cm.appendMusic("BGM_Massive_02.mp3");
-                var music_system_accept=cm.appendMusic("res/sounds/MapleStory2_UI/System_TutorialComplete.mp3")
+                window.bgm = music_bgm_BGM_Massive_02;
+                var music_system_accept=cm.appendMusic("res/sounds/MapleStory2_UI/System_TutorialComplete.mp3");
                 var music_system_right=cm.appendMusic("res/sounds/MapleStory2_UI/System_Right_01.mp3");
-                var music_system_wrong=cm.appendMusic("res/sounds/MapleStory2_UI/System_Wrong_01.mp3")
+                var music_system_wrong=cm.appendMusic("res/sounds/MapleStory2_UI/System_Wrong_01.mp3");
                 var music_system_summon_portal = cm.appendMusic("res/sounds/MapleStory2_UI/System_Summon_Portal_01.mp3");
-                music_bgm_BGM_Massive_02.loop=true;
+                var music_system_tutorial_complete = cm.appendMusic("res/sounds/MapleStory2_UI/System_TutorialComplete.mp3");
+                var music_system_tutorial_target = cm.appendMusic("res/sounds/MapleStory2_UI/System_TutorialTarget.mp3");
+                var music_system_battlefiled_win= cm.appendMusic("res/sounds/MapleStory2_UI/System_BattleField_Win.mp3");
+                music_bgm_BGM_Massive_02.loop(true);
                 music_bgm_BGM_Massive_02.play();
+                music_system_tutorial_target.play();
             }
 
             /* Code Entry - Global Variable */
@@ -130,329 +78,8 @@
             /* Code Entry - Cashamart Metadata Load */
             {
                 
-                var _cashmart_customers=[
-                    /* Npcs(Customers) : total 96 Persons*/
-                    /* NPC Group List
-                    1 : Only One Product Requires : 27 Persons
-                    2 : Specific of A(Some) Group(s) Requires : 25 Persons
-                    3 : All Random Products Requires : 
-                    */
-
-                    /* 1 - Only One Product Required NPCs : 27 Persons */
-                    /* Estimated Rune Blade(r)s : 6 Persons */
-                    ["유페리아", "res/images/NPC_test.png"],
-                    ["렌듀비앙","res/images/NPC_landubiang.png"],
-                    ["틴차이", "res/images/NPC_test.png"],
-                    ["준타", "res/images/NPC_test.png"],
-                    ["파란날개 망토 남자", "res/images/NPC_test.png"],
-                    ["변절자", "res/images/NPC_test.png"],
-                    
-                    /* Estimated Tria People : 8 Persons */
-                    ["수호사제 루아나", "res/images/NPC_test.png"],
-                    ["왕실 총리 칼", "res/images/NPC_test.png"],
-                    ["근위대장 프레이", "res/images/NPC_test.png"],
-                    ["기사단장 알론", "res/images/NPC_test.png"],
-                    ["긴 머리 바니걸", "res/images/NPC_test.png"],
-                    ["단발머리 바니걸", "res/images/NPC_test.png"],
-                    ["MC 케이", "res/images/NPC_test.png"],
-                    ["체셔 카망벨라 2세", "res/images/NPC_test.png"],
-
-                    /* Estimated Other People : 13 Persons */
-                    ["통통한 중년 남성", "res/images/NPC_test.png"],
-                    ["마른 젊은 남성", "res/images/NPC_test.png"],
-                    ["망토두른 남자", "res/images/NPC_test.png"],
-                    ["시간 여행자 앤디", "res/images/NPC_test.png"],
-                    ["붉은머리 근육맨", "res/images/NPC_test.png"],
-                    ["페리온 전사", "res/images/NPC_test.png"],
-                    ["앞치마 두른 아주머니", "res/images/NPC_test.png"],
-                    ["피아", "res/images/NPC_test.png"],
-                    ["요정", "res/images/NPC_test.png"],
-                    ["노숙자", "res/images/NPC_test.png"],
-                    ["탈리스커 로봇", "res/images/NPC_test.png"],
-                    ["별에서 온 미엘","res/images/NPC_miel.png"],
-                    ["통통한 빨간코 남자", "res/images/NPC_test.png"],
-
-                    /* 2 -  Specific of A(Some) Group(s) Required NPCs : 25 Persons */
-                    ["슈테판", "res/images/NPC_test.png"],
-                    ["어흥이", "res/images/NPC_test.png"],
-                    ["근위대원", "res/images/NPC_test.png"],
-                    ["공돌이(소)", "res/images/NPC_test.png"],
-                    ["공돌이(대)", "res/images/NPC_test.png"],
-                    ["박사", "res/images/NPC_test.png"],
-                    ["피치", "res/images/NPC_test.png"],
-                    ["오필리아", "res/images/NPC_test.png"],
-                    ["별지기", "res/images/NPC_test.png"],
-                    ["마녀", "res/images/NPC_test.png"],
-                    ["의사", "res/images/NPC_test.png"],
-                    ["쉐도우월드 대피소 의사", "res/images/NPC_test.png"],
-
-                    ["붉은머리 통통한 꼬마", "res/images/NPC_test.png"],
-                    ["루비", "res/images/NPC_test.png"],
-                    ["바비", "res/images/NPC_test.png"],
-                    ["갈색 꼬마 소녀", "res/images/NPC_test.png"],
-                    ["타라", "res/images/NPC_test.png"],
-                    ["스타츠", "res/images/NPC_test.png"],
-                    ["아이돌 혁이", "res/images/NPC_test.png"],
-                    ["디디", "res/images/NPC_test.png"],
-                    ["레이", "res/images/NPC_test.png"],
-                    ["핑크머리 연주가", "res/images/NPC_test.png"],
-                    ["하얀머리 연주가", "res/images/NPC_test.png"],
-                    ["둔바", "res/images/NPC_test.png"],
-                    ["교도관", "res/images/NPC_test.png"],
-                    
-                    /* 3 - All Random Product(s) Required NPCs : 44 Persons */
-                    ["회색머리 밀수업자", "res/images/NPC_test.png"],
-                    ["노란색머리 밀수업자", "res/images/NPC_test.png"],
-                    ["갈색머리 보부상", "res/images/NPC_test.png"],
-                    ["주황색머리 보부상", "res/images/NPC_test.png"],
-                    ["뚜왈렛 여사", "res/images/NPC_test.png"],
-                    ["청록머리 썬캡모자 아주머니", "res/images/NPC_test.png"],
-                    ["회색 마른 아주머니", "res/images/NPC_test.png"],
-                    ["파마머리 마른 아주머니", "res/images/NPC_test.png"],
-                    ["붉은 양쪽뾰족머리  아주머니", "res/images/NPC_test.png"],
-                    ["붉은 댄디머리 아주머니", "res/images/NPC_test.png"],
-                    ["핑크머리 썬캡모자 아주머니", "res/images/NPC_test.png"],
-                    ["마히오", "res/images/NPC_test.png"],
-                    ["아리타", "res/images/NPC_test.png"],
-                    ["물방울모양 초록색 꼬마요정", "res/images/NPC_test.png"],
-                    ["하얀모자 미나르 할머니", "res/images/NPC_test.png"],
-                    ["페리온 여자 주민", "res/images/NPC_test.png"],
-                    ["갈색모자 난쟁이", "res/images/NPC_test.png"],
-                    ["긴 머리 미나르 주민", "res/images/NPC_test.png"],
-                    ["촌장 타반", "res/images/NPC_test.png"],
-                    ["미나르 남자주민", "res/images/NPC_test.png"],
-                    ["장포스", "res/images/NPC_test.png"],
-
-
-                    /* Others */
-                    ["테스트용 마네킹", "res/images/NPC_test.png"],
-                    ["비숍의하루","res/images/bishop.png"]
-                    
-                ];
-                var _cashmart_products=[
-                    /* total : 60 products */
-                    /* Group List
-                    ---ㅁ--ㅁ---ㅁ--ㅁ---
-                    _____ㅁ_______ㅁ_____
-                    L  1  2  3  4   5  R
-                    S  6  7  8  9  10  S
-                    _____________________
-                    */
-                    /* Section Left Side : 10 Products */
-                    ["비취용의 눈물","res/images/product_test.png"],
-                    ["수호자의 방패","res/images/product_test.png"],
-                    ["영웅의 장검","res/images/product_test.png"],
-                    ["캐시 앤 로얄 쥬얼리 세트","res/images/product_test.png"],
-                    ["빨간 미니 냉장고","res/images/product_test.png"],
-                    ["오렌지 콤팩트 냉장고","res/images/product_test.png"],
-                    ["양문형 메탈 냉장고","res/images/product_test.png"],
-                    ["레트로 TV","res/images/product_test.png"],
-                    ["화이트 슬림 TV","res/images/product_test.png"],
-                    ["레드 2단 선풍기","res/images/product_test.png"],
-
-                    /* Section 1 : 8 Products */
-                    ["옐로우 포크레인","res/images/product_test.png"],
-                    ["레드 레이싱 머신","res/images/product_test.png"],
-                    ["갱스터 엔필라르","res/images/product_test.png"],
-                    ["플라잉 스타 쵸퍼","res/images/product_test.png"],
-                    ["루디브리엄 로켓","res/images/product_test.png"],
-                    ["경비행기 모형","res/images/product_test.png"],
-                    ["미니 보트","res/images/product_test.png"],
-                    ["나룻배","res/images/product_test.png"],
-
-                    /* Section 2 : 8 Products */
-                    ["붉은색 빈티지 트렁크","res/images/product_test.png"],
-                    ["갈색 클래식 트렁크","res/images/product_test.png"],
-                    ["나무 절단기","res/images/product_test.png"],
-                    ["세공용 드릴","res/images/product_test.png"],
-                    ["대용량 컨테이너","res/images/product_test.png"],
-                    ["캠핑용 텐트","res/images/product_test.png"],
-                    ["아이스박스","res/images/product_test.png"],
-                    ["블루 라인 해먹","res/images/product_test.png"],
-                    ["원","res/images/product_test.png"],
-
-                    /* Section 3 : 8 Products */
-                    ["철제 2층 침대","res/images/product_test.png"],
-                    ["럭셔리 원형 쿠션 침대","res/images/product_test.png"],
-                    ["두툼 스트라이프 쿠션 소파","res/images/product_test.png"],
-                    ["전통 나무 시소","res/images/product_test.png"],
-                    ["수면 캡슐","res/images/product_test.png"],
-                    ["바디 릴렉싱 안마 의자","res/images/product_test.png"],
-                    ["핑크 쿠션 의자","res/images/product_test.png"],
-                    ["붉은 방석","res/images/product_test.png"],
-
-                    /* Section 4 : 8 Products */
-                    ["전신 거울","res/images/product_test.png"],
-                    ["엔틱 옷장","res/images/product_test.png"],
-                    ["모던 원목 화장대","res/images/product_test.png"],
-                    ["게스트북 데스크","res/images/product_test.png"],
-                    ["수술용 조명","res/images/product_test.png"],
-                    ["수술용 침대 의자","res/images/product_test.png"],
-                    ["수술용품 트레이","res/images/product_test.png"],
-                    ["링거 고정대","res/images/product_test.png"],
-
-                    /* Section 5 : 8 Products */
-                    ["트레이닝 샌드백","res/images/product_test.png"],
-                    ["블루 트램펄린","res/images/product_test.png"],
-                    ["야구공 바구니","res/images/product_test.png"],
-                    ["핸드볼 바구니","res/images/product_test.png"],
-                    ["다이나믹 러닝머신","res/images/product_test.png"],
-                    ["미니 농구대","res/images/product_test.png"],
-                    ["미니 골 포스트","res/images/product_test.png"],
-                    ["농구공 바구니","res/images/product_test.png"],
-
-                    /* Section 6 : 8 Products */
-                    ["스탠다드 싱크대","res/images/product_test.png"],
-                    ["스탠다드 가스레인지","res/images/product_test.png"],
-                    ["럭셔리 세면대","res/images/product_test.png"],
-                    ["드럼 세탁기","res/images/product_test.png"],
-                    ["디럭스 샤워 부스","res/images/product_test.png"],
-                    ["천연 나무 목욕탕","res/images/product_test.png"],
-                    ["세라믹 심플 욕조","res/images/product_test.png"],
-                    ["눈누비데 좌변기","res/images/product_test.png"],
-
-                    /* Section 7 : 8 Products */
-                    ["프린세스 스윙","res/images/product_test.png"],
-                    ["럭셔리 샹들리에","res/images/product_test.png"],
-                    ["문양 힌지 스탠드","res/images/product_test.png"],
-                    ["향 단지","res/images/product_test.png"],
-                    ["전문가용 앰프","res/images/product_test.png"],
-                    ["업라이트 피아노","res/images/product_test.png"],
-                    ["비브라폰","res/images/product_test.png"],
-                    ["고구마 화로","res/images/product_test.png"],
-
-                    /* Section 8 : 8 Products */
-                    ["힐링 약초 화분","res/images/product_test.png"],
-                    ["3단 타이어","res/images/product_test.png"],
-                    ["바다용 튜브","res/images/product_test.png"],
-                    ["정돈된 닻줄","res/images/product_test.png"],
-                    ["스마트 화분","res/images/product_test.png"],
-                    ["미니 어항","res/images/product_test.png"],
-                    ["스노우 빌리지","res/images/product_test.png"],
-                    ["포션 정수기","res/images/product_test.png"],
-
-                    /* Section 9 : 8 Products*/
-                    ["벽난로","res/images/product_test.png"],
-                    ["숯불 오븐","res/images/product_test.png"],
-                    ["바베큐용 그릴","res/images/product_test.png"],
-                    ["제도용 책상","res/images/product_test.png"],
-                    ["간이 용광로","res/images/product_test.png"],
-                    ["담금질 화로","res/images/product_test.png"],
-                    ["풀무","res/images/product_test.png"],
-                    ["모루","res/images/product_test.png"],
-
-                    /* Section 10 : 8 Products */
-                    ["마법의 물약병","res/images/product_test.png"],
-                    ["가정용 미싱기","res/images/product_test.png"],
-                    ["무인 감시 카메라","res/images/product_test.png"],
-                    ["뉴스 카메라","res/images/product_test.png"],
-                    ["보석 조립 테이블","res/images/product_test.png"],
-                    ["간이 공구함","res/images/product_test.png"],
-                    ["전문가용 미술용품","res/images/product_test.png"],
-                    ["이젤","res/images/product_test.png"],
-
-                    /* Section Right Side : 10 Products */
-                    ["대전 게임 오락기","res/images/product_test.png"],
-                    ["아케이드 오락기","res/images/product_test.png"],
-                    ["포토스티커 머신","res/images/product_test.png"],
-                    ["인형뽑기 기계","res/images/product_test.png"],
-                    ["댄스댄스 머신","res/images/product_test.png"],
-                    ["미니 당구대","res/images/product_test.png"],
-                    ["미니 탁구대","res/images/product_test.png"],
-                    ["미니 축구게임 테이블","res/images/product_test.png"],
-                    ["DJ 머신","res/images/product_test.png"],
-                    ["야옹 캣타워","res/images/product_test.png"],
-
-                    /* Others */
-                    ["원","res/images/product_test.png"],
-                    ["테스트용 천연 나무 욕조", "res/images/product_natural_wooden_bath.png"]
-                ];
-                var _cashmart_npc_requires=[
-                    /* 1 - Only One Product Required NPCs : 27 Persons */
-                    /* Estimated Rune Blade(r)s : 6 Persons */
-                    ["유페리아", "링거 고정대"],
-                    ["렌듀비앙","천연 나무 욕조"],
-                    ["틴차이", "블루 라인 해먹"],
-                    ["준타", "블루 트램펄린"],
-                    ["파란날개 망토 남자", "비취용의 눈물"],
-                    ["변절자", "전신 거울"],
-                    
-                    /* Estimated Tria People : 8 Persons */
-                    ["수호사제 루아나", "바디 딜렉싱 안마 의자"],
-                    ["왕실 총리 칼", "게스트북 데스크"],
-                    ["근위대장 프레이", "수호자의 방패"],
-                    ["기사단장 알론", "영웅의 장검"],
-                    ["긴 머리 바니걸", "핑크 쿠션 의자"],
-                    ["단발머리 바니걸", "모던 원목 화장대"],
-                    ["MC 케이", "전문가용 앰프"],
-                    ["체셔 카망벨라 2세", "야옹 캣타워"],
-
-                    /* Estimated Other People : 13 Persons */
-                    ["통통한 중년 남성", "갱스터 엔필라르"],
-                    ["마른 젊은 남성", "미니 당구대"],
-                    ["망토두른 남자", "무인 감시 카메라"],
-                    ["시간 여행자 앤디", "화이트 슬림 TV"],
-                    ["붉은머리 근육맨", "트레이닝 샌드백"],
-                    ["페리온 전사", "다이나믹 러닝머신"],
-                    ["앞치마 두른 아주머니", "드럼 세탁기"],
-                    ["피아", "붉은 방석"],
-                    ["요정", "가정용 미싱기"],
-                    ["노숙자", "캠핑용 텐트"],
-                    ["탈리스커 로봇", "수면 캡슐"],
-                    ["별에서 온 미엘","스노우 빌리지"],
-                    ["통통한 빨간코 남자", "벽난로"],
-
-                    /* 2 -  Specific of A(Some) Group(s) Required NPCs : 25 Persons */
-                    /* Artists : 2 People */
-                    ["슈테판", "전문가용 미술용품", "이젤"],
-                    ["어흥이", "전문가용 미술용품"],
-                    /* Tria Person : 1 Person */
-                    ["근위대원", "수호자의 방패", "영웅의 장검"],
-                    /* Mechanics : 5 People */
-                    ["공돌이(소)", "나무 절단기", "세공용 드릴"],
-                    ["공돌이(대)", "나무 절단기", "세공용 드릴"],
-                    ["박사", "나무 절단기", "세공용 드릴"],
-                    ["피치", "풀무", "모루", "담금질 화로", "용광로"],
-                    ["오필리아", "풀무", "모루", "담금질 화로", "용광로"],
-                    /* Magicians : 2 People */
-                    ["별지기", "힐링 약초 화분", "보석 조립 테이블", "마법의 물약병", "포션 정수기"],
-                    ["마녀", "힐링 약초 화분", "보석 조립 테이블", "마법의 물약병", "포션 정수기"],
-                    /* Doctors : 2 People */
-                    ["의사", "수술용품 트레이", "수술용 침대 의자", "수술용 조명", "링거 고정대"],
-                    ["쉐도우월드 대피소 의사", "수술용품 트레이", "수술용 침대 의자", "수술용 조명", "링거 고정대"],
-                    /* Flying Riding Liker Kids : 1 Person */
-                    ["붉은머리 통통한 꼬마", "루디브리엄 로켓", "경비행기 모형", "미니 보트"],
-
-                    /* Gaming and Playing Likers : 3 People */
-                    ["루비", "대전 게임 오락기", "아케이드 오락기", "미니 탁구대", "미니 축구게임 테이블", "미니 당구대", "인형뽑기 기계", "댄스댄스 머신", "포토스티커 머신"],
-                    ["바비", "대전 게임 오락기", "아케이드 오락기", "미니 탁구대", "미니 축구게임 테이블", "미니 당구대", "인형뽑기 기계", "댄스댄스 머신", "포토스티커 머신"],
-                    ["갈색 꼬마 소녀","대전 게임 오락기", "아케이드 오락기", "미니 탁구대", "미니 축구게임 테이블", "미니 당구대", "인형뽑기 기계", "댄스댄스 머신", "포토스티커 머신"],
-                    /* Ancestors of Lumieragon : 3 People */
-                    ["타라", "레드 레이싱 머신", "모던 원목 화장대", "디럭스 샤워 부스", "플라잉 스타 쵸퍼"],
-                    ["스타츠", "스탠다드 가스레인지", "스탠다드 싱크대", "양문형 메탈 냉장고", "숯불 오븐", "바베큐용 그릴"],
-                    ["둔바", "고구마 화로", "숯불 오븐", "바베큐용 그릴"],
-                    /* Musicians : 5 People */
-                    ["아이돌 혁이", "화이트 슬림 TV", "업라이트 피아노", "무인 감시 카메라", "전문가용 앰프"],
-                    ["디디", "댄스댄스 머신", "DJ 머신", "전문가용 앰프"],
-                    ["레이", "댄스댄스 머신", "DJ 머신", "전문가용 앰프"],
-                    ["핑크머리 연주가", "업라이트 피아노", "비브라폰", "전문가용 앰프"],
-                    ["하얀머리 연주가", "업라이트 피아노", "비브라폰", "전문가용 앰프"],
-                    /* ETC */
-                    ["교도관", "전신 거울", "옐로우 포크레인", "철제 2층 침대"],
-
-
-                    /* 3 - All Random Product(s) Required NPCs : 44 Persons */
-
-                    /* Others */
-                    ["비숍의하루"]
-                ];
-                console.log("cashmart_metadata_list prepare complete");
-                console.log("loading cashmart_metadata to Cashmart Object");
-                console.log(_cashmart_customers);
-                _cashmart_customers.forEach((e)=>{Maple2CM.appendNpcs(e)});
-                _cashmart_products.forEach((e)=>{Maple2CM.appendProducts(e)}) ;
-                _cashmart_npc_requires.forEach((e)=> Maple2CM.appendNpcRequires(e));
-                console.log("cashmart metadata load succeed.");
+                
+                
             }
 
             //Title Label Creation
@@ -548,8 +175,10 @@
             {
                 var btn_createByOrderEditor = new MyObject("btn_summon_customer",150,300,150,150);
                 btn_createByOrderEditor.value="Summon Customer";
-                btn_createByOrderEditor.onclick=function(){
-                    var pickedNpcRequires = Maple2CM.pickNpcRequires();
+                btn_createByOrderEditor.onclick=function(e){
+                    var ent_door = arguments[1];
+                    var t_cust_name = arguments[2];
+                    var pickedNpcRequires = Maple2CM.pickNpcRequires(t_cust_name);
                     if(pickedNpcRequires!==null){
                         var _summon_posX=800;
                         var _summon_posY=300;
@@ -559,12 +188,13 @@
                         var _npc_name = pickedNpcRequires.npc.name;
                         console.log(loc_entries);
                         if(loc_entries !== undefined && loc_entries.length >=1){
-                            var _idx_randEntry = Math.floor(Math.random()*loc_entries.length);
+                            var _idx_randEntry = (typeof(ent_door)=="number"?ent_door%loc_entries.length:Math.floor(Math.random()*loc_entries.length));
                             var _pickedEntry = loc_entries[_idx_randEntry];
                             _summon_posX=_pickedEntry.x;
                             _summon_posY=_pickedEntry.y;
                         }
                         var temp_customer = new MyObject("cashmart_customer_"+ _npc_name,_summon_posX,_summon_posY,_summon_width,_summon_height);
+                        Maple2CM.addRemainingCustomers(temp_customer);
                         temp_customer.value=_npc_name;
                         temp_customer.imgSrc=pickedNpcRequires.npc.imgSrc;
                         temp_customer.speed_y=180;
@@ -579,6 +209,7 @@
                                 console.log("요구사항 선택 : ", pickedNpcRequires);
                                 var req_prod = Maple2CM.pickProductByNpcRequires(pickedNpcRequires);
                                 console.log("선택된 물건 : " + req_prod);
+                                music_system_tutorial_complete.play();
 
                                 if(req_prod !=null){
                                     console.log("물건 받기 성공");  
@@ -617,6 +248,52 @@
                                         this.onmove=(function(){
                                             console.log("moving");
                                             if(this.speed_y != 0 && loc_entries.reduce((function(prev,curr){return (prev || curr.isObjectIn(this.x,this.y, this.width, this.height));}).bind(this),false) == true){
+                                                Maple2CM.removeRemainingCustomers(this);
+                                                if(Maple2CM.isRemaingCustomerEmpty()){
+                                                    setTimeout(function(){
+                                                        if(Maple2CM.isRemaingCustomerEmpty()){
+                                                            if(typeof(Maple2CM.idx_currentStage)=="number"){
+                                                                Maple2CM.idx_currentStage++; //다음 라운드 세팅
+                                                                Maple2CM.idx_nextCustomerSet=0; //다음 인덱스는 0으로.
+                                                                console.log("round "+ Maple2CM.idx_currentStage+" max : " + Maple2CM.default_stage_customer_visitSets.length );
+                                                                if(Maple2CM.idx_currentStage>0 && Maple2CM.idx_currentStage<=Maple2CM.default_stage_customer_visitSets.length){
+                                                                    console.log("Auto Summon!");
+                                                                    var continue_summon_customer = (function continue_summon_customer(){
+                                                                        console.log("Auto Summon!");
+                                                                        var _ret_val = Maple2CM.summonCurrentCustomer();
+                                                                        if(_ret_val!==undefined && _ret_val!== null){
+                                                                            console.log("새로운 손님을 소환합니다!");
+                                                                            btn_createByOrderEditor.onclick(e,..._ret_val);
+                                                                        }
+                                                                        else{
+                                                                            clearInterval(_id_summonInteval);
+                                                                        }
+                                                                    }).bind(this);
+                                                                    var _id_summonInteval=setInterval((continue_summon_customer).bind(this),4000);
+                                                                }
+                                                            }
+                                                            if(Maple2CM.idx_currentStage==Maple2CM.default_stage_customer_visitSets.length+1){
+                                                                music_system_battlefiled_win.play();
+                                                                var _label_next_round=new MyObject("label_arbeit_accomplished",600,300,1200,150);
+                                                                _label_next_round.value="CashMart Arbeit Accomplished!!";
+                                                                setTimeout(function(){
+                                                                    _label_next_round.removeCustomObject();
+                                                                },2000);
+                                                            }
+                                                            else{
+                                                                music_system_tutorial_target.play();
+                                                                //next round display;
+                                                                
+                                                                var _label_next_round=new MyObject("label_next_round",600,300,1200,150);
+                                                                _label_next_round.value="round " + Maple2CM.idx_currentStage;
+                                                                setTimeout(function(){
+                                                                    _label_next_round.removeCustomObject();
+                                                                },2000);
+                                                            } 
+                                                            console.log("next round");
+                                                        }
+                                                    },4000);
+                                                };
                                                 this.removeCustomObject();
                                                 console.log("good removing");
                                             };
@@ -634,7 +311,7 @@
 
                         temp_customer.onmove=(function(){
                             console.log("this : " + this);
-                            if(this.speed_y != 0 && loc_counters.reduce((function(prev,curr){return (prev || curr.isObjectIn(this.x,this.y, this.width, this.height));}).bind(this),false) == true){
+                            if(this.speed_y != 0 && loc_counters.reduce((function(prev,curr){return (prev || curr.isObjectIn(this.x, this.y, this.width, this.height));}).bind(this),false) == true){
                                 this.speed_y=0;
                                 this.oninteract();
                             };
@@ -683,14 +360,46 @@
                 bg_wait.removeCustomObject();
             }
         }
+        function Activity_Infernog_invasion(){
+            {
+                MySrc.resetCustomScreenState();
+                cm.clear();
+                var music_bgm_BGM_CrimsonBarlogBoss_Intro_01 = cm.appendMusic("BGM_CrimsonBarlogBoss_Intro_01.mp3");
+                var music_bgm_BGM_CrimsonBarlogBoss_Loop_01 = cm.appendMusic("BGM_CrimsonBarlogBoss_Loop_01.mp3");
+                music_bgm_BGM_CrimsonBarlogBoss_Loop_01.loop(true);
+            }
+            /* Object Definition */
+            {
+                var background = new MyObject("background",500,500,1000,1000,false);
+                background.imgSrc = "./res/images/invasion_infernog/background_sky.png";
+                
+                var player = new MyObject("player",0,0,100,180,false);
+                player.imgSrc = "./res/images/bishop.png";
+                player.max_hp = 4300;
+                player.hp = player.max_hp;
+
+                var boss = new MyObject("Eternal Infernog",0,0,100,180,false);
+                boss.max_hp = Infinity;
+                boss.hp = Infinity;
+                
+                var ship = new MyObject("ship_plate",0,-160,1000,180);
+                var respawn_point = new MyObject("respawn_point",0,0,0,0,false);
+            }
+            /* play */
+            {
+                music_bgm_BGM_CrimsonBarlogBoss_Loop_01.play();
+                music_bgm_BGM_CrimsonBarlogBoss_Loop_01.play();
+            }
+        }
         function Activity_cm_title(){
             /* Activity Initialization */
             {
                 MySrc.resetCustomScreenState();
                 cm.clear();
                 var music_bgm_BGM_GuildBattle_01 = cm.appendMusic("BGM_GuildBattle_01.mp3");
-                music_bgm_BGM_GuildBattle_01.loop=true;
-                music_bgm_BGM_GuildBattle_01.play();
+                music_bgm_BGM_GuildBattle_01.loop(true);
+                music_bgm_BGM_GuildBattle_01.play("BGM_GuildBattle_01.mp3");
+                //music_bgm_BGM_GuildBattle_01.play();
             }
             //Title Background Image and Test Button Creation
             {

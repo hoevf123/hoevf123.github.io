@@ -1,0 +1,416 @@
+<!doctype html>
+<html>
+  <head>
+    <style>
+      html, body {
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+
+      .background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      .scene {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin: -192px 0 0 -192px;
+        width: 384px;
+        height: 384px;
+        background: rgba(100, 100, 255, 0.2);
+        -webkit-transform: rotateX(60deg) rotateZ(60deg);
+        transform-style: preserve-3d;
+        transform-origin: 50% 50% 50%;
+      }
+
+      .block {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 64px;
+        height: 64px;
+        transform-style: preserve-3d;
+        transform-origin: 50% 50% 50%;
+      }
+
+      .x-axis,
+      .y-axis,
+      .z-axis {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 66px;
+        height: 66px;
+        transform-origin: 50% 50% 50%;
+        pointer-events: none;
+      }
+
+      .x-axis {
+        /* border: solid 2px rgba(255, 0, 0, 0.3); */
+      }
+
+      .y-axis {
+        /* border: solid 2px rgba(0, 255, 0, 0.3); */
+      }
+
+      .z-axis {
+        /* border: solid 2px rgba(0, 0, 255, 0.3); */
+      }
+
+      .side {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 64px;
+        height: 64px;
+        backface-visibility: hidden;
+        outline: 1px solid rgba(0, 0, 0, 0.3);
+      }
+
+      .block:hover .side {
+        outline: 1px solid rgba(0, 255, 0, 0.5);
+      }
+
+      .subtraction .block:hover .side {
+        outline: 1px solid rgba(255, 0, 0, 0.5);
+      }
+
+      .ghost {
+        pointer-events: none;
+      }
+
+      .ghost .side {
+        opacity: 0.6;
+        pointer-events: none;
+        -webkit-filter: brightness(1.5);
+      }
+
+      .subtraction .ghost {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="background"></div>
+    <div class="scene"></div>
+    <script src="jquery.3.1.0.slim.min.js"></script>
+    <script src="jquery.mousewheel.3.1.13.min.js"></script>
+    <script src="jquery.transit.0.9.12.min.js"></script>
+    <script src="block.js"></script>
+    <script src="block.dirt.js"></script>
+    <script>
+      Number.prototype.toInt = String.prototype.toInt = function() {
+        return parseInt(this, 10);
+      };
+
+      Array.prototype.random = function() {
+        return this[Math.floor(Math.random() * this.length)];
+      };
+
+      let first = new Block.Dirt(1, 1, 1);
+
+      const $scene = $(".scene");
+      const $body = $("body");
+
+      for (let x = 0; x < 6; x++) {
+        for (let y = 0; y < 6; y++) {
+          let next = new Block.Dirt(x, y, 0);
+          next.block.appendTo($scene);
+        }
+      }
+
+      function createCoordinatesFrom(side, x, y, z) {
+        if (side == "top") {
+          z += 1;
+        }
+
+        if (side == "side-1") {
+          y += 1;
+        }
+
+        if (side == "side-2") {
+          x += 1;
+        }
+
+        if (side == "side-3") {
+          y -= 1;
+        }
+
+        if (side == "side-4") {
+          x -= 1;
+        }
+
+        if (side == "bottom") {
+          z -= 1;
+        }
+
+        return [x, y, z];
+      }
+
+      $body.on("click", ".side", function(e) {
+        const $this = $(this);
+        const previous = $this.data("block");
+
+        if ($body.hasClass("subtraction")) {
+          previous.block.remove();
+          new Audio("sounds/MapleStory2_System/System_Dead_01.mp3").play();
+          //previous = null;
+        } else {
+          const coordinates = createCoordinatesFrom(
+            $this.data("type"),
+            previous.x,
+            previous.y,
+            previous.z
+          );
+
+          const next = new Block.Dirt(...coordinates);
+
+          next.block.appendTo($scene);
+          new Audio("sounds/MapleStory2_System/System_Button_click_01.mp3").play();
+        }
+      });
+
+      let ghost = null;
+
+      function removeGhost() {
+        if (ghost) {
+          ghost.block.remove();
+          ghost = null;
+        }
+      }
+
+      function createGhostAt(x, y, z) {
+        const next = new Block.Dirt(x, y, z);
+
+        next.block
+          .addClass("ghost")
+          .appendTo($scene);
+
+        ghost = next;
+      }
+
+      $body.on("mouseenter", ".side", function(e) {
+        removeGhost();
+
+        const $this = jQuery(this);
+        const previous = $this.data("block");
+
+        const coordinates = createCoordinatesFrom(
+          $this.data("type"),
+          previous.x,
+          previous.y,
+          previous.z
+        );
+
+        createGhostAt(...coordinates);
+      });
+
+      $body.on("mouseleave", ".side", function(e) {
+        removeGhost()
+      });
+
+
+
+
+      /* Camera Class */
+      class Camera{
+        constructor(){
+          this.lastMouseX = null;
+          this.lastMouseY = null;
+
+          this.sceneTranslateX = 0;
+          this.sceneTranslateY = 0;
+          this.sceneTranslateZ = 0;
+          this.sceneTransformX = 60;
+          this.sceneTransformY = 0;
+          this.sceneTransformZ = 60;
+          this.sceneTransformScale = 1;
+        }
+        rotate(){
+
+        }
+        changeViewport(){
+          $scene.css({
+            "transform": `
+              rotateX(${this.sceneTransformX}deg)
+              rotateY(${this.sceneTransformY}deg)
+              rotateZ(${this.sceneTransformZ}deg)
+              scaleX(${this.sceneTransformScale})
+              scaleY(${this.sceneTransformScale})
+              scaleZ(${this.sceneTransformScale})
+              translateX(${this.sceneTranslateX+"px"})
+              translateY(${this.sceneTranslateY+"px"})
+              translateZ(${this.sceneTranslateZ+"px"})
+            `
+          });
+        }
+        setSceneTransformScale(scale){
+          this.sceneTransformScale = scale;
+          // $scene.css({
+          //   "transform": `
+          //     scaleX(${this.sceneTransformScale})
+          //     scaleY(${this.sceneTransformScale})
+          //     scaleZ(${this.sceneTransformScale})
+          //   `
+          // });
+
+          this.changeViewport();
+        }
+        changeSceneTransformScale(delta_scale){
+          this.setSceneTransformScale(this.sceneTransformScale + delta_scale);
+        }
+
+        setSceneTranslate(posX,posY,posZ){
+          this.sceneTranslateX=posX;
+          this.sceneTranslateY=posY;
+          this.sceneTranslateZ=posZ;
+          /*$scene.css({
+            "transform": `
+              translateX(${this.sceneTranslateX})
+              translateY(${this.sceneTranslateY})
+              translateZ(${this.sceneTranslateZ})
+            `
+          });*/
+          this.changeViewport();
+        }
+
+        changeSceneTranslate(delta_posX,delta_posY,delta_posZ){
+          this.setSceneTranslate(
+            this.sceneTranslateX + delta_posX,
+            this.sceneTranslateY + delta_posY,
+            this.sceneTranslateZ + delta_posZ
+            );
+        }
+
+
+        //mouse event adaptation
+        body_mousewheel(event){
+          if (event.originalEvent.deltaY > 0) {
+            this.changeSceneTransformScale(-0.05);
+          } else {
+            this.changeSceneTransformScale(0.05);
+          }
+        }
+        scene_mousedown(event){
+          event.stopPropagation();
+        }
+        body_mousedown(event){
+          this.lastMouseX = event.clientX / 10;
+          this.lastMouseY = event.clientY / 10;
+        }
+        body_mousemove(event){
+          if (!this.lastMouseX) {
+            return;
+          }
+
+          let nextMouseX = event.clientX / 10;
+          let nextMouseY = event.clientY / 10;
+
+          if (nextMouseX !== this.lastMouseX) {
+            let deltaX = nextMouseX.toInt() - this.lastMouseX.toInt();
+            let degrees = this.sceneTransformZ - deltaX;
+
+            if (degrees > 360) {
+                degrees -= 360;
+            }
+
+            if (degrees < 0) {
+                degrees += 360;
+            }
+
+            this.sceneTransformZ = degrees;
+            this.lastMouseX = nextMouseX;
+
+            this.changeViewport();
+          }
+
+          if (nextMouseY !== this.lastMouseY) {
+            let deltaY = nextMouseY.toInt() - this.lastMouseY.toInt();
+            let degrees = this.sceneTransformX - deltaY;
+
+            if (degrees > 360) {
+                degrees -= 360;
+            }
+
+            if (degrees < 0) {
+                degrees += 360;
+            }
+
+            this.sceneTransformX = degrees;
+            this.lastMouseY = nextMouseY;
+
+            this.changeViewport();
+          }  
+        }
+
+        body_onmouseup(event){
+          this.lastMouseX = null;
+          this.lastMouseY = null;
+        }
+
+        body_onkeydown(event){
+          if (event.altKey) {
+            $body.addClass("subtraction");
+          }
+          console.log(event.keyCode);
+          switch(event.keyCode){
+            case 37: //VK_LEFT
+            this.changeSceneTranslate(-10,0,0);
+            break;
+            case 38: //VK_UP
+            this.changeSceneTranslate(0,0,-10);
+            break;
+            case 39: //VK_RIGHT
+            this.changeSceneTranslate(10,0,0);
+            break;
+            case 40: //VK_DOWN
+            this.changeSceneTranslate(0,0,10);
+            break;
+          }
+        }
+        body_onkeyup(event){
+          $body.removeClass("subtraction");
+        }
+
+      }
+      
+      var cam = new Camera();
+
+      $body.on("mousewheel", function(event) {
+        cam.body_mousewheel(...arguments);
+      });
+
+      $scene.on("mousedown", function(e) {
+        cam.scene_mousedown(...arguments);
+      });
+
+      $body.on("mousedown", function(e) {
+        cam.body_mousedown(...arguments);
+      });
+
+      $body.on("mousemove", function(e) {
+        cam.body_mousemove(...arguments);
+      });
+
+      $body.on("mouseup", function(e) {
+        cam.body_onmouseup(...arguments);
+      });
+
+      $body.on("keydown", function(e) {
+        cam.body_onkeydown(...arguments);
+      });
+
+      $body.on("keyup", function(e) {
+        cam.body_onkeyup(...arguments);
+      });
+    </script>
+  </body>
+</html>
