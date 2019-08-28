@@ -1,0 +1,51 @@
+<!doctype html>
+<head><meta charset="utf-8"><title>그림 그리기</title></head>
+<body>
+<canvas id="canvas"></canvas>
+<script>
+    class DrawRequest{
+        constructor(func,...args){
+            this.func=func;
+            this.args=args;
+        }
+    }
+    class CustomScreen{
+        constructor(canvas){
+            this.canvas=canvas;
+            this.context=canvas.getContext();
+            this.renderqueue=[];
+        }
+        get context(){
+            return this.canvas.getContext("2d");
+        }
+        draw(){
+            this.save();
+            this.renderqueue.forEach(function(arg,idx,arr){arg(this.context);});
+            this.restore();
+        }
+        appendDrawRequest(func,...args){
+            this.renderqueue.push(new DrawRequest(func,...args));
+        }
+    }
+    
+    class CustomProgramManager{
+        constructor(){
+            this.events=[];
+        }
+        createObject(){
+
+        }
+        eventCheck(){
+
+        }
+    }
+    function drawLines(ctx, pos_sets){
+        ctx.save()
+        ctx.beginPath();
+        for(var i=0;i<pos_sets.length;i++)ctx.lineTo(...pos_sets[i]);
+        ctx.restore();
+    }
+    var test_posSets = [[0,0,0], [1,0,0]];
+
+</script>
+</body>

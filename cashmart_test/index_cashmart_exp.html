@@ -16,6 +16,7 @@
     <canvas width="1280" height="800" id="canvas">CANVAS NOT SUPPORTED</canvas>
     <script type="text/javascript" src="fengari-web.js"></script> <!-- LUA Module -->
     <script type="text/javascript" src="module_customobject.js"></script>
+    <script type="text/javascript" src="md_ms2_interface.js"></script>
     <script type="text/javascript" src="md_cashmart.js" data-comment="cashmart logical module(ES6)"></script> 
     <script type="text/javascript" src="md_cashmart_graphic.js" data-comment="cashmart adaptive graphical module"></script>
     
@@ -86,6 +87,7 @@
             {
                 var lbl_title= new MyObject("lbl_title",600,100,1200,100);
                 lbl_title.value="Cashmart Image & Object Creation test";
+                var test_frame = new MS2Frame("frm_msg",100,150,200,300);
             }
             //Player Creation
             {
@@ -412,6 +414,16 @@
                     Activity_Title();
                 }
                 
+            }
+        }
+
+        function Activity_MS2Object_Test(){
+            /* Activity Initialization */
+            {
+                MySrc.resetCustomScreenState();
+                //var frame1 = new MS2Frame(150,120,200,300);
+                var test_myobj = new MyObject(300,200,50,70);
+                cm.clear();
             }
         }
         var canvas=document.getElementById("canvas");

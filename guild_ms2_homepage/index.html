@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>메이플2</title>
+    <style>
+        #navbar-target1{
+            height:100%;
+            /* background:url("메2 길드마크.png") no-repeat; */
+            background-image:url("메2 길드마크뒷배경.png");
+            background-repeat:repeat;
+            background-size:40px;
+            background-position:center top;
+            padding: 5px;
+        }
+        #navbar-target1>li{
+            position: relative;
+            display:inline-block;
+            width:auto;
+            padding-left:10px;
+            padding-right:10px;
+            padding-top:10px;
+            padding-bottom: 10px;
+            margin:auto;
+            height:auto;
+            background-color: bisque;
+            border-radius: 10px;
+            top:50%;
+            font-weight: 400;
+            color:black;
+            font-size:medium;
+        }
+        #navbar-target1>li.red{background-color:tomato;}
+        #navbar-target1>li.orange{background-color:orange;}
+        #navbar-target1>li.green{background-color: lightgreen;}
+        #navbar-target1>li.skyblue{background-color: skyblue;}
+        #navbar-target1>li.white{background-color: white;}
+        #navbar-target1>li.transparent{background-color: transparent;}
+
+        #navbar-target1>li p{
+            text-align: center;
+            margin:0px;
+        }
+        #guild_logo{
+            width:64px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <script defer>
+            function repeat_funcs(func, ...argsets){
+                ret_vals=[];
+                for(var i=0;i<argsets.length;i++){
+                    ret_vals.push(func(...(argsets[i])));
+                }
+                return ret_vals;
+            }
+            function array_depthjoin(...arrays){
+                var ret_vals = [];
+                var ret_arrlength=0;
+                //get max-length of array
+                for(var j=0;j<arrays.length;j++){
+                    for(var i=0;i<arrays[j].length;i++){
+                        if(ret_arrlength > arrays[i].length) ret_arrlength=arrays[i].length;
+                    }
+                }
+                //make cells
+                for(var i=0;i<arrays[0].length;arrays)
+                {
+                    var ret_val = new Array();
+                    for(j=0;j<ret_arrlength;j++){
+                        ret_val.push(arrays[j][i]);
+                    }
+                    ret_vals.push(ret_val);
+                }
+                return ret_vals;
+            }
+            function enabletagswap(...htmlDOMTagRelations){
+                
+            }
+
+            t_lies = document.getElementById("navbar-target1").getElementsByTagName("li");
+            t_contents = repeat_funcs(document.getElementById
+            ,["guild-introduction"]
+            ,["guild-buliten-board"]
+            ,["guild-free-board"]
+            ,["guild-resource-room"]
+            );
+            
+            window.onload=function(){
+
+            }
+        </script>
+        <nav>
+            <ul id="navbar-target1">
+                <li class="transparent"><image id="guild_logo" src="메2 길드마크.png"></image></li>
+                <li class="red"><p>길드소개</p></li>
+                <li class="orange"><p>공지사항</p></li>
+                <li class="green"><p>커뮤니티</p></li>
+                <li class="skyblue"><p>자료실</p></li>
+            </ul>
+        </nav>
+        
+    </header>
+    <section>
+        <div id="guild-introduction">
+            <h1>길드 소개</h1>
+            <h2>메2 길드는</h2>
+            <p>자유분방한 친목 위주 길드입니다.</p>
+            <p>길드 레벨 : 12레벨</p>
+            <p>카카오톡 방 참여는 자유, 디스코드 방은 운영하지 않습니다.</p>
+            <p>길드 레이드는 꾸준히 진행합니다. (길드 일일 퀘스트도 기회되면 꾸준히 합니다)</p>
+            <p>사람이 많지 않아서 부캐 전용 길드는 아직 없습니다.</p>
+            <br/>
+            <p>※ 메이플2 GM은 "진짜GM입니다" GM 전용 길드에 있습니다. 우리 길드는 메이플스토리2 관계자와 아무런 관련이 없습니다. ※</p>
+            <br/>
+            <h2>길드 가입 조건</h2>
+            <p>한국 나이 20세 이상(나이 충족 안되시는 분은 길드장과 협의 부탁드립니다)</p>
+            <p>철새 x</p>
+            <p>사건 사고 게시판 스타 x</p>
+            <p>이중길드 x</p>
+            <p>욕설을 많이 사용하는 유저 x</p>
+            <p>접속률 주 2회 이상 권장(아무런 통보 없이 1주일 이상 접속을 하지 않으면 <strong>길드 탈퇴 사유</strong>가 됩니다)</p>
+            <p>비매너 유저분들은 가급적 오지 않으셨으면 좋겠습니다.</p>
+            <p><b>뉴비 적응용 길드</b>가 아닙니다. 뉴비 분은 "분홍수국" 길드로!! (길드장:방패가무기다, 피아니스트)</p>
+            <p>메이플스토리2에 적응이 된 이후에 함께 성장하실 모험가 분들을 환영합니다.</p>
+            <br/>
+            <h2>가입 문의</h2>
+            <p>규규이 (메2 길드 길드장)</p>
+            <p>슈만주파수</p>
+            <br/>
+        </div>
+    </section>
+    <section>
+        <div id="guild-buliten-board">
+
+        </div>
+    </section>
+    <section>
+            <div id="guild-free-board">
+    
+            </div>
+        </section>
+    <section>
+        <div id="guild-resource-room">
+
+        </div>
+    </section>
+</body>

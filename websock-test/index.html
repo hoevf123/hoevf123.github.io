@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>Native WebSocket Example</title>
+</head>
+<body>
+    <script>
+        var ws = new WebSocket("ws://localhost:12801");
+        
+        ws.onopen=function(event){
+            console.log("server connected");
+            ws.send("Client message: Hi");
+        }
+
+        ws.onmessage=function(event){
+            ws.send("Client message: Hi!");
+        }
+
+        ws.onerror=function(error){
+            console.log("Server error message: ", event.data);
+        }
+    </script>
+</body>

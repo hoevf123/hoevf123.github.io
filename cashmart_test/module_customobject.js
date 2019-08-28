@@ -986,6 +986,7 @@
         this.constructor=MyObject;
         this.ancestor=undefined;
         this.decendent=undefined;
+        this.draw=draw;
         /* Object Drawing Method */
         function draw(context,image){
             context.beginPath();

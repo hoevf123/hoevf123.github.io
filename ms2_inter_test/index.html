@@ -1,0 +1,82 @@
+<!doctype html>
+<head>
+    <title>인터페이스 테스트</title>
+    <meta charset="utf-8">
+    <style>
+        div.ms2-frame{
+            display:inline-block;
+            border-radius: 15px;
+            border-color:black;
+            padding:10px;
+            margin:10px;
+            background-color:lightgray;
+        }
+        div.focused-item-info{
+            display:inline-block;
+            position:relative;
+            border-radius:15px;
+            border-color:black;
+            width:300px;
+            height:300px;
+            background-color:lightpink;
+        }
+        ul.item{
+            border:1px solid gray;
+            padding:5px;
+            margin : 0px;
+        }
+        ul.item li{
+            display:inline-flex;
+            position:sticky;
+            border-radius: 15px;
+            border-color:black;
+            width:100px;
+            height:100px;
+            padding:10px;
+            margin:5px;
+            background-color:lightpink;
+        }
+        ul.item li>img{
+            width:50px;
+            height:50px;
+            display:inline-block;
+            position:relative;
+            padding:5px;
+            margin:0px;
+            border-radius:5px;
+            background-color:lemonchiffon;
+        }
+        ul.item li>p{
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap; 
+        }
+    </style>
+</head>
+
+<body>
+    <div class="ms2-frame">
+        <p>판매 목록</p>
+        <div class="focused-item-info">
+        </div>
+        <ul class="item">
+            <li>
+                <div style="display:block;">
+                    <img src="singing_ducky.png" alt="singing_ducky"/>
+                </div>
+                <div>
+                        <p class="item-name">발레하는 더키가 노래를 부른다곤 노래를 불러요!</p>
+                </div>
+                </li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+</body>
