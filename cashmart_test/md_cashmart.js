@@ -472,7 +472,7 @@ class Maple2CashMart{
         ];
 
         this.default_stage_customer_visitSets=[
-            /* Stage 1 :: 4 People Approach*/
+            /* Stage 1 :: 4 People Approach */
             [
                 [3,["갈색머리 보부상", "주황머리 보부상", "청록썬캡 아주머니", "파마머리 아주머니", "남자 엘프 요정", "여자 엘프 요정"]],
                 [2,["남청머리 아주머니", "붉은머리 아주머니", "미나르 아주머니", "초록모자 남자꼬마", "모자를 쓴 남자꼬마", "남청머리 숙녀"]],

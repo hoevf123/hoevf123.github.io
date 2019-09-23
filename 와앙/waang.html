@@ -1,0 +1,506 @@
+﻿<!-- Making Start At 2017-10-15 SUN, Made By Anyang University Department of Computer Science Engineering 201431011 Dongyeong Kim -->
+<!-- This Program's Design has been still Under Construction. -->
+<!-- This Code Contatins Indivial Prviate Information of My Life, which is I Don't Well know about a Member of Maplestory2(KMS) game. -->
+
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Coding Editor :: Made by 비숍의하루</title>
+    <style>
+        body{
+            position:fixed;
+            display:block;
+            margin:0px;
+            padding:0px;
+            width:100%;
+            height:100%;
+        }
+        .file_control{
+            position:relative;
+            display:block;
+            margin:0px;
+            padding:0px;
+            width:auto;
+            background-color:dodgerblue;
+        }
+        .file_control .title{
+            margin:0px;
+            padding:5px;
+            background-color: aquamarine;
+            text-align:center;
+        }
+        .file_control>div{
+            display:block;
+        }
+        
+        
+        .coding_area > canvas{
+            
+        }
+        .project_sidebar_left {
+            position:absolute;
+            display:inline-block;
+            min-width:300px;
+            max-width:300px;
+            height: 100%;
+            left: 0px;
+            top:0px;
+        }
+        .project_sidebar_right {
+            position: absolute;
+            display: inline-block;
+            width: 300px;
+            height: 100%;
+            right: 0px;
+            top: 0px;
+        }
+        .coding_area {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+        }
+        .project_tools {
+            position: relative;
+            height: 100%;
+            background-color: lightsalmon;
+        }
+        .code_info{
+            position:relative;
+            height:100%;
+            background-color:lightsalmon;
+        }
+        .toast_list {
+            position: relative;
+            width: 100%;
+            min-height: 0px;
+            max-height: 300px;
+            background-color: lightcoral;
+        }
+        .code_pallete{
+            position:relative;
+            width:100%;
+            min-height:300px;
+            max-height:100%;
+            background-color:lightyellow;
+        }
+        .reg_var_list {
+            position: relative;
+            width: 100%;
+            min-height: 0px;
+            max-height: 100%;
+            background-color: beige;
+        }
+        .predefined_func {
+            position: relative;
+            width: 100%;
+            min-height: 0px;
+            max-height: 100%;
+            background-color: beige;
+            overflow:hidden;
+        }
+        .predefined_asset {
+            position: relative;
+            width: 100%;
+            min-height: 0px;
+            max-height: 100%;
+            background-color: beige;
+        }
+        .predefined_asset {
+            position: relative;
+            width: 100%;
+            min-height: 0px;
+            max-height: 100%;
+            background-color: beige;
+        }
+    </style>
+    
+</head>
+<body>
+    <nav class="project_sidebar_left">
+        
+    </nav>
+    <div class="coding_area">
+        <canvas></canvas>
+    </div>
+    <nav class="project_sidebar_right">
+        <div class="code_info">
+            <!-- Button Control Navigator -->
+            <nav class="file_control">
+                <div class="title">
+                    <label id="label_focused_file_title">빈 파일</label><br />
+                    <label id="label_current_cursor_pos"></label>
+                    
+                </div>
+                <input type="button" value="三" style="display:none" />
+                <div class="functions">
+                    <input type="file" multiple="multiple" value="파일 열기" id="btn_loadSourceCode" />
+                    <input type="button" value="파일 저장" id="btn_saveSourceCode" />
+                </div>
+                <div class="project_tools">
+                    <label>변수 목록</label>
+                    <div class="reg_var_list">
+
+                    </div>
+                    <label>미리 정의된 함수</label>
+                    <div class="predefined_func">
+                        <ul>
+                            <li>입력</li>
+                            <li>출력</li>
+                            <li>읽기</li>
+                            <li>쓰기</li>
+                            <li>잠자기</li>
+                        </ul>
+                    </div>
+                    <label>미리 정의된 애셋</label>
+                    <div class="predefined_asset">
+                        <ul>
+                            <li>루프로 배열 값 할당하기</li>
+                            <li>변수의 값 교환</li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            
+            <label>작동 결과 미리보기</label>
+            <div class="outcome_preview">
+
+            </div>
+            <label>알림 목록</label>
+            <div class="toast_list">
+                
+            </div>
+
+            <label>팔레트</label>
+            <div class="code_pallete">
+                
+            </div>
+        </div>
+    </nav>
+    <script type="text/javascrpt" src="code_string_def.js"></script>
+    <script type="text/javascript" src="brain.js"></script>
+    <script type="text/javascript" defer>
+        /* An Object Which is Full Functioned*/
+        /* A Guild(Void Sugar) Person's Name Of Professional Coach, WaangChiki */
+        var WaangChicky = function () {
+            this.self = this;
+            this.codes = [];
+            this.tagController = new TagController();
+            this.div_coding_area = document.getElementsByClassName("coding_area")[0];
+            this.focusedCode = undefined;
+            this.appendCode = function (files) {
+                console.log(this);
+                for (var i = 0; i < files.length; i++) {
+                    var file = files[i];
+                    console.log(i);
+                    var reader = new FileReader();
+                    reader.onload = (function (e) {
+                        //console.log("read : " + reader.result);
+                        console.log("self : " + this, " file : " + file);
+                        var code = new CanvasCode(this, file, reader.result, 12, "utf-8");
+                        this.codes.push(code);
+                        this.focusedCode = code;
+                        this.repaintTitle();
+                        this.resize();
+                    }).bind(this);
+                    reader.readAsText(file, "utf-8");
+                }
+            }
+            this.resize = (function resize(e) {
+                this.repaintFocusedCode();
+                this.focusedCode.paint();
+            }).bind(this);
+            this.repaintTitle = (function repaintTitle() {
+                var file_name = "빈 파일";
+                try{
+                    file_name = this.focusedCode.file.name;
+                } catch (e) {
+                    
+                } finally {
+                    var lbl_focused_file_title = document.getElementById("label_focused_file_title");
+                    if (lbl_focused_file_title !== undefined)
+                        lbl_focused_file_title.innerText = file_name;
+                }
+            }).bind(this);
+            this.repaintFocusedCode = (function repaintFocusedCode() {
+                if (this.focusedCode === undefined) return;
+                /* Set tag div_coding_area's size to left all remaining size.*/
+                this.div_coding_area.setAttribute("style", "width:" + new String(window.screen.availWidth - this.div_coding_area.offsetLeft) + "px");
+                console.log(window.screen.availHeight - this.div_coding_area.offsetTop);
+                this.div_coding_area.setAttribute("style", "height:" + new String(window.screen.availHeight - this.div_coding_area.offsetTop) + "px");
+                /* Clear Previous Canvas And Insert New Canvas(Code) */
+                this.div_coding_area.innerHTML = "";
+                this.div_coding_area.appendChild(this.focusedCode.canvas);
+            }).bind(this);
+            
+        }
+        var TagController = function TagController() {
+            this.lbl_title = document.getElementById("label_focused_file_title");
+            this.div_var_list = document.getElementsByClassName("reg_var_list")[0];
+            this.div_predef_func_list = document.getElementsByClassName("predefined_func")[0];
+            this.div_predef_asset_list = document.getElementsByClassName("predefined_asset")[0];
+            this.div_preview_oper_res = document.getElementsByClassName("outcome_preview")[0];
+            this.div_pallete_list = document.getElementsByClassName("code_pallete")[0];
+        }
+        var CanvasCode = function (callee, file, codeContent, fontSize, encodingType) {
+            /* Object Initialization */
+            this.isModified = false;
+            /* Canvas's Output Position Start : X AS TOP AND Y AS LEFT START */
+            this.screenX = 0;
+            this.screenY = 0;
+            this.scrool_interpolation = 2;
+            this.cursorX = 0;
+            this.cursorY = 0;
+            this.paddingX = 30;
+            this.marginX = 10;
+            this.isCursorFocused = false;
+            this.callee = callee;
+            this.file = file;
+            this.codeContent = tokening(codeContent);
+            this.canvas = document.createElement("canvas");
+            this.fontSize = fontSize;
+            this.bgColor = "ivory";
+            this.fontColor = "black";
+            this.blockedTextBgColor = "gray";
+            this.blockedText = [];
+            this.comment_fontColor = "green";
+            this.reservedWord_fontColor = "blue";
+            this.string_fontColor = "brown";
+            this.encodingType = encodingType;
+            /* */
+            this.paint = function paint() {
+                var canvas = this.canvas;
+                if (this.callee.div_coding_area !== undefined) {
+                    var coding_area = this.callee.div_coding_area;
+                    console.log("hello, " + coding_area.offsetHeight);
+                    canvas.width = coding_area.offsetWidth;
+                    canvas.height = coding_area.offsetHeight;
+                }
+                var codeContent = this.codeContent;
+                if(canvas == undefined || canvas == null)
+                    return;
+                //codeContent = codeContent.split("\n");
+                //calculate maximum print lines.
+                var print_max_lines = Math.ceil(canvas.height / fontSize);
+
+                //Paint
+                var context = canvas.getContext('2d');
+                context.beginPath();
+                //fill background.
+                context.fillStyle = this.bgColor;
+                context.fillRect(0, 0, this.canvas.width, this.canvas.height);
+                //draw cursor
+                if (this.isCursorFocused == true && (this.screenY <= this.cursorY && this.cursorY <= this.screenY + print_max_lines)) {
+                    var g_cursor_posLeft = (this.paddingX + this.marginX) + ((this.cursorX - this.screenX) * this.fontSize);
+                    var g_cursor_posTop = (this.cursorY - this.screenY) * this.fontSize - this.fontSize / 2;
+                    context.fillStyle = "lightgray";
+                    context.fillRect(this.paddingX + this.marginX, g_cursor_posTop, this.canvas.width, this.fontSize);
+                    context.fillStyle = "black";
+                    context.fillRect(g_cursor_posLeft, g_cursor_posTop, this.fontSize / 25, this.fontSize);
+                    console.log("cursor painting");
+                }
+                //draw (line number / text) distintion line
+                var thick_dist_line = this.canvas.width / 10000 * fontSize;
+                context.fillStyle = "gray";
+                context.fillRect(this.paddingX + fontSize * 2 - thick_dist_line / 2, 0, thick_dist_line, this.canvas.height);
+                
+                //fill font color.
+                context.fillStyle = this.fontColor;
+                context.font = new String(fontSize) + "px Arial";
+                context.textAlign = "center";
+                context.textBaseline = "middle";
+                
+                for (var i = 0; i + this.screenY < codeContent.length && i < print_max_lines ; i++) {
+                    context.fillText(new String(i + this.screenY + 1), Math.floor(Math.log10(i+1) + 2) * fontSize/4, (i + 1) * fontSize); //line number
+                    var col_printpos = 0;
+                    for (var j = 0; j < codeContent[i + this.screenY].content.length; j++) {
+                        //console.log(codeContent[i + this.screenY].content);
+                        context.fillText(codeContent[i + this.screenY].content[j], this.paddingX + this.marginX + fontSize*2 +  col_printpos, (i + 1) * fontSize);//plain text
+                        if (codeContent[i + this.screenY].content[j].charCodeAt() <= 126)
+                            col_printpos += fontSize*0.5;
+                        else
+                            col_printpos += fontSize;
+                    }
+                }
+            }
+            this.getPosToCurX = function (codeCanvas, offsetX, offsetY) {
+                
+            }
+            this.getPosToCurY = function (codeCanvas, offsetX, offsetY) {
+
+            }
+            this.getCurToPosX = function (codeCanvas){
+
+            }
+            this.getCurToPosY = function (codeCanvas) {
+
+            }
+            this.oncanvasclick =  (function onCanvasClick(e){
+                //alert("x : " + e.clientX + " y : " + e.clientY);
+                this.cursorY = this.screenY + Math.floor((e.clientY) / fontSize);
+                var distX = this.screenX + e.clientX - (this.marginX + this.paddingX);
+                var temp_curX = 0;
+                for (; distX > 0 && temp_curX < this.codeContent[this.cursorY].content.length ; temp_curX++) {
+                    if(this.codeContent[this.cursorY].content[temp_curX] <= 126)
+                        distX-=fontSize/4;
+                    else
+                        distX-=fontSize/2;
+                }
+                this.cursorX = distX;
+                
+                if (this.codeContent[this.cursorY - 1].content.length < this.cursorX)
+                    this.cursorX = this.codeContent[this.cursorY - 1].content.length;
+                if (this.cursorX < 0 || this.cursorY < 0)
+                    this.isCursorFocused = false;
+                else
+                    this.isCursorFocused = true;
+                var lbl_curpos = document.getElementById("label_current_cursor_pos");
+                lbl_curpos.innerText = new String("줄 : " + this.cursorY + " 열 : " + this.cursorX);
+                this.paint();
+            }).bind(this);
+            this.canvas.addEventListener("click", this.oncanvasclick);
+            this.oncanvasmousewheel = (function onCanvasMouseWheel(e) {
+                //alert("x : " + e.clientX + " y : " + e.clientY + " delta : " + e.wheelDelta + " dX : " + e.wheelDeltaX + " dY : " + e.wheelDeltaY);
+                var y_screen_movementY = (-e.wheelDeltaY) / 120;
+                //alert("scrolled :" + y_screen_movementY + " screenY : " + this.screenY);
+                this.screenY += y_screen_movementY * this.scrool_interpolation;
+                if (this.screenY < 0) this.screenY = 0;
+                this.paint();
+            }).bind(this);
+            this.canvas.addEventListener("mousewheel", this.oncanvasmousewheel);
+
+            this.oncanvaskeystate = (function onCanvasKeyState(e) {
+                alert("key input");
+            }).bind(this);
+            this.canvas.addEventListener("keydown", this.oncanvaskeystate);
+        }
+        var MovablePallete = function MovablePallete(tag_canvas) {
+            if(tag_canvas!==undefined)
+                this.canvas = tag_canvas; //tag element.
+            else {
+                this.canvas = document.createElement("canvas");
+                this.canvas.width = 300;
+                this.canvas.height = 300;
+                var ctx = this.canvas.getContext("2d");
+                ctx.fillStyle = "skyblue";
+                ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+            }
+            this.isSelected = false;
+            this.prevPosition = "";
+            this.prevPosLeft = 0;
+            this.prevPosTop = 0;
+            this.onmousedown = (function (e) {
+                this.prevPosition = e.currentTarget.style.position;
+                this.prevPosLeft = e.currentTarget.style.left;
+                this.prevPosTop = e.currentTarget.style.top;
+                this.isSelected = true;
+                e.currentTarget.style.position = "fixed";
+            }).bind(this);
+            this.onmousemove = (function (e) {
+                if (this.isSelected) {
+                    e.currentTarget.style.left = (e.screenX - e.currentTarget.width / 2) + "px";
+                    e.currentTarget.style.top = (e.screenY - e.currentTarget.height / 2) + "px";
+                }
+            }).bind(this);
+            this.onmouseup = (function (e) {
+                e.currentTarget.style.position = this.prevPosition;
+                e.currentTarget.style.left = this.prevPosLeft;
+                e.currentTarget.style.top = this.prevPosTop;
+                this.isSelected = false;
+            }).bind(this);
+            this.onmouseover = function (e) { }
+            this.onclick = function (e) {
+                var str = "";
+                for (var a in e) {
+                    str += a;
+                    str += " : " + e[a] + "\n";
+                }
+                alert(str);
+            }
+            this.canvas.addEventListener("mousedown", this.onmousedown);
+            this.canvas.addEventListener("mousemove", this.onmousemove);
+            this.canvas.addEventListener("mouseup", this.onmouseup);
+            ///this.pallete.addEventListener("click", this.onclick);
+        }
+        var CodeString = function CodeString(line, col, content) {
+            this.line = line;
+            this.col = col;
+            this.content = content;
+        }
+        function tokening(str) {
+            var results = [];
+            var start_idx = 0;
+            var end_idx = 0;
+            var line = 0;
+            var col = 0;
+            for (var i = 0; i < str.length; i++) {
+                if (str[i] == '\n') {
+                    end_idx = i + 1;
+                    results.push(new CodeString(line, col, str.substring(start_idx, end_idx)));
+                    start_idx = i + 1;
+                    line = line + 1;
+                    col = 0;
+                }
+            }
+            if (str[str.length - 1] !== '\n') {
+                end_idx = str.length;
+                console.log("start_idx : " + start_idx + "end_idx : "+ end_idx + "last :" + str[str.length-1]);
+                results.push(new CodeString(line, col, str.substring(start_idx, end_idx)));
+            }
+            return results;
+        }
+        function assembling(lst) {
+            var returnValue = "";
+            for (var i = 0; i < lst.length; i++) {
+                returnValue += lst[i].content+"\n";
+            }
+            return returnValue;
+        }
+
+        //Global Code Start
+        var waang = new WaangChicky();
+        function onclick_loadNewSourceCode(e) {
+            var btn_loadSourceCode = document.getElementById("btn_loadSourceCode");
+            var files = btn_loadSourceCode.files;
+            waang.appendCode(files);           //load files;
+            btn_loadSourceCode.innerText = "";//clear previous path.
+        }
+        function onclick_saveNewSourceCode(e) {
+            var btn_saveSourceCode = document.getElementById("btn_saveSourceCode");
+            if (waang !== undefined && waang.focusedCode !== undefined) {
+                download(waang.focusedCode.file.name, assembling(waang.focusedCode.codeContent));
+            }
+        }
+        function onresize(e) {
+            if (waang != undefined && waang.focusedCode != undefined)
+                waang.resize(e);
+        }
+        // Test Code From --> http://stackoverflow.com/questions/2897619/using-html5-javascript-to-generate-and-save-a-file
+        function download(filename, text) {
+            var pom = document.createElement('a');
+            pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+            pom.setAttribute('download', filename);
+
+            if (document.createEvent) {
+                var event = document.createEvent('MouseEvents');
+                event.initEvent('click', true, true);
+                pom.dispatchEvent(event);
+            }
+            else {
+                pom.click();
+            }
+        }
+
+        var btn_loadSourceCode = document.getElementById("btn_loadSourceCode");
+        btn_loadSourceCode.addEventListener("change", onclick_loadNewSourceCode);
+        var btn_saveSourceCode = document.getElementById("btn_saveSourceCode");
+        btn_saveSourceCode.addEventListener("click", onclick_saveNewSourceCode);
+        window.addEventListener("resize", onresize);
+        var palletes = [];
+        palletes.push(new MovablePallete());
+        document.getElementsByClassName("code_pallete")[0].appendChild(palletes[0].canvas);
+    </script>
+</body>
+</html>

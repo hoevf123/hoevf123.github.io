@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta charset = "utf-8">
+  <title>
+     "Print Page :: 노란메론님의 페이지"
+  </title>
+</head>
+<body>
+<img src = "resources\profile_melon_yellow.png" width = "40px" height = "40px">노란메론 님의 페이지
+<a href = "노란메론 페이지.html"><img src = "resources\back_button.png" width = "40px" height = "40px"></a>
+<h1>
+환경 설정
+</h1>
+<br>
+1회당 최대 출력 가능 장수 : 80장<br>
+<br>
+<h2>
+프린터 설정
+</h2>
+<img src = "resources\print_not_available.png" width = "60px" height= "60px">
+<img src = "resources\black_ink_available.png" width = "60px" height= "60px">
+<img src = "resources\color_ink_available.png" width = "60px" height= "60px">
+기본 프린터 - Canon I320 
+<br>
+<img src = "resources\print_not_available.png" width = "60px" height= "60px">
+<img src = "resources\black_ink_available.png" width = "60px" height= "60px">
+<img src = "resources\color_ink_not_available.png" width = "60px" heignt= "60px">
+네트워크 프린터 - Samsung M870 
+<br>
+<img src = "resources\print_disabled.png" width = "60px" height= "60px">
+<img src = "resources\black_ink_not_available.png" width = "60px" height= "60px">
+<img src = "resources\color_ink_available.png" width = "60px" height= "60px">
+프린트페이지 다이렉트 로더 - EPSON T3004 
+<br>
+<h2>
+권한 설정
+</h2>
+<img src = "resources\profile_default.png" width = "80px" height = "80px">
+<img src = "resources\print_not_available.png" width = "80px" height = "80px">
+기본 설정 - 친구<br>
+<img src = "resources\profile_default.png" width = "80px" height = "80px">
+<img src = "resources\print_available_one.png" width = "80px" height = "80px">
+기본 설정 - 허용된 친구<br>
+<img src = "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xpa1/v/t1.0-1/p160x160/10301073_1421109568156143_2960232629965820634_n.jpg?oh=426c814ea3f3b9ceeb8d2d38b8935385&oe=54CECAFE&__gda__=1418396156_708cd1b9d5abc3dbeaf2f4055b0e9909" width = "80px" height = "80px">
+<img src = "resources\print_available.png" width = "80px" height = "80px">
+친한 친구 - 데헷♥
+<br>
+<img src = "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xaf1/v/t1.0-1/c13.13.166.166/s160x160/317466_240658079313803_1690607487_n.jpg?oh=814bf25d7a7880d5ab4202c7017e8c07&oe=54D0FF4A&__gda__=1419928714_9ad1b4d83c3109adf26e971f762a290d" width = "80px" height = "80px">
+<img src = "resources\print_disabled.png" width = "80px" height = "80px">
+그룹 - 양지고등학교
+</body>
+</html>

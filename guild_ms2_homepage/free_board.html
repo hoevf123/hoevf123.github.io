@@ -11,26 +11,44 @@
             <div class="navigator-area">
                 <ul class="navbar-target1">
                     <li class="transparent"><a href="index.html" class="disable-default-font-color"><image class="guild_logo" src="메2 길드마크.png" alt="메2 메인페이지"></image></a></li>
-                    <li class="red"><a href="guild_intro.html" class="disable-default-font-color"><p>길드소개</p></a></li>
+                    <li class="red"><a href="guild_intro.html" class="disable-default-font-color"><p>길드소개</p></a>
+                    <ul class="sub-menu">
+                        <li><p>메2 길드란</p></li>
+                        <li><p>길드 가입</p></li>
+                        <li><p>구성원</p></li>
+                    </ul>
+                    </li>
                     <li class="orange"><a href="info_board.html" class="disable-default-font-color"><p>공지사항</p></a></li>
                     <li class="green"><a href="free_board.html" class="disable-default-font-color"><p>커뮤니티</p></a></li>
                     <li class="skyblue"><a href="records.html" class="disable-default-font-color"><p>자료실</p></a></li>
                     <li class="skyblue"><a href="build_info.html" class="disable-default-font-color"><p>제작정보</p></a></li>
-                    <li><p>무언가</p></li>
+                    <li><p>무언가(추가 예정)</p></li>
                     <li><p>메뉴</p></li>
-                    <li><p>메뉴</p></li>
-                    <li><p>메뉴</p></li>
-                    <li><p>메뉴</p></li>
+                    <li class="disabled"><p>비활성화 항목</p></li>
+                    <li class="right orange">
+                        <p>메2 길드 계정</p>
+                        <ul class="sub-menu open">
+                            <li class="orange">로그인</li>
+                            <li class="orange">회원가입</li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </nav>
     </header>
     <section>
-        <div class="free-buliten-board div-content">
+        <div class="info-buliten-board div-content">
             <h1>커뮤니티</h1>
-            <div>
+            <div class="search-bar-board-content">
                 <p>검색어</p>
-                <input type="text"/> <input type="button" value="검색">
+                <form method="GET" action="#" accept-charset="UTF-8">
+                    <select>
+                        <option value='' selected>전체</option>
+                        <option value='board-title'>제목</option>
+                        <option value='board-author'>작성자</option>
+                    </select>
+                    <input type="text" placeholder="검색어를 입력하세요."/> <input type="submit" value="검색" >
+                </form>
                 <input type="button" value="글쓰기">
             </div>
             <table>
@@ -84,7 +102,24 @@
                     </tr>
                 </tbody>
             </table>
-            
+        </div>
+        <div>
+            <ul class="board-page-btns">
+                <li class="btn-page-move yellow"><a href="#"><p>◀◀</p></a></li>
+                <li class="btn-page-move yellow"><a href="#"><p>◀</p></a></li>
+                <li class="btn-page-move"><a href="#"><p>1</p></a></li>
+                <li class="btn-page-move"><a href="#"><p>2</p></a></li>
+                <li class="btn-page-move"><a href="#"><p>3</p></a></li>
+                <li class="btn-page-move"><a href="#"><p>4</p></a></li>
+                <li class="btn-page-move"><a href="#"><p>5</p></a></li>
+                <li class="btn-page-move"><a href="#"><p>6</p></a></li>
+                <li class="btn-page-move"><a href="#"><p>7</p></a></li>
+                <li class="btn-page-move"><a href="#"><p>8</p></a></li>
+                <li class="btn-page-move"><a href="#"><p>9</p></a></li>
+                <li class="btn-page-move"><a href="#"><p>10</p></a></li>
+                <li class="btn-page-move yellow"><a href="#"><p>▶</p></a></li>
+                <li class="btn-page-move yellow"><a href="#"><p>▶▶</p></a></li>
+            </ul>
         </div>
     </section>
 </body>

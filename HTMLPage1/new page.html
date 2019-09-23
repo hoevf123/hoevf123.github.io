@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Print Page(出力面)에 오신 것을 환영합니다</title>
+    <link rel ="stylesheet" href ="new page_layout.css">
+</head>
+<body>
+<table border = "1" id = "top_frame" align = "center">
+    <tr>
+        <!-- 최상단 프레임 배열 -->
+        <td width = "30%" id = "page_name">
+            <img src = "resources\print_page_logo.png" width = "160px" height = "40px">
+        </td>
+        <td  width = "40%">
+            <iframe width="100%" height="40px" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/148632746&amp;color=ff5500&amp;auto_play=true&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false"></iframe>
+        </td>
+        <td width = "30%" id ="user_status">
+
+            <label id = "user_id"></label><input type = "text" id = "user_id_input">
+            패스워드<input type = "password" >
+            <img src = "resources\logout_button.png" width = "40px" height = "40px" onclick = "id_login()">
+
+            <!-- 로그인 부분 자바스크립트 코드 -->
+
+            <script type ="text/javascript">
+                var id;
+                function onload_login()
+                {
+                    var user_status = document.getElementById("user_status");
+                    user_status.innerHTML = '아이디'+'<input type = "text" id = "user_id_input">'+'패스워드<input type = "password" >'+'<img src = "resources\\logout_button.png" width = "40px" height = "40px" onclick = "id_login()">'
+
+                }
+                onload_login();
+
+                function id_login()
+                {
+                    var user_status = document.getElementById("user_status");
+                    var id_login = document.getElementById("user_id_input");
+                    if(id_login.value.length<4)
+                    {
+                      alert("아이디는 4자리수 이상으로 지어주세요.");
+                      return -1;
+                    }
+
+                    var HTMLstr = ""; //HTML 페이지에 들어갈 코드를 기술합니다.
+
+                    /*이미지 추가 부분*/
+
+                    if(id_login.value==="노란메론")HTMLstr+= '<img src = "resources\\profile_melon_yellow.png" width = "40px" height = "40px">';
+                    else if(id_login.value==="초록메론")HTMLstr+= '<img src = "resources\\profile_melon.png" width = "40px" height = "40px">';
+                    else if(id_login.value==="admin")HTMLstr+= '<img src = "resources\\print_available.png" width = "40px" height = "40px">';
+                    else if(id_login.value==="melonprint")HTMLstr+= '<img src = "resources\\profile_melonprint.png" width = "40px" height = "40px">';
+                    else HTMLstr+= '<img src = "resources\\profile_default.png" width = "40px" height = "40px">';
+
+                    HTMLstr+= '<img src = "resources\\print_not_available.png" width = "40px" height = "40px">';//프린트 출력 권한 표시
+                    HTMLstr+= "<label>"+id_login.value+"</label>";//로그인 아이디명 출력
+                    HTMLstr+= '<img src = "resources\\logout_button.png" width = "40px" height = "40px" onclick = "id_logout()">';//로그아웃 버튼
+
+                    user_status.innerHTML = HTMLstr;//출력
+                }
+                function id_logout()
+                {
+                    alert("로그아웃 되었습니다.");
+                    onload_login();
+                }
+            </script>
+            <!-- 로그인 부분 자바스크립트 코드 끝 -->
+        </td>
+    </tr>
+</table>
+<br>
+<!-- 중간 프레임 배열 -->
+<br>
+<br>
+<table border ="1" id ="body_frame" align = "center">
+    <tr>
+        <td colspan ="2" width = "100%" height = "300px" align = "center">
+            <img src = "resources\profile_melon_title.jpg" width = "100%">
+        </td>
+    </tr>
+    <tr>
+        <td width ="50%" align ="left">
+            Notice!!<br>
+            <br>
+            이 페이지는 테스트용 페이지로 어떠한 기능도 작동하지 않습니다.<br>
+            [단, 아이디의 입력만으로도 임시 로그인은 가능합니다.]<br>
+            <br>
+            아직 이 페이지 완성하려면 얼마나 걸릴까..<br>
+            앞으로의 계획<br>
+            - 페이지 디자인 적용<br>
+            - 웹 통신과 프린트가 되는 윈도우 소켓 프로그램 제작<br>
+            - 인터렉티브 디자인을 위한 캐릭터 소통 웹 디자인 구현<br>
+            - 페이지 레이아웃 제작<br>
+            - 파일 입력 방식 프린트 방법 추가<br>
+            - 포스팅 방식 프린트 방법 추가 <br>
+            - 대화를 할 수 있는 채팅창 추가 <br>
+            - 페이지 에디트가 가능한 툴 추가 <br>
+            - 게임 등급물 심사<br>
+
+        </td>
+        <td width ="50%" align ="left" id = "recommend_page">
+            <h1>
+                추천 페이지
+            </h1>
+            ※아직 다른 사람의 프린트 페이지가 없으므로 페이스북 페이지로 대체합니다※<br><br>
+            &nbsp
+ <!--             <a href = "https://www.facebook.com/kr.passion?fref=ts"><img src = "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xpa1/v/t1.0-1/p160x160/10514635_709387999115152_4380292949480806006_n.jpg?oh=4915728d63d57101b87d0a2da96b757d&oe=54B74308&__gda__=1421233077_88458560c00710ddc1c378c606383837" width = "80px" height = "80px"></a> -->
+ <!--           <a href = "https://www.facebook.com/profile.php?id=100007713403741&fref=tl_fr_box"><img src ="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xpa1/v/t1.0-1/p160x160/10301073_1421109568156143_2960232629965820634_n.jpg?oh=426c814ea3f3b9ceeb8d2d38b8935385&oe=54CECAFE&__gda__=1418396156_708cd1b9d5abc3dbeaf2f4055b0e9909" width = "80px" height = "80px"></a>-->
+            <a href = "https://www.facebook.com/hoevf123"><img src = "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xfa1/v/t1.0-1/p160x160/10593127_691154417636724_6160279109311056073_n.jpg?oh=5eca3a4e888ff1c2dbcdfe0859cd2048&oe=54C30FCB&__gda__=1422458690_4473cbd5585bc8da6b3c488bd6225b37" width = "80px" height = "80px"></a>
+        </td>
+    </tr>
+    <tr>
+        <td width = "50%" align ="left" id = "print_status_page">
+            <h1>
+                현재 상태
+                <img src = "resources\print_not_available.png" width = "40px" height = "40px">
+                <img src = "resources\black_ink_available.png" width = "40px" height = "40px">
+                <img src = "resources\color_ink_available.png" width = "40px" height = "40px">
+            </h1>
+            <br>
+            <img src ="resources\a4_not_available.png" width = "80px" height = "40px">
+            <img src ="resources\b4_not_available.png" width = "80px" height = "40px">
+        </td>
+        <td width = "50%" align ="left" id = "progress_block">
+
+            <!-- Progress Block Part JavaScript Code -->
+
+            <script type = "text/javascript">
+                function onload_progress_block(startindex,endindex)
+                {
+                    var progress_block = document.getElementById("progress_block");
+
+                    var HTMLstr = "";
+                    var min = 1; // minimum of the number of the progress list
+                    var max = 2; // maximum of the number of the progress list
+                    var min_list = startindex; //minimum of the number of the visible point
+                    var max_list = endindex; //maximum of the number of the visible point
+
+                    HTMLstr+= '<h1>Progress Block (' + max +' Tasks Remaining)</h1>' ;
+
+                    var i =0 ; //index variable
+                    for(i=min_list;i<=max_list;i++)
+                    {
+                        if(i==min_list)
+                        {
+                            if(i==min)HTMLstr+='<img src = "resources\\up_not_available.png" width = "80px" height = "80px">';
+                            else HTMLstr+='<img src = "resources\\up_button.png" width = "80px" height = "80px" onclick = "progress_block_control().lower()">';
+                        }
+                        else if(i==max_list)
+                        {
+                            if(i==max)HTMLstr+='<img src = "resources\\down_not_available.png" width = "80px" height = "80px">';
+                            else HTMLstr+='<img src = "resources\\down_button.png" width = "80px" height = "80px" onclick = "progress_block_control().upper()">';
+                        }
+                        else ;
+                        switch(i)
+                        {
+                            case 1:
+                                    HTMLstr += '<img src="resources\\profile_default.png" width = "80px" height = "80px">사용자 [1/3] C언어프로그래밍과제.hwp';
+                                break;
+                            case 2:
+                                    HTMLstr += ' <img src="resources\\profile_default.png" width = "80px" height = "80px">마이너스 [대기중] 프린트 페이지 프리...션.pptx';
+                                break;
+                            case 3:
+                                HTMLstr += ' <img src="resources\\profile_default.png" width = "80px" height = "80px">마이너스 [대기중] 사고와 표현 과제.hwp';
+                                break;
+                            case 4:
+                                HTMLstr += ' <img src="resources\\profile_default.png" width = "80px" height = "80px">Mr_Jeong [대기중] 2015susi 입학 원서.pdf';
+                                break;
+                        }
+                        if(i==max_list);
+                        else HTMLstr+='<br>';
+                    }
+                    progress_block.innerHTML = HTMLstr;
+                }
+                onload_progress_block(1,2);
+                function progress_block_control()
+                {
+                    var min = 1; // minimum of the number of the progress list
+                    var max = 4; // maximum of the number of the progress list
+                    var min_list = 1; //minimum of the number of the visible point
+                    var max_list = 2; //maximum of the number of the visible point;
+                    this.getMin = function()
+                    {
+                        return min_list;
+                    }
+                    this.getMax = function()
+                    {
+                        return max_list;
+                    }
+                    this.upper = function()
+                    {
+                        if(max>max_list)
+                        {
+                            this.max++;
+                            this.min++;
+                        }
+                    }
+                    this.lower = function()
+                    {
+                        if(min<min_list)
+                        {
+                            this.max--;
+                            this.min--;
+                        }
+                    }
+
+                }
+
+            </script>
+
+            <!-- Progress Block Part JavaScript Code End-->
+
+        </td>
+    </tr>
+</table>
+<table id = "bottom_frame" width = "100%">
+    <tr>
+        <td id = "bottom_comment" width = "100%">
+            Print Page Test Version 0.0.1
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>

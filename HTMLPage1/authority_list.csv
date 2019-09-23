@@ -1,0 +1,19 @@
+﻿[User_info]
+userName,imagePath
+노란메론,"resources/profile_melon_yellow.png"
+초록메론,"resources/profile_melon_yellow.png"
+[Printer_authority]
+printerName,loveName,colorType
+EPSON NX130 TX130,기본 프린터,color
+userName,authority
+노란메론,available
+초록메론,available
+오프라인 유저,unavailable
+[Printer_authority]
+printerName,loveName,colorType
+CANNON IR5076,,color
+userName,authority
+노란메론,available
+초록메론,available
+오프라인 유저,available
+안녕하세요,available

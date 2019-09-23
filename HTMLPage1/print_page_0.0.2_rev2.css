@@ -1,0 +1,29 @@
+#nav
+{
+    border : 10px solid #000000;
+    padding : 2em;
+    margin : 2em;
+    position:relative;
+
+}
+#logo
+{
+    border:inherit;
+    display:inline;
+    float:left;
+}
+#navigator_block {
+    border:inherit;
+    display:inline;
+    float : left;
+    background-position-x:50%;
+}
+#nav #user_status
+{
+    border:inherit;
+    display:inline;
+    float:right;
+}
+
+/*여기까지 navigiator 부분 */
+

@@ -1,0 +1,32 @@
+#button_a4
+ {
+     background-color:#ccf;
+     width:80px;
+     height:40px;
+    font-size: 10pt;
+    text-align: center;
+ }
+#button_a4:hover
+{
+    background-color:#ffa;
+    width:80px;
+    height:40px;
+    font-size: 10pt;
+    text-align: center;
+}
+#button_b4
+{
+    background-color:#ccf;
+    width:80px;
+    height:40px;
+    font-size: 10pt;
+    text-align: center;
+}
+#button_b4:hover
+{
+    background-color:#ffa;
+    width:80px;
+    height:40px;
+    font-size: 10pt;
+    text-align: center;
+}

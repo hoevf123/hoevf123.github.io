@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta charset = "utf-8">
+  <title>
+     프린트 페이지 메인 화면
+  </title>
+</head>
+<body>
+<h1>
+Print Page(出力面)에 오신 것을 환영합니다!!<br>
+</h1>
+<h2>
+※아직 게임물등급분류심의를 신청하지 않은 게시물입니다!! ※<br>
+[프로그램 특성상 약 2,160,000원이 들 것으로 예상됨.(모의 수수료계산 기준)]<br>
+근거 : [PC등] 360,000원 x [네트워크] 1.5 x [1군(베팅성)] 4.0 x [한글] 1.0
+</h2>
+<p>
+<a
+<h2>
+프린트 페이지 주의사항
+</h2>
+<img src ="http://www.grb.or.kr/images/grade_icon/grade1.gif" width = "61px" height = "70px">
+<img src ="http://www.grb.or.kr/images/grade_icon/grade3.gif" width = "61px" height = "70px">
+<img src ="http://www.grb.or.kr/images/grade_icon/grade4.gif" width = "61px" height = "70px">
+<img src ="http://www.grb.or.kr/images/grade_icon/grade6.gif" width = "61px" height = "70px">
+<img src ="http://www.grb.or.kr/images/grade_icon/grade7.gif" width = "61px" height = "70px">
+<br>
+</p>
+
+
+<audio controls autoplay>
+	<source src="resources\HotDesert.mp3">
+</audio>
+<p>
+<form>
+아이디
+  <input type = "text" size = "10" maxlength = "44" id="box_id">
+패스워드
+  <input type = "password" size = "10" maxlength = "44" id="box_password">
+  <button onclick = "login()">입력</button>
+<script type = "text/javascript">
+
+function login()
+{
+ var id = document.getElementById("box_id");
+ var password = document.getElementById("box_password");
+ if(id.value==="마이너스"&&password.value==="0000")
+ {
+    location.replace("노란메론 페이지 - 관리자.html");
+    alert("로그인 성공!!");
+    
+ }
+ else alert("로그인 실패");
+}
+
+
+</script>
+</form>
+</p>
+<img src = "resources\print_not_available.png" width = "200px" height = "200px"><br>
+<br>
+이 페이지는 웹 페이지를 어떻게 만들 것인지 보여주는 기능없는 웹 사이트입니다!<br>
+
+<a href="새 페이지.html">메론님의 페이지 가기!![프린트 로그아웃됨]</a><br>
+<a href="노란메론 페이지.html">노란메론님의 페이지 가기!![프린트 기능 정상 작동됨]</a><br>
+
+<!--<script type = "text/javascript">function login(){alert("지금은 로그인을 지원하지 않습니다.");}</script>-->
+</body>
+</html>

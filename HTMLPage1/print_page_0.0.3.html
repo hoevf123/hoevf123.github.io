@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>노란메론의 프린트 페이지</title>
+    <style>
+        div
+        {
+            border : 1px solid #000000;
+        }
+        #page_decoration
+        {
+            display:none;
+            width : 42%;
+            margin : 1%;
+            height : 100%;
+            float:left;
+        }
+        #page_printer
+        {
+            display:none;
+            width : 42%;
+            height : 100%;
+            margin : 1%;
+            float:left;
+        }
+        #user_status
+        {
+            float:right;
+        }
+        #network_speed_max
+        {
+            float:right;
+        }
+
+        #file_selector
+        {
+
+        }
+        #file_selector label
+        {
+            font-size:32px;
+            height:40px;
+        }
+        #file_selector div img[class="button"]
+        {
+            width:80px;
+            height:40px;
+        }
+        #file_selector span[class="buttonList"]
+        {
+            float:right;
+        }
+        #file_selector div img[class="printer_connection_status"]
+        {
+            width:40px;
+            height:40px;
+            float:left;
+        }
+        #file_selector img
+        {
+            width:40px;
+            height:40px;
+        }
+        #button_file_add
+        {
+            background:url(resources/icon_folder.png) 0px 20px;
+            border:none;
+            color:transparent;
+            background-size: 80px 80px;
+            align:center;
+            background-repeat: no-repeat;
+            width:200px;
+            height:100px;
+            cursor:pointer;
+            display: none;
+        }
+        #progress_block {
+            border: 1px solid #2efe1d;
+        }
+        #progress_block div:hover
+        {
+            background: #eeeeee;
+        }
+        #progress_block div
+        {
+            height : 40px;
+        }
+        #progress_block .printer_name
+        {
+            float:left;
+        }
+        #progress_block .file_name
+        {
+            float:left;
+        }
+        #progress_block .userName
+        {
+            float:right;
+        }
+        #progress_block .file_type
+        {
+            float:right;
+            display:none;
+        }
+        #progress_block .file_size
+        {
+            float:right;
+        }
+        #progress_block img
+        {
+            width:40px;
+            height:40px;
+        /*  border-radius: 20px; */
+            float:left;
+        }
+        #progress_block span
+        {
+            float:none;
+        }
+        footer>div
+        {
+            display:inline-block;
+            width : 90%;
+            margin : 5%;
+            text_align: right;
+        }
+
+        #page_info img
+        {
+            width:40px;
+            height:40px;
+            float:left;
+        }
+        #page_info
+        {
+            font-size:16px;
+        }
+
+    </style>
+    <script type="text/javascript" src="Merry_Christmas!!.js" defer="defer"></script>
+</head>
+<body>
+
+<div id="page_decoration">
+    <div id="page_info">
+       <img src="resources/profile_melon_yellow.png">노란메론 님의 Print Page
+    </div>
+    <span id="network_speed_max">navigator.onLine : <label id ="network_status">알 수 없음</label> 업로드 속도 : <label>알 수 없음</label></span>
+    <p>Egoist - Guilty Crown</p>
+    <iframe src="HTMLPage1/HTMLPage1/myfile.html"></iframe>
+    <canvas border="1" width="200px" height = "200px"></canvas>
+    <form action="WebContent/NewFile.jsp" method="post">
+        <div>
+            <p id = "read_test_file_name"></p>
+            <textarea id ="read_test" readonly="readonly" rows="28" cols="100" style = overflow:scroll></textarea>
+        </div>
+    </form>
+</div>
+<div id ="page_printer">
+
+    <div id = "print_selector">
+        <div id = "print_header">
+            <img id="lan_connection_status"><label>인쇄</label><span id="user_status"><label id="user_id">아이디</label><input type="text" value="" id="login_id"><label id="user_password">비밀번호</label><input type="password" value="" id="login_password"><button id="login_button">로그인</button></span>
+        </div>
+
+        <div id = "file_selector">
+            <input type="file" id = "button_file_add" multiple="multiple">
+        </div>
+    </div>
+
+    <div id = "progress_block"></div>
+
+</div>
+<footer><div>print page version 0.0.3</div></footer>
+
+</body>
+</html>

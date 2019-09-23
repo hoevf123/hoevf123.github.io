@@ -1,0 +1,56 @@
+body
+{
+    font-size : 15px;
+}
+
+/* top_frame part */
+
+#top_frame
+{
+    border-width : 80px;
+    background-color: #b5e61d;
+    border-radius: 15px;
+}
+#page_name
+{
+    background-color : #b5e61d;
+}
+#user_status
+{
+    vertical-align: top;
+}
+
+/* body_frame part*/
+
+#body_frame
+{
+
+}
+#recommend_page
+{
+    vertical-align: middle;
+}
+#print_status_page
+{
+    vertical-align: top;
+}
+#progress_bar
+{
+    text-align : left;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+/* bottom_frame part*/
+
+#bottom_frame
+{
+    text-align: right;
+}
+#comment
+{
+    text-align: right;
+    font-size : 10px;
+}

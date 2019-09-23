@@ -1,0 +1,431 @@
+<!-- This HTML Code Is Only For Decoding How to Replace Assembly Code To Binary Byte Code -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        textarea {
+            width: 300px;
+            height: 600px;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="file" value="입력" id="hi" draggable="true" autocomplete="on">
+    <textarea id="textarea"></textarea>
+    <textarea id="result_decode"></textarea>
+    <input type="button" value="코드 치환" id="btn_replaceCode">
+    <input type="button" value="기계어 치환" id="btn_translateCode">
+    <br />
+    <textarea id="p2"></textarea>
+    <script type="text/javascript" defer="defer">
+        var textarea = document.getElementById("textarea");
+        var btn_file = document.getElementById("hi");
+        var text_loaded = false;
+        var register_list = new Array();
+        var segment_list = new Array();
+        var command_list = new Array();
+        var blockStart_list = new Array();
+        var blockEnd_list = new Array();
+        var definitionType_list = new Array();
+        var block_list = new Array();
+        var indication_list = new Array();
+
+
+        /* Add Register List */
+        register_list.push(new Register("AX", 2, "000"));
+        register_list.push(new Register("BX", 2, "011"));
+        register_list.push(new Register("CX", 2, "001"));
+        register_list.push(new Register("DX", 2, "010"));
+        register_list.push(new Register("AL", 1, "000"));
+        register_list.push(new Register("BL", 1, "011"));
+        register_list.push(new Register("CL", 1, "001"));
+        register_list.push(new Register("DL", 1, "010"));
+        register_list.push(new Register("AH", 1, "100"));
+        register_list.push(new Register("BH", 1, "111"));
+        register_list.push(new Register("CH", 1, "101"));
+        register_list.push(new Register("DH", 1, "110"));
+        register_list.push(new Register("BP", 2, "101"));
+        register_list.push(new Register("SP", 2, "100"));
+        register_list.push(new Register("SI", 2, "110"));
+        register_list.push(new Register("DI", 2, "111"));
+
+        segment_list.push(new Segment("CS", 2, "01"));
+        segment_list.push(new Segment("DS", 2, "11"));
+        segment_list.push(new Segment("SS", 2, "10"));
+        segment_list.push(new Segment("ES", 2, "00"));
+
+        command_list.push(new Command("MOV"));
+        command_list[0].commandSet.push("100010 d w mod reg r/m "); /* Register/Memory to/from Register */
+        command_list[0].commandSet.push("1100011 w mod 000 r/m data"); /* Immediate to Register/Memory */
+        command_list[0].commandSet.push("1011 w reg data"); /* immediate to Register */
+        command_list[0].commandSet.push("101000 d w addr"); /* Memory to Accumulator : d=0 , Accumulator to Memory : d=1 */
+        command_list[0].commandSet.push("100011 d 0 mod 0 reg r/m"); /* Segment Register to Memory/Register : d=0, Memory/Register to Segment Register : d=1 */
+        command_list.push(new Command("LEA"));
+        command_list.push(new Command("CMP"));
+        command_list.push(new Command("ADD"));
+        command_list.push(new Command("INT"));
+        command_list.push(new Command("JMP"));
+        command_list.push(new Command("SUB"));
+        command_list.push(new Command("MUL"));
+        command_list.push(new Command("JE"));
+        command_list.push(new Command("JLE"));
+        command_list.push(new Command("END"));
+        command_list.push(new Command("PUSH"));
+        command_list.push(new Command("POP"));
+        command_list.push(new Command("PUSHA"));
+        command_list.push(new Command("POPA"));
+        command_list.push(new Command("RET"));
+
+        blockStart_list.push(new BlockStart("SEGMENT"));
+        blockStart_list.push(new BlockStart("MACRO"));
+        blockStart_list.push(new BlockStart("PROC"));
+
+        blockEnd_list.push(new BlockEnd("ENDS"));
+        blockEnd_list.push(new BlockEnd("ENDM"));
+        blockEnd_list.push(new BlockEnd("ENDP"));
+
+        definitionType_list.push(new DefinitionType("DB", 1));
+        definitionType_list.push(new DefinitionType("DW", 2));
+        definitionType_list.push(new DefinitionType("DT", 10));
+
+        indication_list.push(new Indication("ASSUME"));
+
+        btn_file.onchange = btn_file.ondrag = function(e) {
+            var reader = new FileReader();
+            reader.readAsText(e.target.files[0]);
+            reader.onload = function(e) {
+                document.getElementById("textarea").innerText = e.target.result;
+                text_loaded = true;
+            }
+        }
+
+        function Register(name, size, binaryValue) {
+            this.name = name;
+            this.size = size; /* per byte */
+            this.constructor = Register;
+            this.binaryVaule = binaryValue;
+        }
+
+        function Segment(name, size, binaryValue) {
+            this.name = name
+            this.size = size; /* per byte */
+            this.constructor = Segment;
+            this.binaryVaule = binaryValue;
+        }
+
+        function Command(name) {
+            this.name = name;
+            this.commandSet = new Array(); /* Instruction Array */
+        }
+
+        function Block(symbol, blockStart, blockEnd) {
+            if (blockStart.constructor != BlockStart || blockEnd.constructor != BlockEnd) return undefined;
+            this.symbol = symbol;
+            this.blockStart = blockStart;
+            this.blockEnd = blockEnd;
+        }
+
+        function BlockStart(name, line) {
+            this.name = name;
+            this.line = line; /* Line Number of Code */
+            this.constructor = BlockStart;
+        }
+
+        function BlockEnd(name, line) {
+            this.name = name;
+            this.line = line; /* Line Number of Code */
+            this.constructor = BlockEnd;
+        }
+
+        function DefinitionType(name, size) {
+            this.name = name;
+            this.size = size; /* per byte */
+        }
+
+        function Label(name, line) {
+            this.name = name;
+            this.line = line; /* Line Number of Code */
+            this.constructor = Label;
+        }
+
+        function Symbol(name, line) {
+            this.name = name;
+            this.line = line;
+            this.linked = undefined;
+            this.constructor = Symbol;
+        }
+
+        function Block(symbol, start, end) {
+            this.name = symbol.name;
+            this.symbol = symbol;
+            this.start = start;
+            this.end = end;
+            this.constructor = Block;
+        }
+
+        function Instruction_Line(label, command, arg1, arg2) {
+            this.label = label;
+            this.command = command;
+            this.arg1 = arg1;
+            this.arg2 = arg2;
+        }
+
+        function Immediate(name) {
+            this.name = name /* Number, Hex Value Is Income. String Type or Number Type */
+            this.constructor = Immediate;
+        }
+
+        function InDirect(name) {
+            this.name = name
+            /* String, Surrounded With [] Brace */
+            this.constructor = InDirect;
+        }
+        /* Indication Type, Ignored Pattern */
+        function Indication(name) {
+            this.name = name;
+            this.constructor = Indication;
+        }
+
+        function DefinedSymbol(symbol, definitionType, value) {
+            this.symbol = symbol;
+            this.definitionType = definitionType;
+            this.value = value;
+        }
+
+        var decodeTrial1;
+        var labelTable;
+        var blockStartEndList;
+        var SymbolTable;
+
+        function replaceSomething1() {
+            var text = document.getElementById("textarea").value;
+            var index_cols = 0;
+            var splitedText = text.split("\n");
+            var resultText = "";
+            decodeTrial1 = new Array();
+            labelTable = new Array();
+            blockStartEndList = new Array();
+            SymbolTable = new Array();
+
+            /* Read Code Line By Line */
+            for (var i = 0; i < splitedText.length; i++) {
+                decodeTrial1[i] = new Array();
+                console.log("[" + i + "] : " + splitedText[i]);
+                var lineCode = splitedText[i].trim().replace("\t", " ").replace(",", " ").replace(" ", " ").split(" ");
+                /* Read Something, Text Token */
+                for (var index_cols = 0; index_cols < lineCode.length; index_cols++) {
+                    var currentText = lineCode[index_cols].replace("\t", "").replace(",", "").trim();
+                    var idx_check;
+                    currentText = currentText.trim(); /* Trim Current Text */
+                    console.log("Departed Code : " + currentText);
+                    /* Check Comment and Continue */
+                    if (currentText[0] == ';') {
+                        resultText += ";Comment(" + currentText + ") ";
+                        break;
+                    }
+                    /* Indication List, Ignored Pattern */
+                    for (idx_check = 0; idx_check < indication_list.length; idx_check++) {
+                        if (currentText == indication_list[idx_check].name) {
+                            resultText += "Indication(" + currentText + ")";
+                            break;
+                        }
+                    }
+                    if (idx_check < indication_list.length) {
+                        /* Clear Current Line's State */
+                        console.log("Removed Line Position : " + i);
+                        while (decodeTrial1[i].length != 0) decodeTrial1[i].pop();
+                        break;
+                    }
+                    /* Check Segment Register(Not Segment Block) */
+                    for (idx_check = 0; idx_check < segment_list.length; idx_check++) {
+                        if (currentText == segment_list[idx_check].name) {
+                            resultText += "Segment(" + currentText + ") ";
+                            decodeTrial1[i].push(segment_list[idx_check]);
+                            break;
+                        }
+                    }
+                    if (idx_check < segment_list.length) continue;
+
+                    /* Check Command */
+                    for (idx_check = 0; idx_check < command_list.length; idx_check++) {
+                        if (currentText == command_list[idx_check].name) {
+                            resultText += "Command(" + currentText + ") ";
+                            decodeTrial1[i].push(command_list[idx_check]);
+                            break;
+                        }
+                    }
+                    if (idx_check < command_list.length) continue;
+
+                    /* Check Register */
+                    for (idx_check = 0; idx_check < register_list.length; idx_check++) {
+                        if (currentText == register_list[idx_check].name) {
+                            resultText += "Register(" + currentText + ") ";
+                            decodeTrial1[i].push(register_list[idx_check]);
+                            break;
+                        }
+                    }
+                    if (idx_check < register_list.length) continue;
+
+                    /* Check blockStart */
+                    for (idx_check = 0; idx_check < blockStart_list.length; idx_check++) {
+                        if (currentText == blockStart_list[idx_check].name) {
+                            resultText += "BlockStart(" + currentText + ") ";
+                            decodeTrial1[i].push(new BlockStart(blockStart_list[idx_check].name, i)); /* insert BlockStart Saved At BlockStart_list */
+                            if (decodeTrial1[i][0].constructor == Symbol && decodeTrial1[i][1].constructor == BlockStart)
+                                blockStartEndList.push(new Block(decodeTrial1[i][0], decodeTrial1[i][1]));
+                            break;
+                        }
+                    }
+                    if (idx_check < blockStart_list.length) continue;
+
+                    /* Check blockEnd */
+                    for (idx_check = 0; idx_check < blockEnd_list.length; idx_check++) {
+                        if (currentText == blockEnd_list[idx_check].name) {
+                            resultText += "BlockEnd(" + currentText + ") ";
+                            decodeTrial1[i].push(new BlockEnd(blockEnd_list[idx_check].name, i));
+                            /* Check If This Block Is Block End Pattern*/
+                            var idx_blockStartEnd;
+                            if (decodeTrial1[i][0].constructor == Symbol && decodeTrial1[i][1].constructor == BlockEnd) {
+                                for (idx_blockStartEnd = 0; idx_blockStartEnd < blockStartEndList.length; idx_blockStartEnd++) {
+                                    /* If it is Find same Symbol name, It Will be Setted BlockEnd */
+                                    if (blockStartEndList[idx_blockStartEnd].name == decodeTrial1[i][0].name) {
+                                        blockStartEndList[idx_blockStartEnd].end = decodeTrial1[i][1];
+                                        break;
+                                    }
+                                }
+                            }
+                            /* if blockStartEnd Set Isn't Found, Notify Error Message. */
+                            if (idx_blockStartEnd == blockStartEndList.length)
+                                resultText += " [Error : Block Start NOT FOUND!!] ";
+                            break;
+                        }
+                    }
+                    if (idx_check < blockend_list.length)continue;
+
+                    /* Check DefinitionType */
+                    for (idx_check = 0; idx_check < definitionType_list.length; idx_check++) {
+                        if (currentText == definitionType_list[idx_check].name) {
+                            resultText += "DefinitionType(" + currentText + ") ";
+                            decodeTrial1[i].push(definitionType_list[idx_check]);
+                            break;
+                        }
+                    }
+                    if (idx_check < definitionType_list.length) continue;
+
+                    /* Check Immediate(Number, "?" mark ) */
+                    if ((currentText[0] >= '0' && currentText[0] <= '9') || currentText == "?") {
+                        resultText += "Immediate(" + currentText + ") ";
+                        if (index_cols == 2 && decodeTrial1[i][0].constructor == Symbol && decodeTrial1[i][1].constructor == DefinitionType) {
+                            SymbolTable.push(new DefinedSymbol(decodeTrial1[i][0], decodeTrial1[i][1], currentText));
+                        }
+                        decodeTrial1[i].push(new Immediate(currentText));
+                        continue;
+                    }
+                    /* Check Label */
+                    if (index_cols == 0 && currentText[currentText.length - 1] == ":") {
+                        resultText += "Label:(" + currentText + ") ";
+                        labelTable.push(new Label(currentText.replace(":", ""), i));
+                        continue;
+                    }
+                    /* Empty Line */
+                    if (currentText.trim() == "") {
+                        continue;
+                    }
+                    /* InDirect Type */
+                    if (currentText.trim()[0] == '[' && currentText.trim()[currentText.trim().length - 1] == ']') {
+                        resultText += "InDirect:(" + currentText + ") ";
+                        decodeTrial1.push(new InDirect(currentText.trim()));
+                        continue;
+                    }
+                    resultText += "Symbol(" + currentText + ") ";
+                    decodeTrial1[i].push(new Symbol(currentText, i));
+                }
+                resultText += "\n";
+                /* translate part */
+                /* var temp_index;//Index of Current Token 
+                for(temp_index=0;temp_index<decodeTrial1[temp_index].length;temp_index++){ 
+                if(decodeTrial1[temp_index].constructor==Command){ 
+                temp_index=0; 
+
+                } 
+                }*/
+            }
+            document.getElementById("result_decode").value = resultText;
+
+        }
+        document.getElementById("btn_replaceCode").addEventListener("click", replaceSomething1);
+
+        /* PASS2 */
+        function replaceSomething2() {
+            var text = document.getElementById("textarea").value;
+            var index_cols = 0; // Word Token 
+            var index_lines = 0; // Line Token(\n, LineBreak) 
+            var splitedText = text.split("\n");
+            var resultText = "";
+            /* Note : Reuse Translated Data(decodeTrial1 Array) */
+            for (index_lines = 0; index_lines < decodeTrial1.length; index_lines++) {
+                /* Decode Line By Line */
+                for (index_cols = 0; index_cols < decodeTrial1[index_lines].length; index_cols++) {
+                    /*Decode Word By Word */
+
+                    /*Check Type : Command, Translate Code To Binary */
+                    if (decodeTrial1[index_lines][index_cols].constructor == Command) {
+                        /* Show Detected Command Name For Use of Debugging */
+                        console.log("Command Detected : " + decodeTrial1[index_lines][index_cols].name);
+                        /* Search If some Arguments isn't Number, Symbol, Register, Segment */
+                        if (decodeTrial1[index_lines][index_cols + 1] == undefined) continue;
+                        else if (!(decodeTrial1[index_lines][index_cols + 1].constructor == Immediate)) {
+                            if (!(decodeTrial1[index_lines][index_cols + 1].constructor == Symbol))
+                                if (!(decodeTrial1[index_lines][index_cols + 1].constructor == Register))
+                                    if (!(decodeTrial1[index_lines][index_cols + 1].constructor == Segment))
+                                        if (!(decodeTrial1[index_lines][index_cols + 1].constructor == InDirect))
+                                            return alert("Syntax Error Found!!" + decodeTrial1[index_lines][index_cols + 1].name); //Program Halted. 
+                        }
+
+                        /* Symbol Type Error Check Code (Check Type : Symbol, Label, blockStartEnd name)*/
+                        if (decodeTrial1[index_lines][index_cols + 1].constructor == Symbol) {
+                            var i;
+                            /* Check Current Svmbol is Enrolled Symbol Table */
+                            for (i = 0; i < SymbolTable.length; i++) {
+                                if (decodeTrial1[index_lines][index_cols + 1].name == SymbolTable[i].symbol.name) {
+                                    console.log("Enrolled Symbol Found : " + decodeTrial1[index_lines][index_cols + 1].name);
+                                    break;
+                                }
+                            }
+                            if (i == SymbolTable.length) {
+                                /* Check Label Table */
+                                for (i = 0; i < labelTable.length; i++) {
+                                    if (decodeTrial1[index_lines][index_cols + 1].name == labelTable[i].name) {
+                                        console.log("Enrolled Label Found : " + decodeTrial1[index_lines][index_cols + 1].name);
+                                        break;
+                                    }
+                                }
+                                if (i == labelTable.length) {
+                                    /* Check blockStartEndList */
+                                    for (i = 0; i < blockStartEndList.length; i++) {
+                                        if (decodeTrial1[index_lines][index_cols + 1].name == blockStartEndList[i].name) {
+                                            console.log("Enrolled BlockStartEnd Found : " + decodeTrial1[index_lines][index_cols + 1].name);
+                                            break;
+                                        }
+                                    }
+                                    if (i == blockStartEndList.length)
+                                        return alert("Error : Symbol Not Found At Symbol Table : " + decodeTrial1[index_lines][index_cols + 1].name + ", " + decodeTrial1[index_lines][index_cols + 1].constructor);
+                                }
+                            }
+                        }
+                        console.log("Binary Code : " + decodeTrial1[index_lines][index_cols].commandSet[0]);
+                    }
+                }
+            }
+            return alert("Error Not Found, Assember Distinguished Grammer of This Code Is Correct");
+        }
+        document.getElementById("btn_translateCode").addEventListener("click", replaceSomething2);
+    </script>
+</body>
+
+</html>

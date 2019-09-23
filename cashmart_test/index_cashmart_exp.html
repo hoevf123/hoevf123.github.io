@@ -14,7 +14,7 @@
 </head>
 <body>
     <canvas width="1280" height="800" id="canvas">CANVAS NOT SUPPORTED</canvas>
-    <script type="text/javascript" src="fengari-web.js"></script> <!-- LUA Module -->
+    <script type="text/javascript" src="fengari-web.js"></script> <!-- LUA Module, Currently NOT USED module -->
     <script type="text/javascript" src="module_customobject.js"></script>
     <script type="text/javascript" src="md_ms2_interface.js"></script>
     <script type="text/javascript" src="md_cashmart.js" data-comment="cashmart logical module(ES6)"></script> 
@@ -103,6 +103,23 @@
                 //player's movement enrollment
                 console.log("안녕, ", player_cust);
                 var _t = player;
+                _t.oninteract=function(){
+                    function repeatfunc(base,targets,func,isretone=false){
+                        if(!(func instanceof Function)){
+                            return undefined;
+                        }
+                        var ret_vals=[];
+                        for(var a in targets){
+                            let ret_val=func(a,t);
+                            if(ret_val != undefined && isretone==true) return ret_val;
+                            ret_vals.push(ret_val);
+                        }
+                    }
+                    function checkisObjectIn(a,t){
+                        
+                    }
+                    repeatfunc(this,loc_prod_receivers);
+                }
                 _t.onkeydown=function(e){
                     const VK_LEFT = 37;
                     const VK_RIGHT = 39;
@@ -165,8 +182,9 @@
                             this.speed_y-=this.width;
                             break;
                         case CH_ACTION_INTERACT_KEY:
+                            this.interact();
                             /*
-                                
+                            
                             */
                             break;
                     }
@@ -257,6 +275,10 @@
                                                             if(typeof(Maple2CM.idx_currentStage)=="number"){
                                                                 Maple2CM.idx_currentStage++; //다음 라운드 세팅
                                                                 Maple2CM.idx_nextCustomerSet=0; //다음 인덱스는 0으로.
+                                                                var arbeit_start_time = 0 ;
+                                                                if(Maple2CM.idx_currentStage == 1){
+                                                                    arbeit_start_time=Date.now();
+                                                                }
                                                                 console.log("round "+ Maple2CM.idx_currentStage+" max : " + Maple2CM.default_stage_customer_visitSets.length );
                                                                 if(Maple2CM.idx_currentStage>0 && Maple2CM.idx_currentStage<=Maple2CM.default_stage_customer_visitSets.length){
                                                                     console.log("Auto Summon!");
@@ -280,6 +302,13 @@
                                                                 _label_next_round.value="CashMart Arbeit Accomplished!!";
                                                                 setTimeout(function(){
                                                                     _label_next_round.removeCustomObject();
+                                                                    var _label_clear_time=new MyObject("label_arbeit_accomplished_time",600,300,1200,150);
+                                                                    let clear_time = new Date(Date.now() - arbeit_start_time);
+                                                                    console.log(clear_time);
+                                                                    _label_clear_time.value="clear time : " + (clear_time.getMinutes()) + "min " + (clear_time.getSeconds());
+                                                                    setTimeout(function(){
+                                                                        _label_clear_time.removeCustomObject();
+                                                                    },5000);
                                                                 },2000);
                                                             }
                                                             else{
