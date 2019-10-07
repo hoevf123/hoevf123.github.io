@@ -1,0 +1,170 @@
+/* font preface delaration */
+@font-face{
+	font-family:"gyeonggicheonneyon-medium";
+	src:url("경기서체웹폰트/Title_Medium.otf");
+}
+@font-face{
+	font-family:"gyeonggicheonneyon-light";
+	src:url("경기서체웹폰트/Title_Light.otf");
+	
+}
+@media(max-width:700px){
+    ul.navbar-target1>li, ul.sub-menu>li{
+        display: table;
+    }
+}
+/* CSS code start */
+/* 모든 문서의 기본 설정 */
+*{
+	font-family:"gyeonggicheonneyon-light";
+}
+h1,h2,h3,h4,h5,h6,strong{
+	font-family:"gyeonggicheonneyon-medium";
+}
+html,body{
+    margin:0px;
+    padding:0px;
+    background-color:ivory;
+}
+div.div-content{
+    display:table;
+    margin:auto;
+}
+
+a.disable-default-font-color{
+    color:inherit;
+    text-decoration: inherit;
+}
+li>ul.sub-menu.hide{
+    display:none;
+}
+li>ul.sub-menu:hover, li>ul.sub-menu{
+    display:inherit;
+}
+
+/* 네비게이터(상단) */
+div.navigator-area{
+    display:block;
+    background-color:rgb(255,160,102);
+    width:100%;
+    height:auto;
+    padding:0px;
+    margin:0px;
+}
+ul.navbar-target1, ul.sub-menu{
+    padding:0px;
+    margin:0px;
+}
+ul.navbar-target1>li, ul.sub-menu>li{
+    position: relative;
+    display:inline-block;
+    list-style: none;
+    min-width:50px;
+    width:auto;
+    padding-left:10px;
+    padding-right:10px;
+    padding-top:10px;
+    padding-bottom: 10px;
+    margin-top:3px;
+    margin-bottom:3px;
+    margin-left:auto;
+    margin-right:auto;
+    height:auto;
+    background-color: bisque;
+    vertical-align: middle;
+    border-radius: 10px;
+    font-weight: 400;
+    color:black;
+    font-size:medium;
+}
+ul.navbar-target1>li{
+    vertical-align: center;
+    min-width:60px;
+    min-height:60px;
+}
+ul.navbar-target1>li:hover, ul.sub-menu>li:hover{background-color:rgb(255, 241, 224); }
+ul.navbar-target1>li.disabled{background-color:gray;}
+ul.navbar-target1>li.red{background-color:tomato;}
+ul.navbar-target1>li.red:hover{background-color:rgb(255, 120, 96);}
+ul.navbar-target1>li.orange{background-color:rgb(255, 180, 40);}
+ul.navbar-target1>li.orange:hover{background-color:rgb(252, 200, 60);}
+ul.navbar-target1>li.green{background-color: lightgreen;}
+ul.navbar-target1>li.green:hover{background-color: rgb(171, 243, 171);}
+ul.navbar-target1>li.skyblue{background-color: skyblue;}
+ul.navbar-target1>li.skyblue:hover{background-color: rgb(175, 220, 238);}
+ul.navbar-target1>li.white{background-color: white;}
+ul.navbar-target1>li.transparent{background-color: transparent;}
+
+ul.navbar-target1>li p{
+    text-align: center;
+    margin:0px;
+}
+.guild_logo{
+    width:80px;
+    height:80px;
+    vertical-align:top;
+}
+.navbar-target>div.login_btn_area{
+	display:inline;
+	position:right;
+}
+li.right{
+    display:flex;
+    align-items: center;
+}
+.tag-center{display:inline-block;}
+
+ul.navbar-target1>li:hover ul.sub-menu{
+    display:inline-block;
+}
+ul.navbar-target1>li:hover ul.navbar-target1{
+    display:inline-block;
+    animation-name:hello;
+}
+@keyframes aaa{
+
+}
+
+
+
+/* 게시판 */
+
+tr,td{
+	border:1px solid #000000;
+}
+td.board-number{
+    width:60px;
+    text-align:center;
+}
+td.board-enroll-time{
+    width:150px;
+    text-align:center;
+}
+td.board-author{
+    width:120px;
+    text-align: center;
+}
+td.board-hit{
+    width:60px;
+    text-align: center;
+}
+td.board-title{
+    width:600px;
+}
+ul.board-page-btns{
+    display:table;
+    margin:auto;
+}
+li.btn-page-move{
+    display: inline-block;
+    width:32px;
+    text-align:center;
+    background-color:rgb(241, 190, 59);
+    border-radius: 8px;
+    left:50%;
+}
+li.yellow{background-color:yellow;}
+li.btn-page-move>a{color:inherit; text-decoration: inherit;}
+
+/* 게시판 글쓰기 */
+

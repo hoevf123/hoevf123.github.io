@@ -28,6 +28,7 @@ html,body{
 }
 div.div-content{
     display:table;
+    min-width:800px;
     margin:auto;
 }
 
@@ -82,18 +83,20 @@ ul.navbar-target1>li{
     min-width:60px;
     min-height:60px;
 }
-ul.navbar-target1>li:hover, ul.sub-menu>li:hover{background-color:rgb(255, 241, 224); }
-ul.navbar-target1>li.disabled{background-color:gray;}
-ul.navbar-target1>li.red{background-color:tomato;}
-ul.navbar-target1>li.red:hover{background-color:rgb(255, 120, 96);}
-ul.navbar-target1>li.orange{background-color:rgb(255, 180, 40);}
-ul.navbar-target1>li.orange:hover{background-color:rgb(252, 200, 60);}
-ul.navbar-target1>li.green{background-color: lightgreen;}
-ul.navbar-target1>li.green:hover{background-color: rgb(171, 243, 171);}
-ul.navbar-target1>li.skyblue{background-color: skyblue;}
-ul.navbar-target1>li.skyblue:hover{background-color: rgb(175, 220, 238);}
-ul.navbar-target1>li.white{background-color: white;}
-ul.navbar-target1>li.transparent{background-color: transparent;}
+ul.navbar-target1 li:hover, ul.sub-menu>li:hover{background-color:rgb(255, 241, 224); }
+ul.navbar-target1 li.disabled{background-color:gray;}
+ul.navbar-target1 li.red{background-color:tomato;}
+ul.navbar-target1 li.red:hover{background-color:rgb(255, 120, 96);}
+ul.navbar-target1 li.orange{background-color:rgb(255, 180, 40);}
+ul.navbar-target1 li.orange:hover{background-color:rgb(252, 200, 60);}
+ul.navbar-target1 li.green{background-color: lightgreen;}
+ul.navbar-target1 li.green:hover{background-color: rgb(171, 243, 171);}
+ul.navbar-target1 li.skyblue{background-color: skyblue;}
+ul.navbar-target1 li.skyblue:hover{background-color: rgb(175, 220, 238);}
+ul.navbar-target1 li.peach{background-color: rgb(255, 102, 153);}
+ul.navbar-target1 li.peach:hover{background-color: rgb(240 , 120, 160);}
+ul.navbar-target1 li.white{background-color: white;}
+ul.navbar-target1 li.transparent{background-color: transparent;}
 
 ul.navbar-target1>li p{
     text-align: center;
@@ -125,6 +128,13 @@ ul.navbar-target1>li:hover ul.navbar-target1{
 
 }
 
+/* 길드 멤버 소개 */
+div.guild-member-introduction{
+    background-color:rgb(255, 203, 124);
+    padding:30px;
+    margin:15px;
+    border-radius: 15px;
+}
 
 
 /* 게시판 */

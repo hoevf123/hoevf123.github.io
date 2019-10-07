@@ -4,6 +4,31 @@
     <title>메이플2</title>
     <link rel="icon" href="메2 길드마크.png" type="image/png">
     <link rel="stylesheet" href="common.css">
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-analytics.js"></script>
+
+    <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+        apiKey: "AIzaSyB7Bd4GnGfPz1CEOKY16TEGVcc8lf0Q-vA",
+        authDomain: "ms2-bishop-skilful-air-169101.firebaseapp.com",
+        databaseURL: "https://ms2-bishop-skilful-air-169101.firebaseio.com",
+        projectId: "ms2-bishop-skilful-air-169101",
+        storageBucket: "",
+        messagingSenderId: "400364465679",
+        appId: "1:400364465679:web:a09a0583c36cfccc883d7a",
+        measurementId: "G-WMTXBF0PY9"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+
+    var firebaseDatabase = firebase.database();
+    </script>
 </head>
 <body>
     <header>
