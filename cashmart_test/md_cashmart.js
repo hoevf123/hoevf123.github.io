@@ -48,6 +48,8 @@ class Maple2CashMart{
         this.stages=[1,2,3];
         this.idx_currentStage=0;
         this.idx_nextCustomerSet=0;
+        this.arbeit_start_time=0;
+        this.arbeit_end_time=0;
         this.products=[];
         this.npcs=[];
         this.npcRequires=[];

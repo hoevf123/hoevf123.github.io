@@ -275,9 +275,8 @@
                                                             if(typeof(Maple2CM.idx_currentStage)=="number"){
                                                                 Maple2CM.idx_currentStage++; //다음 라운드 세팅
                                                                 Maple2CM.idx_nextCustomerSet=0; //다음 인덱스는 0으로.
-                                                                var arbeit_start_time = 0 ;
                                                                 if(Maple2CM.idx_currentStage == 1){
-                                                                    arbeit_start_time=Date.now();
+                                                                    Maple2CM.arbeit_start_time = new Date();
                                                                 }
                                                                 console.log("round "+ Maple2CM.idx_currentStage+" max : " + Maple2CM.default_stage_customer_visitSets.length );
                                                                 if(Maple2CM.idx_currentStage>0 && Maple2CM.idx_currentStage<=Maple2CM.default_stage_customer_visitSets.length){
@@ -297,13 +296,15 @@
                                                                 }
                                                             }
                                                             if(Maple2CM.idx_currentStage==Maple2CM.default_stage_customer_visitSets.length+1){
+                                                                Maple2CM.arbeit_end_time = new Date();
                                                                 music_system_battlefiled_win.play();
                                                                 var _label_next_round=new MyObject("label_arbeit_accomplished",600,300,1200,150);
                                                                 _label_next_round.value="CashMart Arbeit Accomplished!!";
                                                                 setTimeout(function(){
                                                                     _label_next_round.removeCustomObject();
                                                                     var _label_clear_time=new MyObject("label_arbeit_accomplished_time",600,300,1200,150);
-                                                                    let clear_time = new Date(Date.now() - arbeit_start_time);
+                                                                    let clear_time = new Date(Maple2CM.arbeit_end_time - Maple2CM.arbeit_start_time);
+                                                                    console.log("alba time : " + Maple2CM.arbeit_start_time);
                                                                     console.log(clear_time);
                                                                     _label_clear_time.value="clear time : " + (clear_time.getMinutes()) + "min " + (clear_time.getSeconds());
                                                                     setTimeout(function(){
