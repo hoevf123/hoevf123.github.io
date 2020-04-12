@@ -134,6 +134,20 @@ div.guild-member-introduction{
     padding:30px;
     margin:15px;
     border-radius: 15px;
+
+}
+.character-say{
+    background-color: white;
+    position: relative;
+    float:right;
+    text-align: center;
+    line-height: 150px;
+    border-radius: 30px;
+    padding:10px;
+    min-width:180px;
+    margin:0px;
+    width: 360px;
+    height:160px;
 }
 
 
@@ -175,3 +189,12 @@ li.btn-page-move{
 }
 li.yellow{background-color:yellow;}
 li.btn-page-move>a{color:inherit; text-decoration: inherit;}
+
+/* ms2-dict */
+ul.ms2-dict-represent-area{
+    padding:10px;
+}
+.dict-data{
+    border:1px dashed #000000;
+    padding:10px;
+}
