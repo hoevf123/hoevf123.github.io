@@ -46,11 +46,12 @@ li>ul.sub-menu:hover, li>ul.sub-menu{
 /* 네비게이터(상단) */
 div.navigator-area{
     display:block;
+    position: relative;
     background-color:rgb(255,160,102);
     width:100%;
+    text-align: center;
     height:auto;
     padding:0px;
-    margin:0px;
 }
 ul.navbar-target1, ul.sub-menu{
     padding:0px;
@@ -95,6 +96,8 @@ ul.navbar-target1 li.skyblue{background-color: skyblue;}
 ul.navbar-target1 li.skyblue:hover{background-color: rgb(175, 220, 238);}
 ul.navbar-target1 li.peach{background-color: rgb(255, 102, 153);}
 ul.navbar-target1 li.peach:hover{background-color: rgb(240 , 120, 160);}
+ul.navbar-target1 li.lightpink{background-color: lightpink;}
+ul.navbar-target1 li.lightpink:hover{background-color: rgb(253, 201, 211);}
 ul.navbar-target1 li.white{background-color: white;}
 ul.navbar-target1 li.transparent{background-color: transparent;}
 
@@ -194,7 +197,85 @@ li.btn-page-move>a{color:inherit; text-decoration: inherit;}
 ul.ms2-dict-represent-area{
     padding:10px;
 }
-.dict-data{
+
+/* ms2-dict header*/
+.dict-data p.hash-tag{
+    display:inline;
+}
+
+/* dict-result and dict-data*/
+.dict-data:not(.selected){
     border:1px dashed #000000;
     padding:10px;
+}
+.dict-data.selected{
+    border:1px solid rgba(255, 0, 0,1);
+    padding:10px;
+}
+.dict-data p.hash-tag::before{
+    content:"#";
+}
+@keyframes div-selected-open{
+    from{
+        display:hidden;
+    }
+    to{
+        display:inline-block;
+    }
+}
+div.dict-result{
+    width:1040px;
+}
+div.dict-result.월페이퍼>div.dict-data{
+    display: inline-block;
+    /*width:480px;*/
+    padding:5px;
+    margin:0px;
+}
+div.dict-result.월페이퍼>div.dict-data img.thumb-img{
+    width:480px;
+    /*height:360px;*/
+    /*max-width: auto-resize;*/
+    display:block;
+}
+
+div.dict-result.공방도안>div.dict-data{
+    display: inline-block;
+    width:240px;
+    padding:5px;
+    margin:0px;
+}
+div.dict-result.공방도안>div.dict-data img.pallete-img{
+    width:240px;
+    display:block;
+}
+
+/*
+div.dict-result.월페이퍼>div.dict-data a{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width:160px;
+}*/
+.dictdata-names>li{
+    position: relative;
+    display:inline-block;
+    list-style: none;
+    min-width:50px;
+    width:auto;
+    padding-left:10px;
+    padding-right:10px;
+    padding-top:10px;
+    padding-bottom: 10px;
+    margin-top:3px;
+    margin-bottom:3px;
+    margin-left:auto;
+    margin-right:auto;
+    height:auto;
+    background-color: bisque;
+    vertical-align: middle;
+    border-radius: 10px;
+    font-weight: 400;
+    color:black;
+    font-size:medium;
 }
