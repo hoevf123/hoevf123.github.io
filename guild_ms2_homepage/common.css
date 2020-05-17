@@ -279,3 +279,9 @@ div.dict-result.월페이퍼>div.dict-data a{
     color:black;
     font-size:medium;
 }
+.pallete-cost-meso::after{
+    content: "메소";
+}
+.pallete-cost-meret::after{
+    content: "메럿";
+}
