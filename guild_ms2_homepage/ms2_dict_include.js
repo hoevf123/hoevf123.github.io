@@ -39,10 +39,19 @@ class DictData {
                     tag.innerText=innerText;
                 }
                 else if(tag_name=="a"){
-                    if(String.prototype.startsWith.call(innerText,"./")){
-                        if(innerText.trim().startsWith("http")){
-                            tag.innerText=innerText;
-                            tag.href=innerText;
+                    innerText = innerText.trim();
+                    if(innerText.startsWith("http")){
+                        tag.innerText=innerText;
+                        tag.href=innerText;
+                    }
+                    else {
+                        let local_blocked_file_type=["mp3"];
+                        while(String.prototype.startsWith.call(innerText,"./")){
+                            innerText=innerText.substring(2); //remove ./ at the header one
+                        }
+                        if((innerText == "") || local_blocked_file_type.reduce((a,c)=> a || innerText.endsWith("."+ new String(c)),false)){
+                            //do nothing if blocked file type detected
+                            return undefined;
                         }
                         else{
                             tag.innerText = "[" + String.prototype.split.call(innerText,"/").reverse()[0] + "]";
@@ -102,15 +111,25 @@ class DictData {
                         let group_div_tag = CreateTag("div", tag_classname,"");
                         target_cell = flatten_array(target_cell).map((e)=>{
                             let _inside_tag = CreateTag(tag_style,tag_classname,e);
-                            group_div_tag.appendChild(_inside_tag);
-                            return _inside_tag;
+                            if(_inside_tag instanceof HTMLElement){
+                                group_div_tag.appendChild(_inside_tag);
+                                return _inside_tag;
+                            }
                         });
                         //console.log("Merged : ", target_cell);
+                        if(group_div_tag.childNodes.length <= 0){
+                            // remove group tag if there's no included data in the group tag.
+                            group_div_tag.remove();
+                            group_div_tag=undefined; //set undefined value
+                        }
                         target_cell = group_div_tag;
                     }
-                    else if(target_cell == undefined) return a;
+                    else if(target_cell == undefined);
                     else target_cell = CreateTag(tag_style, tag_classname, target_cell);
-                    return a.concat(target_cell); 
+                    if(target_cell instanceof HTMLElement)
+                        return a.concat(target_cell);
+                    else
+                        return a;
                 },[]);
                 // pack cell's data <div class="dict-data"> blah blah <----- this contents </div>
                 tag_datas.forEach(e => { tag_cell_root.appendChild(e) });
@@ -344,7 +363,7 @@ let ms2_bgm_records_format = [
     ["p", "title"],
     ["p", "music_play_location"],
     ["p", "ms2_file_name"],
-    ["p", "bgm_src"]
+    ["a", "bgm_src"]
 ];
 
 let ms2_bgm_records = [
