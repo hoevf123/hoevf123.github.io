@@ -195,12 +195,20 @@ li.btn-page-move>a{color:inherit; text-decoration: inherit;}
 
 /* ms2-dict */
 ul.ms2-dict-represent-area{
-    padding:10px;
+    padding:0px;
 }
 
 /* ms2-dict header*/
 .dict-data p.hash-tag{
     display:inline;
+}
+
+/* dictdata result revealing space*/
+div.dict-result{
+    width:1040px;
+    max-width: 1040px;
+    padding:0px;
+    margin:auto;
 }
 
 /* dict-result and dict-data*/
@@ -212,6 +220,18 @@ ul.ms2-dict-represent-area{
     border:1px solid rgba(255, 0, 0,1);
     padding:10px;
 }
+
+div.dict-result>div.dict-data:not(.selected) *{
+    display: none !important;
+}
+div.dict-result>div.dict-data .ms2-dictdata-title{
+    display: inherit !important;
+}
+div.dict-result>div.dict-data .ms2-dictdata-thumbnail{
+    display: none !important;
+}
+
+
 .dict-data p.hash-tag::before{
     content:"#";
 }
@@ -223,21 +243,20 @@ ul.ms2-dict-represent-area{
         display:inline-block;
     }
 }
-div.dict-result{
-    width:1040px;
-}
+
 div.dict-result.월페이퍼>div.dict-data{
     display: inline-block;
-    /*width:480px;*/
-    padding:5px;
+    width:490px;
+    max-width: 100%;
+    padding:10px;
     margin:0px;
 }
+
 div.dict-result.월페이퍼>div.dict-data img.thumb-img{
-    width:480px;
-    /*height:360px;*/
-    /*max-width: auto-resize;*/
+    max-width: 100%;
     display:block;
 }
+
 
 div.dict-result.공방도안>div.dict-data{
     display: inline-block;
@@ -247,16 +266,37 @@ div.dict-result.공방도안>div.dict-data{
 }
 div.dict-result.공방도안>div.dict-data img.pallete-img{
     width:240px;
-    display:block;
+    display:inline-block;   
 }
 
-/*
-div.dict-result.월페이퍼>div.dict-data a{
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    width:160px;
-}*/
+/* 던전 정보 */
+div.dict-result>div.dict-data p.ms2-require-level:before{
+    content:"입장 레벨 : ";
+}
+div.dict-result>div.dict-data p.ms2-dungeon-release-date:before{
+    content:"던전 출시일 : ";
+}
+div.dict-result>div.dict-data p.ms2-dungeon-closed-date:before{
+    content:"던전 폐쇄일 : ";
+}
+div.dict-result>div.dict-data p.ms2-minimum-require-players:before{
+    content:"입장 가능 최소인원 : ";
+}
+div.dict-result>div.dict-data p.ms2-minimum-require-players:after{
+    content:"명";
+}
+div.dict-result>div.dict-data p.ms2-maximum-require-players:before{
+    content:"입장 가능 최대인원 : ";
+}
+div.dict-result>div.dict-data p.ms2-maximum-require-players:after{
+    content:"명";
+}
+div.dict-result>div.dict-data p.ms2-dungeon-closed-date{
+    background-color: darkgray; 
+}
+
+
+/* dict-data header names display */
 .dictdata-names>li{
     position: relative;
     display:inline-block;
