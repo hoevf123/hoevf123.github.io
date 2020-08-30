@@ -2,8 +2,8 @@
 class DictData {
     constructor(typename, tuple_tag_format, tuple_datas, represent_tag_target) {
         this.typename = typename;
-        this.tuple_tag_format = tuple_tag_format;
-        this.datas = tuple_datas;
+        this.tuple_tag_format = tuple_tag_format; //[["p", "foo-class"], ["img", "bar-class"], ...]
+        this.datas = tuple_datas; // ["hello", "temp-https://about:blank", ...]
         this.represent_tag_target = represent_tag_target;
     }
     clearTags(represent_tag_target){
@@ -85,10 +85,25 @@ class DictData {
                 return Array.prototype.reduce.call(target_array,reducer, []);
             }
 
+            function temp_something(arr){
+                return Array.prototype.reduce.call(arr,function(a,c,i){return a;},[]);
+            }
 
+
+            // 1. make dict-result(root) div tag.
             let tag_root = CreateTag("div","dict-result " + this.typename);
-            for (var idx_datas in this.datas) {
-                let target_data = this.datas[idx_datas];    //[["title","music-name", "..."] <-- this ];
+
+            // 2. make cells in data results
+            let tag_dictdatas = [];
+            for(let idx_datas = 0 ; idx_datas < this.datas.length ; idx_datas++){
+                let c = this.datas[idx_datas];
+                let tuple_tag_format = this.tuple_tag_format;
+                // forced data to Array type.
+                let target_data_arr = c;
+                //let tuple_tag_format = this.tuple_tag_format;
+                if(!(target_data_arr instanceof Array)) target_data_arr = [target_data_arr];
+
+                // 2-1. make root cell of each div tag.
                 let tag_cell_root = CreateTag("div", "dict-data", "");
                 tag_cell_root.addEventListener("click",(function(){
                     //this : tag_cell_root, it change states of dict-data selected or not.
@@ -97,47 +112,54 @@ class DictData {
                         else this.classList.add(str_selected_className);
                     }).bind(tag_cell_root)
                 );
-                let tag_datas = this.tuple_tag_format.reduce((a, c, i) => {
-                    // a = a list of created datas
-                    // c = line dataset style definition object one. [["p", "foo-class"]<-- This ]
-                    // i = line index of dataset, pos of target_cell
-                    let target_cell = target_data[i]; // ["p" <-- This , "foo-class"]
-                    let tag_style = c[0] || "p";
-                    let tag_classname = c[1] || "";
-                    //console.log(target_cell);
-                    if(target_cell instanceof Array){
-                        // target_cell = [["hello", ["world"]] <-- this(all of the list shell) , "blah-blah", ...] <-- not here!;
-                        //console.log(target_cell);
-                        let group_div_tag = CreateTag("div", tag_classname,"");
-                        target_cell = flatten_array(target_cell).map((e)=>{
-                            let _inside_tag = CreateTag(tag_style,tag_classname,e);
-                            if(_inside_tag instanceof HTMLElement){
-                                group_div_tag.appendChild(_inside_tag);
-                                return _inside_tag;
-                            }
-                        });
-                        //console.log("Merged : ", target_cell);
-                        if(group_div_tag.childNodes.length <= 0){
-                            // remove group tag if there's no included data in the group tag.
-                            group_div_tag.remove();
-                            group_div_tag=undefined; //set undefined value
-                        }
-                        target_cell = group_div_tag;
-                    }
-                    else if(target_cell == undefined);
-                    else target_cell = CreateTag(tag_style, tag_classname, target_cell);
-                    if(target_cell instanceof HTMLElement)
-                        return a.concat(target_cell);
-                    else
-                        return a;
-                },[]);
-                // pack cell's data <div class="dict-data"> blah blah <----- this contents </div>
-                tag_datas.forEach(e => { tag_cell_root.appendChild(e) });
 
-                // and contains tag_cell_root to master tag root.
-                tag_root.appendChild(tag_cell_root);
-            }
-            // represent combined tag datas to represent area(s).
+                // 2-2. insert data to HTMLElement in the head cell tag
+                function asd(target_tag_root, target_tag_type, target_tag_className, target_data){
+                    let ret_tag = undefined;
+                    if(target_data instanceof Array){
+                        let _inside_tag = CreateTag("div", target_tag_className);
+                        target_data.forEach((e)=>{asd(_inside_tag, target_tag_type, target_tag_className, e);});
+                        if(!(_inside_tag.hasChildNodes()))ret_tag = undefined;
+                        else ret_tag = _inside_tag;
+                    }
+                    else if(target_data instanceof Object){
+                        // convert dict type to array classname format and array data(s)
+                        let _inside_tag = CreateTag("div", target_tag_className);
+                        let key_names = Object.keys(target_data);
+                        let tagFramewithDatas = Array.prototype.reduce.call(key_names, function(a, c, i){
+                            // c = name of keynames, used as className
+                            a.push([String(target_tag_type), String(c), target_data[c] ]);
+                            return a;
+                        }, []);
+                        tagFramewithDatas.forEach(e=>asd(_inside_tag, e[0], e[1], e[2]));
+                        ret_tag = _inside_tag;
+                    }
+                    else{
+                        ret_tag = CreateTag(target_tag_type, target_tag_className, String(target_data));
+                    }
+
+                    if(ret_tag instanceof HTMLElement) {
+                        if(target_tag_root instanceof HTMLElement) target_tag_root.appendChild(ret_tag);
+                        return ret_tag;
+                    }
+                    else return;
+                }
+                target_data_arr.forEach(function(data_cell, idx_data_cell){
+                    if(tuple_tag_format[idx_data_cell] instanceof Array){
+                        let tag_name = tuple_tag_format[idx_data_cell][0] || tag_name;
+                        let tag_className = tuple_tag_format[idx_data_cell][1] || tag_className;
+                        asd(tag_cell_root, tag_name, tag_className ,data_cell);
+                    }
+                });
+                
+                console.log(tag_cell_root);
+                // return completly made cell tag.
+                if(tag_cell_root instanceof HTMLElement) tag_dictdatas.push(tag_cell_root);
+            }; 
+
+            // 3. combine dict-data tags into (master) dict-result.
+            tag_dictdatas.forEach((e)=>tag_root.appendChild(e));
+            // 3. represent combined tag datas to represent area(s).
             let tags = document.getElementsByClassName(represent_tag_target);
             Array.prototype.forEach.call(tags, e => e.appendChild(document.createElement("li").appendChild(tag_root)));
         }

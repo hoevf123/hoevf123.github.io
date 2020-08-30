@@ -295,6 +295,27 @@ div.dict-result>div.dict-data p.ms2-dungeon-closed-date{
     background-color: darkgray; 
 }
 
+/* 스킨 세트 사전 */
+div.dict-result.스킨.세트 div.ms2-skin-item {
+    border: 1px dashed #000000;
+}
+div.dict-result.스킨.세트 div.ms2-skin-item *{
+    position: relative;
+    display:inline-block;
+    padding:5px;
+    margin:5px;
+}
+div.dict-result.스킨.세트 .packageName{
+    font-size:1.5em;
+}
+div.dict-result.스킨.세트 .tradeType{
+    color:red;
+}
+
+div.dict-result.스킨.세트 div.items{
+    border-radius: 5px;
+    background-color:lightgray;
+}
 
 /* dict-data header names display */
 .dictdata-names>li{
