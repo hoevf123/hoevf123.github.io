@@ -991,11 +991,13 @@
         function draw(context,image){
             context.beginPath();
             context.strokeStyle=this.strokeStyle;
-            if(this.imgSrc !== undefined && typeof(this.imgSrc) == "string"){
+            if(this.imgSrc !== undefined && (typeof(this.imgSrc) == "string" || image instanceof HTMLCanvasElement)){
                 context.beginPath();
                 var direction=this.direction/Math.abs(this.direction);/* Makes Direction value only 1(left to right), -1(right to left). */
-                var image=new Image();
-                image.src=this.imgSrc;
+                if(!(image instanceof HTMLCanvasElement)){
+                    image=new Image();
+                    image.src=this.imgSrc;
+                }
                 context.save();//must be written
                 context.scale(direction,1);/* flip x using direction variable */
                 context.drawImage(image,(this.x-this.width/2)*direction,this.y-this.height/2,this.width*direction,this.height);

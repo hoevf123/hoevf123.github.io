@@ -33,6 +33,7 @@ let ms2_skinset_records = [
         ], "package's first reveailed Date"]               
         
     */
+   
     ["폴 래빗 세트", [
         { packageName : "폴 래빗 세트", itemGrade : "excellent", gettingMethod : "(9월) 더키의 꾸미기 캡슐", isFullgiven : false, tradeType : "account-bind", genderType : "male", items :["폴 래빗 귀고리 (남)", "폴 래빗 모자 (남)", "폴 래빗 장갑 (남)", "폴 래빗 구두 (남)", "폴 래빗 매직 스카프 (남)", "폴 래빗 수트 (남)"], releasedDate : "2020-09-01" , previewImage : "" },
         { packageName : "폴 래빗 세트", itemGrade : "excellent", gettingMethod : "(9월) 더키의 꾸미기 캡슐", isFullgiven : false,  tradeType : "account-bind",genderType : "female", items :["폴 래빗 귀고리 (여)", "폴 래빗 모자 (여)", "폴 래빗 장갑 (여)","폴 래빗 구두 (여)", "폴 래빗 매직 스카프 (여)", "폴 래빗 드레스 (여)"], releasedDate : "2020-09-01" , previewImage : "" },
@@ -90,10 +91,10 @@ let ms2_skinset_records = [
         { packageName : "모던 한복 세트", itemGrade : "excellent", gettingMethod : "메콩 5주년 스페셜 캡슐", isFullgiven : false,  tradeType : "account-bind", genderType : "female", items :[], releasedDate : "2020-09-01" , previewImage : "" },
     ]],
     ["펑키 네온 캣 세트",[
-        { packageName : "펑키 네온 캣 옵션 룩 패키지", itemGrade : "excellent", gettingMethod : "메럿마켓", isFullgiven : true,  tradeType : "account-bind", genderType : "male", items :[], releasedDate : "2020-09-01" , previewImage : "" },
-        { packageName : "펑키 네온 캣 옵션 룩 패키지", itemGrade : "excellent", gettingMethod : "메럿마켓", isFullgiven : true,  tradeType : "account-bind", genderType : "female", items :[], releasedDate : "2020-09-01" , previewImage : "" },
-        { packageName : "펑키 네온 캣 옵션 룩 세트", itemGrade : "excellent", gettingMethod : "메럿마켓", isFullgiven : true,  tradeType : "account-bind", genderType : "male", items :[], releasedDate : "2020-09-01" , previewImage : "" },
-        { packageName : "펑키 네온 캣 옵션 룩 세트", itemGrade : "excellent", gettingMethod : "메럿마켓", isFullgiven : true,  tradeType : "account-bind", genderType : "female", items :[], releasedDate : "2020-09-01" , previewImage : "" },
+        { packageName : "펑키 네온 캣 옵션 룩 패키지", itemGrade : "excellent", gettingMethod : "메럿 마켓", isFullgiven : true,  tradeType : "account-bind", genderType : "male", items :[], releasedDate : "2020-09-01" , previewImage : "" },
+        { packageName : "펑키 네온 캣 옵션 룩 패키지", itemGrade : "excellent", gettingMethod : "메럿 마켓", isFullgiven : true,  tradeType : "account-bind", genderType : "female", items :[], releasedDate : "2020-09-01" , previewImage : "" },
+        { packageName : "펑키 네온 캣 옵션 룩 세트", itemGrade : "excellent", gettingMethod : "메럿 마켓", isFullgiven : true,  tradeType : "account-bind", genderType : "male", items :[], releasedDate : "2020-09-01" , previewImage : "" },
+        { packageName : "펑키 네온 캣 옵션 룩 세트", itemGrade : "excellent", gettingMethod : "메럿 마켓", isFullgiven : true,  tradeType : "account-bind", genderType : "female", items :[], releasedDate : "2020-09-01" , previewImage : "" },
         { packageName : "다크 네온 웨폰 박스", itemGrade : "excellent", gettingMethod : "펑키 네온 캣 세트 6부위 모두 착용", isFullgiven : true,  tradeType : ["account-bind", "wear-to-character-bind"], genderType : "any", items :[], releasedDate : "2020-09-01" , previewImage : "" },
         { packageName : "펑키 네온 캣 세트", itemGrade : "excellent", gettingMethod : "럭셔리 코디 키", isFullgiven : false,  tradeType : ["1-tradable", "account-bind", "wear-to-character-bind"], genderType : "male", items :[], releasedDate : "2020-09-01" , previewImage : "" },
         { packageName : "펑키 네온 캣 세트", itemGrade : "excellent", gettingMethod : "럭셔리 코디 키", isFullgiven : false,  tradeType : ["1-tradable", "account-bind", "wear-to-character-bind"], genderType : "female", items :[], releasedDate : "2020-09-01" , previewImage : "" },
@@ -104,16 +105,18 @@ let ms2_skinset_records = [
         { packageName : "키튼 메이드 세트", itemGrade : "excellent", gettingMethod : "럭셔리 코디 키", isFullgiven : false,  tradeType :  ["1-tradable", "account-bind", "wear-to-character-bind"], genderType : "female", items :[], releasedDate : "2020-09-01" , previewImage : "" },
     ]],
     ["샤인스타 세트",[
+        { packageName : "샤인 스타 세트", itemGrade : "excellent", gettingMethod : "1월 더키의 꾸미기 캡슐", isFullgiven : false,  tradeType :["account-bind", "wear-to-character-bind"], genderType : "male", items :[], releasedDate : "2021-01-01" , previewImage : "" },
+        { packageName : "샤인 스타 세트", itemGrade : "excellent", gettingMethod : "1월 더키의 꾸미기 캡슐", isFullgiven : false,  tradeType : ["account-bind", "wear-to-character-bind"], genderType : "female", items :[], releasedDate : "2021-01-01" , previewImage : "" },
         { packageName : "샤인스타 룩 세트", itemGrade : "excellent", gettingMethod : "더키 캡슐 (10주차)", isFullgiven : false,  tradeType :["account-bind", "wear-to-character-bind"], genderType : "male", items :[], releasedDate : "2020-09-01" , previewImage : "" },
         { packageName : "샤인스타 룩 세트", itemGrade : "excellent", gettingMethod : "더키 캡슐 (10주차)", isFullgiven : false,  tradeType : ["account-bind", "wear-to-character-bind"], genderType : "female", items :[], releasedDate : "2020-09-01" , previewImage : "" },
-        { packageName : "샤인스타 옵션 룩 세트", itemGrade : "excellent", gettingMethod : "메럿마켓", isFullgiven : true,  tradeType :["account-bind", "wear-to-character-bind"], genderType : "male", items :[], releasedDate : "2020-09-01" , previewImage : "" },
-        { packageName : "샤인스타 옵션 룩 세트", itemGrade : "excellent", gettingMethod : "메럿마켓", isFullgiven : true,  tradeType : ["account-bind", "wear-to-character-bind"], genderType : "female", items :[], releasedDate : "2020-09-01" , previewImage : "" },
+        { packageName : "샤인스타 옵션 룩 세트", itemGrade : "excellent", gettingMethod : "메럿 마켓", isFullgiven : true,  tradeType :["account-bind", "wear-to-character-bind"], genderType : "male", items :[], releasedDate : "2020-09-01" , previewImage : "" },
+        { packageName : "샤인스타 옵션 룩 세트", itemGrade : "excellent", gettingMethod : "메럿 마켓", isFullgiven : true,  tradeType : ["account-bind", "wear-to-character-bind"], genderType : "female", items :[], releasedDate : "2020-09-01" , previewImage : "" },
     ]],
     ["러블리 츄츄 세트",[
-        { packageName : "돌아온 러블리 츄츄 룩 세트", itemGrade : "normal", gettingMethod : "메럿마켓", isFullgiven : true,  tradeType :["account-bind", "wear-to-character-bind"], genderType : "male", items :[], releasedDate : "2020-09-01" , previewImage : "" },
-        { packageName : "돌아온 러블리 츄츄 룩 세트", itemGrade : "normal", gettingMethod : "메럿마켓", isFullgiven : true,  tradeType : ["account-bind", "wear-to-character-bind"], genderType : "female", items :[], releasedDate : "2020-09-01" , previewImage : "" },
-        { packageName : "러블리 츄츄 룩 세트", itemGrade : "normal", gettingMethod : "메럿마켓", isFullgiven : true,  tradeType :["account-bind", "wear-to-character-bind"], genderType : "male", items :[], releasedDate : "2020-09-01" , previewImage : "" },
-        { packageName : "러블리 츄츄 룩 세트", itemGrade : "normal", gettingMethod : "메럿마켓", isFullgiven : true,  tradeType : ["account-bind", "wear-to-character-bind"], genderType : "female", items :[], releasedDate : "2020-09-01" , previewImage : "" },
+        { packageName : "돌아온 러블리 츄츄 룩 세트", itemGrade : "normal", gettingMethod : "메럿 마켓", isFullgiven : true,  tradeType :["account-bind", "wear-to-character-bind"], genderType : "male", items :[], releasedDate : "2020-09-01" , previewImage : "" },
+        { packageName : "돌아온 러블리 츄츄 룩 세트", itemGrade : "normal", gettingMethod : "메럿 마켓", isFullgiven : true,  tradeType : ["account-bind", "wear-to-character-bind"], genderType : "female", items :[], releasedDate : "2020-09-01" , previewImage : "" },
+        { packageName : "러블리 츄츄 룩 세트", itemGrade : "normal", gettingMethod : "메럿 마켓", isFullgiven : true,  tradeType :["account-bind", "wear-to-character-bind"], genderType : "male", items :[], releasedDate : "2020-09-01" , previewImage : "" },
+        { packageName : "러블리 츄츄 룩 세트", itemGrade : "normal", gettingMethod : "메럿 마켓", isFullgiven : true,  tradeType : ["account-bind", "wear-to-character-bind"], genderType : "female", items :[], releasedDate : "2020-09-01" , previewImage : "" },
     ]],
 ];
 let ms2_skinsets = new DictData("스킨 세트", ms2_skinset_tag_formats, ms2_skinset_records,"ms2-dict-represent-area");

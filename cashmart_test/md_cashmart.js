@@ -210,17 +210,6 @@ class Maple2CashMart{
             S  6  7  8  9  10  S
             _____________________
             */
-            /* Section Left Side : 10 Products */
-            ["비취용의 눈물","res/images/prod/비취용의 눈물.jpg"],
-            ["수호자의 방패","res/images/prod/수호자의 방패.jpg"],
-            ["영웅의 장검","res/images/prod/영웅의 장검.jpg"],
-            ["캐시 앤 로얄 쥬얼리 세트","res/images/prod/캐시 앤 로얄 쥬얼리 세트.jpg"],
-            ["빨간 미니 냉장고","res/images/prod/빨간 미니 냉장고.jpg"],
-            ["오렌지 콤팩트 냉장고","res/images/prod/오렌지 콤팩트 냉장고.jpg"],
-            ["양문형 메탈 냉장고","res/images/prod/양문형 메탈 냉장고.jpg"],
-            ["레트로 TV","res/images/prod/레트로 TV.jpg"],
-            ["화이트 슬림 TV","res/images/prod/화이트 슬림 TV.jpg"],
-            ["레드 2단 선풍기","res/images/prod/레드 2단 선풍기.jpg"],
 
             /* Section 1 : 8 Products */
             ["옐로우 포크레인","res/images/prod/옐로우 포크레인.jpg"],
@@ -322,6 +311,18 @@ class Maple2CashMart{
             ["간이 공구함","res/images/prod/간이 공구함.jpg"],
             ["전문가용 미술용품","res/images/prod/전문가용 미술용품.jpg"],
             ["이젤","res/images/prod/이젤.jpg"],
+
+            /* Section Left Side : 10 Products */
+            ["비취용의 눈물","res/images/prod/비취용의 눈물.jpg"],
+            ["수호자의 방패","res/images/prod/수호자의 방패.jpg"],
+            ["영웅의 장검","res/images/prod/영웅의 장검.jpg"],
+            ["캐시 앤 로얄 쥬얼리 세트","res/images/prod/캐시 앤 로얄 쥬얼리 세트.jpg"],
+            ["빨간 미니 냉장고","res/images/prod/빨간 미니 냉장고.jpg"],
+            ["오렌지 콤팩트 냉장고","res/images/prod/오렌지 콤팩트 냉장고.jpg"],
+            ["양문형 메탈 냉장고","res/images/prod/양문형 메탈 냉장고.jpg"],
+            ["레트로 TV","res/images/prod/레트로 TV.jpg"],
+            ["화이트 슬림 TV","res/images/prod/화이트 슬림 TV.jpg"],
+            ["레드 2단 선풍기","res/images/prod/레드 2단 선풍기.jpg"],
 
             /* Section Right Side : 10 Products */
             ["대전 게임 오락기","res/images/prod/대전 게임 오락기.jpg"],
@@ -509,6 +510,71 @@ class Maple2CashMart{
             ]
             // Finish Cashmart Arbeit
         ];
+
+        this.map_grid=[
+            /** 
+             * cashmart(correct name as "Cathy Mart") map size(except border) : 22x14 
+             * code of objects display numbers
+             *  -1 : void, 1 : land, 2 : land(border deco), 3: wall, 4: product placeholder, 5 : mart door(entrance)
+             *  6 ~ 9 player teleport site, 10 : cashier teleport site, 11 : respawn point
+             * 
+             * product code(total 100 items)
+             * 101~108 : SITE 1
+             * 109~116 : SITE 2
+             * 117~116 : SITE 3
+             * 125~116 : SITE 4
+             * 133~116 : SITE 5
+             * 141~116 : SITE 6
+             * 149~116 : SITE 7
+             * 157~116 : SITE 8
+             * 165~116 : SITE 9
+             * 172~179 : SITE 10
+             * 181~190 : SITE LEFT
+             * 191~200 : SITE RIGHT
+             * */
+
+             // working place, 20(w)
+            [2,2,1,1,4,1,1,1,4,1,1,1,4,1,1,1,4,1,2,2], //entrance of mart
+            [2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2], //customer waiting site
+            [2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2],
+            [2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2],
+            [2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2],
+            [2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2],
+            [3,3,3,3,4,3,3,3,4,3,3,3,4,3,3,3,4,3,3,3], //product delivery placeholder position(CUSTOMER - CASHIER)
+            [2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2], //cashier working site
+            [2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2],
+            [2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2],
+            [2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2],
+            [2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2],
+            [3,3,3,3,3,3,3,4,3,3,3,3,4,3,3,3,3,3,3,3], //product delivery placeholder position(CASHIER - TRANSPORTER)
+            [2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2], //front road
+            [2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2], //front road
+            [2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2], //line 15 (0->15)
+            [2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2],
+            [2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2],
+            [2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2],
+            [2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2], //middle road
+            [2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2], //middle road
+            [2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2], //line 21 (0->21)
+            [2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2],
+            [2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2],
+            [2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2],
+            [2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2], //back road
+            [2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2], //back road
+            [2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2], //back padding
+            [3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3], //wall
+            [2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2], //employer(BOSS, Cathy Catalina) office
+            [2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2], 
+            [2,4,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,4,2], //GATE 2,3
+            [2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2],
+            [2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2],
+            [2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2],
+            [2,4,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,4,2], //GATE 1,4, RESPAWN POINT & PORTAL WARP SPAWN POINT
+            [2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2],
+        ];
+
+        this.map_objects_grid=[...(this.map_grid)];
+
         /* info - How to write stage_productRequires 
             this.stage_productRequires = [ ["a","b", "c"] ]        
         */

@@ -47,6 +47,7 @@ const WeaponASModifier = {
     Runeblade: 1.259,
     Striker: 1.264,
     SoulBinder: 1.177,
+    Beginner: 1.0,
 };
 /**
  * Bonus Attack's attack score modifier by weapon quality
@@ -70,7 +71,7 @@ function calc(player) {
         return 10;
     }
     // Attack score by weapon attack
-    const weaponAS = player.weaponAttack * 1.3 / WeaponASModifier[player.class];
+    const weaponAS = player.weaponAttack * 1.3 / (WeaponASModifier[player.class] | 1);
     // Attack score by bonus attack (+ pet attack * 0.394)
     let bonusAttackAS;
     if (kms2) {
@@ -149,6 +150,7 @@ function getTypedValue(job, physical, magic, runePhyK, runeMagK) {
         case "Knight":
         case "Striker":
         case "Thief":
+        case "Beginner":
             return physical;
             break;
         case "Priest":
@@ -207,7 +209,7 @@ console.log(modVal / origVal);
     // Attack score by bonus attack (+ pet attack * 0.394)
     const bonusAttackAS = (player.bonusAttack + player.petAttack * 0.394) * 4.96 * WeaponQualityBAModifier[player.weaponQuality]
 */
-const jobs = ["Archer", "Assassin", "Berserker", "HeavyGunner", "Knight", "Priest", "Runeblade", "SoulBinder", "Striker", "Thief", "Wizard"];
+const jobs = ["Archer", "Assassin", "Berserker", "HeavyGunner", "Knight", "Priest", "Runeblade", "SoulBinder", "Striker", "Thief", "Wizard", "Beginner"];
 for (const job of jobs) {
     const modifier = 4.96 * WeaponQualityBAModifier.Ascendant / (1.3 / WeaponASModifier[job]);
     console.log(`[${job}] : ${Math.round(modifier * 100000) / 100000}`);

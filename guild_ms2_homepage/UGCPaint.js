@@ -160,6 +160,8 @@ class UGCPaint{
     attatchToCanvas(target_tag_div){
         this.target_tag_div=target_tag_div;
         this.canvas = document.createElement("canvas");
+        this.canvas.width = 800;
+        this.canvas.height = 600;
         this.target_tag_div.appendChild(this.canvas);
         if(this.target_tag_div.width <= 0 || this.target_tag_div.height <= 0){
             this.canvas.width = 800;
@@ -167,7 +169,9 @@ class UGCPaint{
         }
         
         //paint black empty screen to initialized canvas.
-        this.canvas.getContext("2d").fillRect(0,0,this.canvas.width, this.canvas.height);
+        let canvas_ctx = this.canvas.getContext("2d");
+        canvas_ctx.fillStyle="darkgrey";
+        canvas_ctx.fillRect(0,0,this.canvas.width, this.canvas.height);
     }
     addProject(project_name){
         let new_project = new CanvasProject(project_name);

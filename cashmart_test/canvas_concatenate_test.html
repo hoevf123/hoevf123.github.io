@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <title>캔버스 오브젝트 결합 테스트</title>
+</head>
+
+<body>
+    <canvas id="canvas"></canvas>
+    <script type="module" src="matrix.mjs"></script>
+    <script type="module">
+        import { matrix } from "./matrix.mjs"
+
+        var default_cashmart_products = [
+            /* total : 100 products */
+            /* Group List
+            ---ㅁ--ㅁ---ㅁ--ㅁ---
+            _____ㅁ_______ㅁ_____
+            L  1  2  3  4   5  R
+            S  6  7  8  9  10  S
+            _____________________
+            */
+
+
+            /* Section 1 : 8 Products */
+            ["옐로우 포크레인", "res/images/prod/옐로우 포크레인.jpg"],
+            ["레드 레이싱 머신", "res/images/prod/레드 레이싱 머신.jpg"],
+            ["갱스터 엔필라르", "res/images/prod/갱스터 엔필라르.jpg"],
+            ["플라잉 스타 쵸퍼", "res/images/prod/플라잉 스타 쵸퍼.jpg"],
+            ["루디브리엄 로켓", "res/images/prod/루디브리엄 로켓.jpg"],
+            ["경비행기 모형", "res/images/prod/경비행기 모형.jpg"],
+            ["미니 보트", "res/images/prod/미니 보트.jpg"],
+            ["나룻배", "res/images/prod/나룻배.jpg"],
+
+            /* Section 2 : 8 Products */
+            ["붉은색 빈티지 트렁크", "res/images/prod/붉은색 빈티지 트렁크.jpg"],
+            ["갈색 클래식 트렁크", "res/images/prod/갈색 클래식 트렁크.jpg"],
+            ["나무 절단기", "res/images/prod/나무 절단기.jpg"],
+            ["세공용 드릴", "res/images/prod/세공용 드릴.jpg"],
+            ["대용량 컨테이너", "res/images/prod/대용량 컨테이너.jpg"],
+            ["캠핑용 텐트", "res/images/prod/캠핑용 텐트.jpg"],
+            ["아이스박스", "res/images/prod/아이스박스.jpg"],
+            ["블루 라인 해먹", "res/images/prod/블루 라인 해먹.jpg"],
+
+            /* Section 3 : 8 Products */
+            ["철제 2층 침대", "res/images/prod/철제 2층 침대.jpg"],
+            ["럭셔리 원형 쿠션 침대", "res/images/prod/럭셔리 원형 쿠션 침대.jpg"],
+            ["두툼 스트라이프 쿠션 소파", "res/images/prod/두툼 스트라이프 쿠션 소파.jpg"],
+            ["전통 나무 시소", "res/images/prod/전통 나무 시소.jpg"],
+            ["수면 캡슐", "res/images/prod/수면 캡슐.jpg"],
+            ["바디 릴렉싱 안마 의자", "res/images/prod/바디 릴렉싱 안마 의자.jpg"],
+            ["핑크 쿠션 의자", "res/images/prod/핑크 쿠션 의자.jpg"],
+            ["붉은 방석", "res/images/prod/붉은 방석.jpg"],
+
+            /* Section 4 : 8 Products */
+            ["전신 거울", "res/images/prod/전신 거울.jpg"],
+            ["엔틱 옷장", "res/images/prod/엔틱 옷장.jpg"],
+            ["모던 원목 화장대", "res/images/prod/모던 원목 화장대.jpg"],
+            ["게스트북 데스크", "res/images/prod/게스트북 데스크.jpg"],
+            ["수술용 조명", "res/images/prod/수술용 조명.jpg"],
+            ["수술용 침대 의자", "res/images/prod/수술용 침대 의자.jpg"],
+            ["수술용품 트레이", "res/images/prod/수술용품 트레이.jpg"],
+            ["링거 고정대", "res/images/prod/링거 고정대.jpg"],
+
+            /* Section 5 : 8 Products */
+            ["트레이닝 샌드백", "res/images/prod/트레이닝 샌드백.jpg"],
+            ["블루 트램펄린", "res/images/prod/블루 트램펄린.jpg"],
+            ["야구공 바구니", "res/images/prod/야구공 바구니.jpg"],
+            ["핸드볼 바구니", "res/images/prod/핸드볼 바구니.jpg"],
+            ["다이나믹 러닝머신", "res/images/prod/다이나믹 러닝머신.jpg"],
+            ["미니 농구대", "res/images/prod/미니 농구대.jpg"],
+            ["미니 골 포스트", "res/images/prod/미니 골 포스트.jpg"],
+            ["농구공 바구니", "res/images/prod/농구공 바구니.jpg"],
+
+            /* Section 6 : 8 Products */
+            ["스탠다드 싱크대", "res/images/prod/스탠다드 싱크대.jpg"],
+            ["스탠다드 가스레인지", "res/images/prod/스탠다드 가스레인지.jpg"],
+            ["럭셔리 세면대", "res/images/prod/럭셔리 세면대.jpg"],
+            ["드럼 세탁기", "res/images/prod/드럼 세탁기.jpg"],
+            ["디럭스 샤워 부스", "res/images/prod/디럭스 샤워 부스.jpg"],
+            ["천연 나무 목욕탕", "res/images/prod/천연 나무 목욕탕.jpg"],
+            ["세라믹 심플 욕조", "res/images/prod/세라믹 심플 욕조.jpg"],
+            ["눈누비데 좌변기", "res/images/prod/눈누비데 좌변기.jpg"],
+
+            /* Section 7 : 8 Products */
+            ["프린세스 스윙", "res/images/prod/프린세스 스윙.jpg"],
+            ["럭셔리 샹들리에", "res/images/prod/럭셔리 샹들리에.jpg"],
+            ["문양 힌지 스탠드", "res/images/prod/문양 힌지 스탠드.jpg"],
+            ["향 단지", "res/images/prod/향 단지.jpg"],
+            ["전문가용 앰프", "res/images/prod/전문가용 앰프.jpg"],
+            ["업라이트 피아노", "res/images/prod/업라이트 피아노.jpg"],
+            ["비브라폰", "res/images/prod/비브라폰.jpg"],
+            ["고구마 화로", "res/images/prod/고구마 화로.jpg"],
+
+            /* Section 8 : 8 Products */
+            ["힐링 약초 화분", "res/images/prod/힐링 약초 화분.jpg"],
+            ["3단 타이어", "res/images/prod/3단 타이어.jpg"],
+            ["바다용 튜브", "res/images/prod/바다용 튜브.jpg"],
+            ["정돈된 닻줄", "res/images/prod/정돈된 닻줄.jpg"],
+            ["스마트 화분", "res/images/prod/스마트 화분.jpg"],
+            ["미니 어항", "res/images/prod/미니 어항.jpg"],
+            ["스노우 빌리지", "res/images/prod/스노우 빌리지.jpg"],
+            ["포션 정수기", "res/images/prod/포션 정수기.jpg"],
+
+            /* Section 9 : 8 Products*/
+            ["벽난로", "res/images/prod/벽난로.jpg"],
+            ["숯불 오븐", "res/images/prod/숯불 오븐.jpg"],
+            ["바베큐용 그릴", "res/images/prod/바베큐용 그릴.jpg"],
+            ["제도용 책상", "res/images/prod/제도용 책상.jpg"],
+            ["간이 용광로", "res/images/prod/간이 용광로.jpg"],
+            ["담금질 화로", "res/images/prod/담금질 화로.jpg"],
+            ["풀무", "res/images/prod/풀무.jpg"],
+            ["모루", "res/images/prod/모루.jpg"],
+
+            /* Section 10 : 8 Products */
+            ["마법의 물약병", "res/images/prod/마법의 물약병.jpg"],
+            ["가정용 미싱기", "res/images/prod/가정용 미싱기.jpg"],
+            ["무인 감시 카메라", "res/images/prod/무인 감시 카메라.jpg"],
+            ["뉴스 카메라", "res/images/prod/뉴스 카메라.jpg"],
+            ["보석 조립 테이블", "res/images/prod/보석 조립 테이블.jpg"],
+            ["간이 공구함", "res/images/prod/간이 공구함.jpg"],
+            ["전문가용 미술용품", "res/images/prod/전문가용 미술용품.jpg"],
+            ["이젤", "res/images/prod/이젤.jpg"],
+
+            /* Section Left Side : 10 Products */
+            ["비취용의 눈물", "res/images/prod/비취용의 눈물.jpg"],
+            ["수호자의 방패", "res/images/prod/수호자의 방패.jpg"],
+            ["영웅의 장검", "res/images/prod/영웅의 장검.jpg"],
+            ["캐시 앤 로얄 쥬얼리 세트", "res/images/prod/캐시 앤 로얄 쥬얼리 세트.jpg"],
+            ["빨간 미니 냉장고", "res/images/prod/빨간 미니 냉장고.jpg"],
+            ["오렌지 콤팩트 냉장고", "res/images/prod/오렌지 콤팩트 냉장고.jpg"],
+            ["양문형 메탈 냉장고", "res/images/prod/양문형 메탈 냉장고.jpg"],
+            ["레트로 TV", "res/images/prod/레트로 TV.jpg"],
+            ["화이트 슬림 TV", "res/images/prod/화이트 슬림 TV.jpg"],
+            ["레드 2단 선풍기", "res/images/prod/레드 2단 선풍기.jpg"],
+
+            /* Section Right Side : 10 Products */
+            ["대전 게임 오락기", "res/images/prod/대전 게임 오락기.jpg"],
+            ["아케이드 오락기", "res/images/prod/아케이드 오락기.jpg"],
+            ["포토스티커 머신", "res/images/prod/포토스티커 머신.jpg"],
+            ["인형뽑기 기계", "res/images/prod/인형뽑기 기계.jpg"],
+            ["댄스댄스 머신", "res/images/prod/댄스댄스 머신.jpg"],
+            ["미니 당구대", "res/images/prod/미니 당구대.jpg"],
+            ["미니 탁구대", "res/images/prod/미니 탁구대.jpg"],
+            ["미니 축구게임 테이블", "res/images/prod/미니 축구게임 테이블.jpg"],
+            ["DJ 머신", "res/images/prod/DJ 머신.jpg"],
+            ["야옹 캣타워", "res/images/prod/야옹 캣타워.jpg"]
+        ];
+        var cashmart_map_grid = [
+            /** 
+             * cashmart(correct name as "Cathy Mart") map size(except border) : 22x14 
+             * code of objects display numbers
+             *  -1 : void, 1 : land, 2 : land(border deco), 3: wall, 4: product placeholder... 
+             * 
+             * product code(total 100 items)
+             * 101~108 : SITE 1
+             * 109~116 : SITE 2
+             * 117~116 : SITE 3
+             * 125~116 : SITE 4
+             * 133~116 : SITE 5
+             * 141~116 : SITE 6
+             * 149~116 : SITE 7
+             * 157~116 : SITE 8
+             * 165~116 : SITE 9
+             * 172~179 : SITE 10
+             * 181~190 : SITE LEFT
+             * 191~200 : SITE RIGHT
+             * */
+
+            // working place, 20(w)
+            [2, 2, 1, 1, 4, 1, 1, 1, 4, 1, 1, 1, 4, 1, 1, 1, 4, 1, 2, 2], //entrance of mart
+            [2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2], //customer waiting site
+            [2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2],
+            [2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2],
+            [2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2],
+            [2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2],
+            [3, 3, 3, 3, 4, 3, 3, 3, 4, 3, 3, 3, 4, 3, 3, 3, 4, 3, 3, 3], //product delivery placeholder position(CUSTOMER - CASHIER)
+            [2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2], //cashier working site
+            [2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2],
+            [2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2],
+            [2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2],
+            [2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2],
+            [3, 3, 3, 3, 3, 3, 3, 4, 3, 3, 3, 3, 4, 3, 3, 3, 3, 3, 3, 3], //product delivery placeholder position(CASHIER - TRANSPORTER)
+            [2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2], //front road
+            [2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2], //front road
+            [2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2], //line 15 (0->15)
+            [2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2],
+            [2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2],
+            [2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2],
+            [2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2], //middle road
+            [2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2], //middle road
+            [2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2], //line 21 (0->21)
+            [2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2],
+            [2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2],
+            [2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2],
+            [2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2], //back road
+            [2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2], //back road
+            [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2], //back padding
+            [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3], //wall
+            [2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2], //employer(BOSS, Cathy Catalina) office
+            [2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2],
+            [2, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 4, 2], //GATE 2,3
+            [2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2],
+            [2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2],
+            [2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2],
+            [2, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 4, 2], //GATE 1,4, RESPAWN POINT & PORTAL WARP SPAWN POINT
+            [2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2],
+        ];
+
+        var cashmart_object_grid = matrix.fill([...(cashmart_map_grid)], -1);
+        const PROD_8_INITIAL_NUMBER = 101;
+        const PROD_10_INITIAL_NUMBER = 181;
+
+        // Creation of 10 of range 8 arrays, 2 of range 10 arrays.
+        var list_prods = [...new Array(12).keys()].map(x => x < 10 ? [...new Array(8).keys()].map(y => (x * 8) + PROD_8_INITIAL_NUMBER + y) : [...new Array(10).keys()].map(y => (x - 10) * 10 + PROD_10_INITIAL_NUMBER + y));
+        /**
+         * 
+         *  * product code(total 100 items)
+             * 101~108 : SITE 1
+             * 109~116 : SITE 2
+             * 117~116 : SITE 3
+             * 125~116 : SITE 4
+             * 133~116 : SITE 5
+             * 141~116 : SITE 6
+             * 149~116 : SITE 7
+             * 157~116 : SITE 8
+             * 165~116 : SITE 9
+             * 172~179 : SITE 10
+             * 181~190 : SITE LEFT
+             * 191~200 : SITE RIGHT
+             * 
+        */
+        var list_prod_displayment = [
+            ...(matrix.range(5, 85, 8).map((c, i) => matrix.transpose([matrix.range(c, c + 4), matrix.range(c + 4, c + 8)]))), // [[C, C+1, C+2, C+3], [C+4, C+5, C+6, C+7, C+8]]
+            matrix.transpose([matrix.range(85, 85 + 10)]),
+            matrix.transpose([matrix.range(85 + 10, 85 + 20)]),
+        ];
+        var list_prod_displaypoint = [
+            [3, 15], [6, 15], [9, 15], [12, 15], [15, 15],   // 1, 2, 3, 4, 5
+            [3, 21], [6, 21], [9, 21], [12, 21], [15, 21],   // 6, 7, 8, 9, 10
+            [1, 15], [18, 15]                          // Left Side, Right Side
+        ]
+        cashmart_object_grid = matrix.mapping_matrix(cashmart_object_grid, list_prod_displayment, list_prod_displaypoint);
+
+        // find root canvas
+        var root_canvas = document.getElementById("canvas");
+        root_canvas.width = 1024;
+        root_canvas.height = 768;
+        let root_context = root_canvas.getContext("2d");
+        root_context.fillStyle = "skyblue";
+        root_context.fillRect(0, 0, 1024, 768);
+
+        // create origin image of canvas.
+        // Requires ECMAScript 6 Specification, multiple variable Declarations.
+        const IMAGE_PATH_DIR = "./res/images/";
+        const image_paths = ["tile.png", "tile_border.png", "wall.png", "placeholder.png"].map((p) => `${IMAGE_PATH_DIR}${p}`);
+        async function drawImage(...image_paths) {
+            console.log(image_paths);
+            const canvas = [];
+            for (const path of image_paths) {
+                const loadImage = (p) => {
+                    return new Promise((res, rej) => {
+                        const img = new Image(200, 200);
+                        console.log("image loading.., img : ", img);
+                        const timeout = setTimeout(() => rej(new Error(`Timeout image of ${p}`)), 5000);
+                        img.onload = () => {
+                            clearTimeout(timeout);
+                            console.log("onload complete");
+                            return res(img);
+                        }
+                        img.src = p;
+                    })
+                }
+                const image = await loadImage(path);
+                console.log("image load complete, readyState :" + image.readyState);
+
+                const cvs = document.createElement("canvas");
+                cvs.width = 200;
+                cvs.height = 200;
+                const ctx = cvs.getContext("2d");
+                ctx.drawImage(image, 0, 0, 200, 200);
+                ctx.fillRect(90, 90, 20, 20);
+                root_context.drawImage(image, 0, 0);
+                console.log("Hello");
+                canvas.push(cvs);
+            }
+            console.log(canvas);
+            return canvas;
+        }
+        drawImage(...image_paths, ...default_cashmart_products.reduce(function (a, c) { a.push(c[1]); return a; }, [])).then(function (sprite_image_canvas) {
+            console.log("sprite_images = ", sprite_image_canvas);
+
+            //mapping sprites to the map canvas
+            var map_canvas = document.createElement("canvas");
+            map_canvas.width = 5000;
+            map_canvas.height = 7400;
+            var map_context = map_canvas.getContext("2d");
+            const [CH_VIEW_SCALEX, CH_VIEW_SCALEY] = [0.2, 0.2];
+            map_context.scale(CH_VIEW_SCALEX, CH_VIEW_SCALEY);
+            [cashmart_map_grid, cashmart_object_grid].forEach((a) => a.forEach(function (row_arr, idx_h) {
+                const [XPOS, YPOS] = [0, 0];
+                const [IMAGE_SIZEX, IMAGE_SIZEY] = [200, 200];
+                const INITIAL_ITEM_IMAGES = [undefined, ...sprite_image_canvas];
+
+                row_arr.forEach(function (e, idx_w) {
+                    let paint_image_target = INITIAL_ITEM_IMAGES[e];
+                    let [IMAGE_LEFT, IMAGE_TOP] = [XPOS + idx_w * IMAGE_SIZEX, YPOS + idx_h * IMAGE_SIZEY];
+                    if (map_canvas.width < IMAGE_LEFT + IMAGE_SIZEX) map_canvas.width = IMAGE_LEFT + IMAGE_SIZEX;
+                    if (map_canvas.height < IMAGE_TOP + IMAGE_SIZEX) map_canvas.height = IMAGE_TOP + IMAGE_SIZEY;
+                    if (paint_image_target !== undefined) map_context.drawImage(paint_image_target, IMAGE_LEFT, IMAGE_TOP, IMAGE_SIZEX, IMAGE_SIZEY);
+                    //if(e>5)map_context.strokeRect(IMAGE_LEFT, IMAGE_TOP, IMAGE_SIZEX, IMAGE_SIZEY);
+                })
+            }));
+            console.log("map img size / w : ", map_canvas.width, " h :", map_canvas.height);
+
+
+            // render to the root canvas
+            root_canvas.width = map_canvas.width * CH_VIEW_SCALEX;
+            root_canvas.height = map_canvas.height * CH_VIEW_SCALEY;
+            root_context.drawImage(map_canvas, 0, 0);
+        });
+
+    </script>
+</body>

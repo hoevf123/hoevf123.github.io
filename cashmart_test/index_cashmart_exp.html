@@ -40,15 +40,24 @@
             {
                 MySrc.resetCustomScreenState();
                 cm.clear();
-                var music_bgm_BGM_Massive_02 = cm.appendMusic("BGM_Massive_02.mp3");
+                var DIR_SYSTEM_UI_SOUNDS = "res/sounds/MapleStory2_UI/";
+                var [music_bgm_BGM_Massive_02, 
+                music_system_accept, music_system_right, music_system_wrong, 
+                music_system_summon_portal, music_system_tutorial_complete, music_system_tutorial_target, music_system_battlefiled_win] = ["BGM_Massive_02.mp3", 
+                ...(["System_TutorialComplete", "System_Right_01","System_Wrong_01",
+                "System_Summon_Portal_01", "System_TutorialComplete", "System_TutorialTarget", "System_BattleField_Win"]
+                .map((e)=>DIR_SYSTEM_UI_SOUNDS+e+".mp3"))].map(e=>cm.appendMusic(e));
+                
+                // var music_bgm_BGM_Massive_02 = cm.appendMusic("BGM_Massive_02.mp3");
+                // var music_system_accept=cm.appendMusic("res/sounds/MapleStory2_UI/System_TutorialComplete.mp3");
+                // var music_system_right=cm.appendMusic("res/sounds/MapleStory2_UI/System_Right_01.mp3");
+                // var music_system_wrong=cm.appendMusic("res/sounds/MapleStory2_UI/System_Wrong_01.mp3");
+                // var music_system_summon_portal = cm.appendMusic("res/sounds/MapleStory2_UI/System_Summon_Portal_01.mp3");
+                // var music_system_tutorial_complete = cm.appendMusic("res/sounds/MapleStory2_UI/System_TutorialComplete.mp3");
+                // var music_system_tutorial_target = cm.appendMusic("res/sounds/MapleStory2_UI/System_TutorialTarget.mp3");
+                // var music_system_battlefiled_win= cm.appendMusic("res/sounds/MapleStory2_UI/System_BattleField_Win.mp3");
+
                 window.bgm = music_bgm_BGM_Massive_02;
-                var music_system_accept=cm.appendMusic("res/sounds/MapleStory2_UI/System_TutorialComplete.mp3");
-                var music_system_right=cm.appendMusic("res/sounds/MapleStory2_UI/System_Right_01.mp3");
-                var music_system_wrong=cm.appendMusic("res/sounds/MapleStory2_UI/System_Wrong_01.mp3");
-                var music_system_summon_portal = cm.appendMusic("res/sounds/MapleStory2_UI/System_Summon_Portal_01.mp3");
-                var music_system_tutorial_complete = cm.appendMusic("res/sounds/MapleStory2_UI/System_TutorialComplete.mp3");
-                var music_system_tutorial_target = cm.appendMusic("res/sounds/MapleStory2_UI/System_TutorialTarget.mp3");
-                var music_system_battlefiled_win= cm.appendMusic("res/sounds/MapleStory2_UI/System_BattleField_Win.mp3");
                 music_bgm_BGM_Massive_02.loop(true);
                 music_bgm_BGM_Massive_02.play();
                 music_system_tutorial_target.play();
@@ -62,6 +71,10 @@
                 var visitedCustomers = [];
                 var player = null;
                 var loc_counters, loc_entries, loc_prod_receivers;
+                
+            }
+            /* Code Entry - Background of Cathy Mart */
+            {
                 
             }
             {
@@ -235,6 +248,8 @@
                                     console.log("물건 받기 성공");  
                                     _prod_name=req_prod.name;
                                     this.requiredProduct = new MyObject(_prod_name,this.x, this.y - this.height, this.width, this.height);
+                                    this.requiredProduct.imgSrc = Maple2CM.default_cashmart_products.find(e=>e[0]==_prod_name)[1];
+                                    console.log("imgsrc : ", this.requiredProduct.imgSrc);
                                     this.requiredProduct.value = _prod_name;
                                     music_system_accept.play();
                                     setTimeout((function(){
@@ -247,7 +262,7 @@
                                 }
                             }
                             else{
-                                var isProdDeliveredRight=true;
+                                var isProdDeliveredRight=Math.random() < 0.7? true: false;
                                 console.log("제거 코드");
                                 if(event==undefined||event.deliveredProduct==undefined){
                                     /* Skip processing */
@@ -256,12 +271,13 @@
                                     /* 이곳에 물건 검수 체킹 코드를 넣으면 됩니다. */
 
                                 }
-                                if(this.requiredProduct!==undefined){
-                                    this.requiredProduct.removeCustomObject();
-                                    delete this.requiredProduct;
-                                }
+                                
                                 if(isProdDeliveredRight){
                                     console.log("good delivering");
+                                    if(this.requiredProduct!==undefined){
+                                        this.requiredProduct.removeCustomObject();
+                                        delete this.requiredProduct;
+                                    }
                                     setTimeout((function(){
                                         console.log("hello");
                                         this.speed_y=-180;
@@ -336,6 +352,7 @@
                                 else{
                                     console.log("wrong delivering");
                                     music_system_wrong.play();
+                                    setTimeout(function(e){this.oninteract()}.bind(this),4000);
                                 }
                                 
                             }
@@ -419,7 +436,6 @@
             }
             /* play */
             {
-                music_bgm_BGM_CrimsonBarlogBoss_Loop_01.play();
                 music_bgm_BGM_CrimsonBarlogBoss_Loop_01.play();
             }
         }

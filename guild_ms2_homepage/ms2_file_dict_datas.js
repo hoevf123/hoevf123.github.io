@@ -204,7 +204,7 @@ let ms2_bgm_records = [
     ['', '(던전 보스)인페르녹 조우', ['BGM_CrimsonBarlogBoss_Intro_01.mp3','BGM_CrimsonBarlogBoss_Loop_01.mp3'], ['./Maplestory2/BGM/BGM_CrimsonBarlogBoss_Intro_01.mp3','./Maplestory2/BGM/BGM_CrimsonBarlogBoss_Loop_01.mp3']],
     ['', '', 'BGM_DarkSide_01.mp3', './Maplestory2/BGM/BGM_DarkSide_01.mp3'],
     ['', '어둠의 뿌리, 다크 스트림', ['BGM_DarkStream_Intro.mp3','BGM_DarkStream_Loop.mp3'], ['./Maplestory2/BGM/BGM_DarkStream_Intro.mp3','./Maplestory2/BGM/BGM_DarkStream_Loop.mp3']],
-    ['', '', 'BGM_DarkTears_01.mp3', './Maplestory2/BGM/BGM_DarkTears_01.mp3'],
+    ['', '(던전)어둠의 샘', 'BGM_DarkTears_01.mp3', './Maplestory2/BGM/BGM_DarkTears_01.mp3'],
     ['', '', 'BGM_DarkTower_01.mp3', './Maplestory2/BGM/BGM_DarkTower_01.mp3'],
     ['', '', 'BGM_Dark_Laboratory_Loop_01.mp3', './Maplestory2/BGM/BGM_Dark_Laboratory_Loop_01.mp3'],
     ['', '(미니게임)빛나는 모자 - 설눈이의 꿈', 'BGM_Dream.mp3', './Maplestory2/BGM/BGM_Dream.mp3'],
@@ -310,7 +310,7 @@ let ms2_bgm_records = [
     ['', '페리온 필드', 'BGM_Perion_field_02.mp3', './Maplestory2/BGM/BGM_Perion_field_02.mp3'],
     ['', '(미니게임)웨딩 피냐타', 'BGM_PinataTheUnicorn_Battle_Loop_01.mp3', './Maplestory2/BGM/BGM_PinataTheUnicorn_Battle_Loop_01.mp3'],
     ['', '(미니게임)웨딩 피냐타', ['BGM_PinataTheUnicorn_Intro_01.mp3', 'BGM_PinataTheUnicorn_Loop_01.mp3'], ['./Maplestory2/BGM/BGM_PinataTheUnicorn_Intro_01.mp3', './Maplestory2/BGM/BGM_PinataTheUnicorn_Loop_01.mp3']],
-    ['', '(이벤트 미니게임)핑크빈 셋, 둘, 하나!', "BGM_PinkBean's Arcade_01.mp3", "./Maplestory2/BGM/BGM_PinkBean's Arcade_01.mp3"],
+    ['', ['(이벤트 미니게임)핑크빈 셋, 둘, 하나!', '이계의 놀이터'], "BGM_PinkBean's Arcade_01.mp3", "./Maplestory2/BGM/BGM_PinkBean's Arcade_01.mp3"],
     ['', '[던전] 이계의 존재', ['BGM_PinkBean_Intro_01.mp3', 'BGM_PinkBean_Loop_01.mp3'], ['./Maplestory2/BGM/BGM_PinkBean_Intro_01.mp3','./Maplestory2/BGM/BGM_PinkBean_Loop_01.mp3']],
     ['', '[던전]달빛 선장의 요새 / 오르비스 공중 함선(인페르녹 최후의 방어선 1,2페이즈)', 'BGM_PirateShip_01.mp3', './Maplestory2/BGM/BGM_PirateShip_01.mp3'],
     ['', '독액 동굴', 'BGM_PosionCave_01.mp3', './Maplestory2/BGM/BGM_PosionCave_01.mp3'],
@@ -318,7 +318,7 @@ let ms2_bgm_records = [
     ['', '알리카르 감옥', 'BGM_Prison_01.mp3', './Maplestory2/BGM/BGM_Prison_01.mp3'],
     ['Puppet Theatre', '(이벤트 맵)블러디 몽슈슈 호텔', 'BGM_PuppetTheatre_01.mp3', ['./Maplestory2/BGM/BGM_PuppetTheatre_01.mp3','http://maple2.vod.nexoncdn.co.kr/ost/10_Puppet_Theatre.mp3']],
     ['', '', 'BGM_Ranger_Theme_01.mp3', './Maplestory2/BGM/BGM_Ranger_Theme_01.mp3'],
-    ['Snowy Dream', '서버 선택 화면(겨울 테마)', 'BGM_Reminiscing_01.mp3', ['./Maplestory2/BGM/BGM_Reminiscing_01.mp3','http://maple2vod-nexon30.ktics.co.kr/ost/BGM08_SnowyDream_Login2019Winter.mp3']],
+    ['Snowy Dream', '서버 선택 화면(2020 겨울 테마)', 'BGM_Reminiscing_01.mp3', ['./Maplestory2/BGM/BGM_Reminiscing_01.mp3','http://maple2vod-nexon30.ktics.co.kr/ost/BGM08_SnowyDream_Login2019Winter.mp3']],
     ['', '', 'BGM_ReversedRebirth_01.mp3', './Maplestory2/BGM/BGM_ReversedRebirth_01.mp3'],
     ['Road To Home', '서버 선택 화면(가을 테마)', ['BGM_RoadtoHome_Intro_01.mp3','BGM_RoadtoHome_Loop_01.mp3'], ['./Maplestory2/BGM/BGM_RoadtoHome_Intro_01.mp3','./Maplestory2/BGM/BGM_RoadtoHome_Loop_01.mp3','http://maple2.vod.nexoncdn.co.kr/ost/12_Road_to_Home.mp3']],
     ['The Little Boy', '루델리 시티', 'BGM_RoyalCity_01.mp3', ['./Maplestory2/BGM/BGM_RoyalCity_01.mp3','http://maple2.vod.nexoncdn.co.kr/official/bgm/The%20Little%20Boy.mp3']],
@@ -403,6 +403,19 @@ let ms2_included_palletes_origin_format=[
     ['p', 'pallete-title ms2-dictdata-title'],
     ['img','pallete-img ms2-dictdata-title']
 ];
+
+function arrayToObjectArray(keys, value_arrays){
+    let result_array_contents=[];
+    Array.from(value_arrays).forEach(
+        function(e){result_array_contents.push(
+            e.reduce(function(a,c,i){
+                if(!(c == "" || c == undefined)) a[keys[i]]=c;
+                return a;
+            }, {})
+        );}
+    );
+    return result_array_contents
+}
 
 let ms2_included_palletes_origin_records=[
     //including sample custom design of MS2(Equip)

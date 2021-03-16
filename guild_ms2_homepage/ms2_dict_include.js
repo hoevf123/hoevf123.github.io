@@ -114,6 +114,7 @@ class DictData {
                 );
 
                 // 2-2. insert data to HTMLElement in the head cell tag
+                // function name "asd" has no meaning.
                 function asd(target_tag_root, target_tag_type, target_tag_className, target_data){
                     let ret_tag = undefined;
                     if(target_data instanceof Array){
@@ -128,10 +129,12 @@ class DictData {
                         let key_names = Object.keys(target_data);
                         let tagFramewithDatas = Array.prototype.reduce.call(key_names, function(a, c, i){
                             // c = name of keynames, used as className
-                            a.push([String(target_tag_type), String(c), target_data[c] ]);
+                            a.push([String(target_tag_type), String(c), target_data[c]]);
                             return a;
                         }, []);
-                        tagFramewithDatas.forEach(e=>asd(_inside_tag, e[0], e[1], e[2]));
+                        tagFramewithDatas.forEach(function(e){
+                            return asd(_inside_tag, e[0], e[1], e[2]);
+                        });
                         ret_tag = _inside_tag;
                     }
                     else{
