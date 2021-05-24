@@ -156,80 +156,33 @@ class CharacterEquippedStatus{
     }
 }
 
-
-// basic options range
-// range of defense options
-const RESISTANCE_RANGE = [8,9,10,11,12,13,14,15,16,17,18,19,20];
-const DAMAGE_RESISTANCE_RANGE = [1, 1.1, 1.2, 1.3, 1.4, 1.5];
-const AVOIDRATE_RANGE = [5,6,7,8,9,10,11,12,13,14,15,16,17];
-const MAXHP_RANGE = [339];
-const RECOVERHPBYMONSTERKILL_RANGE = [5,6,7,8,9,10,11,12,13,14,15];
-const COMPLETEDEFENSE_RANGE = [1,2,3,4,5];
-
-const PIRECING_RANGE = [1,1.5,2,3,4,4.5,5,6];
-const PHYSICALPIRECING_RANGE = [3,4,4.2,4,4.8,5.4,6,7];
-const MAGICALPIRECING_RANGE = PHYSICALPIRECING_RANGE;
-const BOSSDAMAGE_RANGE = [1.0, 2.0, 3.0, 4.0, 4.3, 4.6, 5.0];
-const PROPERTYDAMAMGE_RANGE = [1.0,1.6,2.0,2.2,2.6];
-const SPEED_RANGE = [1,2,3,4,5,6,7];
-const RIDINGMOVESPEED_RANGE = [0];
-const RECOVERHPSKILL_RANGE = [2.4];
-
-
-const SKILLCOOLTIMEREDUCTION_RANGE = [0];
-
-
-
-
-const ADDITIONAL_OPTIONS_RANGE = {
-    //defense
-    physicalResistance: RESISTANCE_RANGE,
-    magicalResistance :RESISTANCE_RANGE,
-    coldDamamgeReduction:DAMAGE_RESISTANCE_RANGE,
-    holyDamageReduction: DAMAGE_RESISTANCE_RANGE,
-    meleeDamageResistance: DAMAGE_RESISTANCE_RANGE,
-    rangeDamageResistance: DAMAGE_RESISTANCE_RANGE,
-    fireDamageResistance: DAMAGE_RESISTANCE_RANGE,
-    iceDamageResistanc: DAMAGE_RESISTANCE_RANGE,
-    electricDamageResistanc: DAMAGE_RESISTANCE_RANGE,
-    poisonDamageResistanc:DAMAGE_RESISTANCE_RANGE,
-    darkDamageResistanc: DAMAGE_RESISTANCE_RANGE,
-    holyDamageResistanc: DAMAGE_RESISTANCE_RANGE,
-    avoid:SPEED_RANGE,
-    hp : MAXHP_RANGE,
-    moveSpeed : SPEED_RANGE,
-    ridingMoveSpeed : RIDINGMOVESPEED_RANGE,
-    completeDefense : COMPLETEDEFENSE_RANGE,
-
-    //damage 
-    phyAttack: AVOIDRATE_RANGE,
-    magAttack: AVOIDRATE_RANGE,
-    piercing: PIRECING_RANGE,
-    phyPiercing: PHYSICALPIRECING_RANGE,
-    magPiercing: PHYSICALPIRECING_RANGE,
-    accuracy: PROPERTYDAMAMGE_RANGE,
-    critRate: PROPERTYDAMAMGE_RANGE,
-    critDamage: PROPERTYDAMAMGE_RANGE,
-    melee: PROPERTYDAMAMGE_RANGE,
-    ranged: PROPERTYDAMAMGE_RANGE,
-    fire: PROPERTYDAMAMGE_RANGE,
-    ice: PROPERTYDAMAMGE_RANGE,
-    electric: PROPERTYDAMAMGE_RANGE,
-    poison: PROPERTYDAMAMGE_RANGE,
-    dark: PROPERTYDAMAMGE_RANGE,
-    holy: PROPERTYDAMAMGE_RANGE,
-    boss: BOSSDAMAGE_RANGE,
-    total: BOSSDAMAGE_RANGE,
-    attackSpeed: SPEED_RANGE,
-    recoverHP : RECOVERHPSKILL_RANGE,
-    recoverHPbyMonsterKill : RECOVERHPBYMONSTERKILL_RANGE,
-    skillCooltimeReduction: SKILLCOOLTIMEREDUCTION_RANGE,
-};
-const THREE_ADDITIONAL_OPTIONS = [
-    [{physicalResistance : RESISTANCE_RANGE, magicalResistance : RESISTANCE_RANGE, hp : MAXHP_RANGE }],
-    [{bossDamage : BOSSDAMAGE_RANGE}],
-    [{moveSpeed : SPEED_RANGE}]
+const HAT_ADDITIONAL_OPTION_SETS = [
+    {optionName : "STR", priority : 1, groupId : 1},
+    {optionName : "DEX", priority : 2, groupId : 1},
+    {optionName : "크리티컬 회피", priority : 3},
+    {optionName : "INT", priority : 3, groupId : 1},
+    {optionName : "LUK", priority : 4, groupId : 1},
+    {optionName : "HP", priority : 5},
+    {optionName : "공격력", priority : 6},
+    {optionName : "물리 저항력", priority : 7},
+    {optionName : "마법 저항력", priority : 8},
+    {optionName : "명중", priority : 10},
+    {optionName : "회피", priority : 11},
+    {optionName : "행동 불가 시간 감소", priority : 12},
+    {optionName : "근접 대미지 감소", priority : 13},
+    {optionName : "원거리 대미지 감소", priority : 14},
+    {optionName : "냉기 대미지 감소", priority : 16},
+    {optionName : "보스 몬스터 공격 시 대미지 증가", priority : 17, groupId : 1},
+    {optionName : "화염 대미지 감소", priority : 17},
+    {optionName : "암흑 대미지 감소", priority : 18},
+    {optionName : "처치 시 HP 회복", priority : 18},
+    {optionName : "신성 대미지 감소", priority : 19},
+    {optionName : "독 대미지 감소", priority : 20},
+    {optionName : "전격 대미지 감소", priority : 21},
 ]
+
+
+
 const FIRE_PRISM_WEAPON_DISMANTLE = [{itemName : "fire prism weapon box piece", amount : 10} , {itemName : "prism stone", amount : 2}];
 const WEAPON_DISMANTLE = [{itemName : "Chaos Onyx Fragment", amount : {Normal : 0, Rare : 0, Unique : 0, Exceptional : 3, Legendary : 4, Ascendant : 5}}, {itemName : "Onyx Fragment", amount : 500}];
 const FIRE_PRISM_EQUIPMENT_DEFAULT_PROPERTY = {itemName : "fire prism scepter", itemType : "scepter", itemGrade:"Ascedent", itemAmount : {characterBind : 1}, reqLv: 70, options: [{minDamage : 108014, maxDamage : 129371, itemScore : 42147}] ,enchantGrade : 15, limitBreakGrade : 42, additionalDismantleResult : FIRE_PRISM_WEAPON_DISMANTLE };
