@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <script type="text/javascript" src="w3-include-html.js"></script>
+        <link rel="stylesheet" href="common.css">
+        <meta charset="utf-8">
+        <title>비숍이 실험실</title>
+        <style>
+            div.grid-block{border:1px solid #000000; display:flex; flex-wrap: wrap; justify-content:space-evenly; align-content:space-around;}
+            div.grid-block-content{border:1px solid #000000; display:inline-block; border-radius : 10px; width:140px; height: 140px;}
+            div.grid-block-content:hover{animation-name:background-fade; animation-duration:0.2s; background-color: inherit #49cbffaa;}
+            @keyframes background-fade{from{background-color:inherit} to{background-color: #49cbffaa;}}
+        </style>
+    </head>
+    <body>
+        <div w3-include-html ="nav-header.html"></div>
+        <h1>비숍이의 메이플스토리2 실험실</h1>
+        <!-- navigator area -->
+        
+        <p>메인 페이지의 UI는 어떻게 꾸밀 지 고민중입니다.</p>
+        <div class="grid-block">
+            <div class="grid-block-content">
+                <p>아이템 사전</p>
+            </div>
+            <div class="grid-block-content">
+                <p>월드맵</p>
+            </div>
+            <div class="grid-block-content">
+                <p>황금 보물 상자</p>
+            </div>
+        </div>
+    </body>
+</html>

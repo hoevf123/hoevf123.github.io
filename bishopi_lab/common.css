@@ -1,0 +1,605 @@
+/* font preface delaration */
+@font-face{
+	font-family:"gyeonggicheonneyon-medium";
+	src:url("경기서체웹폰트/Title_Medium.otf");
+}
+@font-face{
+	font-family:"gyeonggicheonneyon-light";
+	src:url("경기서체웹폰트/Title_Light.otf");
+	
+}
+@media(max-width:700px){
+    ul.navbar-target1>li, ul.sub-menu>li{
+        display: table;
+    }
+}
+/* CSS code start */
+/* 모든 문서의 기본 설정 */
+*{
+	font-family:"gyeonggicheonneyon-light";
+}
+h1,h2,h3,h4,h5,h6,strong{
+	font-family:"gyeonggicheonneyon-medium";
+}
+html,body{
+    margin:0px;
+    padding:0px;
+    background-color:rgb(110, 185, 255);
+}
+div.div-content{
+    display:table;
+    min-width:800px;
+    margin:auto;
+}
+
+a.disable-default-font-color{
+    color:inherit;
+    text-decoration: inherit;
+}
+li>ul.sub-menu.hide{
+    display:none;
+}
+li>ul.sub-menu:hover, li>ul.sub-menu{
+    display:inherit;
+}
+
+/* 네비게이터(상단) */
+div.navigator-area{
+    display:block;
+    position: relative;
+    background-color:rgb(52, 86, 197);
+    width:100%;
+    text-align: center;
+    height:auto;
+    padding:15px;
+    margin:0px;
+}
+div.navigator-area>a{text-decoration: none;}
+div.navigator-area h1{font-size: 32px; color:#05c5ff; text-shadow: -5px -2px black;}
+ul.navbar-target1, ul.sub-menu{
+    padding:0px;
+    margin:0px;
+    display:flex;
+    justify-content: center;
+    flex-grow: 1;
+}
+ul.navbar-target1>li, ul.sub-menu>li{
+    position: relative;
+    display:inline-block;
+    list-style: none;
+    min-width:50px;
+    width:auto;
+    padding-left:10px;
+    padding-right:10px;
+    padding-top:10px;
+    padding-bottom: 10px;
+    margin-top:3px;
+    margin-bottom:3px;
+    margin-left:auto;
+    margin-right:auto;
+    height:auto;
+    background-color: bisque;
+    vertical-align: middle;
+    font-weight: 400;
+    color:black;
+    font-size:medium;
+}
+ul.navbar-target1>li{
+    vertical-align: center;
+    min-width:60px;
+    min-height:60px;
+}
+ul.navbar-target1 li:hover, ul.sub-menu>li:hover{background-color:rgb(255, 241, 224); }
+ul.navbar-target1 li.disabled{background-color:gray;}
+ul.navbar-target1 li.red{background-color:tomato;}
+ul.navbar-target1 li.red:hover{background-color:rgb(255, 120, 96);}
+ul.navbar-target1 li.orange{background-color:rgb(255, 180, 40);}
+ul.navbar-target1 li.orange:hover{background-color:rgb(252, 200, 60);}
+ul.navbar-target1 li.green{background-color: lightgreen;}
+ul.navbar-target1 li.green:hover{background-color: rgb(171, 243, 171);}
+ul.navbar-target1 li.skyblue{background-color: skyblue;}
+ul.navbar-target1 li.skyblue:hover{background-color: rgb(175, 220, 238);}
+ul.navbar-target1 li.peach{background-color: rgb(255, 102, 153);}
+ul.navbar-target1 li.peach:hover{background-color: rgb(240 , 120, 160);}
+ul.navbar-target1 li.lightpink{background-color: lightpink;}
+ul.navbar-target1 li.lightpink:hover{background-color: rgb(253, 201, 211);}
+ul.navbar-target1 li.white{background-color: white;}
+ul.navbar-target1 li.transparent{background-color: transparent;}
+
+ul.navbar-target1>li p{
+    text-align: center;
+    margin:0px;
+}
+
+.navbar-target>div.login_btn_area{
+	display:inline;
+	position:right;
+}
+li.right{
+    display:flex;
+    align-items: center;
+}
+.tag-center{display:inline-block;}
+
+ul.navbar-target1>li:hover ul.sub-menu{
+    display:inline-block;
+}
+ul.navbar-target1>li:hover ul.navbar-target1{
+    display:inline-block;
+    animation-name:hello;
+}
+@keyframes aaa{
+
+}
+
+
+/* ms2-dict */
+ul.ms2-dict-represent-area{
+    padding:0px;
+}
+
+/* ms2-dict header*/
+.dict-data p.hash-tag{
+    display:inline;
+}
+
+/* dictdata result revealing space*/
+div.dict-result{
+    width:1040px;
+    max-width: 1040px;
+    padding:0px;
+    margin:auto;
+}
+
+/* dict-result and dict-data*/
+.dict-data:not(.selected){
+    border:1px dashed #000000;
+    padding:10px;
+}
+.dict-data.selected{
+    border:1px solid rgba(255, 0, 0,1);
+    padding:10px;
+}
+
+div.dict-result>div.dict-data:not(.selected) *{
+    display: none !important;
+}
+div.dict-result>div.dict-data .ms2-dictdata-title{
+    display: inherit !important;
+}
+div.dict-result>div.dict-data .ms2-dictdata-thumbnail{
+    display: none !important;
+}
+
+
+.dict-data p.hash-tag::before{
+    content:"#";
+}
+@keyframes div-selected-open{
+    from{
+        display:hidden;
+    }
+    to{
+        display:inline-block;
+    }
+}
+
+div.dict-result.월페이퍼>div.dict-data{
+    display: inline-block;
+    width:490px;
+    max-width: 100%;
+    padding:10px;
+    margin:0px;
+}
+
+div.dict-result.월페이퍼>div.dict-data img.thumb-img{
+    max-width: 100%;
+    display:block;
+}
+
+
+div.dict-result.공방도안>div.dict-data{
+    display: inline-block;
+    width:240px;
+    padding:5px;
+    margin:0px;
+}
+div.dict-result.공방도안>div.dict-data img.pallete-img{
+    width:240px;
+    display:inline-block;   
+}
+
+/* 던전 정보 */
+div.dict-result>div.dict-data p.ms2-require-level:before{
+    content:"입장 레벨 : ";
+}
+div.dict-result>div.dict-data p.ms2-dungeon-release-date:before{
+    content:"던전 출시일 : ";
+}
+div.dict-result>div.dict-data p.ms2-dungeon-closed-date:before{
+    content:"던전 폐쇄일 : ";
+}
+div.dict-result>div.dict-data p.ms2-minimum-require-players:before{
+    content:"입장 가능 최소인원 : ";
+}
+div.dict-result>div.dict-data p.ms2-minimum-require-players:after{
+    content:"명";
+}
+div.dict-result>div.dict-data p.ms2-maximum-require-players:before{
+    content:"입장 가능 최대인원 : ";
+}
+div.dict-result>div.dict-data p.ms2-maximum-require-players:after{
+    content:"명";
+}
+div.dict-result>div.dict-data p.ms2-dungeon-closed-date{
+    background-color: darkgray; 
+}
+
+/* 스킨 세트 사전 */
+div.dict-result.스킨.세트 div.ms2-skin-item {
+    border: 1px dashed #000000;
+}
+div.dict-result.스킨.세트 div.ms2-skin-item *{
+    position: relative;
+    display:inline-block;
+    padding:5px;
+    margin:5px;
+}
+div.dict-result.스킨.세트 .packageName{
+    font-size:1.5em;
+}
+div.dict-result.스킨.세트 .tradeType{
+    color:red;
+}
+
+div.dict-result.스킨.세트 div.items{
+    border-radius: 5px;
+    background-color:lightgray;
+}
+
+/* 대미지 계산기 */
+
+/* ms2-damage-checker equipped inventory displaying area styles */
+div.equipped-inventory, div.ms2-inventory{
+    display:inline-block;
+    background-color:#595959;
+    border-radius: 5px;
+    padding:5px;
+    vertical-align: middle;
+}
+
+div.ms2-item-slot{
+    display : inline-block;
+    width:60px;
+    height:60px;
+    background-color: #333333; /* item's background color */
+    background-size: 100%;
+    border-radius: 5px;
+}
+div.ms2-item-slot img,
+div.ms2-item-slot div{
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    height:100%;
+    margin: 0px;
+    border-radius: inherit;
+    background-size: inherit;
+}
+
+/* ms2-item equipment (and skins) */
+div.ms2-item-slot.headgear{background-image: url("./pictogram/slot_headgear.png");}
+div.ms2-item-slot.shirt{background-image: url("./pictogram/slot_shirt.png");}
+div.ms2-item-slot.pants{background-image: url("./pictogram/slot_pants.png");}
+div.ms2-item-slot.gloves{background-image: url("./pictogram/slot_gloves.png");}
+div.ms2-item-slot.shoes{background-image: url("./pictogram/slot_shoes.png");}
+div.ms2-item-slot.earings{background-image: url("./pictogram/slot_earings.png");}
+div.ms2-item-slot.neckless{background-image: url("./pictogram/slot_neckless.png");}
+div.ms2-item-slot.rings{background-image: url("./pictogram/slot_rings.png");}
+div.ms2-item-slot.cape{background-image: url("./pictogram/slot_cape.png");}
+div.ms2-item-slot.belt{background-image: url("./pictogram/slot_belt.png");}
+div.ms2-item-slot.weapon,
+div.ms2-item-slot.subweapon{background-image: url("./pictogram/slot_weapon.png");}
+
+/* ms2-item (unique for) skins */
+div.ms2-item-slot.eyedeco{background-image: url("./pictogram/slot_eyedeco.png");}
+div.ms2-item-slot.food{background-image: url("./pictogram/slot_food.png");}
+
+/* ms2-item badges */
+div.ms2-item-slot.badge-transparent{background-image: url("./pictogram/slot_badge_transparent.png");}
+div.ms2-item-slot.badge-speakballon{background-image: url("./pictogram/slot_badge_speakballon.png");}
+div.ms2-item-slot.badge-nametag{background-image: url("./pictogram/slot_badge_nametag.png");}
+div.ms2-item-slot.badge-autoharvest{background-image: url("./pictogram/slot_badge_autoharvest.png");}
+div.ms2-item-slot.badge-coupleeffect{background-image: url("./pictogram/slot_badge_coupleeffect.png");}
+div.ms2-item-slot.badge-effect{background-image: url("./pictogram/slot_badge_effect.png");}
+div.ms2-item-slot.badge-tombstone{background-image: url("./pictogram/slot_badge_tombstone.png");}
+div.ms2-item-slot.badge-damagefont{background-image: url("./pictogram/slot_badge_damagefont.png");}
+div.ms2-item-slot.badge-swimmingtube{background-image: url("./pictogram/slot_badge_swimmingtube.png");}
+div.ms2-item-slot.badge-fishing{background-image: url("./pictogram/slot_badge_fishing.png");}
+div.ms2-item-slot.badge-petskin{background-image: url("./pictogram/slot_badge_petskin.png");}
+div.ms2-item-slot.badge-meta{background-image: url("./pictogram/slot_badge_meta.png");}
+
+/* ms2-item mark (for head, available to set mark at character status window) */
+div.ms2-item-slot.mark{background-image:url("./pictogram/slot_badge_mark.png")}
+
+/* ms2-item non-calculative item gradiant apeearance to darken */
+div.ms2-item-slot .nooption,
+div.ms2-item-slot .expired,
+div.ms2-item-slot.headgear :not(.headgear),
+div.ms2-item-slot.shirt :not(.shirt):not(.suit),
+div.ms2-item-slot.pants :not(.pants),
+div.ms2-item-slot.gloves :not(.gloves),
+div.ms2-item-slot.shoes :not(.shoes),
+div.ms2-item-slot.earings :not(.earings),
+div.ms2-item-slot.neckless :not(.neckless),
+div.ms2-item-slot.rings :not(.rings),
+div.ms2-item-slot.cape :not(.cape),
+div.ms2-item-slot.belt :not(.belt),
+div.ms2-item-slot.right-hand.weapon :not(.weapon):not(.orb):not(.gauntlets):not(.blade):not(.scepter):not(.staff):not(.bow):not(.cannon):not(.throw):not(.knife):not(.greatsword):not(.longsword):not(.bludgeon),
+div.ms2-item-slot.left-hand.weapon :not(.subweapon):not(.throw):not(.knife):not(.shield):not(.codex),
+div.ms2-item-slot.eyedeco :not(.eyedeco),
+div.ms2-item-slot.food :not(.food),
+div.ms2-item-slot.badge-transparent :not(.badge-transparent),
+div.ms2-item-slot.badge-speakballon :not(.badge-speakballon),
+div.ms2-item-slot.badge-nametag :not(.badge-nametag),
+div.ms2-item-slot.badge-autoharvest :not(.badge-autoharvest),
+div.ms2-item-slot.badge-coupleeffect :not(.badge-coupleeffect),
+div.ms2-item-slot.badge-effect :not(.badge-effect),
+div.ms2-item-slot.badge-tombstone :not(.badge-tombstone),
+div.ms2-item-slot.badge-damagefont :not(.badge-damagefont),
+div.ms2-item-slot.badge-swimmingtube :not(.badge-swimmingtube),
+div.ms2-item-slot.badge-fishing :not(.badge-fishing),
+div.ms2-item-slot.badge-petskin :not(.badge-petskin),
+div.ms2-item-slot.badge-meta :not(.badge-meta){
+    filter:brightness(40%);
+}
+
+
+/* ms2-item expired icon appear */
+div.ms2-item-slot .expired{
+    background: url(./pictogram/slot_expired.png);    
+}
+/* ms2-damage-checker damage result showing area styles */
+
+div.ms2-status-score-frame{
+    display: block;
+    color : #fffefb;
+    padding : 15px;
+    position: relative;
+    font-size: 2em;
+    background-color:#372525;
+    border:50px soild #642827;
+    border-radius: 5px;
+    height: 35px;
+    max-width: 600px;
+}
+
+div.ms2-status-score-frame>.header-score{
+    display:inline;
+    position: absolute;
+    color:inherit;
+    padding:auto;
+    margin:auto;
+    text-align: left;
+    vertical-align: middle;
+    left: 15px;
+}
+
+div.ms2-status-score-frame>.value-score{
+    display:inline;
+    position: absolute;
+    color:inherit;
+    padding:auto;
+    margin:auto;
+    text-align: right;
+    vertical-align: middle;
+    right: 15px;
+}
+
+div.ms2-attack-damage{
+    color : #fffefb;
+    background-color:#372525;
+    border:50px soild #642827;
+}
+
+div.ms2-attack-damage>.header-score{
+    display:inline;
+    position: absolute;
+    color:#d87071;
+    padding:auto;
+    margin:auto;
+    text-align: left;
+    vertical-align: middle;
+    left: 15px;
+}
+/* div.ms2-attack-damage>.value-score{} */
+
+div.ms2-defense{
+    color : #fffefb;
+    background-color:#233549;
+    border:50px soild #3b5c6f;
+}
+
+div.ms2-defense>.header-score{
+    color:#56c1e1;
+}
+
+
+/* div.ms2-defense>.value-score{} */
+
+
+div.ms2-gear{
+    color : #fffefb;
+    background-color:#3c3723;
+    border:50px soild #8b7d3e;
+}
+
+div.ms2-gear>.header-score{
+    color:#ffeefb;
+}
+/* div.ms2-gear>.value-score{} */
+
+
+/* ms2-damage-checker result styles */
+.ms2-damage-check-generating-area{
+    position: relative;
+    border:1px dashed #000000;
+    padding:10px;
+    max-width: 600px;
+    background:#3b3b3b;
+    color:#fffefb;
+    font-size: 1.2em;
+    border-radius: 10px;
+}
+
+.ms2-damage-check-generating-area>div.object-key-value-set p{
+    display: inline-block;
+    width:auto;
+    max-width:200px;
+    vertical-align: middle;
+    position: relative;
+    left:0px;
+}
+.ms2-damage-check-generating-area>div.object-key-value-set select   {
+    background-color: inherit;
+    text-align: right;
+    text-align-last:right;
+    color:inherit;
+    font: inherit;
+    /* appearance: none; */
+    padding:0.3em;
+    border:0px;
+}
+
+
+.ms2-damage-check-generating-area>div.object-key-value-set select option:checked{
+    color: #fdd41a;
+}
+
+.ms2-damage-check-generating-area>div.object-key-value-set select.weaponQuality option[value="Rare"]:not(:checked){
+    color:lime;
+}
+.ms2-damage-check-generating-area>div.object-key-value-set select.weaponQuality option[value="Exceptional"]:not(:checked){
+    color:#56c1e1;
+}
+.ms2-damage-check-generating-area>div.object-key-value-set select.weaponQuality option[value="Epic"]:not(:checked){
+    color:purple;
+}
+.ms2-damage-check-generating-area>div.object-key-value-set select.weaponQuality option[value="Legendary"]:not(:checked){
+    color:orange;
+}
+.ms2-damage-check-generating-area>div.object-key-value-set select.weaponQuality option[value="Ascendant"]:not(:checked){
+    color:orangered;
+}
+
+
+.ms2-damage-check-generating-area>div.object-key-value-set select option,
+.ms2-damage-check-generating-area>div.object-key-value-set input{
+    color:inherit;
+    font: inherit;
+    text-align: right;
+    text-align-last: right;
+    height:auto;
+    padding:0.3em;
+    background-color: #2e2e2e;
+}
+
+
+.ms2-damage-check-generating-area>div.object-key-value-set :not(div):not(.object-key){
+    display: inline-block;
+    position: absolute;
+    margin:auto;
+    vertical-align: middle;
+    text-align: right;
+    right:0px;
+}
+
+div.ms2-frame.border{
+    border:2px solid #a1a1a1;
+    background-color:#c8c8c8c8;
+    padding:1px;
+    border-radius:3px;
+}
+div.ms2-frame{
+    border:2px solid #a1a1a1;
+    background-color:#fcfcfc;
+    padding:10px;
+    border-radius:5px;
+}
+
+div.ms2-frame .title{
+    padding:3px
+}
+
+
+/* div-ms2-item item-image */
+div.ms2-item-slot[data-item-name="fire prism scepter"]{background-image: url("./pictogram/item_fire_prism_scepter.png");}
+div.ms2-item-slot[data-item-name="fire prism codex"]{background-image: url("./pictogram/item_fire_prism_codex.png");}
+
+/* div-ms2-enchant header to table */
+div.ms2-upgrade-sequence{
+    border:1px dashed #000000;
+}
+div.ms2-upgrade-sequence p{
+    display:inline-block;
+}
+
+
+/* ms2-boss-rank-list */
+.ms2-boss-rank-list li{ list-style-type: none; display: inline-block;}
+.ms2-boss-rank-list li div{ position: relative; display: inline-block;}
+.ms2-boss-rank-list li>div{height:240px;}
+.ms2-boss-rank-list li div.thumbimg{padding:0px; margin:0px;}
+.ms2-boss-rank-list li p{ text-align: center;}
+
+
+.ms2-boss-rank-list li img{ border: 10px solid gray; z-index: 0;}
+.ms2-boss-rank-list li p.mob-level{ background-color: gray;}
+.ms2-boss-rank-list li:hover img{ border-color:darkorange;}
+.ms2-boss-rank-list li:hover p.mob-level{ background-color:darkorange;}
+
+
+.ms2-boss-rank-list li img{ position:inherit; width:120px; height: 120px; background-color: black; border-radius: 15px; margin:0px; padding:0px;}
+.ms2-boss-rank-list li p.dungeon-type,
+.ms2-boss-rank-list li p.mob-level{position:absolute; z-index: 1;}
+.ms2-boss-rank-list li p.dungeon-name,
+.ms2-boss-rank-list li p.mob-name{padding:3px; margin:3px; max-width: 120px; line-break:strict; word-break: keep-all;}
+.ms2-boss-rank-list li p.mob-level{left:0px; top:0px; margin:5px; padding:5px; border-radius: 5px; color:white;}
+.ms2-boss-rank-list li p.dungeon-type{ position: absolute; right: 0px; bottom:0px; padding:5px; border-radius:5px; background-color:magenta; margin:10px;}
+.ms2-boss-rank-list li p.dungeon-type[data-dungeon-type="리버스 레이드"]{ background-color:lightpink;}
+.ms2-boss-rank-list li p.dungeon-type[data-dungeon-type="포트리스 럼블"]{ background-color:skyblue;}
+.ms2-boss-rank-list li p.dungeon-type[data-dungeon-type="월드 인베이전"]{ background-color:orange;}
+.ms2-boss-rank-list li p.dungeon-type[data-dungeon-type="아이 오브 라펜타"]{ background-color:mediumorchid;}
+
+.ms2-boss-rank-list li a * {text-decoration: none; color:black;}
+
+
+/* dict-data header names display */
+.dictdata-names>li{
+    position: relative;
+    display:inline-block;
+    list-style: none;
+    min-width:50px;
+    width:auto;
+    padding-left:10px;
+    padding-right:10px;
+    padding-top:10px;
+    padding-bottom: 10px;
+    margin-top:3px;
+    margin-bottom:3px;
+    margin-left:auto;
+    margin-right:auto;
+    height:auto;
+    background-color: bisque;
+    vertical-align: middle;
+    border-radius: 10px;
+    font-weight: 400;
+    color:black;
+    font-size:medium;
+}
+.pallete-cost-meso::after{
+    content: "메소";
+}
+.pallete-cost-meret::after{
+    content: "메럿";
+}
