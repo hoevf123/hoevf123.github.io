@@ -82,6 +82,8 @@
                     {dungeonType:"카오스 레이드", dungeonName:"환영의 그림자 제단", dungeonReqLevel:70, monsterId : 23200008, monsterName : "데보라크", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/61000050_devilhugeblue_p.png"},
                     {dungeonType:"카오스 레이드", dungeonName:"우당탕 블랙빈 놀이터", dungeonReqLevel:70, monsterId : 23000101, monsterName : "블랙빈", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000089_b_blackbean_p.png"},
                     {dungeonType:"카오스 레이드", dungeonName:"이계의 놀이터", dungeonReqLevel:70, monsterId : 23000160, monsterName : "핑크빈", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000088_b_pinkbean_p.png"},
+                    //2021-09-09 new dungeon.
+                    {dungeonType:"카오스 레이드", dungeonName:"푸른 화염의 혼돈", dungeonReqLevel:70, monsterId : 23000400, monsterName : "블루 루크", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000400_b_blueluke_p.png"},
                 ];
                 let assembled_domElements = data_bosslists.reduce((accumulate,link_bossinfo)=>{
                     let [_dom_li, _dom_div, _dom_dungeonType, _dom_dungeonName, _dom_bossLevel, _dom_bossName, _dom_url, _dom_closed, _dom_thumbnailImg, _dom_div_thumbnailImg] = ["li","div", "p", "p", "p", "p", "a", "p","img", "div"].map(e=>document.createElement(e));
