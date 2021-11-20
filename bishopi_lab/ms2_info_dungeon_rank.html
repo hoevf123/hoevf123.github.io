@@ -20,6 +20,7 @@
                 //Needs at least ES6 Specifications.
                 const MAPLESTORY2_BOSSRANK_URL = "https://maplestory2.nexon.com/Rank/Boss3"; //Boss3 = Most Cleared Dungon Person infos
                 const MAPLESTORY2_IMAGEPORTRAIT_DIR = "./Maplestory2/Image/portrait/"; // location of MS2 Internal mob ans npc portrait images
+                const _DOM_DIV_LINKBLOCK_BUTTON_CLASSNAME = "div-linkblock-button";
                 const _DOM_DUNGEONTYPE_CLASSNAME = "dungeon-type";
                 const _DOM_DUNGEONNAME_CLASSNAME = "dungeon-name";
                 const _DOM_MONSTERLEVEL_CLASSNAME = "mob-level";
@@ -91,6 +92,7 @@
                     let [_dom_li, _dom_div, _dom_dungeonType, _dom_dungeonName, _dom_bossLevel, _dom_bossName, _dom_url, _dom_closed, _dom_thumbnailImg, _dom_div_thumbnailImg] = ["li","div", "p", "p", "p", "p", "a", "p","img", "div"].map(e=>document.createElement(e));
                     if(link_bossinfo !==undefined && link_bossinfo !== null){
                         let root_DOM = _dom_div;
+                        _dom_div.className = _DOM_DIV_LINKBLOCK_BUTTON_CLASSNAME;
 
                         //prepare string content.
                         let _s_dungeonType = new String(link_bossinfo.dungeonType);

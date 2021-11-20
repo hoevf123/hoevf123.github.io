@@ -547,29 +547,44 @@ div.ms2-upgrade-sequence p{
 
 /* ms2-boss-rank-list */
 .ms2-boss-rank-list li{ list-style-type: none; display: inline-block;}
-.ms2-boss-rank-list li div{ position: relative; display: inline-block;}
-.ms2-boss-rank-list li>div{height:240px;}
-.ms2-boss-rank-list li div.thumbimg{padding:0px; margin:0px;}
+.ms2-boss-rank-list li div{position: relative; display: inline-block;}
+.ms2-boss-rank-list li div.div-linkblock-button{height:200px; margin:0px; padding:5px; border-radius : 15px; /*background-color:lightsalmon;*/}
+.ms2-boss-rank-list li div.thumbimg{padding:0px; margin:0px}
 .ms2-boss-rank-list li p{ text-align: center;}
 
+/* link button of ms2-boss-rank */
+.ms2-boss-rank-list li>a img{ border: 5px solid silver; z-index: 0;}
+.ms2-boss-rank-list li>a p.mob-level{ background-color: silver;}
+.ms2-boss-rank-list li:hover>a img{ border-color:darkorange;}
+.ms2-boss-rank-list li:hover>a p.mob-level{ background-color:darkorange;}
+.ms2-boss-rank-list li:hover>a div.div-linkblock-button{ background-color:rgb(250, 193, 124);}
 
-.ms2-boss-rank-list li img{ border: 10px solid gray; z-index: 0;}
-.ms2-boss-rank-list li p.mob-level{ background-color: gray;}
-.ms2-boss-rank-list li:hover img{ border-color:darkorange;}
-.ms2-boss-rank-list li:hover p.mob-level{ background-color:darkorange;}
+/* link button of ms2-boss-rank (not have link) */
+
+.ms2-boss-rank-list li>:not(a) *{filter:brightness(60%);}
+.ms2-boss-rank-list li>:not(a) img{ border: 5px solid gray; z-index: 0; }
+.ms2-boss-rank-list li>:not(a) p.mob-level{ background-color: gray;}
+.ms2-boss-rank-list li:hover>:not(a) img{ border-color:red;}
+.ms2-boss-rank-list li:hover>:not(a) p.mob-level{ background-color:red;}
+.ms2-boss-rank-list li:hover>:not(a) div.div-linkblock-button{background-color:rgb(250, 124, 124);}
 
 
+
+
+/* link button ingredients decoration */
 .ms2-boss-rank-list li img{ position:inherit; width:120px; height: 120px; background-color: black; border-radius: 15px; margin:0px; padding:0px;}
 .ms2-boss-rank-list li p.dungeon-type,
 .ms2-boss-rank-list li p.mob-level{position:absolute; z-index: 1;}
 .ms2-boss-rank-list li p.dungeon-name,
 .ms2-boss-rank-list li p.mob-name{padding:3px; margin:3px; max-width: 120px; line-break:strict; word-break: keep-all;}
-.ms2-boss-rank-list li p.mob-level{left:0px; top:0px; margin:5px; padding:5px; border-radius: 5px; color:white;}
-.ms2-boss-rank-list li p.dungeon-type{ position: absolute; right: 0px; bottom:0px; padding:5px; border-radius:5px; background-color:magenta; margin:10px;}
+.ms2-boss-rank-list li p.mob-level{left:0px; top:0px; margin:0px; padding:5px; border-radius: 15px 0px 5px 0px; color:white;}
+.ms2-boss-rank-list li p.dungeon-type{position: absolute; right: 0px; bottom:0px; padding:2px; border-radius:2px; background-color:magenta; margin:10px;}
+.ms2-boss-rank-list li p.dungeon-type[data-dungeon-type="카오스 레이드"]{ background-color:crimson;}
 .ms2-boss-rank-list li p.dungeon-type[data-dungeon-type="리버스 레이드"]{ background-color:lightpink;}
 .ms2-boss-rank-list li p.dungeon-type[data-dungeon-type="포트리스 럼블"]{ background-color:skyblue;}
 .ms2-boss-rank-list li p.dungeon-type[data-dungeon-type="월드 인베이전"]{ background-color:orange;}
 .ms2-boss-rank-list li p.dungeon-type[data-dungeon-type="아이 오브 라펜타"]{ background-color:mediumorchid;}
+.ms2-boss-rank-list li p.dungeon-type[data-dungeon-type="칠흑의 성전"]{ background-color:crimson;}
 
 .ms2-boss-rank-list li a * {text-decoration: none; color:black;}
 
