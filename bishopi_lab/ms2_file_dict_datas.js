@@ -387,6 +387,7 @@ let ms2_bgm_records = [
     ['', '(미니게임)웨딩 댄스댄스스탑 숫자맞추기', 'DDstop_Wedding_DanceLoop_01.mp3', './Maplestory2/BGM/DDstop_Wedding_DanceLoop_01.mp3'],
     ['', '(미니게임)웨딩 댄스댄스스탑 - 댄스타임', ['DDstop_Wedding_Loop_01.mp3','DDstop_Wedding_Loop_02.mp3','DDstop_Wedding_Loop_03.mp3','DDstop_Wedding_Loop_04.mp3','DDstop_Wedding_Loop_05.mp3','DDstop_Wedding_Loop_06.mp3','DDstop_Wedding_Loop_07.mp3','DDstop_Wedding_Loop_08.mp3'], ['./Maplestory2/BGM/DDstop_Wedding_Loop_01.mp3', './Maplestory2/BGM/DDstop_Wedding_Loop_02.mp3', './Maplestory2/BGM/DDstop_Wedding_Loop_03.mp3', './Maplestory2/BGM/DDstop_Wedding_Loop_04.mp3', './Maplestory2/BGM/DDstop_Wedding_Loop_05.mp3', './Maplestory2/BGM/DDstop_Wedding_Loop_06.mp3', './Maplestory2/BGM/DDstop_Wedding_Loop_07.mp3', './Maplestory2/BGM/DDstop_Wedding_Loop_08.mp3']],
     ['', '무음', 'silence1.mp3', './Maplestory2/BGM/silence1.mp3'],
+    ['2022년 신규 던전(추정)', '신규 던전(2021.03.17 인게임 파일 추가)',["BGM_ChekcMate_Battle.mp3","BGM_ChekcMate_Boss.mp3","BGM_Primadonna_battle.mp3"], ["https://youtu.be/BVDUYpW06uU","https://youtu.be/2AaKAC7d7NY", "https://youtu.be/gIUXps9HvXQ"]],
     ['메투난다', '(Youtube)메이플2 리스타트',["MS2_MV_AR.mp3"], ["https://youtu.be/WHNwjph_r5g",'http://maple2.vod.nexoncdn.co.kr/ost/21_MS2_MV_AR.mp3']],
     ['핑크빈 송','(Youtube)핑크빈송 ♬',,"https://youtu.be/LGbHpuaVxRw"],
     ['혁이 프로젝트- Mirror','(Youtube)프로듀스 혁이',['MS2_MirrorMirror.mp3','MS2_MirrorMirror_MR.mp3'],["https://youtu.be/k7oSqjd_OJg","http://maple2.vod.nexoncdn.co.kr/ost/22_MS2_MirrorMirror_MR.mp3"]],

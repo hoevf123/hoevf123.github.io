@@ -106,19 +106,10 @@ ul.navbar-target1 li.lightpink:hover{background-color: rgb(253, 201, 211);}
 ul.navbar-target1 li.white{background-color: white;}
 ul.navbar-target1 li.transparent{background-color: transparent;}
 
-ul.navbar-target1>li p{
-    text-align: center;
-    margin:0px;
-}
+ul.navbar-target1>li p{  text-align: center; margin:0px;}
 
-.navbar-target>div.login_btn_area{
-	display:inline;
-	position:right;
-}
-li.right{
-    display:flex;
-    align-items: center;
-}
+.navbar-target>div.login_btn_area{display:inline; position:right;}
+li.right{display:flex; align-items: center;}
 .tag-center{display:inline-block;}
 
 ul.navbar-target1>li:hover ul.sub-menu{
@@ -405,7 +396,8 @@ div.ms2-attack-damage{
 div.ms2-attack-damage>.header-score{
     display:inline;
     position: absolute;
-    color:#d87071;
+    color:#ff5f5f;
+    text-shadow: 0px 2px 2px black;
     padding:auto;
     margin:auto;
     text-align: left;
@@ -422,6 +414,7 @@ div.ms2-defense{
 
 div.ms2-defense>.header-score{
     color:#56c1e1;
+    text-shadow: 0px 2px 2px black;
 }
 
 
@@ -436,6 +429,7 @@ div.ms2-gear{
 
 div.ms2-gear>.header-score{
     color:#ffeefb;
+    text-shadow: 0px 2px 2px black;
 }
 /* div.ms2-gear>.value-score{} */
 
@@ -472,25 +466,13 @@ div.ms2-gear>.header-score{
 }
 
 
-.ms2-damage-check-generating-area>div.object-key-value-set select option:checked{
-    color: #fdd41a;
-}
+.ms2-damage-check-generating-area>div.object-key-value-set select option:checked{ color: #fdd41a;}
 
-.ms2-damage-check-generating-area>div.object-key-value-set select.weaponQuality option[value="Rare"]:not(:checked){
-    color:lime;
-}
-.ms2-damage-check-generating-area>div.object-key-value-set select.weaponQuality option[value="Exceptional"]:not(:checked){
-    color:#56c1e1;
-}
-.ms2-damage-check-generating-area>div.object-key-value-set select.weaponQuality option[value="Epic"]:not(:checked){
-    color:purple;
-}
-.ms2-damage-check-generating-area>div.object-key-value-set select.weaponQuality option[value="Legendary"]:not(:checked){
-    color:orange;
-}
-.ms2-damage-check-generating-area>div.object-key-value-set select.weaponQuality option[value="Ascendant"]:not(:checked){
-    color:orangered;
-}
+.ms2-damage-check-generating-area>div.object-key-value-set select.weaponQuality option[value="Rare"]:not(:checked){ color:lime;}
+.ms2-damage-check-generating-area>div.object-key-value-set select.weaponQuality option[value="Exceptional"]:not(:checked){color:#56c1e1;}
+.ms2-damage-check-generating-area>div.object-key-value-set select.weaponQuality option[value="Epic"]:not(:checked){color:purple;}
+.ms2-damage-check-generating-area>div.object-key-value-set select.weaponQuality option[value="Legendary"]:not(:checked){color:orange;}
+.ms2-damage-check-generating-area>div.object-key-value-set select.weaponQuality option[value="Ascendant"]:not(:checked){color:orangered;}
 
 
 .ms2-damage-check-generating-area>div.object-key-value-set select option,
@@ -528,7 +510,7 @@ div.ms2-frame{
 }
 
 div.ms2-frame .title{
-    padding:3px
+    padding:3px;
 }
 
 
@@ -552,18 +534,24 @@ div.ms2-upgrade-sequence p{
 .ms2-boss-rank-list li div.thumbimg{padding:0px; margin:0px}
 .ms2-boss-rank-list li p{ text-align: center;}
 
-/* link button of ms2-boss-rank */
-.ms2-boss-rank-list li>a img{ border: 5px solid silver; z-index: 0;}
-.ms2-boss-rank-list li>a p.mob-level{ background-color: silver;}
-.ms2-boss-rank-list li:hover>a img{ border-color:darkorange;}
-.ms2-boss-rank-list li:hover>a p.mob-level{ background-color:darkorange;}
+/* link button of ms2-boss-rank (conventional)*/
+.ms2-boss-rank-list li>a div:not(.dungeon-closed) img{ border: 5px solid rgb(255, 124, 72); z-index: 0;}
+.ms2-boss-rank-list li>a div:not(.dungeon-closed) p.mob-level{ background-color: rgb(255, 124, 72);}
+.ms2-boss-rank-list li:hover>a div:not(.dungeon-closed) img{ border-color:darkorange;}
+.ms2-boss-rank-list li:hover>a div:not(.dungeon-closed) p.mob-level{ background-color:darkorange;}
 .ms2-boss-rank-list li:hover>a div.div-linkblock-button{ background-color:rgb(250, 193, 124);}
 
-/* link button of ms2-boss-rank (not have link) */
+/* link button of ms2-boss-rank but its dungeon recording(or open state) is expired */
+.ms2-boss-rank-list li>a div.dungeon-closed img{ border: 5px solid #333333; z-index: 0;}
+.ms2-boss-rank-list li>a div.dungeon-closed p.mob-level{ background-color: #333333;}
+.ms2-boss-rank-list li:hover>a div.dungeon-closed img{ border-color:red;}
+.ms2-boss-rank-list li:hover>a div.dungeon-closed p.mob-level{ background-color:red;}
+.ms2-boss-rank-list li:hover>a div.div-linkblock-button.dungeon-closed{ background-color:salmon;}
 
+/* link button of ms2-boss-rank (not have link) */
 .ms2-boss-rank-list li>:not(a) *{filter:brightness(60%);}
-.ms2-boss-rank-list li>:not(a) img{ border: 5px solid gray; z-index: 0; }
-.ms2-boss-rank-list li>:not(a) p.mob-level{ background-color: gray;}
+.ms2-boss-rank-list li>:not(a) img{ border: 5px solid darkgray; z-index: 0; }
+.ms2-boss-rank-list li>:not(a) p.mob-level{ background-color: darkgray;}
 .ms2-boss-rank-list li:hover>:not(a) img{ border-color:red;}
 .ms2-boss-rank-list li:hover>:not(a) p.mob-level{ background-color:red;}
 .ms2-boss-rank-list li:hover>:not(a) div.div-linkblock-button{background-color:rgb(250, 124, 124);}

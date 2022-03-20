@@ -26,6 +26,7 @@
                 const _DOM_MONSTERLEVEL_CLASSNAME = "mob-level";
                 const _DOM_MONSTERNAME_CLASSNAME = "mob-name";
                 const _DOM_DIV_THUMBNAILIMAGE_CLASSNAME = "div-thumbimg";
+                const _DOM_DIV_THUMBNAILIMAGE_DUNGEONEXPIRED_CLASSNAME = "dungeon-closed";
                 
                 let dom_bosslists = Array.from(document.getElementsByClassName("ms2-boss-rank-list")); //many of classes.
                 let data_bosslists = [
@@ -84,9 +85,11 @@
                     {dungeonType:"카오스 레이드", dungeonName:"우당탕 블랙빈 놀이터", dungeonReqLevel:70, monsterId : 23000101, monsterName : "블랙빈", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000089_b_blackbean_p.png"},
                     {dungeonType:"카오스 레이드", dungeonName:"이계의 놀이터", dungeonReqLevel:80, monsterId : 23000160, monsterName : "핑크빈", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000088_b_pinkbean_p.png"},
                     //2021-09-09 new dungeon. (no longer used after 2021.10.14 update)
-                    {dungeonType:"카오스 레이드", dungeonName:"푸른 화염의 혼돈[일반]", dungeonReqLevel:70, monsterId : 23000400, monsterName : "블루 루크", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000400_b_blueluke_p.png"},
+                    {dungeonType:"카오스 레이드", dungeonName:"푸른 화염의 혼돈[일반]", dungeonReqLevel:70, monsterId : 23000400, monsterName : "블루 루크",dungeonClosed : true, thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000400_b_blueluke_p.png"},
                     //2021-10-14 hard mode dungeon update (and new record start)
                     {dungeonType:"카오스 레이드", dungeonName:"푸른 화염의 혼돈[어려움]", dungeonReqLevel:80, monsterId : 23000401, monsterName : "광기 어린 블루 루크", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000400_b_blueluke_p.png"},
+                    //2022-??-?? Kandura hard mode raid
+                    {dungeonType:"카오스 레이드", dungeonName:"환영의 비욘드 링크 트리스[어려움]", dungeonReqLevel:80, monsterId : null, monsterName : "칸두라" ,dungeonClosed : true, thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000081_b_kanduranormal_p.png"},
                 ];
                 let assembled_domElements = data_bosslists.reduce((accumulate,link_bossinfo)=>{
                     let [_dom_li, _dom_div, _dom_dungeonType, _dom_dungeonName, _dom_bossLevel, _dom_bossName, _dom_url, _dom_closed, _dom_thumbnailImg, _dom_div_thumbnailImg] = ["li","div", "p", "p", "p", "p", "a", "p","img", "div"].map(e=>document.createElement(e));
@@ -103,6 +106,7 @@
                         let _s_thumbnailImg_src = new String(link_bossinfo.thumbnailImage);
                         let _s_alt_thumbnailImg = new String(_s_bossLevel +" " + _s_title_dungeonName);
                         let _s_closed = "(Closed)";
+                        let _b_dungeon_closed = Boolean(link_bossinfo.dungeonClosed); // DO NOT USE new Boolean if you use it, it treats as Object.
 
                         //assemble string to DOM and its DOMs.
                         [
@@ -120,6 +124,9 @@
                         _dom_thumbnailImg.src = _s_thumbnailImg_src;
                         _dom_thumbnailImg.alt = _s_alt_thumbnailImg;
                         _dom_div_thumbnailImg.className = _DOM_DIV_THUMBNAILIMAGE_CLASSNAME;
+
+                        //append "dungeon expired additional class" when the real dungeon usage is expired(obsoleted from geniue Maplestory 2 Dungeon)
+                        _dom_div.className += _b_dungeon_closed? " "+ _DOM_DIV_THUMBNAILIMAGE_DUNGEONEXPIRED_CLASSNAME:""; //dungeon closed 상태 추가
 
                         //assemble "text injected" DOMs.
                         [_dom_bossLevel, _dom_dungeonType, _dom_thumbnailImg].forEach(e=>_dom_div_thumbnailImg.appendChild(e));
