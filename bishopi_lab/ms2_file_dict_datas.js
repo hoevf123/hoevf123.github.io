@@ -190,6 +190,7 @@ let ms2_bgm_records = [
     ['', '', 'BGM_BlackStar_Theme_01.mp3', './Maplestory2/BGM/BGM_BlackStar_Theme_01.mp3'],
     ['', '', 'BGM_BlackStar_Theme_02.mp3', './Maplestory2/BGM/BGM_BlackStar_Theme_02.mp3'],
     ['', '', ['BGM_BlackStar_Trap_Intro_01.mp3','BGM_BlackStar_Trap_Loop_01.mp3'], ['./Maplestory2/BGM/BGM_BlackStar_Trap_Intro_01.mp3','./Maplestory2/BGM/BGM_BlackStar_Trap_Loop_01.mp3']],
+    ['', '(던전) 푸른 화염의 혼돈 [보스가 맵에 존재하지 않을 때]', ['BGM_BlueLuke_battle.mp3'], ['./Maplestory2/BGM/BGM_BlueLuke_battle.mp3']],
     ['', '', ['BGM_Boss_01_Intro.mp3', 'BGM_Boss_01_Loop.mp3'], ['./Maplestory2/BGM/BGM_Boss_01_Intro.mp3','./Maplestory2/BGM/BGM_Boss_01_Loop.mp3']],
     ['', '', ['BGM_Boss_02_intro.mp3','BGM_Boss_02_main.mp3'], ['./Maplestory2/BGM/BGM_Boss_02_intro.mp3','./Maplestory2/BGM/BGM_Boss_02_main.mp3']],
     ['', '', ['BGM_Boss_03_Intro.mp3','BGM_Boss_03_Loop.mp3'], ['./Maplestory2/BGM/BGM_Boss_03_Intro.mp3','./Maplestory2/BGM/BGM_Boss_03_Loop.mp3']],
