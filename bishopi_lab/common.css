@@ -45,17 +45,17 @@ li>ul.sub-menu:hover, li>ul.sub-menu{
 
 /* 네비게이터(상단) */
 div.navigator-area{
-    display:block;
-    position: relative;
+    display:inline-block;
+    position:relative;
     background-color:rgb(52, 86, 197);
     width:100%;
     text-align: center;
     height:auto;
-    padding:15px;
+    padding:0px;                                            
     margin:0px;
 }
 div.navigator-area>a{text-decoration: none;}
-div.navigator-area h1{font-size: 32px; color:#05c5ff; text-shadow: -5px -2px black;}
+div.navigator-area h1{font-size: 32px; color:#05c5ff; text-shadow: -5px -2px black; position:relative;}
 ul.navbar-target1, ul.sub-menu{
     padding:0px;
     margin:0px;
@@ -73,10 +73,6 @@ ul.navbar-target1>li, ul.sub-menu>li{
     padding-right:10px;
     padding-top:10px;
     padding-bottom: 10px;
-    margin-top:3px;
-    margin-bottom:3px;
-    margin-left:auto;
-    margin-right:auto;
     height:auto;
     background-color: bisque;
     vertical-align: middle;
@@ -112,9 +108,6 @@ ul.navbar-target1>li p{  text-align: center; margin:0px;}
 li.right{display:flex; align-items: center;}
 .tag-center{display:inline-block;}
 
-ul.navbar-target1>li:hover ul.sub-menu{
-    display:inline-block;
-}
 ul.navbar-target1>li:hover ul.navbar-target1{
     display:inline-block;
     animation-name:hello;
@@ -152,20 +145,14 @@ div.dict-result{
     padding:10px;
 }
 
-div.dict-result>div.dict-data:not(.selected) *{
-    display: none !important;
-}
-div.dict-result>div.dict-data .ms2-dictdata-title{
-    display: inherit !important;
-}
-div.dict-result>div.dict-data .ms2-dictdata-thumbnail{
-    display: none !important;
-}
+div.dict-result>div.dict-data:hover{animation: dictdata-initial-to-white 0.5s forwards;}
+@keyframes dictdata-initial-to-white { 0%{background-color: initial;} 100%{background-color: #ffffff;}}
 
+div.dict-result>div.dict-data:not(.selected) *{display: none !important;}
+div.dict-result>div.dict-data .ms2-dictdata-title{display: inherit !important;}
+div.dict-result>div.dict-data .ms2-dictdata-thumbnail{display: none !important;}
+.dict-data p.hash-tag::before{content:"#";}
 
-.dict-data p.hash-tag::before{
-    content:"#";
-}
 @keyframes div-selected-open{
     from{
         display:hidden;
@@ -175,6 +162,10 @@ div.dict-result>div.dict-data .ms2-dictdata-thumbnail{
     }
 }
 
+/* Design type 1 */
+div.dict-result.designType1>div.dict-data{display: inline-block; width:490px; max-width: 100%; padding:10px; margin:0px;}
+div.dict-result.designType1>div.dict-data img.thumb-img{max-width: 100%; display:block;}
+
 div.dict-result.월페이퍼>div.dict-data{
     display: inline-block;
     width:490px;
@@ -182,12 +173,16 @@ div.dict-result.월페이퍼>div.dict-data{
     padding:10px;
     margin:0px;
 }
+div.dict-result.월페이퍼>div.dict-data:hover{animation: 월페이퍼 0.5s forwards;}
+@keyframes 월페이퍼 {
+    0%{background-color: initial;}
+    100%{background-color: #ffffff;}
+}
 
 div.dict-result.월페이퍼>div.dict-data img.thumb-img{
     max-width: 100%;
     display:block;
 }
-
 
 div.dict-result.공방도안>div.dict-data{
     display: inline-block;
@@ -496,6 +491,8 @@ div.ms2-gear>.header-score{
     right:0px;
 }
 
+
+/* Maplestory2 UI Style Frame skin */
 div.ms2-frame.border{
     border:2px solid #a1a1a1;
     background-color:#c8c8c8c8;
@@ -508,9 +505,28 @@ div.ms2-frame{
     padding:10px;
     border-radius:5px;
 }
+div.ms2-frame.lightdark{ border:2px solid #434343; background-color:#2b2b2b;}
+div.ms2-frame.gray{ border:2px solid #434343; background-color:#3b3b3b;}
+div.ms2-frame.lightgray{ border:2px solid #434343; background-color:#434343;}
 
-div.ms2-frame .title{
+div.ms2-frame.title{
+    background-color:silver;
+    animation-name: ms2-title-animation;
+    animation-duration: 3s;
+    animation:infinite;
     padding:3px;
+}
+
+@keyframes ms2-title-animation {
+    0%{
+        background-color: darkgray;
+    }
+    50%{
+        background-color: silver;
+    }
+    100%{
+        background-color: darkgray;
+    }
 }
 
 

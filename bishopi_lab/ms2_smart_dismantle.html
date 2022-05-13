@@ -54,37 +54,6 @@
                                 <div class="ms2-item-slot"></div>
                                 <div class="ms2-item-slot"></div>
                             </div>
-                            <div>
-                                <div class="ms2-item-slot"></div>
-                                <div class="ms2-item-slot"></div>
-                                <div class="ms2-item-slot"></div>
-                                <div class="ms2-item-slot"></div>
-                                <div class="ms2-item-slot"></div>
-                                <div class="ms2-item-slot"></div>
-                                <div class="ms2-item-slot"></div>
-                                <div class="ms2-item-slot"></div>
-                            </div>
-
-                            <div>
-                                <div class="ms2-item-slot"></div>
-                                <div class="ms2-item-slot"></div>
-                                <div class="ms2-item-slot"></div>
-                                <div class="ms2-item-slot"></div>
-                                <div class="ms2-item-slot"></div>
-                                <div class="ms2-item-slot"></div>
-                                <div class="ms2-item-slot"></div>
-                                <div class="ms2-item-slot"></div>
-                            </div>
-                            <div>
-                                <div class="ms2-item-slot"></div>
-                                <div class="ms2-item-slot"></div>
-                                <div class="ms2-item-slot"></div>
-                                <div class="ms2-item-slot"></div>
-                                <div class="ms2-item-slot"></div>
-                                <div class="ms2-item-slot"></div>
-                                <div class="ms2-item-slot"></div>
-                                <div class="ms2-item-slot"></div>
-                            </div>
                         </div>
                         -->
                     </div>
@@ -169,6 +138,22 @@
                     get length(){return this.slots.length;}
                 }
                 
+
+                class DOMItemUpdator{
+                    constructor(...domElements){
+                        this.domElements=[];
+                        domElements.forEach((e)=>{ e instanceof HTMLDOMElement ? this.domElements.push(e): undefined;});
+                        // 내장 태그 만들기
+                        this.domOption = document.createElement("select");  //아이템 목록
+                    }
+                    update(){
+                        //등록된 태그의 목록들을 업데이트.
+                        domElements.forEach((e)=>{
+                              
+                        })
+                    }
+                }
+
                 
                 let dismantle_items_slot = [...Array(10).keys()].map(x=>new ItemSlot());
                 let character_inventory_slot = [...Array(10).keys()].map(x=>new ItemSlot());
@@ -181,7 +166,8 @@
                     {item_id : 2300003, name:"파이어 프리즘 신발", reqLevel:70, imgSrc:`${ITEMIMAGE_DIR}/item_fire_prism_shoes.png`, maxStack : 1},
                     {item_id : 2300004, name:"파이어 프리즘 상의", reqLevel:70, imgSrc:`${ITEMIMAGE_DIR}/item_fire_prism_shirt.png`, maxStack : 1} ,
                     {item_id : 2300005, name:"파이어 프리즘 하의", reqLevel:70, imgSrc:`${ITEMIMAGE_DIR}/item_fire_prism_pants.png`, maxStack : 1},
-                    {item_id : 2300006, name:"파이어 프리즘 홀", reqLevel:70, imgSrc:`${ITEMIMAGE_DIR}/item_fire_prism_scepter.png`, maxStack : 1}
+                    {item_id : 2300006, name:"파이어 프리즘 홀", reqLevel:70, imgSrc:`${ITEMIMAGE_DIR}/item_fire_prism_scepter.png`, maxStack : 1},
+
                 ];
                 let item_user = new ItemInventory(14);
                 let FirePrism_ItemCreator = new ItemCreator(div_ms2_creator , ms2_item_infos);

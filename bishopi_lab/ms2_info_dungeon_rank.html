@@ -44,7 +44,6 @@
                     {dungeonType:"리버스 레이드", dungeonName:"이계의 존재", dungeonReqLevel:56, monsterId : 23000088, monsterName : "핑크빈" ,dungeonClosed : true, thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000088_b_pinkbean_p.png"},
                     
                     //52~56 Chaos Raid
-                    {dungeonType:"카오스 레이드", dungeonName:"서릿발 신전", dungeonReqLevel:54, monsterId : null, monsterName : "비에른" ,dungeonClosed : true, thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000083_b_snowking_p.png"},
                     {dungeonType:"카오스 레이드", dungeonName:"마드라칸 첨탑", dungeonReqLevel:56, monsterId : 23200064, monsterName : "루카락스" ,dungeonClosed : true, thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000064_b_bigwingchimera_p.png"},
 
 
@@ -84,12 +83,15 @@
                     {dungeonType:"카오스 레이드", dungeonName:"환영의 그림자 제단", dungeonReqLevel:70, monsterId : 23200008, monsterName : "데보라크", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/61000050_devilhugeblue_p.png"},
                     {dungeonType:"카오스 레이드", dungeonName:"우당탕 블랙빈 놀이터", dungeonReqLevel:70, monsterId : 23000101, monsterName : "블랙빈", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000089_b_blackbean_p.png"},
                     {dungeonType:"카오스 레이드", dungeonName:"이계의 놀이터", dungeonReqLevel:80, monsterId : 23000160, monsterName : "핑크빈", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000088_b_pinkbean_p.png"},
+                    
                     //2021-09-09 new dungeon. (no longer used after 2021.10.14 update)
                     {dungeonType:"카오스 레이드", dungeonName:"푸른 화염의 혼돈[일반]", dungeonReqLevel:70, monsterId : 23000400, monsterName : "블루 루크",dungeonClosed : true, thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000400_b_blueluke_p.png"},
+                    
                     //2021-10-14 hard mode dungeon update (and new record start)
                     {dungeonType:"카오스 레이드", dungeonName:"푸른 화염의 혼돈[어려움]", dungeonReqLevel:80, monsterId : 23000401, monsterName : "광기 어린 블루 루크", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000400_b_blueluke_p.png"},
-                    //2022-??-?? Kandura hard mode raid
-                    {dungeonType:"카오스 레이드", dungeonName:"환영의 비욘드 링크 트리스[어려움]", dungeonReqLevel:80, monsterId : null, monsterName : "칸두라" ,dungeonClosed : true, thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000081_b_kanduranormal_p.png"},
+                    
+                    //2022-05-12 붉은 장미 극장[일반](델라 로사)
+                    {dungeonType:"카오스 레이드", dungeonName:"붉은 장미 극장[일반]", dungeonReqLevel:80, monsterId : 44100001, monsterName : "델라 로사" , thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/41110001_b_primadonna_p.png"},
                 ];
                 let assembled_domElements = data_bosslists.reduce((accumulate,link_bossinfo)=>{
                     let [_dom_li, _dom_div, _dom_dungeonType, _dom_dungeonName, _dom_bossLevel, _dom_bossName, _dom_url, _dom_closed, _dom_thumbnailImg, _dom_div_thumbnailImg] = ["li","div", "p", "p", "p", "p", "a", "p","img", "div"].map(e=>document.createElement(e));

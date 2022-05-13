@@ -262,19 +262,34 @@
                         character_job_class = get_filename(character_job_class);
                         character_job_class = get_job_class_name(character_job_class);
                         let achived_trophy_count = json_data[ch_id]?.trophy;
+                        let dungeon_cleared_records = json_data[ch_id]?.dungeon_cleared_records;
+                        let dungeon_cleared_summation_count = dungeon_cleared_records.reduce((a,c,i)=>{a = a + Number(c?.dungeon_cleared_amount) ?? 0; console.log(c?.dungeon_cleared_amount); return a;}, 0);
+                        let dungeon_cleared_summation_score = dungeon_cleared_records.reduce((a,c,i)=>{a = a + Math.min(Number(c?.dungeon_cleared_amount) ?? 0, 300); return a;}, 0);
+                        let dungeon_cleared_summation_max_score = dungeon_cleared_records.reduce((a,c,i)=>{a = a + 300; return a;}, 0);
+                        let today = new Date();
+                        let today_year = today.getFullYear();
+                        let today_month = today.getMonth() + 1;
+                        let today_date = today.getDate();
 
+                        let remaining_date = (7-(today.getDay()+2))%7;
                         // Step 2. make root div
                         let ch_root_div = createTag("div", "ms2-frame ms2-info-block " + new String(ch_id));
                         
                         // Step 3. inject fron data to HTML Tag Elements.
-                        let tag_character_name = createTag("h1", "character-name",character_name);
-                        let tag_character_thumbnail_image_blob = createTag("img", "characater_thumbnail_image");
-                        tag_character_thumbnail_image_blob.src = "data:image/png;base64,"+character_thumbnail_image_blob;
-                        tag_character_thumbnail_image_blob.alt = `characater_thumbnail_image(${new String(character_name)})`;
-                        let tag_character_job_class=createTag("p","character-job-class","직업 : " + new String(character_job_class));
-                        let tag_achived_trophy_count = createTag("p", "achived-trophy-count", "트로피 획득 개수 : " + new String(achived_trophy_count));
+                        let _tags = {};
+                        _tags.character_name = createTag("h1", "character-name",character_name);
+                        _tags.character_thumbnail_image_blob = createTag("img", "characater_thumbnail_image");
+                        _tags.character_thumbnail_image_blob.src = "data:image/png;base64,"+character_thumbnail_image_blob;
+                        _tags.character_thumbnail_image_blob.alt = `characater_thumbnail_image(${new String(character_name)})`;
+                        _tags.character_job_class=createTag("p","character-job-class","직업 : " + new String(character_job_class));
+                        _tags.achived_trophy_count = createTag("p", "achived-trophy-count", "🏆 " + new String(achived_trophy_count));
+                        _tags.dungeon_cleared_summation_score = createTag("p", "dungeon_cleared_summation_score", `던전 종합 점수 : ${new String(dungeon_cleared_summation_score)} / ${new String(dungeon_cleared_summation_max_score)} (총 ${new String(dungeon_cleared_summation_count)}회 클리어)`);
+                        //homework
+                        _tags.head_homework = createTag("h1", "head_homework", `일일 숙제`);
+                        _tags.additional_homework = createTag("p", "head_homework_comment", `(${today_year}년 ${today_month}월 ${today_date}일 기준, 주간 숙제 초기화까지 ${remaining_date}일 남음)`);
                         
-                        [tag_character_name, tag_character_thumbnail_image_blob,tag_character_job_class,tag_achived_trophy_count].forEach((e)=>ch_root_div.appendChild(e));
+                        Object.values(_tags).forEach((e)=>ch_root_div.appendChild(e)); // inject execution
+
                         // Step 4. inject made root to master div tag.
                         root_div.appendChild(ch_root_div);
                     }

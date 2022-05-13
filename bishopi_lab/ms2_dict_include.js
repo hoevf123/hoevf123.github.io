@@ -117,7 +117,10 @@ class DictData {
                 // function name "asd" has no meaning.
                 function asd(target_tag_root, target_tag_type, target_tag_className, target_data){
                     let ret_tag = undefined;
-                    if(target_data instanceof Array){
+                    if(target_data === undefined){
+                        
+                    }
+                    else if(target_data instanceof Array){
                         let _inside_tag = CreateTag("div", target_tag_className);
                         target_data.forEach((e)=>{asd(_inside_tag, target_tag_type, target_tag_className, e);});
                         if(!(_inside_tag.hasChildNodes()))ret_tag = undefined;
