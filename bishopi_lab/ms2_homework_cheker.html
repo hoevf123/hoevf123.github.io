@@ -271,7 +271,7 @@
                         let today_month = today.getMonth() + 1;
                         let today_date = today.getDate();
 
-                        let remaining_date = (7-(today.getDay()+2))%7;
+                        let remaining_date = (6-(today.getDay()+2)+7)%7;
                         // Step 2. make root div
                         let ch_root_div = createTag("div", "ms2-frame ms2-info-block " + new String(ch_id));
                         
