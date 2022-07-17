@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <title>비숍이 실험실</title>
+    <link rel="stylesheet" href="common.css">
+    <script src="w3-include-html.js"></script>
+</head>
+
+<body>
+    <div w3-include-html="nav-header.html"></div>
+    <section>
+        <div class="div-content">
+            
+        </div>
+        
+    </section>
+    <script>
+        class GameItem{
+            constructor(itemName, itemQuantity = 1, itemCode){
+                this.itemName = itemName;
+                this.itemQuantity = 1;
+                this.itemCode = itemCode;
+            }
+        }
+        class GameItemSlot{
+            constructor(gameItem, uniqueItemCode){
+                this.gameItem = gameItem;
+                this.uniqueItemCode = uniqueItemCode;
+            }
+        }
+        class GameItemStorage{
+            constructor(){
+                this.items = [];
+                this.itemsLengthLimit = undefined;
+            }
+            insert(...gameItems){
+
+            }
+            delete(...gameItems){
+
+            }
+        }
+
+        class DOMItemStorage{
+
+        }
+    </script>
+</body>

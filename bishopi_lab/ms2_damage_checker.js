@@ -5,6 +5,8 @@ class MS2DamageChecker{
         this.target_tag_update_area = target_tag_update_area;
         this.connector_player_tag_form = {
             //note : input default value or array of valueset
+
+            // options of Attacking, speed.
             class: jobs,
             weaponQuality: Object.keys(WeaponQualityBAModifier),
             weaponAttack: 10767,
@@ -17,7 +19,9 @@ class MS2DamageChecker{
             magPiercing: 0,
             accuracy: 84,
             critRate: 136,
+            critRateLimitIgnore: 0,
             critDamage: 167,
+            critDamageLimitIgnore: 0.0,
             typedDamage: {
                 melee: 0.0,
                 ranged: 0.0,
@@ -30,8 +34,33 @@ class MS2DamageChecker{
                 boss: 4.0,
                 total: 0.0,
             },
+            healSkillEffect : 0.0,
+            HPhealSkillEffectReduction : 0.0,
             attackSpeed: 105.0,
             skillCooltimeReduction: 0,
+            humanAttack:0.0,
+            
+            //options of Defense 
+            defense : 0.0,
+            phyResistance : 0.0,
+            magResistance : 0.0,
+            avoidance : 0.0,
+            critAvoidance:0.0,
+            meleeDamageReduction:0.0,
+            rangedDamageReduction: 0.0,
+            meleeDamageReduction: 0.0,
+            rangedDamageReduction: 0.0,
+            fireDamageReduction: 0,
+            iceDamageReduction: 0,
+            electricDamageReduction: 0,
+            poisonDamageReduction: 0,
+            darkDamageReduction: 0,
+            holyDamageReduction: 0,
+            completeDefense :0,
+            completeAvoidance : 0,
+            inactivityTimeReduction : 0,
+            stateMalfunctionTimeReduction : 0,
+            HPRecovery : 0,
         }
         let _default_player_tag_form = {
             //note : input default value or array of valueset
@@ -48,6 +77,7 @@ class MS2DamageChecker{
             accuracy: 120,
             critRate: 316,
             critDamage: 168.7,
+            critDamageLimitIgnore: 0.0,
             typedDamage: {
                 melee: 0.0,
                 ranged: 0.0,
@@ -62,6 +92,7 @@ class MS2DamageChecker{
             },
             attackSpeed: 119.0,
             skillCooltimeReduction: 0,
+            humanAttack:0.0,
         }
 
         // tag name wrapper
@@ -79,7 +110,9 @@ class MS2DamageChecker{
             magPiercing: "마법 저항력 관통",
             accuracy: "명중",
             critRate: "크리티컬 확률",
+            critRateLimitIgnore: "크리티컬 확률(제한무시)",
             critDamage: "크리티컬 대미지",
+            critDamageLimitIgnore: "크리티컬 대미지(제한무시)",
             typedDamage: {
                 melee: "근접 대미지 증가",
                 ranged: "원거리 대미지 증가",
@@ -89,11 +122,35 @@ class MS2DamageChecker{
                 poison: "독 대미지 증가",
                 dark: "암흑 대미지 증가",
                 holy: "신성 대미지 증가",
-                boss: "보스 공격 시 대미지 증가",
+                boss: "보스 몬스터 공격 시 대미지 증가",
                 total: "총 대미지 증가",
             },
             attackSpeed: "공격속도",
+            healSkillEffect : "회복 스킬 효과 증가",
+            HPhealSkillEffectReduction : "HP 회복 스킬 효과 감소",
             skillCooltimeReduction: "스킬 쿨타임 감소",
+            humanAttack: "대인 공격력",
+
+
+            // defencse options
+            defense : "방어력",
+            phyResistance : "물리 저항력",
+            magResistance : "마법 저항력",
+            avoidance : "회피",
+            critAvoidance: "크리티컬 회피",
+            meleeDamageReduction: "근접 대미지 감소",
+            rangedDamageReduction: "원거리 대미지 감소",
+            fireDamageReduction: "화염 대미지 감소",
+            iceDamageReduction: "냉기 대미지 감소",
+            electricDamageReduction: "전격 대미지 감소",
+            poisonDamageReduction: "독 대미지 감소",
+            darkDamageReduction: "암흑 대미지 감소",
+            holyDamageReduction: "신성 대미지 감소",
+            completeDefense :"완전 방어",
+            completeAvoidance : "완전 회피",
+            inactivityTimeReduction : "행동 불능 시간 감소",
+            stateMalfunctionTimeReduction : "상태 이상 시간 감소",
+            HPRecovery : "HP 재생력",
         }
 
         //create input form

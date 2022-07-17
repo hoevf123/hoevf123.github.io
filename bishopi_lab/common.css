@@ -30,6 +30,7 @@ div.div-content{
     display:table;
     min-width:800px;
     margin:auto;
+    padding:30px;
 }
 
 a.disable-default-font-color{
@@ -261,6 +262,9 @@ div.ms2-item-slot{
     background-color: #333333; /* item's background color */
     background-size: 100%;
     border-radius: 5px;
+    border-width: 1px;
+    border-color:#000000;
+    border-style: solid;
 }
 div.ms2-item-slot img,
 div.ms2-item-slot div{
@@ -433,7 +437,10 @@ div.ms2-gear>.header-score{
 .ms2-damage-check-generating-area{
     position: relative;
     border:1px dashed #000000;
-    padding:10px;
+    padding-left:10px;
+    padding-right:10px;
+    padding-top:5px;
+    padding-bottom:5px;
     max-width: 600px;
     background:#3b3b3b;
     color:#fffefb;
@@ -444,7 +451,7 @@ div.ms2-gear>.header-score{
 .ms2-damage-check-generating-area>div.object-key-value-set p{
     display: inline-block;
     width:auto;
-    max-width:200px;
+    max-width:250px;
     vertical-align: middle;
     position: relative;
     left:0px;

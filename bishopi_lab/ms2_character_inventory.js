@@ -193,6 +193,7 @@ character_inventory.insert([
     {...FIRE_PRISM_SCEPTER},
     {...FIRE_PRISM_SCEPTER},
     {...FIRE_PRISM_SCEPTER},
-    {...FIRE_PRISM_CODEX}
+    {...FIRE_PRISM_CODEX},
+    {...FIRE_PRISM_CODEX},
 ]);
 character_inventory.representTag();
