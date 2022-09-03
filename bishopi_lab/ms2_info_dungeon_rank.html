@@ -43,9 +43,11 @@
                         _dom_div.className = _DOM_DIV_LINKBLOCK_BUTTON_CLASSNAME;
                         console.log(link_bossinfo);
                         //prepare string content.
+                        let _s_LEVEL_HEADER = "Lv."
+                        let _s_dungeonRequireLevel = `${_s_LEVEL_HEADER} ${new String(link_bossinfo?.["requireLevel"])}`;
                         let _s_dungeonType = new String(link_bossinfo?.["dungeonType"]);
                         let _s_dungeonName = new String(link_bossinfo?.["dungeonName"]);
-                        let _s_bossLevel = "Lv. " + new String(link_bossinfo?.["requireLevel"]);
+                        let _s_bossLevel = `${_s_LEVEL_HEADER} ${new String(link_bossinfo?.["representiveBossMonster"]?.["monsterLevel"])}`;
                         let _s_bossName = new String(link_bossinfo?.["representiveBossMonster"]?.["monsterName"]);
                         let _v_monsterId = link_bossinfo?.["representiveBossMonster"]?.["monsterId"];
                         let _s_title_dungeonName = "["+ _s_dungeonType+"]"+ _s_dungeonName;

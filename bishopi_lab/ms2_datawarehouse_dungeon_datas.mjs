@@ -383,7 +383,7 @@ export const temp_dungeon_datas = [
         ],
         "isRankInfoUpdatable":true,
         "isRankSearchable":true,
-        "representiveBossMonster" : { monsterId: 23000071, monsterName: "자쿰", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000071_b_zakumbrown_p.png" },
+        "representiveBossMonster" : {monsterLevel: "??",  monsterId: 23000071, monsterName: "자쿰", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000071_b_zakumbrown_p.png" },
     },
     // 50 Chaos Raid
     {
@@ -394,7 +394,7 @@ export const temp_dungeon_datas = [
         "maximumRequirePlayers": 10,
         "isRankInfoUpdatable":true,
         "isRankSearchable":true,
-        "representiveBossMonster" :{ monsterId: 23200007, monsterName: "데보라크", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000007_b_devilhugeblue_p.png" },
+        "representiveBossMonster" :{monsterLevel: 50,  monsterId: 23200007, monsterName: "데보라크", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000007_b_devilhugeblue_p.png" },
     },
     {
         "dungeonType": "카오스 레이드",
@@ -404,7 +404,7 @@ export const temp_dungeon_datas = [
         "maximumRequirePlayers": 10,
         "isRankInfoUpdatable":true,
         "isRankSearchable":true,
-        "representiveBossMonster" : { monsterId: 23290005, monsterName: "발록", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/02030005_balrog_p.png" },
+        "representiveBossMonster" : {monsterLevel: 50,  monsterId: 23290005, monsterName: "발록", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/02030005_balrog_p.png" },
     },
     {
         "dungeonType": "카오스 레이드",
@@ -414,7 +414,7 @@ export const temp_dungeon_datas = [
         "maximumRequirePlayers": 10,
         "isRankInfoUpdatable":true,
         "isRankSearchable":true,
-        "representiveBossMonster" : { monsterId: 23200015, monsterName: "캡틴 모크", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/61000060_captainhookfish01_p.png" },
+        "representiveBossMonster" : {monsterLevel: 50,  monsterId: 23200015, monsterName: "캡틴 모크", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/61000060_captainhookfish01_p.png" },
     },
     {
         "dungeonType": "카오스 레이드",
@@ -424,7 +424,7 @@ export const temp_dungeon_datas = [
         "maximumRequirePlayers": 10,
         "isRankInfoUpdatable":true,
         "isRankSearchable":true,
-        "representiveBossMonster" : { monsterId: 23200077, monsterName: "파풀라투스", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000077_b_papulatus_p.png" },
+        "representiveBossMonster" : { monsterLevel: 50, monsterId: 23200077, monsterName: "파풀라투스", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000077_b_papulatus_p.png" },
     },
     {
         "dungeonType": "카오스 레이드",
@@ -434,7 +434,7 @@ export const temp_dungeon_datas = [
         "maximumRequirePlayers": 10,
         "isRankInfoUpdatable":true,
         "isRankSearchable":true,
-        "representiveBossMonster" : {monsterId: 23200068, monsterName: "바르칸트", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000068_b_barkhantblue_p.png" },
+        "representiveBossMonster" : {monsterLevel: 50, monsterId: 23200068, monsterName: "바르칸트", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000068_b_barkhantblue_p.png" },
     },
     {
         "dungeonType": "카오스 레이드",
@@ -449,7 +449,7 @@ export const temp_dungeon_datas = [
         "dungeonClosedDate": "2020-07-09",
         "isRankInfoUpdatable":true,
         "isRankSearchable":true,
-        "representiveBossMonster" : {monsterId: 23200080, monsterName: "누타만", dungeonClosed: true, thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000080_b_titanfourarmsgoldmaskthirdfloor_p.png" },
+        "representiveBossMonster" : {monsterLevel: 50, monsterId: 23200080, monsterName: "누타만", dungeonClosed: true, thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000080_b_titanfourarmsgoldmaskthirdfloor_p.png" },
     },
     {
         "dungeonType": "카오스 레이드",
@@ -464,7 +464,7 @@ export const temp_dungeon_datas = [
         "dungeonClosedDate": "2020-07-09",
         "isRankInfoUpdatable":true,
         "isRankSearchable":true,
-        "representiveBossMonster" : {monsterId: 23000081, monsterName: "칸두라", dungeonClosed: true, thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000081_b_kanduranormal_p.png" },
+        "representiveBossMonster" : {monsterLevel: 50, monsterId: 23000081, monsterName: "칸두라", dungeonClosed: true, thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000081_b_kanduranormal_p.png" },
     },
     // 52-56 Adventere Dungeons (Normal)
     {
@@ -602,7 +602,7 @@ export const temp_dungeon_datas = [
         "dungeonClosedDate": "2018-07-05",
         "isRankInfoUpdatable":true,
         "isRankSearchable":true,
-        "representiveBossMonster" : { monsterId: 23200064, monsterName: "루카락스", dungeonClosed: true, thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000064_b_bigwingchimera_p.png" },
+        "representiveBossMonster" : {monsterLevel: 56, monsterId: 23200064, monsterName: "루카락스", dungeonClosed: true, thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000064_b_bigwingchimera_p.png" },
     },
     {
         "dungeonType": "리버스 레이드",
@@ -619,7 +619,7 @@ export const temp_dungeon_datas = [
         "dungeonClosedDate": "2018-07-05",
         "isRankInfoUpdatable":true,
         "isRankSearchable":true,
-        "representiveBossMonster" : { monsterId: 23000088, monsterName: "핑크빈", dungeonClosed: true, thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000088_b_pinkbean_p.png" },
+        "representiveBossMonster" : {monsterLevel: "??", monsterId: 23000088, monsterName: "핑크빈", dungeonClosed: true, thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000088_b_pinkbean_p.png" },
     },
     {
         "dungeonType": "이벤트",
@@ -644,7 +644,7 @@ export const temp_dungeon_datas = [
         "dungeonReleaseDate": "2018-02-01",
         "isRankInfoUpdatable":true,
         "isRankSearchable":true,
-        "representiveBossMonster" : {monsterId: null, monsterName: "블리체", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "npc/11003533_f_bliche_p.png" },
+        "representiveBossMonster" : {monsterLevel: 50, monsterId: null, monsterName: "블리체", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "npc/11003533_f_bliche_p.png" },
     },
     {
         "dungeonType": "포트리스 럼블",
@@ -659,7 +659,7 @@ export const temp_dungeon_datas = [
         "dungeonReleaseDate": "2018-02-01",
         "isRankInfoUpdatable":true,
         "isRankSearchable":true,
-        "representiveBossMonster" : { monsterId: null, monsterName: "콘대르", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "npc/11003534_m_conder_p.png" },
+        "representiveBossMonster" : {monsterLevel: 50, monsterId: null, monsterName: "콘대르", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "npc/11003534_m_conder_p.png" },
     },
     {
         "dungeonType": "포트리스 럼블",
@@ -674,7 +674,7 @@ export const temp_dungeon_datas = [
         "dungeonReleaseDate": "2018-02-01",
         "isRankInfoUpdatable":true,
         "isRankSearchable":true,
-        "representiveBossMonster" : {monsterId: null, monsterName: "네이린", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "npc/11003536_f_neirin_p.png" },
+        "representiveBossMonster" : {monsterLevel: 50, monsterId: null, monsterName: "네이린", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "npc/11003536_f_neirin_p.png" },
     },
     {
         "dungeonType": "포트리스 럼블",
@@ -689,7 +689,7 @@ export const temp_dungeon_datas = [
         "dungeonReleaseDate": "2018-02-01",
         "isRankInfoUpdatable":true,
         "isRankSearchable":true,
-        "representiveBossMonster" : {monsterId: null, monsterName: "메이슨", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "npc/11003537_m_mason_p.png" },
+        "representiveBossMonster" : {monsterLevel: 50, monsterId: null, monsterName: "메이슨", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "npc/11003537_m_mason_p.png" },
     },
     {
         "dungeonType": "포트리스 럼블",
@@ -704,7 +704,7 @@ export const temp_dungeon_datas = [
         "dungeonReleaseDate": "2018-02-01",
         "isRankInfoUpdatable":true,
         "isRankSearchable":true,
-        "representiveBossMonster" : {monsterId: null, monsterName: "샤텐", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "npc/11003535_f_schatten_p.png" },
+        "representiveBossMonster" : {monsterLevel: 50, monsterId: null, monsterName: "샤텐", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "npc/11003535_f_schatten_p.png" },
     },
     //World Invaision
     {
@@ -721,7 +721,7 @@ export const temp_dungeon_datas = [
         "dungeonReleaseDate": "2018-01-25",
         "isRankInfoUpdatable":true,
         "isRankSearchable":true,
-        "representiveBossMonster" : { monsterId: null, monsterName: "인페르녹", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000090_b_balrogmagicburster_p.png" },
+        "representiveBossMonster" : {monsterLevel: "??", monsterId: null, monsterName: "인페르녹", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000090_b_balrogmagicburster_p.png" },
     },
     // 60 Adventure Dungeons(Hard) (was 52-56 Adventure[Normal] Dungeons)
     {
@@ -811,7 +811,7 @@ export const temp_dungeon_datas = [
         "dungeonReleaseDate": "2018-07-05",
         "isRankInfoUpdatable":true,
         "isRankSearchable":true,
-        "representiveBossMonster" : {monsterId: 23200067, monsterName: "루카락스", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000064_b_bigwingchimera_p.png" },
+        "representiveBossMonster" : {monsterLevel: 60,monsterId: 23200067, monsterName: "루카락스", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000064_b_bigwingchimera_p.png" },
     },
     {
         "dungeonType": "카오스 레이드",
@@ -827,7 +827,7 @@ export const temp_dungeon_datas = [
         "dungeonReleaseDate": "2018-07-05",
         "isRankInfoUpdatable":true,
         "isRankSearchable":true,
-        "representiveBossMonster" : {monsterId: 23000114, monsterName: "비에른", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000083_b_snowking_p.png" },
+        "representiveBossMonster" : {monsterLevel: 60,monsterId: 23000114, monsterName: "비에른", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000083_b_snowking_p.png" },
     },
     {
         "dungeonType": "카오스 레이드", //was Reverse Raid
@@ -842,7 +842,7 @@ export const temp_dungeon_datas = [
         "dungeonReleaseDate": "2018-07-05",
         "isRankInfoUpdatable":true,
         "isRankSearchable":true,
-        "representiveBossMonster" : {monsterId: 23000115, monsterName: "핑크빈", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000088_b_pinkbean_p.png" },
+        "representiveBossMonster" : {monsterLevel: 60, monsterId: 23000115, monsterName: "핑크빈", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000088_b_pinkbean_p.png" },
 
     },
     //Eye Of Lapenta
@@ -860,7 +860,7 @@ export const temp_dungeon_datas = [
         "dungeonDescription": "2018-08-16",
         "isRankInfoUpdatable":true,
         "isRankSearchable":true,
-        "representiveBossMonster" : {dungeonReqLevel: 60, monsterId: 23501001, monsterName: "유페리아", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23501001_b_yuperiarbladerdark_p.png" },
+        "representiveBossMonster" : {monsterLevel: 60, dungeonReqLevel: 60, monsterId: 23501001, monsterName: "유페리아", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23501001_b_yuperiarbladerdark_p.png" },
     },
     {
         "dungeonType": "아이 오브 라펜타",
@@ -876,7 +876,7 @@ export const temp_dungeon_datas = [
         "dungeonDescription": "2018-08-16",
         "isRankInfoUpdatable":true,
         "isRankSearchable":true,
-        "representiveBossMonster" : {monsterId: 23501011, monsterName: "렌듀비앙", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23501011_b_renduebianrbladerdark_p.png" },
+        "representiveBossMonster" : {monsterLevel: 60, monsterId: 23501011, monsterName: "렌듀비앙", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23501011_b_renduebianrbladerdark_p.png" },
     },
     {
         "dungeonType": "아이 오브 라펜타",
@@ -892,7 +892,7 @@ export const temp_dungeon_datas = [
         "dungeonDescription": "2018-08-16",
         "isRankInfoUpdatable":true,
         "isRankSearchable":true,
-        "representiveBossMonster" :  {monsterId: 23000113, monsterName: "이슈라", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000113_b_ishurarbladerdark_p.png" },
+        "representiveBossMonster" :  {monsterLevel: 60, monsterId: 23000113, monsterName: "이슈라", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000113_b_ishurarbladerdark_p.png" },
     },
     {
         "dungeonType": "아이 오브 라펜타",
@@ -911,7 +911,7 @@ export const temp_dungeon_datas = [
         "dungeonDescription": "2018-08-16",
         "isRankInfoUpdatable":true,
         "isRankSearchable":true,
-        "representiveBossMonster" : {monsterId: 23000118, monsterName: "이슈라", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000113_b_ishurarbladerdark_p.png" },
+        "representiveBossMonster" : { monsterLevel: 60, monsterId: 23000118, monsterName: "이슈라", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000113_b_ishurarbladerdark_p.png" },
         
     },
     // 70 Adventure Dungeon(Hard) (Kritias)
@@ -958,7 +958,7 @@ export const temp_dungeon_datas = [
         
         "isRankInfoUpdatable":true,
         "isRankSearchable":true,
-        "representiveBossMonster" : { monsterId: 23000072, monsterName: "자쿰", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000071_b_zakumbrown_p.png" },
+        "representiveBossMonster" : {monsterLevel: 70, monsterId: 23000072, monsterName: "자쿰", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000071_b_zakumbrown_p.png" },
     },
     {
         "dungeonType": "카오스 레이드",
@@ -973,7 +973,7 @@ export const temp_dungeon_datas = [
         "minimumRequirePlayers": 1,
         "isRankSearchable":true,
         "isRankInfoUpdatable":true,
-        "representiveBossMonster" : {monsterId: 23000150, monsterName: "인페르녹", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000090_b_balrogmagicburster_p.png" },
+        "representiveBossMonster" : {monsterLevel: 70, monsterId: 23000150, monsterName: "인페르녹", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000090_b_balrogmagicburster_p.png" },
     },
     {
         "dungeonType": "퀸크빈 럼블",
@@ -994,7 +994,7 @@ export const temp_dungeon_datas = [
         "maximumRequirePlayers": 4,
         "isRankSearchable":true,
         "isRankInfoUpdatable":true,
-        "representiveBossMonster" : {monsterId: 23503003, monsterName: "아르케온 카이", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/29500102_n_archeonblack_p.png" },
+        "representiveBossMonster" : { monsterLevel: 70, monsterId: 23503003, monsterName: "아르케온 카이", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/29500102_n_archeonblack_p.png" },
     },
     {
         "dungeonType": "칠흑의 성전",
@@ -1004,7 +1004,7 @@ export const temp_dungeon_datas = [
         "maximumRequirePlayers": 4,
         "isRankSearchable":true,
         "isRankInfoUpdatable":true,
-        "representiveBossMonster" : {monsterId: 23504101, monsterName: "티마이온", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000103_b_timaion_p.png" },
+        "representiveBossMonster" : { monsterLevel: 70,monsterId: 23504101, monsterName: "티마이온", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000103_b_timaion_p.png" },
     },
     {
         "dungeonType": "칠흑의 성전",
@@ -1015,7 +1015,7 @@ export const temp_dungeon_datas = [
         "dungeonDescription": "",
         "isRankSearchable":true,
         "isRankInfoUpdatable":true,
-        "representiveBossMonster" : {monsterId: 23000122, monsterName: "투르카", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000120_b_turkahoodforce_p.png" },
+        "representiveBossMonster" : { monsterLevel: 70,monsterId: 23000122, monsterName: "투르카", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000120_b_turkahoodforce_p.png" },
     },
     {
         "dungeonType": "이벤트",
@@ -1082,7 +1082,7 @@ export const temp_dungeon_datas = [
         "dungeonDescription": "",
         "isRankSearchable":true,
         "isRankInfoUpdatable":true,
-        "representiveBossMonster" : {monsterId: 23500004, monsterName: "슈슈와 부부스", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000035_b_yetitwoheadgreen_p.png" },
+        "representiveBossMonster" : { monsterLevel: 70, monsterId: 23500004, monsterName: "슈슈와 부부스", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000035_b_yetitwoheadgreen_p.png" },
     },
     {
         "dungeonType": "카오스 레이드",
@@ -1106,7 +1106,7 @@ export const temp_dungeon_datas = [
         "dungeonDescription": "",
         "isRankSearchable":true,
         "isRankInfoUpdatable":true,
-        "representiveBossMonster" : { monsterId: 23500006, monsterName: "호루스", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000021_b_griffonpharaoh01_p.png" },
+        "representiveBossMonster" : {monsterLevel: 70, monsterId: 23500006, monsterName: "호루스", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000021_b_griffonpharaoh01_p.png" },
     },
     {
         "dungeonType": "카오스 레이드",
@@ -1130,7 +1130,7 @@ export const temp_dungeon_datas = [
         "dungeonDescription": "",
         "isRankSearchable":true,
         "isRankInfoUpdatable":true,
-        "representiveBossMonster" :  {monsterId: 23000101, monsterName: "블랙빈", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000089_b_blackbean_p.png" },
+        "representiveBossMonster" :  {monsterLevel: 70, monsterId: 23000101, monsterName: "블랙빈", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000089_b_blackbean_p.png" },
     },
     {
         "dungeonType": "모험[어려움]",
@@ -1180,7 +1180,7 @@ export const temp_dungeon_datas = [
         "dungeonReleaseDate": "2020-08-13",
         "isRankSearchable":true,
         "isRankInfoUpdatable":true,
-        "representiveBossMonster" :  {monsterId: 23200008, monsterName: "데보라크", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/61000050_devilhugeblue_p.png" },
+        "representiveBossMonster" :  { monsterLevel: 70, monsterId: 23200008, monsterName: "데보라크", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/61000050_devilhugeblue_p.png" },
     },
     {
         "dungeonType": "이벤트",
@@ -1220,12 +1220,12 @@ export const temp_dungeon_datas = [
         "dungeonReleaseDate": "2021-02-18",
         "isRankSearchable":true,
         "isRankInfoUpdatable":true,
-        "representiveBossMonster" : { monsterId: 23000160, monsterName: "핑크빈", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000088_b_pinkbean_p.png" },
+        "representiveBossMonster" : { monsterLevel: 70, monsterId: 23000160, monsterName: "핑크빈", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000088_b_pinkbean_p.png" },
     },
     {
         "dungeonType": "카오스 레이드",
         "dungeonName": "푸른 화염의 혼돈[일반]",
-        "requireLevel": 70,
+        "requireLevel": 80,
         "minimumRequirePlayers": 1,
         "maximumRequirePlayers": 6,
         "dungeonEnterCondition": [
@@ -1237,13 +1237,13 @@ export const temp_dungeon_datas = [
         "isRankSearchable":true,
         "isRankInfoUpdatable":false,
         //2021-09-09 new dungeon. (no longer used after 2021.10.14 update)
-        "representiveBossMonster" : { monsterId: 23000400, monsterName: "블루 루크", dungeonClosed: true, thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000400_b_blueluke_p.png" },
+        "representiveBossMonster" : { monsterLevel: 70, monsterId: 23000400, monsterName: "블루 루크", dungeonClosed: true, thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000400_b_blueluke_p.png" },
     },
     //2021-10-14 hard mode dungeon update (and new record start)
     {
         "dungeonType": "카오스 레이드",
         "dungeonName": "푸른 화염의 혼돈[어려움]",
-        "requireLevel": 70,
+        "requireLevel": 80,
         "minimumRequirePlayers": 1,
         "maximumRequirePlayers": 6,
         "dungeonEnterCondition": [
@@ -1254,7 +1254,7 @@ export const temp_dungeon_datas = [
         "dungeonReleaseDate": "2021-10-14",
         "isRankSearchable":true,
         "isRankInfoUpdatable":true,
-        "representiveBossMonster" : { monsterId: 23000401, monsterName: "광기 어린 블루 루크", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000400_b_blueluke_p.png" },
+        "representiveBossMonster" : { monsterLevel: 70, monsterId: 23000401, monsterName: "광기 어린 블루 루크", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000400_b_blueluke_p.png" },
     },
     {
         "dungeonType": "카오스 레이드",
@@ -1279,13 +1279,11 @@ export const temp_dungeon_datas = [
             "요구 레벨 80",
             "아이템 점수 501500점"
         ],
-        "dungeonDescription": "붉은빛의 어둠 속, 균열의 시공간. 오래 전 불타 사라졌던 붉은 장미 극장이 발견되었다. 그곳에서 죽은 줄 알았던 메이틀 월드 최고의 프리마돈나 델라 로사가 사라진 연주단원들을 이용해서 빛과 어둠의 아리아 공연을 펼치고 있었다. 그녀의 공연을 멈추지 않으면 시간의 균열은 더욱 가속화되고 세상이 위험에 빠질 수 있다.",
+        "dungeonDescription": "붉은빛의 어둠 속, 균열의 시공간. 오래 전 불타 사라졌던 붉은 장미 극장이 발견되었다. 그곳에서 죽은 줄 알았던 메이플 월드 최고의 프리마돈나 델라 로사가 사라진 연주단원들을 이용해서 빛과 어둠의 아리아 공연을 펼치고 있었다. 그녀의 공연을 멈추지 않으면 시간의 균열은 더욱 가속화되고 세상이 위험에 빠질 수 있다.",
         "dungeonReleaseDate": "2022-05-12",
         "isRankSearchable":true,
         "isRankInfoUpdatable":true,
-        "representiveBossMonster" :{
-            monsterId: 44100001, monsterName: "델라 로사", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/41110001_b_primadonna_p.png"
-        }
+        "representiveBossMonster" :{ monsterLevel: 70, monsterId: 44100001, monsterName: "델라 로사", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/41110001_b_primadonna_p.png"},
     },
 
 ]
