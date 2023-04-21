@@ -21,7 +21,7 @@
         <div class="div-content">
             <h1>숙제 검사기</h1>
             <p>메이플스토리의 숙제를 검사하는 프로그램(?)의 UI 테스트용 모형입니다.</p>
-            <p>아래의 결과 값은 테스트 데이터이며, 실제 캐릭터 정보를 받아오도록 동작하는 기능을 구현하면, <a href="https://maplestory2.nexon.com/Content/html/pop_policy.html">메이플스토리2 운영정책</a>에 의해 계정 제제 조치가 취해질 수 있습니다.</p>
+            <p>아래의 결과 값은 테스트 데이터이며, 실제 캐릭터 정보를 받아오도록 동작하는 기능을 구현하면 <a href="https://maplestory2.nexon.com/Content/html/pop_policy.html">메이플스토리2 운영정책</a>에 의해 계정 제제 조치가 취해질 수 있습니다.</p>
             <br/>
             
             <h2>숙제숙제</h2>
@@ -64,6 +64,7 @@
             <!-- source code of character inventory implementation -->
             <script type="module">
                 import {img_tag_formats,str_jobclasses} from "./ms2_datawarehouse_dungeon_datas.mjs";
+                import {character_adventure_dungeon_reward_meso} from "./ms2_adventure_dungeon_bonus_reward_calculator.mjs";
                 //DATA WAREHOUSE PREPARE
                 const MAPLESTORY2_IMAGEPORTRAIT_DIR = "Maplestory2/Image/portrait/";
 
@@ -188,11 +189,16 @@
                         let dungeon_cleared_summation_count = dungeon_cleared_records.reduce((a,c,i)=>{a = a + Number(c?.dungeon_cleared_amount) ?? 0; console.log(c?.dungeon_cleared_amount); return a;}, 0);
                         let dungeon_cleared_summation_score = dungeon_cleared_records.reduce((a,c,i)=>{a = a + Math.min(Number(c?.dungeon_cleared_amount) ?? 0, 300); return a;}, 0);
                         let dungeon_cleared_summation_max_score = dungeon_cleared_records.reduce((a,c,i)=>{a = a + 300; return a;}, 0);
+                        let dungeon_require_highest_level = dungeon_cleared_records.reduce((a,c,i)=>{let _curr_req_level = c?.["dungeon_info"]?.["dungeonReqLevel"]; if(Number.isInteger(_curr_req_level) && _curr_req_level>a) a = _curr_req_level; return a;},0);
+                        let character_adventure_dungeon_earn_bonus_meso = character_adventure_dungeon_reward_meso(dungeon_require_highest_level);
+                        let character_adventure_dungeon_clear_meso = dungeon_require_highest_level >= 70 ? 14000 : dungeon_require_highest_level >= 50 ? 10000 : 0; //도는 던전 입장 제한 레벨 * 200메소 적용. 50레벨, 70레벨 던전만 돈다고 가정.
+                        let character_adventure_dungeon_earn_meso = character_adventure_dungeon_clear_meso*30;
                         let today = new Date();
                         let today_year = today.getFullYear();
                         let today_month = today.getMonth() + 1;
                         let today_date = today.getDate();
-
+                        
+                        console.log("dungeon_require_highest_level :", dungeon_require_highest_level);
                         let remaining_date = (6-(today.getDay()+2)+7)%7;
                         // Step 2. make root div
                         let ch_root_div = createTag("div", "ms2-frame ms2-info-block " + new String(ch_id));
@@ -203,12 +209,31 @@
                         _tags.character_thumbnail_image_blob = createTag("img", "characater_thumbnail_image");
                         _tags.character_thumbnail_image_blob.src = "data:image/png;base64,"+character_thumbnail_image_blob;
                         _tags.character_thumbnail_image_blob.alt = `characater_thumbnail_image(${new String(character_name)})`;
-                        _tags.character_job_class=createTag("p","character-job-class","직업 : " + new String(character_job_class));
+                        _tags.character_job_class=createTag("p","character-job-class",`직업 : ${new String(character_job_class)}`+ ` (캐릭터 레벨 ${dungeon_require_highest_level} 이상)` ?? "");
+                        if(Number.isFinite(character_adventure_dungeon_earn_bonus_meso))
+                            _tags.character_adventure_dungeon_earn_meso = createTag("p", "character_adventure_dungeon_earn_meso", `이 캐릭터는 모험 던전 30회를 돌아 통해 최소 1주 당 ${character_adventure_dungeon_earn_bonus_meso.toLocaleString('en-US')}의 보너스 메소와 ${character_adventure_dungeon_earn_meso.toLocaleString("en-US")}의 던전 클리어 메소를 획득하실 수 있습니다.`);
                         _tags.achived_trophy_count = createTag("p", "achived-trophy-count", "🏆 " + new String(achived_trophy_count));
                         _tags.dungeon_cleared_summation_score = createTag("p", "dungeon_cleared_summation_score", `던전 종합 점수 : ${new String(dungeon_cleared_summation_score)} / ${new String(dungeon_cleared_summation_max_score)} (총 ${new String(dungeon_cleared_summation_count)}회 클리어)`);
                         //homework
                         _tags.head_homework = createTag("h1", "head_homework", `일일 숙제`);
                         _tags.additional_homework = createTag("p", "head_homework_comment", `(${today_year}년 ${today_month}월 ${today_date}일 기준, 주간 숙제 초기화까지 ${remaining_date}일 남음)`);
+                        _tags.test_dungeon_results = dungeon_cleared_records.reduce((a,c,i)=>{
+                            //태그 조립에 필요한 보스 몬스터의 이름과 클리어 횟수 추출
+                            let _dungeon_clear_records = {
+                                "dungeon_name":c?.["dungeon_info"]?.["dungeonName"], 
+                                "dungeon_clear_count":c?.["dungeon_cleared_amount"]
+                            };
+                            console.log(_dungeon_clear_records);
+                            let _tag_div_dungeon_record = Object.keys(_dungeon_clear_records).reduce((record_a, record_c, record_i)=>{
+                                //태그 조립
+                                let _tag_prop = createTag("span",new String(record_c),new String(_dungeon_clear_records?.[record_c]));
+                                [_tag_prop].forEach((e)=>record_a.appendChild(e));
+                                return record_a;}
+                            , createTag("p", "test-dungeon-result-record"));
+                            console.log("Tag c : ", _tag_div_dungeon_record);
+                            a.appendChild(_tag_div_dungeon_record);
+                            return a;}
+                            , createTag("div", "test-dungeon-results"));
                         
                         Object.values(_tags).forEach((e)=>ch_root_div.appendChild(e)); // inject execution
 

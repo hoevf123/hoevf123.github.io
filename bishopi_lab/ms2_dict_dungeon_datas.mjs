@@ -40,5 +40,5 @@ let ms2_mydungeon = ms2_dungeon_datas.reduce((a,c)=>{Array.isArray(c) ? a.push(c
 window.onload = function (e) {
     ms2_dict_collections.representData();
     //ms2_bgms.representData();
-    // ms2_bgms.clearTags();
+    //ms2_bgms.clearTags();
 }

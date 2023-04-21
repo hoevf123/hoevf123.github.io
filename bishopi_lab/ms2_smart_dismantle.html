@@ -42,8 +42,7 @@
                 <div class="ms2-frame">
                     <h3 class="title">내 인벤토리</h3>
                     <div class="ms2-character-equipment-generating-area">
-                        <!--
-                        <div class="ms2-inventory equipment">
+                        <!-- <div class="ms2-inventory equipment">
                             <div>
                                 <div class="ms2-item-slot"></div>
                                 <div class="ms2-item-slot"></div>
@@ -54,8 +53,8 @@
                                 <div class="ms2-item-slot"></div>
                                 <div class="ms2-item-slot"></div>
                             </div>
-                        </div>
-                        -->
+                        </div> -->
+                       
                     </div>
                 </div>
                 
@@ -82,14 +81,29 @@
                     constructor(itemDefinition, quantity = 0, item_property={}){
                         this.itemDefinition = itemDefinition;
                         this.quantity = new Number(quantity); //type as Number
-                        this.property = new Object(item_property); // type as Object.
+                        this.property = new Object(item_property); // type as Object.2
                     }
                     get id(){return this.itemDefinition?.id;}
                     get name(){return this.itemDefinition?.name;}
                 }
                 class ItemSlot{
                     constructor(target_item){
+                        this.contain_item = null;
 
+                    }
+                    insertItem(target_item){
+                        // 반환할 아이템
+                        // 타입 체크
+                        if(target_item?.constructor !== Item){
+                            console.log("아이템 삽입 실패");
+                            return;
+                        }
+                        if(this.contain_item?.constructor !== Item){ this.contain_item = null;}
+                    }
+                    removeItem(){
+                        let ret_item = this.contain_item;
+                        this.contain_item = null; //remove item slot's content;
+                        return ret_item;
                     }
                     get contain_item(){ return this._contained_item;}
                     set contain_item(target_item){ this._contained_item = target_item instanceof Item ? target_item : undefined;}
@@ -104,6 +118,7 @@
                     }
                     insertItem(...items){
                         function insertItemtoInventory(target_item, target_slot){
+                            if (target_slot?.constructor !== ItemSlot) target_slot = target_item;
                            return true;
                         }
                         console.log("activated insertItem");
@@ -172,6 +187,8 @@
                 let item_user = new ItemInventory(14);
                 let FirePrism_ItemCreator = new ItemCreator(div_ms2_creator , ms2_item_infos);
                 item_user.insertItem(new Item(ms2_item_infos[0],1,{"메이플":"무야호"}));
+                item_user.insertItem(new Item(ms2_item_infos[2],1,{"메이플":"무야호"}));
+
             </script>
         </div>
     </section>
