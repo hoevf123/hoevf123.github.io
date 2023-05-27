@@ -298,8 +298,8 @@
                         "output_getTrial" : output_trial,
                         "output_getCrystalFragmentAmounts":output_getCrystalFragmentAmounts,
                         "output_getTrialToSuccessRateRatio" : output_getTrialToSuccessRateRatio,
-                        "output_getTrialToSuccessRate" : output_getTrialToSuccessRate,
-                        "output_getTrialToFailRate" :output_getTrialToFailRate,
+                        "output_getTrialToSuccessRate" : output_getTrialToSuccessRate*100,
+                        "output_getTrialToFailRate" :output_getTrialToFailRate*100,
                     }   
                     function numberPercentageToDecimalString(target_percent, digit=0){
                         return `${(target_percent * 100).toFixed(digit)}`
