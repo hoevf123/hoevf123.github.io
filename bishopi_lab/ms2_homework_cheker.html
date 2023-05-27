@@ -221,7 +221,8 @@
                             //태그 조립에 필요한 보스 몬스터의 이름과 클리어 횟수 추출
                             let _dungeon_clear_records = {
                                 "dungeon_name":c?.["dungeon_info"]?.["dungeonName"], 
-                                "dungeon_clear_count":c?.["dungeon_cleared_amount"]
+                                "dungeon_clear_count":c?.["dungeon_cleared_amount"],
+                                "dungeon_clear_count_unit" :"회",
                             };
                             console.log(_dungeon_clear_records);
                             let _tag_div_dungeon_record = Object.keys(_dungeon_clear_records).reduce((record_a, record_c, record_i)=>{
