@@ -464,7 +464,7 @@ export const temp_dungeon_datas = [
         "dungeonClosedDate": "2020-07-09",
         "isRankInfoUpdatable":true,
         "isRankSearchable":true,
-        "representiveBossMonster" : {monsterLevel: 50, monsterId: 23000081, monsterName: "칸두라", dungeonClosed: true, thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000081_b_kanduranormal_p.png" },
+        "representiveBossMonster" : {monsterLevel: 50, monsterId: 23200082, monsterName: "칸두라", dungeonClosed: true, thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000081_b_kanduranormal_p.png" },
     },
     // 52-56 Adventere Dungeons (Normal)
     {
