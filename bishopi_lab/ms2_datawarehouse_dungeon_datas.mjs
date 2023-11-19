@@ -811,7 +811,8 @@ export const temp_dungeon_datas = [
         "dungeonReleaseDate": "2018-07-05",
         "isRankInfoUpdatable":true,
         "isRankSearchable":true,
-        "representiveBossMonster" : {monsterLevel: 60,monsterId: 23200067, monsterName: "루카락스", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000064_b_bigwingchimera_p.png" },
+        
+        "representiveBossMonster" : {monsterLevel: 60,monsterId: 23200067, monsterName: "루카락스", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000083_b_snowking_p.png" },
     },
     {
         "dungeonType": "카오스 레이드",
@@ -827,7 +828,7 @@ export const temp_dungeon_datas = [
         "dungeonReleaseDate": "2018-07-05",
         "isRankInfoUpdatable":true,
         "isRankSearchable":true,
-        "representiveBossMonster" : {monsterLevel: 60,monsterId: 23000114, monsterName: "비에른", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000083_b_snowking_p.png" },
+        "representiveBossMonster" : {monsterLevel: 60,monsterId: 23000114, monsterName: "비에른", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000064_b_bigwingchimera_p.png" },
     },
     {
         "dungeonType": "카오스 레이드", //was Reverse Raid
