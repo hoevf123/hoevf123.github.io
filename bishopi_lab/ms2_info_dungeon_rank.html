@@ -24,6 +24,7 @@
                 const _DOM_DIV_LINKBLOCK_BUTTON_CLASSNAME = "div-linkblock-button";
                 const _DOM_DUNGEONTYPE_CLASSNAME = "dungeon-type";
                 const _DOM_DUNGEONNAME_CLASSNAME = "dungeon-name";
+                const _DOM_DUNGEONREQUIRELEVEL_CLASSNAME = "dungeon-require-level";
                 const _DOM_MONSTERLEVEL_CLASSNAME = "mob-level";
                 const _DOM_MONSTERNAME_CLASSNAME = "mob-name";
                 const _DOM_DIV_THUMBNAILIMAGE_CLASSNAME = "div-thumbimg";
@@ -37,14 +38,16 @@
                 });
                 console.log("new data : ", new_data_bosslists);
                 let assembled_domElements = new_data_bosslists.reduce((accumulate,link_bossinfo)=>{
-                    let [_dom_li, _dom_div, _dom_dungeonType, _dom_dungeonName, _dom_bossLevel, _dom_bossName, _dom_url, _dom_closed, _dom_thumbnailImg, _dom_div_thumbnailImg] = ["li","div", "p", "p", "p", "p", "a", "p","img", "div"].map(e=>document.createElement(e));
+                    let [_dom_li, _dom_div, _dom_dungeonType, _dom_dungeonRequireLevel, _dom_dungeonName, _dom_bossLevel, _dom_bossName, _dom_url, _dom_closed, _dom_thumbnailImg, _dom_div_thumbnailImg] = ["li","div", "p","p", "p", "p", "p", "a", "p","img", "div"].map(e=>document.createElement(e));
                     if(link_bossinfo !==undefined && link_bossinfo !== null){
                         let root_DOM = _dom_div;
                         _dom_div.className = _DOM_DIV_LINKBLOCK_BUTTON_CLASSNAME;
                         console.log(link_bossinfo);
                         //prepare string content.
+                        let _s_REQUIRE_LEVEL_HEADER = "요구 레벨";
                         let _s_LEVEL_HEADER = "Lv.";
                         let _s_dungeonRequireLevel = `${_s_LEVEL_HEADER} ${new String(link_bossinfo?.["requireLevel"])}`;
+                        let _s_requireLevel  = `${_s_REQUIRE_LEVEL_HEADER} ${_s_dungeonRequireLevel}`;
                         let _s_dungeonType = new String(link_bossinfo?.["dungeonType"]);
                         let _s_dungeonName = new String(link_bossinfo?.["dungeonName"]);
                         let _s_bossLevel = `${_s_LEVEL_HEADER} ${new String(link_bossinfo?.["representiveBossMonster"]?.["monsterLevel"])}`;
@@ -64,6 +67,7 @@
                             [_dom_dungeonName, _s_dungeonName, _DOM_DUNGEONNAME_CLASSNAME], 
                             [_dom_bossLevel, _s_bossLevel, _DOM_MONSTERLEVEL_CLASSNAME],
                             [_dom_bossName, _s_bossName, _DOM_MONSTERNAME_CLASSNAME],
+                            [_dom_dungeonRequireLevel, _s_requireLevel, _DOM_DUNGEONREQUIRELEVEL_CLASSNAME],
                         ].forEach((e)=>{
                             let [_dom_target, _s_dom_text, _s_dom_className] = e;
                             _dom_target.innerText = new String(_s_dom_text);
@@ -79,7 +83,7 @@
 
                         //assemble "text injected" DOMs.
                         [_dom_bossLevel, _dom_dungeonType, _dom_thumbnailImg].forEach(e=>_dom_div_thumbnailImg.appendChild(e));
-                        [_dom_div_thumbnailImg, _dom_dungeonName, _dom_bossName].forEach((e)=>_dom_div.appendChild(e));
+                        [_dom_dungeonRequireLevel, _dom_div_thumbnailImg, _dom_dungeonName, _dom_bossName].forEach((e)=>_dom_div.appendChild(e));
 
                         //wrap link to div block.
                         if(!(_v_monsterId == undefined)){

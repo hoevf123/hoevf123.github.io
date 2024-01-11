@@ -33,6 +33,14 @@ div.div-content{
     padding:30px;
 }
 
+/* 태그의 display를 flex로 설정 */
+.flex{
+    display:flex;
+}
+.inline-flex{
+    display:inline-flex;
+}
+
 a.disable-default-font-color{
     color:inherit;
     text-decoration: inherit;
@@ -444,7 +452,7 @@ div.ms2-gear>.header-score{
     max-width: 600px;
     background:#3b3b3b;
     color:#fffefb;
-    font-size: 1.2em;
+    font-size: 1em;
     border-radius: 10px;
 }
 
@@ -454,6 +462,7 @@ div.ms2-gear>.header-score{
     max-width:250px;
     vertical-align: middle;
     position: relative;
+    margin:10px;
     left:0px;
 }
 .ms2-damage-check-generating-area>div.object-key-value-set select   {
@@ -483,19 +492,29 @@ div.ms2-gear>.header-score{
     font: inherit;
     text-align: right;
     text-align-last: right;
+    margin-left:auto;
+    margin-right:0;
+    width:8em;
     height:auto;
-    padding:0.3em;
+    padding:0.1em;
     background-color: #2e2e2e;
 }
 
 
 .ms2-damage-check-generating-area>div.object-key-value-set :not(div):not(.object-key){
     display: inline-block;
-    position: absolute;
+    position: relative;
     margin:auto;
     vertical-align: middle;
     text-align: right;
     right:0px;
+}
+
+.ms2-damage-check-generating-area>div.object-key-value-set{
+    display:flex;
+}
+.ms2-damage-check-generating-area>div.object-key-value-set .object-key{
+    width:16em;
 }
 
 
@@ -553,20 +572,24 @@ div.ms2-upgrade-sequence p{
 /* ms2-boss-rank-list */
 .ms2-boss-rank-list li{ list-style-type: none; display: inline-block;}
 .ms2-boss-rank-list li div{position: relative; display: inline-block;}
-.ms2-boss-rank-list li div.div-linkblock-button{height:200px; margin:0px; padding:5px; border-radius : 15px; /*background-color:lightsalmon;*/}
+.ms2-boss-rank-list li div.div-linkblock-button{min-height:200px; margin:0px; padding:5px; border-radius : 15px; /*background-color:lightsalmon;*/}
 .ms2-boss-rank-list li div.thumbimg{padding:0px; margin:0px}
 .ms2-boss-rank-list li p{ text-align: center;}
+.ms2-boss-rank-list li p.dungeon-require-level{padding:5px; margin:5px; border-radius: 10px;}
+
 
 /* link button of ms2-boss-rank (conventional)*/
 .ms2-boss-rank-list li>a div:not(.dungeon-closed) img{ border: 5px solid rgb(255, 124, 72); z-index: 0;}
-.ms2-boss-rank-list li>a div:not(.dungeon-closed) p.mob-level{ background-color: rgb(255, 124, 72);}
+.ms2-boss-rank-list li>a div:not(.dungeon-closed) p.mob-level,
+.ms2-boss-rank-list li>a div:not(.dungeon-closed) p.dungeon-require-level{ background-color: rgb(255, 124, 72);}
 .ms2-boss-rank-list li:hover>a div:not(.dungeon-closed) img{ border-color:darkorange;}
 .ms2-boss-rank-list li:hover>a div:not(.dungeon-closed) p.mob-level{ background-color:darkorange;}
 .ms2-boss-rank-list li:hover>a div.div-linkblock-button{ background-color:rgb(250, 193, 124);}
 
 /* link button of ms2-boss-rank but its dungeon recording(or open state) is expired */
 .ms2-boss-rank-list li>a div.dungeon-closed img{ border: 5px solid #333333; z-index: 0;}
-.ms2-boss-rank-list li>a div.dungeon-closed p.mob-level{ background-color: #333333;}
+.ms2-boss-rank-list li>a div.dungeon-closed p.mob-level,
+.ms2-boss-rank-list li>a div.dungeon-closed p.dungeon-require-level{ background-color: #333333;}
 .ms2-boss-rank-list li:hover>a div.dungeon-closed img{ border-color:red;}
 .ms2-boss-rank-list li:hover>a div.dungeon-closed p.mob-level{ background-color:red;}
 .ms2-boss-rank-list li:hover>a div.div-linkblock-button.dungeon-closed{ background-color:salmon;}
@@ -574,7 +597,8 @@ div.ms2-upgrade-sequence p{
 /* link button of ms2-boss-rank (not have link) */
 .ms2-boss-rank-list li>:not(a) *{filter:brightness(60%);}
 .ms2-boss-rank-list li>:not(a) img{ border: 5px solid darkgray; z-index: 0; }
-.ms2-boss-rank-list li>:not(a) p.mob-level{ background-color: darkgray;}
+.ms2-boss-rank-list li>:not(a) p.mob-level,
+.ms2-boss-rank-list li>:not(a) p.dungeon-require-level{ background-color: darkgray;}
 .ms2-boss-rank-list li:hover>:not(a) img{ border-color:red;}
 .ms2-boss-rank-list li:hover>:not(a) p.mob-level{ background-color:red;}
 .ms2-boss-rank-list li:hover>:not(a) div.div-linkblock-button{background-color:rgb(250, 124, 124);}
@@ -588,6 +612,7 @@ div.ms2-upgrade-sequence p{
 .ms2-boss-rank-list li p.mob-level{position:absolute; z-index: 1;}
 .ms2-boss-rank-list li p.dungeon-name,
 .ms2-boss-rank-list li p.mob-name{padding:3px; margin:3px; max-width: 120px; line-break:strict; word-break: keep-all;}
+.ms2-boss-rank-list li p.dungeon-require-level{color:white;}
 .ms2-boss-rank-list li p.mob-level{left:0px; top:0px; margin:0px; padding:5px; border-radius: 15px 0px 5px 0px; color:white;}
 .ms2-boss-rank-list li p.dungeon-type{position: absolute; right: 0px; bottom:0px; padding:2px; border-radius:2px; background-color:magenta; margin:10px;}
 .ms2-boss-rank-list li p.dungeon-type[data-dungeon-type="카오스 레이드"]{ background-color:crimson;}

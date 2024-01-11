@@ -184,10 +184,11 @@
 
                 function filterArrayContent(targetContents, targetArray){
                     let target_contentArray = targetContents;
-                    if(!(Array.isArray(target_contentArray))) target_contentArray = [targetContents];
+                    if(!(Array.isArray(target_contentArray))) target_contentArray = [targetContents]; //배열이 아닌 것을 배열 형태로 변경(원소가 1개)
                     let result_array = [];
                     for(const targetArrayCell of targetArray){
                         if(Array.from(target_contentArray).includes(targetArrayCell)) continue;
+                        console.log(`filterArrayContent : 배열 ${target_contentArray}의 원소 ${targetArrayCell}이(가) 빠져나갔습니다.`);
                         result_array.push(targetArrayCell);
                     }
                     return result_array;
@@ -202,34 +203,122 @@
                     return Array.from(targetArrayNumber).reduce((a,c)=>a+c,0);
                 }
 
+                /**
+                * @param {array} targetOptionnames         뽑고자 하는 추가 옵션의 종류를 담은 배열
+                * @param {number} optionAmounts            대상 추가 옵션의 줄 수
+                * @param {object} targetOptionGroups       그룹 옵션, 기본 값 options
+                * @param {array} targetEssntialOptionNames 뽑기에 꼭 필요한 옵션(필수 옵션)
+                */
                 function getOptionPropertyRate(targetOptionnames, optionAmounts, targetOptionGroups = options, targetEssntialOptionNames=[]){
                     /* 주의 : targetEssentialOptionNames의 이름은 옵션 고정을 뜻하는 것이 아닌, 해당 옵션이 필수로 들어가야 한다는 것을 의미합니다 */
                     console.log("Depth : ", optionAmounts);
                     if(!(Array.isArray(targetEssntialOptionNames))) targetEssntialOptionNames = [targetEssntialOptionNames];
-                    if(!(optionAmounts > 0)){
+                    /* (추가)옵션의 줄 수가 0줄 이하이면, 또는 남아있는 요구 옵션이 없는 경우(애초에 뽑을 옵션이 없거나 이미 원하는 옵션을 다 뽑은 경우) */
+                    if(!(optionAmounts > 0 && targetOptionnames.length > 0)){
                         if(targetEssntialOptionNames.length <= 0) return 1; // 필수 옵션이 지정되어 있지 않으면(필수 옵션을 다 뽑으면) 확률 100%
                         else return 0; // 필수로 뽑아야 하는 옵션이 남아 있으면 확률은 0% (그런 경우 없음)
                     } 
                     let return_rate = 0;
                     let current_optionGroups = [...targetOptionGroups];
                     console.log(current_optionGroups);
-                    let ratio_summation = getSummationPropertyRate(current_optionGroups);
-                    let result_ratios = [];
-                    console.log("현재 옵션 구성 확률(최종 기준) : ",ratio_summation);
-                    for(const targetOptionName of targetOptionnames){
-                        let target_option = current_optionGroups.find((e)=>e?.name === targetOptionName);
+                    
+                    let result_ratios = []; //결과 확률 값들을 모은 배열
+
+                    /**
+                    * 확률 구하는 함수 정의
+                    * @param {array} targetOptionName    현재 선택한 추가 옵션을 뺀 배열입니다.
+                    * @param {number} targetOptionGroups     현재 추가 옵션을 선택하여 뽑아야 할 추가 옵션의 개수가 하나 줄어들었다는 표시를 하는 변수입니다.
+                    * @param {array} targetOptionGroups  현재 선택한 옵션의 같은 그룹으로 묶여있는 모든 추가 옵션을 뺀 배열입니다.
+                    * @param {array} targetEssntialOptionNames    필수로 뽑아야 하는 추가 옵션에서 현재 선택한 추가 옵션을 뺀 배열입니다.
+                    * @returns 확률 값
+                    */
+                    function getOptionPropertyRateByAdditionalOptionName(targetOptionName, optionAmounts, targetOptionGroups, targetEssntialOptionNames){
+                        let ratio_summation = getSummationPropertyRate(targetOptionGroups);
+                        console.log("현재 옵션 구성 확률(최종 기준) : ",ratio_summation);
+                        let target_option = targetOptionGroups.find((e)=>e?.name === targetOptionName);
                         console.log(`검사 : ${targetOptionName}, 결과 : ${target_option?.name}, 표기 확률 : ${target_option?.probability}, 실질 확률 : ${target_option?.probability/ratio_summation}`);
                         let current_option_rate = target_option?.probability / ratio_summation; // 표기 확률을 총 확률로 나누면 현재 총 구성 중 실질 확률을 계산할 수 있다.
                         if(Number.isNaN(current_option_rate)) current_option_rate = 0;
+
+                        /** 
+                         * 더 깊은 확률 구하기
+                         * @param {array} param_removedAdditionalOptions    현재 선택한 추가 옵션을 뺀 배열입니다.
+                         * @param {number} param_decreasedOptionAmounts     현재 추가 옵션을 선택하여 뽑아야 할 추가 옵션의 개수가 하나 줄어들었다는 표시를 하는 변수입니다.
+                         * @param {array} param_filteredAdditionalOptionGroups  현재 선택한 옵션의 같은 그룹으로 묶여있는 모든 추가 옵션을 뺀 배열입니다.
+                         * @param {array} param_removedEssentialAdditionalOptions    필수로 뽑아야 하는 추가 옵션에서 현재 선택한 추가 옵션을 뺀 배열입니다.
+                        */
+                        let param_removedAdditionalOptions =  filterArrayContent([targetOptionName],targetOptionnames);
+                        let param_decreasedOptionAmounts = optionAmounts - 1;
+                        let param_filteredAdditionalOptionGroups =  filterOptionGroups([targetOptionName], current_optionGroups);
+                        let param_removedEssentialAdditionalOptions = filterArrayContent([targetOptionName], targetEssntialOptionNames);
+
                         current_option_rate = current_option_rate * getOptionPropertyRate(
-                            filterArrayContent([targetOptionName],targetOptionnames), 
-                            optionAmounts - 1, 
-                            filterOptionGroups(targetOptionName, 
-                            current_optionGroups),
-                            filterArrayContent([targetOptionName],targetEssntialOptionNames)
-                            );
+                            param_removedAdditionalOptions,
+                            param_decreasedOptionAmounts, 
+                            param_filteredAdditionalOptionGroups,
+                            param_removedEssentialAdditionalOptions
+                        );
                         console.log("결과 값 : ", current_option_rate);
+                        return current_option_rate;
+                    }
+
+                    /* 각 옵션 별 확률 구하기 */
+                    for(const targetOptionName of targetOptionnames){
+                        result_ratios.push(getOptionPropertyRateByAdditionalOptionName(targetOptionName, optionAmounts, targetOptionGroups, targetEssntialOptionNames));
+                        
+                    }
+                    /* 만약, 장비의 추가 옵션 줄 수보다 뽑아야 하는 옵션보다 더 적은 경우라면, 꽝 확률 곱하기 성공 확률의 경우의 수까지 모두 계산해야 합니다. */
+
+                    if(optionAmounts > targetOptionnames.length){
+                        console.log(`장비의 추가 옵션 줄 수(${optionAmounts})보다 뽑아야 하는 추가 옵션의 개수(${targetOptionnames.length})보다 더 적습니다. 따라서 뽑아야 하는 추가 옵션을 못 뽑았을 경우의 확률도 계산합니다.`);
+                        /**
+                         * 사전처리 - 1 : 원하는 옵션을 못 뽑을 확률을 구하는 데, 뽑고 싶은 추가옵션 중 하나 이상이 추가옵션 그룹에 속한 경우 원하지 않는 추가옵션 배열에 뽑아야 할 추가옵션에 지정된 그룹 배열에 들어있는 같은 그룹의 추가옵션들을 모두 빼버린다.
+                         * (이유 : 내가 뽑아야 할 추가 옵션 그룹에서 뽑아야 하지 않을 그룹의 옵션에서 원하는 옵션이 나올 확률은 반드시 0입니다)
+                         * 
+                         * 사전처리 - 2 : 원하는 옵션을 못 뽑을 확률을 구하는 데, 뽑고 싶은 추가옵션 아닌 추가 옵션이 하나 이상이 추가옵션 그룹에 속한 경우
+                         * 2. 블라블라
+                         */
+                        let uselessAdditionalOptions = filterArrayContent(current_optionGroups, targetOptionnames); //뽑아야 하는 옵션을 모두 제거한 쓸모없는 추가 옵션들
+                        let current_option_rate = 0; //아무 확률도 계산하지 않을 경우 확률은 0
+                        uselessAdditionalOptions.sort();
+                        
+                        // 사전처리 - 1 : 원하는 옵션을 못 뽑을 확률을 구하는 데, 뽑고 싶은 추가옵션 중 하나 이상이 추가옵션 그룹에 속한 경우
+                        let targetRemoveAdditionalOptionGroupNames = targetOptionGroups.filter((e)=>{
+                            let result = targetOptionnames.includes(e?.name) && !(e.optionGroup);
+                            console.log(`원소 : ${e.name} 그룹 : ${e.optionGroup} 결과 : ${result}`);
+                            return result;
+                        });
+                        console.log(targetRemoveAdditionalOptionGroupNames);
+                        let targetRemoveAdditionalOptionGroups = uselessAdditionalOptions.reduce((a,c,i)=>{
+                            
+                        },{}); // 제거할 (그룹 옵션이 포함된)추가옵션 목록들
+
+                        let someBundles = []; // {options}
+                        
+                        /* 확률 계산 압축 */
+                        for (let i = 0; i <= uselessAdditionalOptions.length; i++) {
+                            let someBundles = uselessAdditionalOptions.slice(0, i); // i개의 쓸모없는 추가 옵션 묶음을 선택
+                            let remainingUselessOptions = uselessAdditionalOptions.slice(i); // 선택하지 않은 나머지 쓸모없는 추가 옵션들
+
+                            let bundleProbability = 1; // 현재 묶음의 확률 초기화
+
+                            // 각 묶음에 대한 확률 계산
+                            for (const bundleOption of someBundles) {
+                                let optionRate = getOptionPropertyRateByAdditionalOptionName(bundleOption, optionAmounts, filteredOptionGroups, targetEssntialOptionNames);
+                                bundleProbability *= optionRate;
+                            }
+
+                            // // 나머지 쓸모없는 추가 옵션에 대한 확률 계산
+                            // for (const remainingOption of remainingUselessOptions) {
+                            //     let remainingOptionRate = getOptionPropertyRateByAdditionalOptionName(remainingOption, optionAmounts, filteredOptionGroups, targetEssntialOptionNames);
+                            //     bundleProbability *= (1 - remainingOptionRate); // 나머지 옵션을 뽑지 못할 확률은 (1 - 확률)
+                            // }   
+
+                            current_option_rate += bundleProbability; // 현재 묶음에 대한 확률을 전체 확률에 더함
+                        }
+
                         result_ratios.push(current_option_rate);
+
                     }
                     console.log(`확률 모음 값 : ${result_ratios}`);
                     return_rate = getSumArrayNumbers(result_ratios);

@@ -139,12 +139,52 @@
                         <div class="ms2-item-slot gloves"><img class="ms2-item gloves" src="./pictogram/item_fire_prism_gloves.png"></div>
                         <div class="ms2-item-slot shoes"><img class="ms2-item shoes" src="./pictogram/item_fire_prism_shoes.png"></div>
                         <div class="ms2-item-slot earings"><img class="ms2-item earings" src="./pictogram/item_geork_kai_earings.png"></div>
-                        <div class="ms2-item-slot neckless"><img class="ms2-item neckless" src="./pictogram/item_geork_kai_neckless.png"></div>
+                        <div class="ms2-item-slot necklace"><img class="ms2-item neckless" src="./pictogram/item_geork_kai_neckless.png"></div>
                         <div class="ms2-item-slot rings"><img class="ms2-item rings" src="./pictogram/item_geork_kai_rings.png"></div>
                         <div class="ms2-item-slot cape"><img class="ms2-item cape" src="./pictogram/item_geork_kai_cape.png"></div>
                         <div class="ms2-item-slot belt"><img class="ms2-item belt" src="./pictogram/item_geork_kai_belt.png"></div>
                         <div class="ms2-item-slot badge-meta"></div>
                     </div>
+                    <div class="equipped-gears-selector" style="display:flex;">
+                        <div><div class="ms2-item-slot right-hand weapon"><img class="ms2-item scepter" src="./pictogram/item_fire_prism_scepter.png"></div>파이어 프리즘 홀</div>
+                        <div class="ms2-item-slot left-hand weapon"><img class="ms2-item codex" src="./pictogram/item_fire_prism_codex.png"></div>
+                        <div class="ms2-item-slot headgear"><img class="ms2-item headgear" src="./pictogram/item_fire_prism_hat.png"></div>
+                        <div class="ms2-item-slot shirt"><img class="ms2-item shirt" src="./pictogram/item_fire_prism_shirt.png"></div>
+                        <div class="ms2-item-slot pants"><img class="ms2-item pants" src="./pictogram/item_fire_prism_pants.png"></div>
+                        <div class="ms2-item-slot gloves"><img class="ms2-item gloves" src="./pictogram/item_fire_prism_gloves.png"></div>
+                        <div class="ms2-item-slot shoes"><img class="ms2-item shoes" src="./pictogram/item_fire_prism_shoes.png"></div>
+                        <div class="ms2-item-slot earings"><img class="ms2-item earings" src="./pictogram/item_geork_kai_earings.png"></div>
+                        <div class="ms2-item-slot necklace"><img class="ms2-item neckless" src="./pictogram/item_geork_kai_neckless.png"></div>
+                        <div class="ms2-item-slot rings"><img class="ms2-item rings" src="./pictogram/item_geork_kai_rings.png"></div>
+                        <div class="ms2-item-slot cape"><img class="ms2-item cape" src="./pictogram/item_geork_kai_cape.png"></div>
+                        <div class="ms2-item-slot belt"><img class="ms2-item belt" src="./pictogram/item_geork_kai_belt.png"></div>
+                        <div class="ms2-item-slot badge-meta"></div>
+                    </div>
+                    <script type="text/javascript">
+                        /* 장비(Gear) 테스트용 선택 기능 넣기 (기능은 아직 작동 안 함)*/
+                        var div_gearSelects = [];
+                        const gearTypes = ["right-hand weapon", "left-hand weapon", "headgear", "shirt", "pants", "gloves", "shoes", "earrings", "necklace", "rings", "belt", "badge-meta"];
+                        div_gearSelects = gearTypes.reduce((a,c,i)=>{
+                            /* 루트 div 태그(장비 선택 블록) 만들기*/
+                            const CLASSNAME_GEARSELECTBLOCK="ms2-item gear-select-block";
+                            const CLASSNAME_GEARDESCRIPTION="ms2-item gear-description";
+                            let gearTypeName = c;
+                            let div_gearSelectBlock = Object.assign(document.createElement("div"), {className: CLASSNAME_GEARSELECTBLOCK});
+                            let div_gearDescription = Object.assign(document.createElement("div"), {className: CLASSNAME_GEARDESCRIPTION});
+
+                            let gearName = c;
+                            let gearItemNames = [];
+                            /* 장비 선택 블록 속재료 만들기 */
+                            let label_itemname = Object.assign(document.createElement("label"), {className:"gear-name", innerText:String(gearName)}); //실제로는 장비 이름이 들어가야 합니다.
+                            let select_itemnames = document.createElement("select");    //아이템 이름 고르는 select문 만들기
+                            let div_basicOptions = Object.assign(document.createElement("div"), {className:"basic-options"});
+                            let div_additionalOptions = Object.assign(document.createElement("div"), {className:"additional-options"});
+
+                            a.push(div_gearSelectBlock)//최종적으로 완성된 장비 선택 블록 div 태그를 배열에 넣어놓기.
+                            return a;
+                        }, div.div_gearSelects);                        
+                        
+                    </script>
                 </div>
                 <div class="ms2-frame">
                     <h3>현재 장착중인 옵션 스킨</h3>
@@ -218,21 +258,88 @@
             <h2>계산된 대미지</h2>
             <input type="button" value="계산" onclick="ms2_attack_gen.updateDamage()">
             <div class="ms2-frame border">
-                <div class="ms2-status-score-frame ms2-attack-damage">
-                    <p class="header-score">공격 점수</p>
-                    <p class="value-score ms2-damage-calculated-result">Damage Not Calculated</p>
+                <div></div>
+                <!-- 스탯 표기 영역 -->
+                <div>
+                    <div class="ms2-status-score-frame ms2-attack-damage">
+                        <p class="header-score">공격 점수</p>
+                        <p class="value-score ms2-damage-calculated-result">Damage Not Calculated</p>
+                    </div>
+                    <div class="ms2-status-score-frame ms2-defense">
+                        <p class="header-score">방어 점수</p>
+                        <p class="value-score">0</p>
+                    </div>
+                    <div class="ms2-status-score-frame ms2-gear">
+                        <p class="header-score">아이템 점수</p>
+                        <p class="value-score">0</p>
+                    </div>
+                    <div class="ms2-damage-check-generating-area"></div>
                 </div>
-                <div class="ms2-status-score-frame ms2-defense">
-                    <p class="header-score">방어 점수</p>
-                    <p class="value-score">0</p>
-                </div>
-                <div class="ms2-status-score-frame ms2-gear">
-                    <p class="header-score">아이템 점수</p>
-                    <p class="value-score">0</p>
-                </div>
-                <div class="ms2-damage-check-generating-area"></div>
+                
             </div>
             
+            <div class="ms2-frame border">
+                <div class="ms2-frame">
+                    <ol>
+                        <li>
+                            <h3>마법 저항력 관통</h3>
+                            <div class="ms2-status-score-frame ms2-attack-damage">
+                                <p class="header-score">공격 점수</p>
+                                <p class="value-score">2,500,000</p>
+                            </div>
+                        </li>
+                        <li>
+                            <h3>방어력 관통</h3>
+                            <div class="ms2-status-score-frame ms2-attack-damage">
+                                <p class="header-score">공격 점수</p>
+                                <p class="value-score">10,000,000</p>
+                            </div>
+                        </li>
+                        <li>
+                            <h3>파괴의 젬스톤(대미지 증가)</h3>
+                            <div class="ms2-status-score-frame ms2-attack-damage">
+                                <p class="header-score">공격 점수</p>
+                                <p class="value-score">30,000,000</p>
+                            </div>
+                        </li>
+                        <li>
+                            <h3>공격속도</h3>
+                            <div class="ms2-status-score-frame ms2-attack-damage">
+                                <p class="header-score">공격 점수</p>
+                                <p class="value-score">70,000,000</p>
+                            </div>
+                        </li>
+                        <li>
+                            <h3>명중</h3>
+                            <div class="ms2-status-score-frame ms2-attack-damage">
+                                <p class="header-score">공격 점수</p>
+                                <p class="value-score">100,000,000</p>
+                            </div>
+                        </li>
+                        <li>
+                            <h3>크리티컬 대미지</h3>
+                            <div class="ms2-status-score-frame ms2-attack-damage">
+                                <p class="header-score">공격 점수</p>
+                                <p class="value-score">170,000,000</p>
+                            </div>
+                        </li>
+                        <li>
+                            <h3>크리티컬 명중</h3>
+                            <div class="ms2-status-score-frame ms2-attack-damage">
+                                <p class="header-score">공격 점수</p>
+                                <p class="value-score">170,000,000</p>
+                            </div>
+                        </li>
+                        <li>
+                            <h3>보스 몬스터 공격 시 대미지 증가</h3>
+                            <div class="ms2-status-score-frame ms2-attack-damage">
+                                <p class="header-score">공격 점수</p>
+                                <p class="value-score">170,000,000</p>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
             
             
 
@@ -246,5 +353,6 @@
             <script type="text/javascript" src="ms2_damage_checker.js"></script>
             
         </div>
+        
     </section>
 </body>
