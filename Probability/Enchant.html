@@ -1,0 +1,1247 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>메이플스토리2</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="title" content="메이플스토리2">
+    <meta name="description" content="여러분들과 함께 만들어가는 메이플스토리2~!">
+    <meta name="keywords" content="maple,maplestory,maplestory2,메이플,메이플스토리,메이플스토리2,메이뷰,maview">
+        <meta property="og:title" content="메이플스토리2" />
+        <meta property="og:url" content="https://maplestory2.nexon.com/" />
+        <meta property="og:image" content="https://lwi.nexon.com/ms2/MAVIEW/common/sns.jpg" />
+    <link rel="image_src" href="thumb_ms154_01.jpg">
+    <link rel="icon" href="https://ssl.nexon.com/s2/Game/Maplestory2/favicon.png">
+    <link rel="shortcut icon" href="https://ssl.nexon.com/s2/Game/Maplestory2/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" href="https://lwi.nexon.com/ms2/MAVIEW/common/icon.png">
+
+    <script src="https://lwi.nexon.com/js/maplestory2/common/jquery.min.js"></script>
+    <script src="https://lwi.nexon.com/js/maplestory2/common/jquery.easing.js"></script>
+    <script src="https://lwi.nexon.com/js/maplestory2/common/jquery.carousel.js"></script>
+    <script src="https://lwi.nexon.com/js/maplestory2/main/rapid_cycle_min.js"></script>
+    <script src="https://lwi.nexon.com/js/maplestory2/maview/2018/maview.ui.js?v=20180705"></script>
+    <script src="/Scripts/gamewebutil.js?v=2017012401"></script>
+    <script src="/Scripts/typeahead.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://lwi.nexon.com/css/maplestory2/maview/2018/maview.css?v=20170228">
+    <style>
+        .tt-cursor {
+            color: #f1b218;
+        }
+    </style>
+
+    <!--[if (gte IE 9)|!(IE)]><!-->
+    <script src="/Scripts/ZeroClipboard.min.js"></script>
+    <!--<![endif]-->
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="/Content/js/common/html5.js"></script>
+    <![endif]-->
+
+
+
+
+
+    <script type="text/javascript">
+        function LayerAlert(str) {
+            if (str != null && str != '') {
+                $('#msg_alert').html(str);
+                $('#lyr_alert').show();
+            }
+        }
+        $(function () {
+            $.ajaxSetup({ cache: false });
+            if ($('#tk').val().length > 0) {
+                $('#tk').val('');
+            }
+
+            $('#tk').keyup(function (e) {
+                if (this.value == "") {
+                    $("[data-eid='#tk']").hide();
+                } else {
+                    $("[data-eid='#tk']").show();
+                }
+            });
+            $('[data-eid]').each(function () {
+                var eid = $(this).data('eid')
+                var value = $(eid).val();
+                if (value == '') {
+                    $(this).hide();
+                } else {
+                    $(this).show();
+                }
+            });
+            $('[data-eid]').click(function () {
+                var eid = $(this).data('eid')
+                $(eid).val('');
+                $(this).hide();
+            });
+        });
+        function keywordSearch() {
+            WiseLogCallByAjax({ querystring: { st: 'mv', pg: 'nav', bt: 'search' } });
+            if ($.trim($('#tk').val()).length > 0) {
+                location.href = '/Main/Search?tk=' + $.trim(encodeURIComponent($('#tk').val()));
+            }
+        }
+        function outLink(url) {
+                
+                window.open(url);
+                
+        }
+
+        function chgWebCharacter(charac) {
+            $.post("/Main/UpdateWebCharacter", { cid: charac }, function (res) {
+                if (res.result == 0) {
+                    location.reload();
+                }
+            }, 'json');
+            return false;
+        }
+    </script>
+
+        <script type="text/javascript" src="https://ssl.nexon.com/s1/global/ngb_head.js" charset="euc-kr"></script>
+        <script src="https://ssl.nexon.com/s1/p2/ps.min.js" charset="utf-8" data-name="PS" data-ngm="true" data-nxlogin="true"></script>
+        <script type="text/javascript">
+            $(function () {
+                GameStart.on();
+            });
+            var GameStart = {
+                on: function () {
+                    $("body").on("click", "#btnGameStart", gameStart);
+                    $("body").on("click", "#btnGameStart_auto", gameStartAuto);
+                    $("body").on("click", "#btnGameStart2_auto", gameStartAuto);
+                    $("body").on("click", "#btnFGTGameStart", FGTgameStart);
+                    //$("body").on("click", "#btnGameStart2", gameStart);
+                },
+                off: function () {
+                    $("body").off("click", "#btnGameStart");
+                    $("body").off("click", "#btnGameStart_auto");
+                    $("body").off("click", "#btnGameStart2_auto");
+                    $("body").off("click", "#btnFGTGameStart");
+                    //$("body").off("click", "#btnGameStart2");
+                }
+            }
+
+            var gameStart = function () {
+                var gameCode = 106498;
+                //var architecturePlatform = "x86";
+
+                if (NXMember.IsLogin()) {
+                        
+                        NXMember.GoVerify();
+                        
+                } else {
+                    NXJSLogin();
+                }
+
+                GameStart.off();
+                setTimeout(GameStart.on, 1000);
+
+                return false;
+            }
+
+
+            var gameStartAuto = function () {
+                var gameCode = 106498;
+                //var architecturePlatform = "x64";
+
+                if (NXMember.IsLogin()) {
+                        
+                        NXMember.GoVerify();
+                        
+                } else {
+                    NXJSLogin();
+                }
+
+                GameStart.off();
+                setTimeout(GameStart.on, 1000);
+
+                return false;
+            }
+
+            var FGTgameStart = function () {
+                
+                alert("테스트가 종료 되었습니다.");
+
+                return false;
+            }
+        </script>
+    <style type="text/css">
+        @font-face {
+            font-family: 'Noto Sans KR';
+            font-style: normal;
+            font-weight: 300;
+            src: url(/fonts/NotoSansKR-Light.eot) format('eot');
+            src: local(※), url(/fonts/NotoSansKR-Light.woff) format('woff')
+        }
+
+        @font-face {
+            font-family: 'Noto Sans KR';
+            font-style: normal;
+            font-weight: 400;
+            src: url(/fonts/NotoSansKR-Regular.eot) format('eot');
+            src: local(※), url(/fonts/NotoSansKR-Regular.woff) format('woff')
+        }
+
+        @font-face {
+            font-family: 'Noto Sans KR';
+            font-style: normal;
+            font-weight: 500;
+            src: url(/fonts/NotoSansKR-Medium.eot) format('eot');
+            src: local(※), url(/fonts/NotoSansKR-Medium.woff) format('woff')
+        }
+
+        @font-face {
+            font-family: 'Noto Sans KR';
+            font-style: normal;
+            font-weight: 700;
+            src: url(/fonts/NotoSansKR-Bold.eot) format('eot');
+            src: local(※), url(/fonts/NotoSansKR-Bold.woff) format('woff')
+        }
+    </style>
+
+    <!-- Facebook Pixel Code -->
+    <script>
+        !function (f, b, e, v, n, t, s) {
+            if (f.fbq) return; n = f.fbq = function () {
+                n.callMethod ?
+                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            }; if (!f._fbq) f._fbq = n;
+            n.push = n; n.loaded = !0; n.version = '2.0'; n.queue = []; t = b.createElement(e); t.async = !0;
+            t.src = v; s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s)
+        }(window,
+            document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '1702318986687227'); // Insert your pixel ID here.
+        fbq('track', 'PageView');
+    </script>
+    <noscript>
+        <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1702318986687227&ev=PageView&noscript=1" />
+    </noscript>
+    <!-- DO NOT MODIFY -->
+    <!-- End Facebook Pixel Code -->
+
+    <script type="text/javascript" charset="UTF-8" src="//t1.daumcdn.net/adfit/static/kp.js"></script>
+    <script type="text/javascript">
+        kakaoPixel('7645765054187589461').pageView();
+    </script>
+</head>
+
+<body  >
+        <div id="skipToContent">
+            <a href="#topNav">메뉴 바로가기</a>
+            <a href="#mv_contents">콘텐츠 바로가기</a>
+        </div>
+        <script type="text/javascript" src="https://ssl.nexon.com/s1/global/ngb_bodystart.js" charset="euc-kr"></script>
+            <script src="https://rs.nxfs.nexon.com/common/js/gnb.min.js" data-skiptocontentsid="skipToContent" data-gamecode="106498" data-ispublicbanner="false"></script>
+
+        <!-- GNB -->
+        <div id="mv_gnb" class="mv_gnb">
+            <div class="inner">
+                
+                <div class="util">
+                        <!-- 미 로그인 시-->
+                        <a href="javascript:NXMember.GoLogin();" class="bt_login" id="btnLogin" onclick="WiseLogCallByAjax({ querystring: { st: 'mv', pg: 'gnb', bt: 'login' } });gtag('event', 'login', { 'eventCategory': 'gnb' });"><img src="https://ssl.nexon.com/s2/Game/maplestory2/MAVIEW/button/bt_login.png" alt="로그인" /></a>
+
+                        <div class="bt_start">
+                            <a href="#none" id="btnGameStart2_auto" onmouseover="ch_png_on(this)" onmouseout="ch_png_off(this)"><img src="https://lwi.nexon.com/ms2/MAVIEW/button/sub_gm_str_off.png" alt=""></a>
+                        </div>
+                </div>
+            </div>
+        </div>
+    <!-- wrapper -->
+    <div id="mv_wrapper">
+        <div id="mv_header">
+            <div class="inner">
+                <h1><a href="/Main/Index" onclick="WiseLogCallByAjax({ querystring: { st: 'mv', pg: 'nav', bt: 'maviewlogo' } });"><span class="hidden">MAVIEW</span></a></h1>
+                <div id="mv_search">
+                    <fieldset class="input_search">
+                        <legend>검색어 입력</legend>
+                        <script>
+                            var arrowUpDown = false;
+                            var browserType = getBrowserType().browser;
+                            function controlArrowUpDown(c, e) {
+                                if (window.event || browserType == 'IE') {
+                                    var k = (window.event ? e.which : e.keyCode);
+                                    if (k == 38 || k == 40) {
+                                        if (!arrowUpDown) {
+                                            c.blur(); c.focus();
+                                            arrowUpDown = true;
+                                            ev = $.Event("keydown");
+                                            ev.keyCode = ev.which = 40;
+                                            setTimeout(function () {
+                                                $('#tk').trigger(ev);
+                                                if (browserType == 'IE') {
+                                                    setTimeout(function () {
+                                                        $('#tk').trigger(ev);
+                                                    }, 30);
+                                                }
+                                            }, 30);
+
+                                            return true;
+                                        }
+                                    } else {
+                                        arrowUpDown = false;
+                                    }
+                                }
+                            }
+                        </script>
+                        <span class="ip_text">
+                            <input type="text" class="text typeahead_top" title="검색어 입력" id="tk" name="tk" onkeyup="javascript: if ((window.event ? event.which : event.keyCode) == 13) keywordSearch();" onkeydown="javascript: controlArrowUpDown(this, event);" maxlength="20" />
+                            <input type="image" src="https://ssl.nexon.com/s2/Game/maplestory2/MAVIEW/button/bt_close_search.png" class="bt_close" alt="입력 내용 삭제" data-eid="#tk" style="display:none;" />
+                        </span>
+                        <input type="image" src="https://ssl.nexon.com/s2/Game/maplestory2/MAVIEW/button/bt_mv_search.png" class="bt_search" alt="검색하기" onclick="keywordSearch();" />
+                    </fieldset>
+                        <div class="bt_start">
+                            <a href="#none" class="_32bit" id="btnGameStart2_auto" onmouseover="ch_png_on(this)" onmouseout="ch_png_off(this)"><img src="https://lwi.nexon.com/ms2/MAVIEW/button/scroll_gm_str_off.png" alt=""></a>
+                        </div>
+                </div>
+                <h2 class="hidden">메뉴</h2>
+                <div id="topNav">
+                    <ul>
+                        <li id="top_nav_news" class="news">
+                            <!-- 활성화 on -->
+                            <a href="/News/Notice" class="nav_1dep" onclick="WiseLogCallByAjax({ querystring: { st: 'mv', pg: 'nav', bt: 'news' } });"><span>소식</span></a>
+                            <ul class="nav_2dep">
+                                <li id="top_nav_news_notice"><a href="/News/Notice">공지사항</a></li><!-- 활성화 on -->
+                                <li id="top_nav_news_magazine"><a href="/News/ListSub">매거진</a></li>
+                                <li id="top_nav_news_patchnote"><a href="/News/Patchnote">패치노트</a></li>
+                                
+                                <li id="top_nav_news_shop"><a href="/News/Cashshop">상점아이템</a></li>
+                                <li id="top_nav_news_event"><a href="/News/Events">이벤트</a></li>
+                            </ul>
+                        </li>
+                        <li id="top_nav_guide" class="guide">
+                            <a href="/News/ListSub?tp=guide" class="nav_1dep" onclick="WiseLogCallByAjax({ querystring: { st: 'mv', pg: 'gnb', bt: 'guide' } });">
+                                <span>가이드</span>
+                            </a>
+                            <ul class="nav_2dep">
+                                <li id="top_nav_guide_play"><a href="/News/ListSub?tp=guide">플레이 가이드</a></li>
+                                <li id="top_nav_guide_job"><a href="/Guide/Job">직업소개</a></li>
+                                <li><a href="/Guidebook/Beginner" target="_blank">신규안내</a></li>
+                                <li><a href="/Guidebook/Comeback" target="_blank">복귀안내</a></li>
+                                
+                                <li><a href="/Probability/Store">확률공개</a></li>
+                            </ul>
+                        </li>
+                        <li id="top_nav_kch" class="kch">
+                            <a href="/Kch/Qna" class="nav_1dep" onclick="WiseLogCallByAjax({ querystring: { st: 'mv', pg: 'nav', bt: 'kch_qna' } });"><span>플레이Q&amp;A</span></a>
+                            <ul class="nav_2dep">
+                                <li id="top_nav_kch_qna"><a href="/Kch/Qna">질문과 답변</a></li>
+                                
+                            </ul>
+                        </li>
+                        <li id="top_nav_board" class="board">
+                            <a href="/Board/Free/List" class="nav_1dep" onclick="WiseLogCallByAjax({ querystring: { st: 'mv', pg: 'nav', bt: 'board' } });"><span>게시판</span></a>
+                            <ul class="nav_2dep">
+                                <li id="top_nav_board_free"><a href="/Board/Free/List">자유 게시판</a></li>
+                                <li id="top_nav_board_knowhow"><a href="/Kch/Knowhow">공략 게시판</a></li>
+                                
+                                <li id="top_nav_board_artwork"><a href="/Board/Artwork/List">이미지 게시판</a></li>
+                                <li id="top_nav_board_guild"><a href="/Board/Guild/List">길드 게시판</a></li>
+                                <li id="top_nav_board_proposal"><a href="/Board/Proposal/List">건의 게시판</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li id="top_nav_rank" class="rank">
+                            <a href="/Rank/Guild?tp=realtime" class="nav_1dep" onclick="WiseLogCallByAjax({ querystring: { st: 'mv', pg: 'nav', bt: 'rank' } });"><span>순위</span></a>
+                            <ul class="nav_2dep">
+                                <li id="top_nav_rank_guild"><a href="/Rank/Guild?tp=realtime">길드 트로피</a></li>
+                                <li id="top_nav_rank_character"><a href="/Rank/Character?tp=realtime">개인 트로피</a></li>
+                                <li id="top_nav_rank_darkstream"><a href="/Rank/DarkStream">다크 스트림</a></li>
+                                <li id="top_nav_rank_pvp"><a href="/Rank/PVP">메이플 투기장</a></li>
+                                <li id="top_nav_rank_guildpvp"><a href="/Rank/GuildPVP">길드 챔피언십</a></li>
+                                <li id="top_nav_rank_architect"><a href="/Rank/Architect?tp=realtime">스타 건축가</a></li>
+                                <li id="top_nav_rank_boss"><a href="/Rank/Boss3">보스</a></li>
+                            </ul>
+                        </li>
+                        <li class="customer" id="top_nav_support">
+                            <a href="/support/inquiry" class="nav_1dep" onclick="WiseLogCallByAjax({ querystring: { st: 'mv', pg: 'nav', bt: 'support' } });"><span>고객센터</span></a>
+                            <ul class="nav_2dep">
+                                <li id="top_nav_support_inquiry"><a href="/support/inquiry">1:1 문의</a></li>
+                                <li id="top_nav_support_download"><a href="/support/Download">다운로드</a></li>
+                            </ul>
+                        </li>
+                        <li class="event" id="top_nav_event">
+                            <a href="/News/Events" class="nav_1dep event" onclick="WiseLogCallByAjax({ querystring: { st: 'mv', pg: 'nav', bt: 'event' } });"><span>이벤트</span></a>
+                            <ul class="nav_2dep">
+                                <li><a href="/News/Events">진행중인 이벤트</a></li>
+                                <li><a href="/News/Events?ct=2">종료된 이벤트</a></li>
+                                <li><a href="/News/EventsResult">당첨자 발표</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="bg_nav"></div>
+        </div>
+        <!-- contents// -->
+        
+<div id="mv_contents">
+    <div id="board_page">
+        
+<h2 class="hidden">직업소개</h2>
+<div class="category category4">
+    <ul>
+        <li ><a href="/News/ListSub?tp=guide" onclick="WiseLogCallByAjax({ querystring: { st: 'mv', pg: 'guide', bt: 'beginner_list' } });">플레이 가이드</a></li>
+        <li ><a href="/Guide/Job" onclick="WiseLogCallByAjax({ querystring: { st: 'mv', pg: 'guide', bt: 'job' } });">직업소개</a></li>
+        <li><a href="/Guidebook/Beginner" target="_blank" onclick="WiseLogCallByAjax({ querystring: { st: 'mv', pg: 'guide', bt: 'beginner' } });">신규유저 안내</a></li>
+        <li><a href="/Guidebook/Comeback" target="_blank" onclick="WiseLogCallByAjax({ querystring: { st: 'mv', pg: 'guide', bt: 'comeback' } });">복귀유저 안내</a></li>
+        
+        <li class=on><a href="/Probability/Store">확률 공개</a></li>
+    </ul>
+    <br class="clear_both" />
+</div>
+
+    <div class="sub_category">
+        <ul>
+            <li><a href="/Probability/Store" id="top_news_sub_all" >상점 아이템</a></li>
+            <li><a href="/Probability/ItemOption" id="top_news_sub_notice" >아이템 추가 옵션 변경</a></li>
+            <li><a href="/Probability/PetStats" id="top_news_sub_info" >펫 추가 능력 변경</a></li>
+            <li><a href="/Probability/Transcend" id="top_news_sub_media" >초월 아이템</a></li>
+            <li><a href="/Probability/Socket" id="top_news_sub_poll" >소켓 아이템</a></li>
+            <li><a href="/Probability/Dungeon" id="top_news_sub_dungeon" >던전 보상</a></li>
+            <!-- 비숍의하루가 변경 및 추가한 부분-->
+            <li><a href="/Probability/Enchant" id="top_news_sub_enchant" class=on>인챈트</a></li>
+            <li><a href="/Probability/PetCapture" id="top_news_sub_pet_capture" >펫 포획</a></li>
+            <li><a href="/Probability/KeyAnalysis" id="top_news_sub_key_analyze" >열쇠 감정</a></li>
+            <li><a href="/Probability/LifeSkillsItem" id="top_news_sub_life_skills_item">생활 기술 아이템</a></li>
+            <!--<li><a href="/Probability/GearStore" id="top_news_sub_gear_store" data-comment="Experimental Concept">장비 상점 아이템</a></li>-->
+        </ul>
+    </div>
+        <h3 class="hidden">글 목록</h3>
+        <!-- 확룰 정보 삽입 -->
+        <div class="please-read-me-as-experimental" style="width:960px; margin:auto; border: 1px dashed #000;">
+            <h3 style="font-size: x-large; margin:1em;">메이플스토리2 운영진을 향한 확률공개 페이지 수정 요청용 페이지입니다!!!!!</h3>
+            <p>이 페이지는 2024년 3월 22일 금요일부터 시행되는 <a href="https://www.mcst.go.kr/kor/s_notice/notice/noticeView.jsp?pSeq=17856" style="color:blue">문화체육관광부에서 발간한 (최종) 확률형 아이템 확률 정보공개 관련 해설서</a>에 설명된 기준에 맞추기 위해 글쓴이 <strong>비숍의하루</strong>가 메이플스토리2 공식 웹 페이지(확률공개)를 긁어다가 만들어 본 짜집기용 웹 페이지입니다.</p>
+            <br/>   
+            <p>아래에 삽입된 내용들은 형태 예시를 위한 임시 자료들이며, 실제 정보와 일치하지 않을 수 있습니다.</p>
+            <br/>
+            <p>운영진 님, 여기에 있는 정보들 추가 안 하시면 누가 시행령 위반으로 신고 들어가면, 게임물관리위원회에서 시정권고 들어가서 시정권고 3회 안 하면 처벌받읍... ㅠㅠㅠ</p>
+            <br/>
+            <h4 style="font-size: large; margin:0.5em;">확률형 아이템 확률 공개요청 기준</h4>
+            <ol style="margin:0.8em;">
+                <li>유료 재화 : 메럿, 메소(사유:메럿마켓), 카오닉스 결정(사유:All new 올인원 패키지), 오닉스 결정(사유:All new 올인원 패키지)</li>
+                <li>아이템이 등장하는 확률형 뽑기 요소 : 해설서에 의해, 확률 시행에 유료 재화가 일절 사용되지 않는 뽑기 요소를 제외한 모든 확률형 요소 공개 요청 (몬스터 사냥, 던전 보상 제외)</li>
+                <li><span>
+                        던전 중, 유료 재화를 사용해야만 들어갈 수 있는 던전에 대한 보상 아이템(및 연계 화폐를 이용한 캡슐 아이템) 획득 확률 : 프리미엄 던전
+                    </span>
+                    <br/>
+                    <span>※ 확률형 아이템 '균열의 구슬'은 해설서에 의한 확률공개 의무 대상 확률형 아이템이 아닌 것 같지만, 이미 공개하셨으니 자율공개 형태로 그대로 냅두시면 될 것 같습니다. ※</span>
+                </li>
+            </ol>
+            <h4 style="font-size: large; margin:0.5em;">확률형 아이템 확률 공개의무 요청 대상(추정)</h4>
+            <p class="request-desc-by-bishopuiharu">확률형 아이템 정보공개 해설서에 대한 민원 답변 회신 대기중(예정 : 2024년 4월 3일)</p>
+            <br/>
+            <style>
+                table.table-request-by-bishopuiharu {
+                    border: 1px solid #000000;
+                    margin: auto;
+                    border-collapse: collapse;
+                    width: 100%; /* 테이블의 너비를 100%로 지정 */
+                }
+
+                table.table-request-by-bishopuiharu thead {
+                    background-color: beige;
+                }
+
+                table.table-request-by-bishopuiharu tr {
+                    border: 1px solid #000000;
+                    padding: 0.5em;
+                }
+
+                table.table-request-by-bishopuiharu td {
+                    border: 1px solid #000000;
+                    padding: 0.5em;
+                }
+
+                table.table-request-by-bishopuiharu td li {
+                    margin: 1em;
+                }
+            </style>
+            <table class="table-request-by-bishopuiharu">
+                <thead>
+                    <tr>
+                        <td>요소</td>
+                        <td>재화 사용 기준</td>
+                        <td>요청할 정보</td>
+                        <td>요청 사유</td>
+                        <td>비고</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>인챈트</td>
+                        <td>
+                            <ul>
+                                <li>메소(유료 재화)</li>
+                                <li>크리스탈 파편(유료 재화)</li>
+                                <li>카오닉스 결정(유료 재화)</li>
+                                <li>오닉스 결정(유료 재화)</li>
+                            </ul>
+                        <td>
+                            <ul>
+                                <li>확률 변인 정보 추가(재료 장비 투입에 따른 추가 확률)</li>
+                            </ul>
+                        </td>
+                        <td>해설서에 따른 변인에 의해 변동할 수 있는 모든 확률에 대한 확률정보 추가</td>
+                    </tr>
+                    <tr>
+                        <td>라피스 캡슐</td>
+                        <td>
+                            <ol>
+                                <li>메소(유료 재화)+무료 조합 재료</li>
+                                <li>메럿(유료 재화)</li>
+                            </ol>
+                        </td>
+                        <td>
+                            <ul>
+                                <li>제목 및 URL 변경(라피스 캡슐(Lapis) → 펫 포획(PetCapture))</li>
+                                <li>유/무료 확률형 아이템인 마토스 포획 캔디 (순한맛)의 포만감을 줄 확률 추가</li>
+                                <li>유료 캡슐 아이템인 마토스 포획 캡슐 G1~G3의 펫 포획 확률 추가</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ol>
+                                <li>라피스 캡슐의 펫 포획뿐만이 아닌 모든 펫 포획 컨텐츠가 해설서 기준 유료 재화를 이용한 확률형 아이템 뽑기 행위이기 때문에 라피스 캡슐의 펫 포획 확률이 아닌 포괄적인 펫 포획 확률 카테고리가 필요함.</li>
+                                <li>유/무료 확률형 아이템(마토스 캔디 (순한맛))<br/>유/무료 확률형 아이템 사유: 크리티아스 황금 보물 상자 개봉 시 낮은 확률로 마토스 캔디 (순한맛)을 획득할 수 있음.</li>
+                                <li>유료(메소)+무료 재료 조합 확률형 아이템(마토스 포획 캡슐 G1~G3)</li>
+                                <li>유료(메럿) 확률형 아이템 (라피스 캡슐)</li>
+                            </ol>
+                        </td>
+                        <td>확률공개 의무 비대상 아이템 : 마토스 캔디 (매운맛) [사유:단종], 신비한 운석 나무 [사유:무료 확률요소]</td>
+                    </tr>
+                    <tr>
+                        <td>열쇠 감정</td>
+                        <td>메소(유료 재화)</td>
+                        <td>열쇠 감정(메소)의 뽑기 확률 추가</td>
+                        <td>유료 확률형 아이템 뽑기 시스템</td>
+                        <td>무료 감정은 0 메소가 드는 시스템이여서 의무공개를 해야 하는지 아닌지 애매함.</td>
+                    </tr>
+                    <tr>
+                        <td>생활 기술 - 뽑기 아이템</td>
+                        <td>메소(유료 재화)+무료 조합 재료</td>
+                        <td>
+                            <span>아래 확률형 아이템 공개 요청</span>
+                            <ol>
+                                <li>대장 - 1단계 젬스톤 보석 상자</li>
+                                <li>대장 - 1단계 루미스톤 보석 상자 (동등한 확률)</li>
+                                <li>연금 - 지상 탈것 소환석</li>
+                                <li>연금 - 비행 탈것 소환석</li>
+                            </ol>
+                        </td>
+                        <td>
+                            <ul>
+                                <li>유료 재화(메소) + 무료 조합 재료를 사용한 확률형 캡슐 아이템</li>
+                            </ul>    
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>상점 아이템에 판매 중인 50레벨 이하 노멀, 레어 아이템 즉시 입고, 추가 옵션 등장 확률</td>
+                        <td colspan="4">게임물관리위원회 민원 처리 결과 대기중</td>
+                    </tr>
+                </tbody>
+            </table>
+            <br/>
+            <h4 style="font-size: large; margin:0.5em;">확률형 아이템 확률 공개의무 가 아닌 대상(추정)</h4>
+            <p class="request-desc-by-bishopuiharu">확률형 아이템 정보공개 해설서에 따른 확률공개의무 요소가 아닌 것을 추정해봅니다.</p>
+            <br/>
+            <table class="table-request-by-bishopuiharu">
+                <thead>
+                    <tr>
+                        <td>요소</td>
+                        <td>재화 사용 기준</td>
+                        <td>요청할 정보</td>
+                        <td>요청 불가능 사유</td>
+                        <td>비고</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>낚시</td>
+                        <td>
+                            <ul>
+                                <li>메소(유료 재화)</li>
+                                <li>메럿(유료 재화)</li>
+                            </ul>
+                        <td>
+                            <ul>
+                                <li>낚시 시도 시 어종을 낚을 확률, 아이템을 낚을 확률</li>
+                                <li>미끼 등을 사용하여 낚시 시도 시 어종을 낚을 확률, 아이템을 낚을 확률</li>
+                                <li>
+                                    <h5>아래 확률형 아이템 개봉 시 구성품 획득 확률</h5>
+                                    <ul>
+                                        <li>가벼운 조개 상자</li>
+                                        <li>묵직한 조개 상자</li>
+                                        <li>가벼운 진주조개 상자</li>
+                                        <li>묵직한 진주조개 상자</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                <li>낚시 행위 자체는 어떠한 재화도 들어가지 않기 때문입니다.</li>
+                                <li>미끼, 자동 낚시 요소는 이용권을 구매하는 형태이기 때문에 해설서에 따른 공개의무 요소가 아닙니다.</li>
+                            </ul>
+                        </td>
+                        <td>
+                            설사 미끼 사용에 따른 낚시 확률을 공개하더라도, '하이퍼 마그넷 미끼' 등의 단종된 미끼는 확률공개 대상이 아닙니다.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>프리미엄 럭키스핀</td>
+                        <td>
+                            <ul>
+                                <li>메럿(유료 재화)</li>
+                            </ul>
+                        <td>
+                            <ul>
+                                <li>프리미엄 럭키스핀의 뽑기 확률</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                <li>프리미엄 클럽 : 단순 이용권 구매</li>
+                                <li>던전 '프리미엄 던전'의 던전 입장 조건인 '프리미엄 클럽 회원'은 기간권이기에 유료 입장인 것 처럼 보이지만, 입장 자체는 무료이기 때문에 보상인 '프리미엄 코인' 또한 무료 화폐로 볼 수 있을 거라 생각합니다.</li>
+                            </ul>
+                        </td>
+                        <td>
+                            해설서 상 "무료 기회 없이 유료 재화(와 아이템)를 사용해야만 입장 가능한" 던전의 보상은 확률 공개의무 대상입니다. (이 던전은 유료 재화를 사용했다고 볼 수 없음)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>'주간 던전 보상 추가권' 사용이 가능한 던전의 보상</td>
+                        <td>
+                            <ul>
+                                <li>무료+유료</li>
+                                <li>메럿(유료 재화)</li>
+                            </ul>
+                        <td>
+                            <p>아래 던전들의 던전 클리어 보상 확률</p>
+                            <ul>
+                                <h5>카오스 레이드</h5>
+                                <li>그림자 군단의 제단</li>
+                                <li>달빛선장의 요새</li>
+                                <li>루벨리스크</li>
+                                <li>불멸의 신전</li>
+                                <li>루디브리엄 시계탑</li>
+                                <li>서릿발 신전</li>
+                                <li>마드라칸 첨탑</li>
+                                <li>이계의 존재</li>
+                                <li>고대 에네르 광산[일반]</li>
+                                <li>고대 에네르 광산[어려움]</li>
+                                <li>인페르녹 최후의 결전[일반]</li>
+                                <li>인페르녹 최후의 결전[어려움]</li>
+                                <li>환영의 푸른 그림자 동굴[일반]</li>
+                                <li>환영의 푸른 그림자 동굴[어려움]</li>
+                                <li>환영의 호루스의 둥지[일반]</li>
+                                <li>환영의 호루스의 둥지[어려움]</li>
+                                <li>환영의 그림자 제단[일반]</li>
+                                <li>환영의 그림자 제단[어려움]</li>
+                                <li>환영의 비욘드 링크 트리스[일반]</li>
+                                <li>우당탕 블랙빈 놀이터[일반]</li>
+                                <li>우당탕 블랙빈 놀이터[어려움]</li>
+                                <li>이계의 놀이터[일반]</li>
+                                <li>이계의 놀이터[어려움]</li>
+                                <br/>
+                                <h5>아이 오브 라펜타</h5>
+                                <li>에메랄드 프리즌</li>
+                                <li>그레이브 블루</li>
+                                <li>터미너스 엔즈</li>
+                                <li>블랙샤드 체임버</li>
+                                <br/>
+                                <h5>칠흑의 성전</h5>
+                                <li>숨겨진 격납고</li>
+                                <li>변절자 티마이온</li>
+                                <li>음모의 전당</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                <li>무료 이용 + 유료로 보상 추가 = 해설서 기준 확률공개 의무가 아닙니다.</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>버려진 폐광 1층, 버려진 폐광 4층 클리어 보상</td>
+                        <td>
+                            <ul>
+                                <li>무료+유료</li>
+                                <li>메소[열쇠 감정](유료 재화)</li>
+                                <li>메소[주황버섯의 파워업 캡슐](유료 재화)</li>
+
+                            </ul>
+                        <td>
+                            <p>아래 던전들의 던전 클리어 보상 확률</p>
+                            <ul>
+                                <h5>보물</h5>
+                                <li>버려진 폐광 지하 1층</li>
+                                <li>버려진 폐광 지하 4층</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                <li>각 던전에 필요한 열쇠는 던전 클리어에 필요한 아이템으로, 각 던전의 끝에 있는 보물 상자에 열쇠를 사용하여 조사하면 100% 확률로 클리어 조건이 만족됩니다.</li>
+                                <li>던전 입장 자체는 어떠한 조건도 들어가지 않습니다.</li>
+                                <li>던전 입장은 무료, 파티원 중 누군가 한 명이 열쇠를 개봉하기만 하면 유료 아이템인 '버려진 폐광 열쇠 (지하 1층)' 또는 '버려진 폐광 열쇠 (지하 4층)'을 전혀 소지하지 않더라도 던전 클리어 보상을 받을 수 있습니다.</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>미니 게임 M 클리어 박스</td>
+                        <td>
+                            <ul>
+                                <li>무료</li>
+                                <li>메소(유료 재화)</li>
+                            </ul>
+                        <td>
+                            미니게임 M 클리어 시 하루 5회 받을 수 있는 아이템 '미니 게임 M 클리어 박스'에서 구성품을 획득할 확률.
+                        </td>
+                        <td>
+                            <ul>
+                                <li>미니 게임을 구입하는 데는 메소가 들어가지만, 미니 게임 M을 열거나 입장하는 데는 어떠한 재화도 필요하지 않습니다.</li>
+                            </ul>
+                        </td>
+                        <td>
+                            미니게임 '루디브리엄 대탈출 M', '스프링 비치 M', '크레이지 러너즈 M'을 열기 위해서는 각 마을의 잡화 상점에서 50,000 메소를 주고 미니게임 아이템 1개를 구입하여야 합니다.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div id = "EnchantProbability"></div>
+        <script>
+            /* 인챈트 확률 정보 */  
+            var Probability={
+                "OpheliaEnchant":[
+                    {"강화 단계" : 1, "강화 확률" : "100%", "강화 실패 시 획득 포인트" : 1},
+                    {"강화 단계" : 2, "강화 확률" : "100%", "강화 실패 시 획득 포인트" : 1},
+                    {"강화 단계" : 3, "강화 확률" : "100%", "강화 실패 시 획득 포인트" : 1},
+                    {"강화 단계" : 4, "강화 확률" : "95%", "강화 실패 시 획득 포인트" : 1},
+                    {"강화 단계" : 5, "강화 확률" : "90%", "강화 실패 시 획득 포인트" : 1},
+                    {"강화 단계" : 6, "강화 확률" : "80%", "강화 실패 시 획득 포인트" : 1},
+                    {"강화 단계" : 7, "강화 확률" : "70%", "강화 실패 시 획득 포인트" : 1},
+                    {"강화 단계" : 8, "강화 확률" : "60%", "강화 실패 시 획득 포인트" : 1},
+                    {"강화 단계" : 9, "강화 확률" : "50%", "강화 실패 시 획득 포인트" : 1},
+                    {"강화 단계" : 10, "강화 확률" : "40%", "강화 실패 시 획득 포인트" : 1},
+                    {"강화 단계" : 11, "강화 확률" : "30%", "강화 실패 시 획득 포인트" : 1, "재료 장비 1개 추가확률" : 0, "재료 장비 기본요구(양손 장비)" : 2, "재료 장비 기본요구(한손 장비)" : 1},
+                    {"강화 단계" : 12, "강화 확률" : "20%", "강화 실패 시 획득 포인트" : 2, "재료 장비 1개 추가확률" : 7, "재료 장비 기본요구(양손 장비)" : 2, "재료 장비 기본요구(한손 장비)" : 1},
+                    {"강화 단계" : 13, "강화 확률" : "15%", "강화 실패 시 획득 포인트" : 3, "재료 장비 1개 추가확률" : 5, "재료 장비 기본요구(양손 장비)" : 3, "재료 장비 기본요구(한손 장비)" : 2},
+                    {"강화 단계" : 14, "강화 확률" : "10%", "강화 실패 시 획득 포인트" : 4, "재료 장비 1개 추가확률" : 3, "재료 장비 기본요구(양손 장비)" : 4, "재료 장비 기본요구(한손 장비)" : 3},
+                    {"강화 단계" : 15, "강화 확률" : "5%", "강화 실패 시 획득 포인트" : 5, "재료 장비 1개 추가확률" : 2, "재료 장비 기본요구(양손 장비)" : 4, "재료 장비 기본요구(한손 장비)" : 3}
+                ],
+                "PeachyEnchant":[
+                    {"강화 단계" : 1, "요구 성장 포인트" : 1},
+                    {"강화 단계" : 2, "요구 성장 포인트" : 1},
+                    {"강화 단계" : 3, "요구 성장 포인트" : 1},
+                    {"강화 단계" : 4, "요구 성장 포인트" : 1},
+                    {"강화 단계" : 5, "요구 성장 포인트" : 1},
+                    {"강화 단계" : 6, "요구 성장 포인트" : 2},
+                    {"강화 단계" : 7, "요구 성장 포인트" : 2},
+                    {"강화 단계" : 8, "요구 성장 포인트" : 2},
+                    {"강화 단계" : 9, "요구 성장 포인트" : 2},
+                    {"강화 단계" : 10, "요구 성장 포인트" : 3},
+                    {"강화 단계" : 11, "요구 성장 포인트" : 3, "재료 장비 기본요구(양손 장비)" : 2, "재료 장비 기본요구(한손 장비)" : 1},
+                    {"강화 단계" : 12, "요구 성장 포인트" : 5, "재료 장비 기본요구(양손 장비)" : 2, "재료 장비 기본요구(한손 장비)" : 1},
+                    {"강화 단계" : 13, "요구 성장 포인트" : 5, "재료 장비 기본요구(양손 장비)" : 3, "재료 장비 기본요구(한손 장비)" : 2},
+                    {"강화 단계" : 14, "요구 성장 포인트" : 8, "재료 장비 기본요구(양손 장비)" : 4, "재료 장비 기본요구(한손 장비)" : 3},
+                    {"강화 단계" : 15, "요구 성장 포인트" : 8, "재료 장비 기본요구(양손 장비)" : 4, "재료 장비 기본요구(한손 장비)" : 3}
+                ],
+                "EnchantIngredientRequire":[
+                    {"재료 장비 기준" : "양손 장비", "대상 장비" : "양손, 한손 홀, 한손 롱소드, 한벌"},
+                    {"재료 장비 기준" : "한손 장비", "대상 장비" : "쌍수, 모자, 상의, 하의, 장갑, 신발"}
+                ]
+            }
+            /* class info */
+            function CreateProbabilityItem(titleName,desc,tableDisplayDirection,theadName,dicts){
+                var ret_obj = {
+                    titleName:titleName,
+                    desc:desc,
+                    tableDisplayDirection:tableDisplayDirection||"vertical",
+                    dicts:dicts
+                }
+                return ret_obj;
+            }
+            function arrayToTrTh(target_array){
+                console.log("from arrayToTrTh :", target_array);
+                var ret_dom_tr = document.createElement("tr");
+                if(Array.isArray(target_array)){
+                    Array.from(target_array).forEach((e)=>{
+                        var dom_td = document.createElement("th");
+                        dom_td.innerText = String(e !== undefined ? e : "");
+                        ret_dom_tr.appendChild(dom_td);
+                    })
+                }
+                
+                return ret_dom_tr;
+            }
+            function arrayToTrTd(target_array){
+                console.log("from arrayToTrTd :", target_array);
+                var ret_dom_tr = document.createElement("tr");
+                if(Array.isArray(target_array)){
+                    Array.from(target_array).forEach((e)=>{
+                        var dom_td = document.createElement("td");
+                        dom_td.innerText = String(e !== undefined ? e : "");
+                        ret_dom_tr.appendChild(dom_td);
+                    })
+                }
+                
+                return ret_dom_tr;
+            }
+            function objectArrayToTableArraywithHeader(target_objectArray, displayOrientation){
+                var ret_arr = []; //head table rows and body table rows
+                var displayOrientation = displayOrientation === "horizontal" ? "horizontal" : "vertical";
+                
+                var head_arr = []; //for thead tag
+                var body_arr = []; //for tbody tag
+
+                console.log(target_objectArray, "in objectArrayToTableArraywithHeader", displayOrientation);
+
+                //일단 dict 형태로 키 별 배열 만들기
+                var dictArray_keys = {};
+                var dictArray = {}
+                if(Array.isArray(target_objectArray)){
+                    dictArray_keys = target_objectArray.reduce((a,c)=>{
+                        Array.from(Object.keys(c)).forEach((e)=>a[e]=null)  //key 값 수집. null 값은 쓰레기 값.
+                        return a;
+                    },{})
+                    dictArray = target_objectArray.reduce((dictArray,c,i)=>{
+                        for(var a in dictArray_keys){    // c is name of keyname
+                            if(dictArray[a] === undefined)
+                                dictArray[a]=Array(i); // 배열이 없으면 해당 키의 새 배열 만들기.
+                            dictArray[a].push(c[a]);
+                        }
+                        return dictArray;
+                    },{})
+                }
+                console.log("dictarray : ", dictArray, " displayOrientation : ", displayOrientation);
+
+                if(displayOrientation === "horizontal"){//행열 진열이 수평방항 (1번째 키 값들이 맨 윗줄. 좌->우)
+                    var _arr = [];
+                    for(var arg in dictArray){
+                        var _keyvalueArr = [arg].concat(dictArray[arg]);    // [keyname, arg0, arg1, ...]
+                        _arr.push(_keyvalueArr);
+                    }
+                    head_arr = [_arr.shift()];  //맨 앞 열에 있는 키 줄만 thead 키로 사용. thead는 여러 줄일 수도 있기 때문에 배열로 배열 정보 저장.
+                    body_arr = _arr; //맨 앞의 키 줄만 제외한 나머지 모든 키 이름을 tbody 키로 사용.
+                    console.log(head_arr, body_arr);
+                }
+                else{//행열 진열이 수직방항 (키 목록이 맨 윗줄. 키의 값들이 위->아래)
+                    console.log("vertical. dA:", dictArray);
+                    head_arr = [Array.from(Object.keys(dictArray))];
+                    body_arr = Array.from(Object.values(dictArray));    //이 상태는 수직 상태의 값 정보들.
+                    if(body_arr.length > 1){
+                        var body_top_arr = body_arr.shift();
+                        var transposed_body_arr = (function TransposeArray(target_array){
+                            var result_arr = [];
+                            for(var i = 0, flag = true; flag ; i++){
+                                flag = false;
+                                result_arr.push(target_array.reduce((a,e)=>{
+                                    if(i < e.length){
+                                        a.push(e[i]);
+                                        flag=true;
+                                    }
+                                    return a;
+                                },[]));
+                            }
+                            return result_arr;
+                        })(body_arr);
+                        console.log(body_top_arr, body_arr, transposed_body_arr);
+                        body_arr = body_top_arr.map((e,i)=>[e].concat(transposed_body_arr[i]));
+                    }
+                }
+
+                ret_arr = [head_arr, body_arr];
+                console.log("return from objectArrayToTableArraywithHeader :", ret_arr);
+                return ret_arr;
+            }
+            function tableCreator(target_probabilityObjects){
+                /*  
+                    <div class="p_item_type"> <--
+                        <div class="pi_t_line">
+                            <h4 class="pt_1">오필리아 인챈트 성공확률</h4> <-- Table name
+                            <table class="p_item2"> <-- Table its.
+                                <thead>
+                                    <tr>
+                                        <th>강화 단계</th>
+                                        ...
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>강화 확률</td>
+                                        ...
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="gucc_ic gucc_3"></div>
+                        </div>
+                    </div>
+                */
+                if(!(Array.isArray(target_probabilityObjects))) target_probabilityObjects = [target_probabilityObjects];
+                var root_div = document.createElement("div");
+                root_div.className = "p_item_type";
+                var dom_div_pi_t_line = document.createElement("div");  //확률 정보의 제목, 덧붙임, 표 등이 들어가는 div 태그
+                dom_div_pi_t_line.className = "pi_t_line";
+                console.log("in tableCreator");
+                for(idx_target_probabilityObject in target_probabilityObjects){
+                    var target_probabilityObject = target_probabilityObjects[idx_target_probabilityObject];
+                    console.log("trace : " + String(target_probabilityObject));
+                    if(target_probabilityObject === null ||target_probabilityObject === undefined)
+                        continue;
+
+                    var target_probabilityObject = target_probabilityObject;
+                    var tableDirection = target_probabilityObject.tableDisplayDirection;
+
+                    var div_p_item_type = document.createElement("div"); //it's an p_item_type
+                    div_p_item_type.className = "p_item_type";
+
+                    /* 제목 넣기 */
+                    var dom_title = document.createElement("h4");
+                    dom_title.className = "pt_1 _gap";
+                    dom_title.innerText = target_probabilityObject.titleName;
+                    var dom_desc = null;
+
+                    /* 부가 설명 넣기 */
+                    console.log("desc :", target_probabilityObject.desc);
+                    var desc = target_probabilityObject.desc;
+                    if(!(desc === undefined || desc === null)){
+                        dom_desc = document.createElement("span");
+                        dom_desc.className = "desc";
+                        if(!(Array.isArray(desc))){//배열 형태가 아닌 일반 문자열인 경우, 목록 없이 그냥 처리.
+                            dom_desc.innerText = String(target_probabilityObject.desc);
+                        }
+                        else{   //배열 형태의 여러 부가 설명 감지
+                            console.log("it seems array descriptions");
+                            var _dom_ul = document.createElement("ul"); //여러 주석들은 ul-li 형태로 표시한다.
+                            desc.forEach((e)=>{
+                                var _dom_li = document.createElement("li");
+                                _dom_li.innerText = String(e);
+                                _dom_ul.appendChild(_dom_li);
+                            })
+                            dom_desc.appendChild(_dom_ul);  //완성된 부가 설명들 끼워 넣기
+                        }
+                    }
+                    
+                    /* 표 만들기 */
+                    var dom_table = document.createElement("table");
+                    dom_table.className = "p_item2";
+                    var dom_table_thead = document.createElement("thead");
+                    var dom_table_tbody = document.createElement("tbody");
+
+                    /* 표 조립 */
+                    var tableArrayWithHead = objectArrayToTableArraywithHeader(target_probabilityObject.dicts, tableDirection);
+                    console.log("assemble tableArrayWithHead: ",tableArrayWithHead);
+                    tableArrayWithHead[0].forEach(e=>dom_table_thead.appendChild(arrayToTrTh(e))); //표의 헤더의 셀들은 <td> 태그가 아닌 <th> 태그 사용
+                    tableArrayWithHead[1].forEach(e=>dom_table_tbody.appendChild(arrayToTrTd(e)));
+                    dom_table.appendChild(dom_table_thead);
+                    dom_table.appendChild(dom_table_tbody);
+
+                    /**
+                     * 조립 순서
+                     * root_div("p_item_type")
+                     * └ div("pi_t_line") <--- 여기에 확률 표 만든 거 넣어야 함
+                     *   └제목 → (있으면)부가설명 → 표 
+                     * └ GUCC 자율형규제인증 마크 div 태그(마지막 테이블 뒤에 삽입)
+                    */
+               
+                    /**
+                     * 제목 + 부가설명(있으면) + 표 삽입
+                     */
+                    dom_div_pi_t_line.appendChild(dom_title);
+                    if(dom_desc !== undefined && dom_desc !== null)
+                        dom_div_pi_t_line.appendChild(dom_desc);
+                    dom_div_pi_t_line.appendChild(dom_table);
+                }
+                /* (없으면) 확률형 규제인증 마크 삽입 (사실, 스크립트에 defer 옵션이 있어야 의미가 있는데 defer 옵션이 없어서 무의미한 조건 검사 코드) */
+                var existing_dom_div_guccic = Array.from(document.getElementsByClassName("gucc_ic gucc_3"));
+                if(!(existing_dom_div_guccic !== undefined && existing_dom_div_guccic !== null && existing_dom_div_guccic.length >0)){
+                    var dom_div_guccic = document.createElement("div");
+                    dom_div_guccic.className = "gucc_ic gucc_3";
+                    dom_div_pi_t_line.appendChild(dom_div_guccic);
+                }
+
+                /* 마지막 조립 */
+                root_div.appendChild(dom_div_pi_t_line);
+                return root_div;
+            }
+
+            /* 실행 코드는 여기에 */
+            console.log("hello");
+            var dom_e_p = document.getElementById("EnchantProbability");
+            //태그 뒤에 삽입
+            dom_e_p.after(
+                tableCreator([
+                    CreateProbabilityItem("오필리아 인챈트 성공확률",[
+                        "인챈트 확률 : 강화 확률 + 재료 추가 확률 + 인챈트 포인트(원하는 만큼 추가 가능, 사용 시 사용된 포인트 만큼 소멸) = 최대 100%",
+                        "강화 실패 시 획득 포인트는 재료 장비의 개수에 상관없이 강화 단계에 맞는 인챈트 포인트를 얻습니다.",
+                        "장비의 인챈트 단계가 변경된 경우, 장비에 있는 인챈트 포인트는 그대로 유지됩니다.",
+                        "재료 장비 추가확률은 강화 확률이 30% 미만인 경우에만 적용할 수 있으며, 강화 확률과 재료 장비 추가확률을 합산하여 30%를 초과할 수 없습니다.",
+                        "재료 장비는 엑설런트 등급 이상의 장비에만 적용되며, 엘리트 등급 미만의 장비에는 재료 장비를 요구하지 않으며 재료 장비를 이용한 확률 상승을 할 수 없습니다.",
+                        "파이어 프리즘 무기는 신비한 인챈트 효과로 인해 장비 종류에 상관없이 요구 무기 재료가 1개로 고정됩니다."
+                    ],"horizontal","강화 단계", Probability["OpheliaEnchant"]),
+                    CreateProbabilityItem("피치 인챈트 1회 인챈트 요구 포인트",[
+                        "1회 인챈트 시 100% 확률로 1 성장 포인트가 쌓입니다.",
+                        "요구 성장 포인트가 다 모이면 100% 확률로 다음 인챈트 단계가 됩니다.",
+                        "장비의 인챈트 단계가 변경된 경우, 장비에 있는 성장 포인트는 0으로 초기화됩니다.",
+                        "재료 장비는 엑설런트 등급 이상의 장비에만 적용되며, 엘리트 등급 미만의 장비에는 재료 장비를 요구하지 않으며 재료 장비를 이용한 확률 상승을 할 수 없습니다.",
+                        "파이어 프리즘 무기는 신비한 인챈트 효과로 인해 장비 종류에 상관없이 요구 무기 재료가 1개로 고정됩니다."
+                    ],"horizontal","강화 단계", Probability["PeachyEnchant"]),
+                    CreateProbabilityItem("오필리아(1회 인챈트), 피치(성장 포인트 1 획득) 인챈트 무기재료","엑설런트 등급 이상의 장비 인챈트 시 요구되는 재료 장비의 기준입니다.","vertical","재료 장비 기준", Probability["EnchantIngredientRequire"])
+                ])
+            )
+        </script>
+
+<!-- 원본 태그 : 오필리아 인챈트 성공확률 -->
+        <!-- <div class="p_item_type">
+            <div class="pi_t_line">
+                <h4 class="pt_1">오필리아 인챈트 성공확률</h4>
+                <table class="p_item2">
+                    <thead>
+                        <tr>
+                            <th>강화 단계</th>
+                            <th>1</th>
+                            <th>2</th>
+                            <th>3</th>
+                            <th>4</th>
+                            <th>5</th>
+                            <th>6</th>
+                            <th>7</th>
+                            <th>8</th>
+                            <th>9</th>
+                            <th>10</th>
+                            <th>11</th>
+                            <th>12</th>
+                            <th>13</th>
+                            <th>14</th>
+                            <th>15</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>강화 기본 확률</td>
+                            <td>100%</td>
+                            <td>100%</td>
+                            <td>100%</td>
+                            <td>95%</td>
+                            <td>90%</td>
+                            <td>80%</td>
+                            <td>70%</td>
+                            <td>60%</td>
+                            <td>50%</td>
+                            <td>40%</td>
+                            <td>30%</td>
+                            <td>20%</td>
+                            <td>15%</td>
+                            <td>10%</td>
+                            <td>5%</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="gucc_ic gucc_3"></div>
+            </div>
+        </div>-->
+    </div>
+</div>
+
+        <!-- //contents -->
+        <!-- 퀵메뉴 Sub (이미지게시판 리스트, 길드게시판 리스트, 고객센터 제외) -->
+            <div id="main_quick" class="sub">
+                <ul>
+                            <li><a href="/User/Login?p=%2fProbability%2fEnchant" onclick="WiseLogCallByAjax({ querystring: { st: 'mv', pg: 'main', bt: 'coupon' } });"><img src="https://ssl.nexon.com/s2/Game/maplestory2/MAVIEW/layout/bt_quick4_2.png" alt="쿠폰등록" /></a></li>
+                    <li><a href="/Guidebook/Beginner" target="_blank" onclick="WiseLogCallByAjax({ querystring: { st: 'mv', pg: 'main', bt: 'beginner' } });"><img src="https://ssl.nexon.com/s2/Game/maplestory2/MAVIEW/layout/bt_quick1_2.png" alt="신규안내" /></a></li>
+                    <li><a href="/guidebook/comeback" target="_blank" onclick="WiseLogCallByAjax({ querystring: { st: 'mv', pg: 'main', bt: 'beginner' } });"><img src="https://ssl.nexon.com/s2/Game/maplestory2/MAVIEW/layout/bt_quick2_2.png" alt="복귀안내" /></a></li>
+                    <li><a href="/guide/pcbang" onclick="WiseLogCallByAjax({ querystring: { st: 'mv', pg: 'main', bt: 'pcroom' } });"><img src="https://ssl.nexon.com/s2/Game/maplestory2/MAVIEW/layout/bt_quick3.png" alt="PC방혜택" /></a></li>
+                    <li><a href="/guide/ost" onclick="WiseLogCallByAjax({ querystring: { st: 'mv', pg: 'main', bt: 'ost' } });"><img src="https://ssl.nexon.com/s2/Game/maplestory2/MAVIEW/layout/bt_quick5.png" alt="OST" /></a></li>
+                    <li><a href="/Guidebook/BeginnerGuideTip" target="_blank"><img src="https://ssl.nexon.com/s2/Game/maplestory2/MAVIEW/layout/bt_quick6.png" alt="초보자가이드" /></a></li>
+                </ul>
+
+            </div>
+
+            <div id="footer" class="footer">
+                <div class="util_menu">
+                    <h2 class="hidden">회사소개 및 약관</h2>
+                    <ul>
+                        <li class="company"><a href="https://company.nexon.com/" target="_blank">회사소개</a></li>
+                        <li class="career"><a href="https://career.nexon.com/" target="_blank">채용안내</a></li>
+                        <li class="agreement"><a href="https://member.nexon.com/policy/stipulation.aspx" target="_blank">이용약관</a></li>
+                        <li class="grade"><a style="cursor:pointer;" onclick="window.open('/Content/html/pop_gameUser.html', '_blank', 'scrollbars=no,width=500, height=440, top=100'); return false;">게임이용등급안내</a></li>
+                        <li class="privacy"><a href="https://member.nexon.com/policy/privacy.aspx" target="_blank">개인정보처리방침</a></li>
+                        <li class="youth"><a href="https://member.nexon.com/policy/youthprotection.aspx" target="_blank">청소년 보호정책</a></li>
+                        <li class="policy"><a style="cursor:pointer;" onclick="window.open('/Content/html/pop_policy.html', '_blank', 'scrollbars=no,width=600, height=552, top=100'); return false;">운영정책</a></li>
+                        <li class="pcbang"><a href="https://pcbang.nexon.com" target="_blank">넥슨PC방</a></li>
+                        <li><a href="/GuideUGC/Main/" onclick="window.open(this.href, '_blank', 'width=1000, height=700, top=100'); return false;">권리침해신고센터</a></li>
+                        
+                        
+                    </ul>
+                </div>
+                <address class="address">
+                    <span class="none">(주) 넥슨코리아 대표이사 이정헌</span>
+                    <span>경기도 성남시 분당구 판교로 256번길 7</span>
+                    <span>전화 : 1588-7701</span>
+                    <span>팩스 : 0502-258-8322</span><br />
+                    <span class="none"><a href="mailto:nexoncontact@nexon.co.kr">E-mail : contact-us@nexon.co.kr </a></span>
+                    <span><a href="https://ftc.go.kr/info/bizinfo/communicationList.jsp" target="_blank">사업자 등록번호 : 220-87-17483호</a></span>
+                    <span>통신판매업 신고번호 : 제2013-경기성남-1659호</span>
+                    <span class="bizinfo"><a href="javascript:;" onclick="javascript: onopen_nk();">사업자정보확인</a></span>
+                </address>
+                <p class="copyright" role="contentinfo">
+                    &copy; NEXON Korea Corporation All Rights Reserved.
+                </p>
+                <div class="corp">
+                    <h2 class="hidden">관련사 바로가기</h2>
+                    <ul>
+                        <li class="nexon"><a href="https://www.nexon.com" target="_balnk"><span class="hidden">NEXON</span></a></li>
+                    </ul>
+                </div>
+            </div>
+            </div>
+
+    <div class="quick_top">
+        <div class="quick_top_round">
+            <span class="quick_top_round_item circle"></span>
+            <a href="#a" onclick="mv_top();"><img src="https://ssl.nexon.com/S2/Game/maplestory2/main/top_btn_off.png" alt=""></a>
+        </div>
+    </div>
+
+    <div class="pop_alert" id="lyr_alert" style="display:none;">
+        <div class="inner">
+            <p>
+                <span class="empty"></span><span class="msg" id="msg_alert"></span>
+            </p>
+            <a href="javascript:;" class="ok" onclick="$('.pop_alert').hide();">확인</a>
+            <a href="javascript:;" class="close" onclick="$('.pop_alert').hide();return false;"><img src="https://ssl.nexon.com/s2/Game/maplestory2/MAVIEW/layout/bt_p_close.gif" alt="닫기" /></a>
+        </div>
+    </div>
+
+    <div class="pop_alert" id="lyr_confirm" style="display:none;">
+        <div class="inner">
+            <p>
+                <span class="empty"></span><span class="msg" id="msg_confirm">정말 삭제하시겠습니까?</span>
+            </p>
+            <a href="javascript:return false;" class="ok" onclick="$('.pop_alert').hide(); ConfirmDelete();">확인</a>
+            <a href="javascript:return false;" class="ok" onclick="$('.pop_alert').hide();">취소</a>
+            <a href="javascript:return false;" class="close" onclick="$('.pop_alert').hide();return false;"><img src="https://ssl.nexon.com/s2/Game/maplestory2/MAVIEW/layout/bt_p_close.gif" alt="닫기" /></a>
+        </div>
+    </div>
+
+        <script type="text/javascript" src="https://ssl.nexon.com/s1/global/ngb_bodyend.js" charset="euc-kr"></script>
+
+    <script type="text/javascript">
+        var sr = new Bloodhound({
+            datumTokenizer: function (datum) {
+                return Bloodhound.tokenizers.whitespace(datum.value);
+            },
+            queryTokenizer: Bloodhound.tokenizers.whitespace,
+            limit: 30,
+            remote: {
+                url: '/Common/GetSearchName?q=%QUERY',
+                filter: function (res) {
+                    var prev;
+                    // Map the remote source JSON array to a JavaScript object array
+                    return $.map(res.results, function (res) {
+                        if (prev != res.v) {
+                            prev = res.v;
+                            return {
+                                value: res.v
+                            };
+                        }
+                    });
+                }
+            }
+        });
+
+        // Initialize the Bloodhound suggestion engine
+        sr.initialize();
+
+        // Instantiate the Typeahead UI
+        $('.typeahead_top').typeahead({
+            hint: false,
+            highlight: true,
+            minLength: 2,
+            autocomplete: true
+        },
+            {
+                displayKey: 'value',
+                source: sr.ttAdapter()
+            });
+
+        function onopen_nk() {
+            var url =
+                "https://www.ftc.go.kr/info/bizinfo/communicationViewPopup.jsp?wrkr_no=2208717483";
+            window.open(url, "communicationViewPopup", "width=750, height=700;");
+        }
+
+        var OpenCouponBox = function (url) {
+            window.open(url, "CouponBox", "width=530, height=831");
+        };
+    </script>
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-48465169-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-48465169-1', {
+            'custom_map': {
+                'dimension2': 'userId',
+                'dimension3': 'domain'
+            }
+        });
+        gtag('event', 'event', {
+            'userId': '',
+            'domain': 'maplestory2.nexon.com'
+        });
+        gtag('config', 'G-0JR82LT809');     // 4세대
+    </script>
+
+
+        <script type="text/javascript">
+            /* <![CDATA[ */
+            var google_conversion_id = 868679837;
+            var google_custom_params = window.google_tag_params;
+            var google_remarketing_only = true;
+            /* ]]> */
+        </script>
+        <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+        </script>
+        <noscript>
+            <div style="display:inline;">
+                <img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/868679837/?guid=ON&amp;script=0" />
+            </div>
+        </noscript>
+        <!-- clickmon retargeting code -->
+        <script type="text/javascript">
+            //2018-08-02
+            (function (m, o, n, r, t, g) {
+                t = o.location.protocol + t + '?l=' + n + '&t=' + r + '&ref=' + encodeURIComponent(o.referrer) + '&loc=' + encodeURIComponent(o.location) + '&r=' + Math.floor(Math.random() * 99999999999);
+                o.write("<" + g + " src='" + t + "' style='display:none;'></" + g + ">");
+            })(window, document, 'CM_M_1044776', 'brand', '//rtb.clickmon.co.kr/RT_GATE/rt_gate.php', 'iframe');
+
+            //2018-08-22 추가 적용
+            (function (m, o, n, r, t, g) {
+                t = o.location.protocol + t + '?l=' + n + '&t=' + r + '&ref=' + encodeURIComponent(o.referrer) + '&loc=' + encodeURIComponent(o.location) + '&r=' + Math.floor(Math.random() * 99999999999);
+                o.write("<" + g + " src='" + t + "' style='display:none;'></" + g + ">");
+            })(window, document, 'CM_M_1045493', 'brand', '//rtb.clickmon.co.kr/RT_GATE/rt_gate.php', 'iframe');
+        </script>
+        <!-- End clickmon retargeting code -->
+
+    <!-- Twitter universal website tag code -->
+    <script>
+        !function (e, t, n, s, u, a) {
+            e.twq || (s = e.twq = function () {
+                s.exe ? s.exe.apply(s, arguments) : s.queue.push(arguments);
+            }, s.version = '1.1', s.queue = [], u = t.createElement(n), u.async = !0, u.src = '//static.ads-twitter.com/uwt.js',
+                a = t.getElementsByTagName(n)[0], a.parentNode.insertBefore(u, a))
+        }(window, document, 'script');
+        // Insert Twitter Pixel ID and Standard Event data below
+        twq('init', 'nxhbk');
+        twq('track', 'PageView');
+    </script>
+    <!-- End Twitter universal website tag code -->
+</body>
+</html>
