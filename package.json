@@ -4,7 +4,7 @@
   "description": "",
   "main": "module_customobject.js",
   "dependencies": {
-    "ws": "^7.0.1",
+    "ws": "^7.5.10",
     "http": "^0.0.0"
   },
   "devDependencies": {},
