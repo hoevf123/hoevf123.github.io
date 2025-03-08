@@ -189,6 +189,7 @@
                         let dungeon_cleared_summation_count = dungeon_cleared_records.reduce((a,c,i)=>{a = a + Number(c?.dungeon_cleared_amount) ?? 0; console.log(c?.dungeon_cleared_amount); return a;}, 0);
                         let dungeon_cleared_summation_score = dungeon_cleared_records.reduce((a,c,i)=>{a = a + Math.min(Number(c?.dungeon_cleared_amount) ?? 0, 300); return a;}, 0);
                         let dungeon_cleared_summation_max_score = dungeon_cleared_records.reduce((a,c,i)=>{a = a + 300; return a;}, 0);
+                        let dungeon_cleared_summation_percentage_decimal = Math.round(dungeon_cleared_summation_score/dungeon_cleared_summation_max_score*10000)/100; //소수점 2자리까지 표현
                         let dungeon_require_highest_level = dungeon_cleared_records.reduce((a,c,i)=>{let _curr_req_level = c?.["dungeon_info"]?.["dungeonReqLevel"]; if(Number.isInteger(_curr_req_level) && _curr_req_level>a) a = _curr_req_level; return a;},0);
                         let character_adventure_dungeon_earn_bonus_meso = character_adventure_dungeon_reward_meso(dungeon_require_highest_level);
                         let character_adventure_dungeon_clear_meso = dungeon_require_highest_level >= 70 ? 14000 : dungeon_require_highest_level >= 50 ? 10000 : 0; //도는 던전 입장 제한 레벨 * 200메소 적용. 50레벨, 70레벨 던전만 돈다고 가정.
@@ -199,7 +200,8 @@
                         let today_date = today.getDate();
                         
                         console.log("dungeon_require_highest_level :", dungeon_require_highest_level);
-                        let remaining_date = (6-(today.getDay()+2)+7)%7;
+                        let remaining_day = (6-(today.getDay()+2)+7)%7;
+                        let str_remaining_day_diplay = new String(remaining_day > 0 ? `${remaining_date} 일` : "24시간 미만으로");
                         // Step 2. make root div
                         let ch_root_div = createTag("div", "ms2-frame ms2-info-block " + new String(ch_id));
                         
@@ -213,20 +215,22 @@
                         if(Number.isFinite(character_adventure_dungeon_earn_bonus_meso))
                             _tags.character_adventure_dungeon_earn_meso = createTag("p", "character_adventure_dungeon_earn_meso", `이 캐릭터는 모험 던전 30회를 돌아 통해 최소 1주 당 ${character_adventure_dungeon_earn_bonus_meso.toLocaleString('en-US')}의 보너스 메소와 ${character_adventure_dungeon_earn_meso.toLocaleString("en-US")}의 던전 클리어 메소를 획득하실 수 있습니다.`);
                         _tags.achived_trophy_count = createTag("p", "achived-trophy-count", "🏆 " + new String(achived_trophy_count));
-                        _tags.dungeon_cleared_summation_score = createTag("p", "dungeon_cleared_summation_score", `던전 종합 점수 : ${new String(dungeon_cleared_summation_score)} / ${new String(dungeon_cleared_summation_max_score)} (총 ${new String(dungeon_cleared_summation_count)}회 클리어)`);
+                        _tags.dungeon_cleared_summation_score = createTag("p", "dungeon_cleared_summation_score", `던전 종합 점수 : ${new String(dungeon_cleared_summation_score)} / ${new String(dungeon_cleared_summation_max_score)} (${dungeon_cleared_summation_percentage_decimal}% 완주, 총 ${new String(dungeon_cleared_summation_count)}회 클리어)`);
+                        //_tags.dungeon_cleared_summation_score_progress = createTag("progress", "progress_dungeon_cleared_summation_score", dungeon_cleared_summation_score,{"max":dungeon_cleared_summation_max_score,"value":dungeon_cleared_summation_score}); //progress bar may be added when supports coloring by css percentage values.
                         //homework
                         _tags.head_homework = createTag("h1", "head_homework", `일일 숙제`);
-                        _tags.additional_homework = createTag("p", "head_homework_comment", `(${today_year}년 ${today_month}월 ${today_date}일 기준, 주간 숙제 초기화까지 ${remaining_date}일 남음)`);
+                        _tags.additional_homework = createTag("p", "head_homework_comment", `(${today_year}년 ${today_month}월 ${today_date}일 기준, 주간 숙제 초기화까지 ${str_remaining_day_diplay} 남았습니다.)`);
                         _tags.test_dungeon_results = dungeon_cleared_records.reduce((a,c,i)=>{
                             //태그 조립에 필요한 보스 몬스터의 이름과 클리어 횟수 추출
                             let _dungeon_clear_records = {
                                 "dungeon_name":c?.["dungeon_info"]?.["dungeonName"], 
+                                //"dungeon_monster_id":c?.["dungeon_info"]?.  ["monsterId"],
                                 "dungeon_clear_count":c?.["dungeon_cleared_amount"],
                                 "dungeon_clear_count_unit" :"회",
                             };
                             console.log(_dungeon_clear_records);
                             let _tag_div_dungeon_record = Object.keys(_dungeon_clear_records).reduce((record_a, record_c, record_i)=>{
-                                //태그 조립
+                                //태그 조립 
                                 let _tag_prop = createTag("span",new String(record_c),new String(_dungeon_clear_records?.[record_c]));
                                 [_tag_prop].forEach((e)=>record_a.appendChild(e));
                                 return record_a;}

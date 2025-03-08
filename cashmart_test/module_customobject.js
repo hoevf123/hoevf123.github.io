@@ -348,7 +348,7 @@
         this.constructor=CustomScreen
         // var width=1024;/* Unused, use canvas.width instead. size of CustomScreen(canvas Element)'s width */
         // var height=800;/* Unused, use canvas.height instead. size of CustomScreen(canvas Element)'s height */
-        var time=30;/* Important : Call Image Per Miliseconds, Timer which is undefined call time value */
+        var time=1000/60;/* Important : Call Image Per Miliseconds, Timer which is undefined call time value. you may use also fomula by 1000/fps */
         var CanvasName=CanvasName;/* Important : It Must be Exist Canvas Element's Id value */
         var canvas=document.getElementById(CanvasName);/* get Element */
         var buf_canvas=document.createElement("canvas");
@@ -393,7 +393,7 @@
                     context.strokeStyle=CustomObjectList[idx].strokeStyle;/* Added Code At 2015-11-17 */
                     context.fillStyle=CustomObjectList[idx].fillStyle;/* Added Code At 2015-11-17 */
                     CustomObjectList[idx].draw(context,"image");/* draw CustomObject using CustomObject[idx].draw Method */
-                    //                       CustomObjectList[idx].displayName(context);/* draw CustomObject's State(id, name, position, name) */
+                    //CustomObjectList[idx].displayName(context);/* draw CustomObject's State(id, name, position, name) */
                 }
                 //BitBlt the buffer canvas to current displaying canvas.
                 canvas.getContext('2d').drawImage(buf_canvas,0,0);
@@ -406,27 +406,53 @@
             var idx;
             /* check all CustomObjectList array value */
             for(idx=0;idx<CustomObjectList.length;idx++)
-            { /* if CustomObject[idx]'s value has CustomObject(Exist) */
+            {/* if CustomObject[idx]'s value has CustomObject(Exist) */
                 if(CustomObjectList[idx]!=undefined){
                     CustomObjectList[idx].move(time);/* Move CustomObject's Position */
                 }
             }
         }
         /* Important : Initialization of Starting CustomScreen's Drawing, CustomObject's Moving Handler!! */
+        /* Code Alternation Info : refactored setInterval code to requestAnimationFrame code by ChatGPT at 2024-12-26. */
         this.StartLoadScreen=function(){
+            var lastTime = 0;
+            var accumulatedTime = 0;    //accumulated frame time for adjusting frame rate
+
+            function loop(timestamp) {
+                /* Calculate requestAnimationframe's delta gap time */
+                var deltaTime = timestamp - lastTime;
+                accumulatedTime += deltaTime;
+                lastTime = timestamp;
+
+                /* Process Object Moving without repaint situation */
+                CustomObjectMove(deltaTime); 
+
+                /* Repaint when accumulated time is over than repainting time */
+                if (accumulatedTime >= time) {
+                    CustomWM_PAINT();
+                    accumulatedTime = accumulatedTime % time;    //deduct accumulated time
+                }
+                screenLoad = window.requestAnimationFrame(loop);
+            }
+        
             if(screenLoad==null) {
-                window.requestAnimationFrame(CustomWM_PAINT);
-                screenLoad = setInterval(CustomWM_PAINT, time);
-                timerLoad = setInterval(CustomObjectMove, time);
+                window.requestAnimationFrame(loop);
+                /* Obsoleted repaint method : setInterval */
+                //screenLoad = setInterval(CustomWM_PAINT, time);
+                //timerLoad = setInterval(CustomObjectMove, time);
             }
             else console.log("Display Already Loaded!!");
         }
         /* Important : Initialization of Removing CustomScreen's Drawing, CustomObject's Moving Handler!! */
+        /* Code Alternation Info : refactored setInterval code to requestAnimationFrame code by ChatGPT at 2024-12-26. */
+
         this.CloseLoadScreen=function(){
             if(screenLoad==null)console.log("Don't Have to Close this Screen!!");
             else{
-                clearInterval(screenLoad);
-                clearInterval(timerLoad);
+                window.cancelAnimationFrame(screenLoad);
+                /* Obsoleted repaint method : setInterval */
+                //clearInterval(screenLoad);
+                //clearInterval(timerLoad);
                 screenLoad=null;
             }
         }
