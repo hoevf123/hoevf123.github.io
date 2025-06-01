@@ -14,7 +14,7 @@
             <h1>던전 순위</h1>
             <p>실시간 던전 순위를 볼 수 있는 링크를 모아 둔 곳입니다.</p>
             <h2>실시간으로 확인 가능한 던전 링크</h2>
-            <p>※ 링크 클릭 시 메이플스토리2 - 랭킹 - 보스 페이지로 이동됩니다. ※</p>
+            <p>※ 링크 클릭 시 메이플스토리2 - 랭킹 - 보스 페이지로 이동됩니다....만 2025년 5월 29일 오전 10시 서비스 종료로 인하여 이동 링크를 비활성화합니다.※</p>
             <ul class="ms2-boss-rank-list"></ul>
             <script type="module">
                 import {temp_dungeon_datas} from "./ms2_datawarehouse_dungeon_datas.mjs";
@@ -87,7 +87,8 @@
 
                         //wrap link to div block.
                         if(!(_v_monsterId == undefined)){
-                            _dom_url.href = MAPLESTORY2_BOSSRANK_URL + "?" + "b=" + new String(_v_monsterId);
+                            //_dom_url.href = MAPLESTORY2_BOSSRANK_URL + "?" + "b=" + new String(_v_monsterId); //inactivated by Maplestory2 Service Termination at 2025.05.29 10:00 AM
+                            _dom_url.data.obsoleted_href = MAPLESTORY2_BOSSRANK_URL + "?" + "b=" + new String(_v_monsterId);
                             _dom_url.appendChild(_dom_div);
                             root_DOM = _dom_url;
                         }
