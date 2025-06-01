@@ -292,7 +292,7 @@ div.ms2-item-slot.pants{background-image: url("./pictogram/slot_pants.png");}
 div.ms2-item-slot.gloves{background-image: url("./pictogram/slot_gloves.png");}
 div.ms2-item-slot.shoes{background-image: url("./pictogram/slot_shoes.png");}
 div.ms2-item-slot.earings{background-image: url("./pictogram/slot_earings.png");}
-div.ms2-item-slot.neckless{background-image: url("./pictogram/slot_neckless.png");}
+div.ms2-item-slot.necklace{background-image: url("./pictogram/slot_necklace.png");}
 div.ms2-item-slot.rings{background-image: url("./pictogram/slot_rings.png");}
 div.ms2-item-slot.cape{background-image: url("./pictogram/slot_cape.png");}
 div.ms2-item-slot.belt{background-image: url("./pictogram/slot_belt.png");}
@@ -301,7 +301,7 @@ div.ms2-item-slot.subweapon{background-image: url("./pictogram/slot_weapon.png")
 
 /* ms2-item (unique for) skins */
 div.ms2-item-slot.eyedeco{background-image: url("./pictogram/slot_eyedeco.png");}
-div.ms2-item-slot.food{background-image: url("./pictogram/slot_food.png");}
+div.ms2-item-slot.facedeco{background-image: url("./pictogram/slot_facedeco.png");}
 
 /* ms2-item badges */
 div.ms2-item-slot.badge-transparent{background-image: url("./pictogram/slot_badge_transparent.png");}
@@ -329,14 +329,14 @@ div.ms2-item-slot.pants :not(.pants),
 div.ms2-item-slot.gloves :not(.gloves),
 div.ms2-item-slot.shoes :not(.shoes),
 div.ms2-item-slot.earings :not(.earings),
-div.ms2-item-slot.neckless :not(.neckless),
+div.ms2-item-slot.necklace :not(.necklace),
 div.ms2-item-slot.rings :not(.rings),
 div.ms2-item-slot.cape :not(.cape),
 div.ms2-item-slot.belt :not(.belt),
 div.ms2-item-slot.right-hand.weapon :not(.weapon):not(.orb):not(.gauntlets):not(.blade):not(.scepter):not(.staff):not(.bow):not(.cannon):not(.throw):not(.knife):not(.greatsword):not(.longsword):not(.bludgeon),
 div.ms2-item-slot.left-hand.weapon :not(.subweapon):not(.throw):not(.knife):not(.shield):not(.codex),
 div.ms2-item-slot.eyedeco :not(.eyedeco),
-div.ms2-item-slot.food :not(.food),
+div.ms2-item-slot.facedeco :not(.facedeco),
 div.ms2-item-slot.badge-transparent :not(.badge-transparent),
 div.ms2-item-slot.badge-speakballon :not(.badge-speakballon),
 div.ms2-item-slot.badge-nametag :not(.badge-nametag),
@@ -654,4 +654,74 @@ div.ms2-upgrade-sequence p{
 }
 .pallete-cost-meret::after{
     content: "메럿";
+}
+
+/* 장비 슬롯 */
+.equipped-inventory.equipment .headgear,
+.equipped-inventory.equipment .shirt,
+.equipped-inventory.equipment .pants,
+.equipped-inventory.equipment .gloves,
+.equipped-inventory.equipment .shoes,
+.equipped-inventory.equipment .earings,
+.equipped-inventory.equipment .necklace,
+.equipped-inventory.equipment .rings,
+.equipped-inventory.equipment .cape,
+.equipped-inventory.equipment .belt,
+.equipped-inventory.equipment .right-hand.weapon,
+.equipped-inventory.equipment .left-hand.weapon,
+/* 스킨 슬롯 */
+.equipped-inventory.skin .headgear,
+.equipped-inventory.skin .shirt,
+.equipped-inventory.skin .pants,
+.equipped-inventory.skin .gloves,
+.equipped-inventory.skin .shoes,
+.equipped-inventory.skin .earings,
+.equipped-inventory.skin .necklace,
+.equipped-inventory.skin .rings,
+.equipped-inventory.skin .cape,
+.equipped-inventory.skin .eyedeco,
+.equipped-inventory.skin .facedeco,
+.equipped-inventory.skin .right-hand.weapon,
+.equipped-inventory.skin .left-hand.weapon {
+    /* 슬롯 스타일 */
+    width: 50px;
+    height: 50px;
+    border: 1px solid #666;
+    background-color: rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 슬롯 호버 효과 */
+.equipped-inventory.equipment .headgear:hover,
+.equipped-inventory.equipment .shirt:hover,
+.equipped-inventory.equipment .pants:hover,
+.equipped-inventory.equipment .gloves:hover,
+.equipped-inventory.equipment .shoes:hover,
+.equipped-inventory.equipment .earings:hover,
+.equipped-inventory.equipment .necklace:hover,
+.equipped-inventory.equipment .rings:hover,
+.equipped-inventory.equipment .cape:hover,
+.equipped-inventory.equipment .belt:hover,
+.equipped-inventory.equipment .right-hand.weapon:hover,
+.equipped-inventory.equipment .left-hand.weapon:hover,
+.equipped-inventory.skin .headgear:hover,
+.equipped-inventory.skin .shirt:hover,
+.equipped-inventory.skin .pants:hover,
+.equipped-inventory.skin .gloves:hover,
+.equipped-inventory.skin .shoes:hover,
+.equipped-inventory.skin .earings:hover,
+.equipped-inventory.skin .necklace:hover,
+.equipped-inventory.skin .rings:hover,
+.equipped-inventory.skin .cape:hover,
+.equipped-inventory.skin .eyedeco:hover,
+.equipped-inventory.skin .facedeco:hover,
+.equipped-inventory.skin .right-hand.weapon:hover,
+.equipped-inventory.skin .left-hand.weapon:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: #888;
 }

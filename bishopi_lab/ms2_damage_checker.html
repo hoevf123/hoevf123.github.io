@@ -80,127 +80,201 @@
             <p>추후 추가하고 싶은 기능입니다.</p>
             <div class="ms2-frame border">
                 <div class="ms2-frame">
-                    <h3 class="title">내 인벤토리</h3>
-                    <div class="ms2-character-equipment-generating-area">
-                        <!--
-                        <div class="ms2-inventory equipment">
-                            <div>
-                                <div class="ms2-item-slot"></div>
-                                <div class="ms2-item-slot"></div>
-                                <div class="ms2-item-slot"></div>
-                                <div class="ms2-item-slot"></div>
-                                <div class="ms2-item-slot"></div>
-                                <div class="ms2-item-slot"></div>
-                                <div class="ms2-item-slot"></div>
-                                <div class="ms2-item-slot"></div>
+                    <h3>아이템 선택</h3>
+                    <div class="item-select-container" style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
+                        <div class="gear-select-container" style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+                            <h4>장비 선택</h4>
+                            <div class="ms2-item-slot selected-item" style="width: 64px; height: 64px;">
+                                <img class="ms2-item" src="./pictogram/item_fire_prism_scepter.png">
                             </div>
-                            <div>
-                                <div class="ms2-item-slot"></div>
-                                <div class="ms2-item-slot"></div>
-                                <div class="ms2-item-slot"></div>
-                                <div class="ms2-item-slot"></div>
-                                <div class="ms2-item-slot"></div>
-                                <div class="ms2-item-slot"></div>
-                                <div class="ms2-item-slot"></div>
-                                <div class="ms2-item-slot"></div>
-                            </div>
-                            <div>
-                                <div class="ms2-item-slot"></div>
-                                <div class="ms2-item-slot"></div>
-                                <div class="ms2-item-slot"></div>
-                                <div class="ms2-item-slot"></div>
-                                <div class="ms2-item-slot"></div>
-                                <div class="ms2-item-slot"></div>
-                                <div class="ms2-item-slot"></div>
-                                <div class="ms2-item-slot"></div>
-                            </div>
-                            <div>
-                                <div class="ms2-item-slot"></div>
-                                <div class="ms2-item-slot"></div>
-                                <div class="ms2-item-slot"></div>
-                                <div class="ms2-item-slot"></div>
-                                <div class="ms2-item-slot"></div>
-                                <div class="ms2-item-slot"></div>
-                                <div class="ms2-item-slot"></div>
-                                <div class="ms2-item-slot"></div>
-                            </div>
+                            <select id="gear-select" class="ms2-select" style="width: 300px; padding: 8px; font-size: 16px;">
+                                <option value="">장비 선택</option>
+                                <optgroup label="무기">
+                                    <option value="fire_prism_scepter">파이어 프리즘 섭터</option>
+                                    <option value="fire_prism_codex">파이어 프리즘 코덱스</option>
+                                </optgroup>
+                                <optgroup label="방어구">
+                                    <option value="fire_prism_hat">파이어 프리즘 모자</option>
+                                    <option value="fire_prism_shirt">파이어 프리즘 상의</option>
+                                    <option value="fire_prism_pants">파이어 프리즘 하의</option>
+                                    <option value="fire_prism_gloves">파이어 프리즘 장갑</option>
+                                    <option value="fire_prism_shoes">파이어 프리즘 신발</option>
+                                </optgroup>
+                                <optgroup label="액세서리">
+                                    <option value="geork_kai_earings">게오르크 카이저 귀걸이</option>
+                                    <option value="geork_kai_neckless">게오르크 카이저 목걸이</option>
+                                    <option value="geork_kai_rings">게오르크 카이저 반지</option>
+                                    <option value="geork_kai_cape">게오르크 카이저 망토</option>
+                                    <option value="geork_kai_belt">게오르크 카이저 벨트</option>
+                                </optgroup>
+                            </select>
+                            <button class="add-gear-btn" style="padding: 8px 16px; font-size: 14px;">장비 추가</button>
                         </div>
-                        -->
+                        <div class="skin-select-container" style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+                            <h4>스킨 선택</h4>
+                            <div class="ms2-item-slot selected-skin" style="width: 64px; height: 64px;">
+                                <img class="ms2-item" src="./pictogram/item_cherry_blossom_scepter.png">
+                            </div>
+                            <select id="skin-select" class="ms2-select" style="width: 300px; padding: 8px; font-size: 16px;">
+                                <optgroup label="무기 스킨">
+                                    <option value="cherry_blossom_scepter">체리 블라썸 홀</option>
+                                    <option value="cherry_blossom_bouquet">체리 블라썸 부케</option>
+                                </optgroup>
+                                <optgroup label="방어구 스킨">
+                                    <option value="shine_star_beremo">샤인 스타 베레모</option>
+                                    <option value="shine_star_stage_outfit">샤인 스타 스테이지 의상</option>
+                                    <option value="shine_star_bracelet">샤인 스타 브레이슬릿</option>
+                                    <option value="shine_star_walker">샤인 스타 워커</option>
+                                </optgroup>
+                                <optgroup label="장신구 스킨">
+                                    <option value="shine_heart_wing">샤인 하트 윙</option>
+                                </optgroup>
+                                <optgroup label="기타 스킨">
+                                    <option value="shine_star_deco">샤인 스타 데코</option>
+                                    <option value="egg_toast">에그 토스트</option>
+                                </optgroup>
+                            </select>
+                            <button class="add-skin-btn" style="padding: 8px 16px; font-size: 14px;">스킨 추가</button>
+                        </div>
+                    </div>
+                    <script type="text/javascript">
+                        // 아이템 선택 시 이미지 업데이트 함수
+                        function updateSelectedItemImage(selectId, slotClass) {
+                            const select = document.getElementById(selectId);
+                            const itemSlot = document.querySelector(slotClass);
+                            
+                            // 이벤트 리스너 제거 후 재등록
+                            select.removeEventListener('change', select.onChangeHandler);
+                            
+                            // 이벤트 핸들러 함수 정의
+                            select.onChangeHandler = function() {
+                                const selectedValue = this.value;
+                                
+                                if (selectedValue) {
+                                    const img = document.createElement('img');
+                                    img.className = 'ms2-item';
+                                    img.src = `./pictogram/item_${selectedValue}.png`;
+                                    
+                                    // 기존 이미지 제거
+                                    itemSlot.innerHTML = '';
+                                    itemSlot.appendChild(img);
+                                } else {
+                                    itemSlot.innerHTML = '';
+                                }
+                            };
+                            
+                            // 이벤트 리스너 등록
+                            select.addEventListener('change', select.onChangeHandler);
+                        }
+
+                        // 아이템 추가 함수
+                        function addItemToInventory(selectId, isSkin = false) {
+                            const select = document.getElementById(selectId);
+                            const selectedValue = select.value;
+                            if (!selectedValue) return;
+
+                            const inventory = document.querySelector('.ms2-character-equipment-generating-area');
+                            const emptySlot = inventory.querySelector('.ms2-item-slot:empty');
+                            
+                            if (emptySlot) {
+                                const img = document.createElement('img');
+                                img.className = `ms2-item${isSkin ? ' skin' : ''}`;
+                                img.src = `./pictogram/item_${selectedValue}.png`;
+                                img.dataset.itemName = selectedValue;
+                                emptySlot.appendChild(img);
+                                
+                                // 인벤토리 매니저에 아이템 추가
+                                if (window.inventoryManager) {
+                                    window.inventoryManager.addSelectedItem(selectedValue, isSkin ? 'skin' : 'equipment');
+                                }
+                            } else {
+                                alert('인벤토리가 가득 찼습니다!');
+                            }
+                        }
+
+                        // 초기 이미지 설정
+                        function initializeSelectedImages() {
+                            const gearSelect = document.getElementById('gear-select');
+                            const skinSelect = document.getElementById('skin-select');
+                            
+                            if (gearSelect.value) {
+                                const gearSlot = document.querySelector('.selected-item');
+                                const gearImg = document.createElement('img');
+                                gearImg.className = 'ms2-item';
+                                gearImg.src = `./pictogram/item_${gearSelect.value}.png`;
+                                gearSlot.innerHTML = '';
+                                gearSlot.appendChild(gearImg);
+                            }
+                            
+                            if (skinSelect.value) {
+                                const skinSlot = document.querySelector('.selected-skin');
+                                const skinImg = document.createElement('img');
+                                skinImg.className = 'ms2-item';
+                                skinImg.src = `./pictogram/item_${skinSelect.value}.png`;
+                                skinSlot.innerHTML = '';
+                                skinSlot.appendChild(skinImg);
+                            }
+                        }
+
+                        // 장비 선택 시 이미지 업데이트
+                        updateSelectedItemImage('gear-select', '.selected-item');
+                        
+                        // 스킨 선택 시 이미지 업데이트
+                        updateSelectedItemImage('skin-select', '.selected-skin');
+
+                        // 초기 이미지 설정
+                        initializeSelectedImages();
+
+                        // 장비 추가 버튼 클릭 이벤트
+                        document.querySelector('.add-gear-btn').addEventListener('click', function() {
+                            addItemToInventory('gear-select', false);
+                        });
+
+                        // 스킨 추가 버튼 클릭 이벤트
+                        document.querySelector('.add-skin-btn').addEventListener('click', function() {
+                            addItemToInventory('skin-select', true);
+                        });
+                    </script>
+                </div>
+                <div class="ms2-frame">
+                    <h3>내 인벤토리</h3>
+                    <div class="ms2-character-equipment-generating-area">
+                        <div class="ms2-inventory equipment">
+                            <!-- 인벤토리 슬롯은 JavaScript를 통해 동적으로 생성됩니다 -->
+                        </div>
                     </div>
                 </div>
                 <div class="ms2-frame">
                     <h3>현재 장착중인 장비</h3>
                     <div class="equipped-inventory equipment">
-                        <div class="ms2-item-slot right-hand weapon"><img class="ms2-item scepter" src="./pictogram/item_fire_prism_scepter.png"></div>
-                        <div class="ms2-item-slot left-hand weapon"><img class="ms2-item codex" src="./pictogram/item_fire_prism_codex.png"></div>
-                        <div class="ms2-item-slot headgear"><img class="ms2-item headgear" src="./pictogram/item_fire_prism_hat.png"></div>
-                        <div class="ms2-item-slot shirt"><img class="ms2-item shirt" src="./pictogram/item_fire_prism_shirt.png"></div>
-                        <div class="ms2-item-slot pants"><img class="ms2-item pants" src="./pictogram/item_fire_prism_pants.png"></div>
-                        <div class="ms2-item-slot gloves"><img class="ms2-item gloves" src="./pictogram/item_fire_prism_gloves.png"></div>
-                        <div class="ms2-item-slot shoes"><img class="ms2-item shoes" src="./pictogram/item_fire_prism_shoes.png"></div>
-                        <div class="ms2-item-slot earings"><img class="ms2-item earings" src="./pictogram/item_geork_kai_earings.png"></div>
-                        <div class="ms2-item-slot necklace"><img class="ms2-item neckless" src="./pictogram/item_geork_kai_neckless.png"></div>
-                        <div class="ms2-item-slot rings"><img class="ms2-item rings" src="./pictogram/item_geork_kai_rings.png"></div>
-                        <div class="ms2-item-slot cape"><img class="ms2-item cape" src="./pictogram/item_geork_kai_cape.png"></div>
-                        <div class="ms2-item-slot belt"><img class="ms2-item belt" src="./pictogram/item_geork_kai_belt.png"></div>
-                        <div class="ms2-item-slot badge-meta"></div>
-                    </div>
-                    <div class="equipped-gears-selector" style="display:flex;">
-                        <div><div class="ms2-item-slot right-hand weapon"><img class="ms2-item scepter" src="./pictogram/item_fire_prism_scepter.png"></div>파이어 프리즘 홀</div>
-                        <div class="ms2-item-slot left-hand weapon"><img class="ms2-item codex" src="./pictogram/item_fire_prism_codex.png"></div>
-                        <div class="ms2-item-slot headgear"><img class="ms2-item headgear" src="./pictogram/item_fire_prism_hat.png"></div>
-                        <div class="ms2-item-slot shirt"><img class="ms2-item shirt" src="./pictogram/item_fire_prism_shirt.png"></div>
-                        <div class="ms2-item-slot pants"><img class="ms2-item pants" src="./pictogram/item_fire_prism_pants.png"></div>
-                        <div class="ms2-item-slot gloves"><img class="ms2-item gloves" src="./pictogram/item_fire_prism_gloves.png"></div>
-                        <div class="ms2-item-slot shoes"><img class="ms2-item shoes" src="./pictogram/item_fire_prism_shoes.png"></div>
-                        <div class="ms2-item-slot earings"><img class="ms2-item earings" src="./pictogram/item_geork_kai_earings.png"></div>
-                        <div class="ms2-item-slot necklace"><img class="ms2-item neckless" src="./pictogram/item_geork_kai_neckless.png"></div>
-                        <div class="ms2-item-slot rings"><img class="ms2-item rings" src="./pictogram/item_geork_kai_rings.png"></div>
-                        <div class="ms2-item-slot cape"><img class="ms2-item cape" src="./pictogram/item_geork_kai_cape.png"></div>
-                        <div class="ms2-item-slot belt"><img class="ms2-item belt" src="./pictogram/item_geork_kai_belt.png"></div>
-                        <div class="ms2-item-slot badge-meta"></div>
-                    </div>
-                    <script type="text/javascript">
-                        /* 장비(Gear) 테스트용 선택 기능 넣기 (기능은 아직 작동 안 함)*/
-                        var div_gearSelects = [];
-                        const gearTypes = ["right-hand weapon", "left-hand weapon", "headgear", "shirt", "pants", "gloves", "shoes", "earrings", "necklace", "rings", "belt", "badge-meta"];
-                        div_gearSelects = gearTypes.reduce((a,c,i)=>{
-                            /* 루트 div 태그(장비 선택 블록) 만들기*/
-                            const CLASSNAME_GEARSELECTBLOCK="ms2-item gear-select-block";
-                            const CLASSNAME_GEARDESCRIPTION="ms2-item gear-description";
-                            let gearTypeName = c;
-                            let div_gearSelectBlock = Object.assign(document.createElement("div"), {className: CLASSNAME_GEARSELECTBLOCK});
-                            let div_gearDescription = Object.assign(document.createElement("div"), {className: CLASSNAME_GEARDESCRIPTION});
-
-                            let gearName = c;
-                            let gearItemNames = [];
-                            /* 장비 선택 블록 속재료 만들기 */
-                            let label_itemname = Object.assign(document.createElement("label"), {className:"gear-name", innerText:String(gearName)}); //실제로는 장비 이름이 들어가야 합니다.
-                            let select_itemnames = document.createElement("select");    //아이템 이름 고르는 select문 만들기
-                            let div_basicOptions = Object.assign(document.createElement("div"), {className:"basic-options"});
-                            let div_additionalOptions = Object.assign(document.createElement("div"), {className:"additional-options"});
-
-                            a.push(div_gearSelectBlock)//최종적으로 완성된 장비 선택 블록 div 태그를 배열에 넣어놓기.
-                            return a;
-                        }, div.div_gearSelects);                        
-                        
-                    </script>
-                </div>
-                <div class="ms2-frame">
-                    <h3>현재 장착중인 옵션 스킨</h3>
-                    <div class="equipped-inventory skin">
-                        <div class="ms2-item-slot right-hand weapon"><img class="ms2-item weapon scepter nooption" src="./pictogram/item_cherry_blossom_scepter.png"></div>
-                        <div class="ms2-item-slot left-hand weapon"><img class="ms2-item subweapon codex nooption" src="./pictogram/item_cherry_blossom_bouquet.png"></div>
-                        <div class="ms2-item-slot headgear"><img class="ms2-item headgear" src="./pictogram/item_shine_star_beremo.png"></div>
-                        <div class="ms2-item-slot shirt"><img class="ms2-item suit" src="./pictogram/item_shine_star_stage_outfit.png"></div>
-                        <div class="ms2-item-slot pants"><img class="ms2-item suit" src="./pictogram/item_shine_star_stage_outfit.png"></div>
-                        <div class="ms2-item-slot gloves"><img class="ms2-item gloves" src="./pictogram/item_shine_star_bracelet.png"></div>
-                        <div class="ms2-item-slot shoes"><img class="ms2-item shoes" src="./pictogram/item_shine_star_walker.png"></div>
+                        <div class="ms2-item-slot right-hand weapon"></div>
+                        <div class="ms2-item-slot left-hand weapon"></div>
+                        <div class="ms2-item-slot headgear"></div>
+                        <div class="ms2-item-slot shirt"></div>
+                        <div class="ms2-item-slot pants"></div>
+                        <div class="ms2-item-slot gloves"></div>
+                        <div class="ms2-item-slot shoes"></div>
                         <div class="ms2-item-slot earings"></div>
-                        <div class="ms2-item-slot eyedeco"><img class="ms2-item eyedeco" src="./pictogram/item_shine_star_deco.png"></div>
+                        <div class="ms2-item-slot necklace"></div>
                         <div class="ms2-item-slot rings"></div>
-                        <div class="ms2-item-slot cape"><img class="ms2-item cape" src="./pictogram/item_shine_heart_wing.png"></div>
-                        <div class="ms2-item-slot facedeco"><img class="ms2-item facedeco nooption" src="./pictogram/item_egg_toast.png"></div>
+                        <div class="ms2-item-slot cape"></div>
+                        <div class="ms2-item-slot belt"></div>
+                        <div class="ms2-item-slot badge-meta"></div>
+                    </div>
+                    <h4 style="margin-top: 20px;">현재 장착중인 스킨</h4>
+                    <div class="equipped-inventory skin">
+                        <div class="ms2-item-slot right-hand weapon"></div>
+                        <div class="ms2-item-slot left-hand weapon"></div>
+                        <div class="ms2-item-slot headgear"></div>
+                        <div class="ms2-item-slot shirt"></div>
+                        <div class="ms2-item-slot pants"></div>
+                        <div class="ms2-item-slot gloves"></div>
+                        <div class="ms2-item-slot shoes"></div>
+                        <div class="ms2-item-slot earings"></div>
+                        <div class="ms2-item-slot eyedeco"></div>
+                        <div class="ms2-item-slot rings"></div>
+                        <div class="ms2-item-slot cape"></div>
+                        <div class="ms2-item-slot facedeco"></div>
                         <div class="ms2-item-slot mark"></div>
                     </div>
                 </div>
