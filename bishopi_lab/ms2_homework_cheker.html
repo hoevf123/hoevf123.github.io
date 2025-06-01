@@ -201,7 +201,7 @@
                         
                         console.log("dungeon_require_highest_level :", dungeon_require_highest_level);
                         let remaining_day = (6-(today.getDay()+2)+7)%7;
-                        let str_remaining_day_diplay = new String(remaining_day > 0 ? `${remaining_date} 일` : "24시간 미만으로");
+                        let str_remaining_day_diplay = new String(remaining_day > 0 ? `${remaining_day} 일` : "24시간 미만으로");
                         // Step 2. make root div
                         let ch_root_div = createTag("div", "ms2-frame ms2-info-block " + new String(ch_id));
                         
