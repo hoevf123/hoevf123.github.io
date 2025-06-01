@@ -88,7 +88,7 @@
                         //wrap link to div block.
                         if(!(_v_monsterId == undefined)){
                             //_dom_url.href = MAPLESTORY2_BOSSRANK_URL + "?" + "b=" + new String(_v_monsterId); //inactivated by Maplestory2 Service Termination at 2025.05.29 10:00 AM
-                            _dom_url.data.obsoleted_href = MAPLESTORY2_BOSSRANK_URL + "?" + "b=" + new String(_v_monsterId);
+                            _dom_url.dataset.obsoleted_href = MAPLESTORY2_BOSSRANK_URL + "?" + "b=" + new String(_v_monsterId);
                             _dom_url.appendChild(_dom_div);
                             root_DOM = _dom_url;
                         }
