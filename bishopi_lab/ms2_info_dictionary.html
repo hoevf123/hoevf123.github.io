@@ -5,26 +5,114 @@
     <title>비숍이 실험실</title>
     <link rel="stylesheet" href="common.css">
     <script src="w3-include-html.js"></script>
+    <style>
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            padding: 20px 0;
+        }
+        
+        .info-card {
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .info-card h3 {
+            color: #2c3e50;
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+        
+        .info-card p {
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .info-card a {
+            display: inline-block;
+            padding: 8px 16px;
+            background: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+        }
+        
+        .info-card a:hover {
+            background: #2980b9;
+        }
+        
+        .page-intro {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .page-intro h1 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .page-intro p {
+            color: #666;
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+    </style>
 </head>
 
 <body>
     <div w3-include-html="nav-header.html"></div>
     <section>
         <div class="div-content">
-            <h1>정보 사전</h1>
-            <p>인 게임 내 정보들을 모아보는 페이지입니다.</p>
-            <p>추후 제작 예정</p>
-            <h2>현재 제작 중인 인 게임 정보</h2>
-            <div class="ms2-frame">
-                <ul>
-                    <li><a href="./ms2_info_dungeons.html">[던전 정보]</a></li>
-                    <li><a href="./ms2_info_skinset.html">[스킨 세트 정보]</a></li>
-                    <li><a href="./ms2_info_enchant.html">[인챈트 정보]</a></li>
-                    <li><a href="./ms2_info_dungeon_rank.html">[던전 순위 정보]</a></li>
-                    <li><a href="./ms2_info_additionaloptions_probablity_test.html">[방어구(모자, 상의, 하의) 추가옵션 등장확률 검증]</a></li>
-                </ul>
+            <div class="page-intro">
+                <h1>메이플스토리2 정보 사전</h1>
+                <p>메이플스토리2의 다양한 게임 정보를 한눈에 모아보는 페이지입니다. 던전, 장비, 인챈트 등 게임 플레이에 도움이 되는 정보들을 카테고리별로 정리했습니다.</p>
             </div>
             
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>던전 정보</h3>
+                    <p>메이플스토리2의 다양한 던전 정보와 공략을 확인하세요.</p>
+                    <a href="./ms2_info_dungeons.html">자세히 보기</a>
+                </div>
+                
+                <div class="info-card">
+                    <h3>스킨 세트 정보</h3>
+                    <p>게임 내 다양한 스킨 세트의 정보와 획득 방법을 알아보세요.</p>
+                    <a href="./ms2_info_skinset.html">자세히 보기</a>
+                </div>
+                
+                <div class="info-card">
+                    <h3>인챈트 정보</h3>
+                    <p>장비 강화를 위한 인챈트 시스템의 상세 정보를 확인하세요.</p>
+                    <a href="./ms2_info_enchant.html">자세히 보기</a>
+                </div>
+                
+                <div class="info-card">
+                    <h3>던전 순위 정보</h3>
+                    <p>각 던전의 난이도와 보상 순위를 확인하세요.</p>
+                    <a href="./ms2_info_dungeon_rank.html">자세히 보기</a>
+                </div>
+                
+                <div class="info-card">
+                    <h3>방어구 추가옵션 확률</h3>
+                    <p>모자, 상의, 하의 방어구의 추가옵션 등장 확률을 검증한 결과를 확인하세요.</p>
+                    <a href="./ms2_info_additionaloptions_probablity_test.html">자세히 보기</a>
+                </div>
+            </div>
         </div>
     </section>
 </body>

@@ -1,541 +1,1228 @@
 <!DOCTYPE html>
-
+<html lang="ko">
 <head>
     <meta charset="utf-8">
-    <title>비숍이 실험실</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>메이플스토리2 추가 옵션 확률 계산기</title>
     <link rel="stylesheet" href="common.css">
     <script src="w3-include-html.js"></script>
-</head>
+    <style>
+        /* 기본 스타일 리셋 및 공통 스타일 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid #e0e0e0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-header {
+            margin: -30px -30px 30px -30px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e0e0e0;
+            border-radius: 12px 12px 0 0;
+            position: relative;
+        }
+
+        .card-header h2 {
+            color: #2c3e50;
+            font-size: 1.8em;
+            margin: 0;
+            padding-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .card-header p {
+            color: #34495e;
+            margin-top: 10px;
+            font-size: 1em;
+            line-height: 1.5;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .input-group label {
+            display: inline-block;
+            width: 150px;
+            font-weight: 500;
+            color: #2c3e50;
+            margin-right: 10px;
+        }
+
+        /* 모든 input 필드에 대한 기본 스타일 */
+        .input-group input[type="number"],
+        .input-group input[type="text"],
+        .input-group input[type="button"],
+        .result-section input[type="text"],
+        .option-table input[type="text"],
+        .option-table input[type="number"] {
+            padding: 10px 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            width: 150px;
+            height: 40px;
+            box-sizing: border-box;
+            background-color: #ffffff;
+            color: #2c3e50;
+            transition: all 0.2s ease;
+            margin-right: 15px;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: none !important;
+        }
+
+        /* input 필드 hover 상태 */
+        .input-group input[type="number"]:hover,
+        .input-group input[type="text"]:hover,
+        .input-group input[type="button"]:hover,
+        .result-section input[type="text"]:hover,
+        .option-table input[type="text"]:hover,
+        .option-table input[type="number"]:hover {
+            border-color: #3498db;
+            background-image: none !important;
+        }
+
+        /* input 필드 focus 상태 */
+        .input-group input[type="number"]:focus,
+        .input-group input[type="text"]:focus,
+        .input-group input[type="button"]:focus,
+        .result-section input[type="text"]:focus,
+        .option-table input[type="text"]:focus,
+        .option-table input[type="number"]:focus {
+            border-color: #2980b9;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+            background-image: none !important;
+        }
+
+        /* 특수 스타일이 필요한 필드들 */
+        .result-section input[type="text"] {
+            width: 120px;
+            text-align: right;
+            background-color: #f8f9fa;
+            font-weight: 600;
+            cursor: not-allowed;
+            opacity: 0.9;
+        }
+
+        .option-table input[type="text"],
+        .option-table input[type="number"] {
+            width: 100%;
+        }
+
+        /* select 요소에만 화살표 표시 */
+        .input-group select {
+            padding: 10px 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            width: 150px;
+            height: 40px;
+            box-sizing: border-box;
+            background-color: #ffffff;
+            color: #2c3e50;
+            transition: all 0.2s ease;
+            margin-right: 15px;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232c3e50' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 16px;
+            padding-right: 35px;
+        }
+
+        .input-group input[type="number"]:hover,
+        .input-group input[type="text"]:hover,
+        .input-group select:hover {
+            border-color: #3498db;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233498db' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+        }
+
+        .input-group input[type="number"]:focus,
+        .input-group input[type="text"]:focus,
+        .input-group select:focus {
+            border-color: #2980b9;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+
+        /* Select option colors */
+        .input-group select option[value="exceptional"] {
+            color: #9370DB; /* 보라색 */
+        }
+        .input-group select option[value="legendary"] {
+            color: #FFD700; /* 금색 */
+        }
+        .input-group select option[value="ascendant"] {
+            color: #FF4500; /* 선홍색에서 빨간색 사이 */
+        }
+
+        /* Select element colors based on selected value */
+        .input-group select[value="exceptional"],
+        .input-group select option[value="exceptional"]:checked {
+            color: #9370DB;
+        }
+        .input-group select[value="legendary"],
+        .input-group select option[value="legendary"]:checked {
+            color: #FFD700;
+        }
+        .input-group select[value="ascendant"],
+        .input-group select option[value="ascendant"]:checked {
+            color: #FF4500;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            height: 40px;
+            transition: all 0.2s ease;
+            min-width: 100px;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background: #2980b9;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+            box-shadow: none;
+        }
+
+        .table-container {
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e0e0e0;
+        }
+
+        .table-container h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .option-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            table-layout: fixed;
+        }
+
+        .option-table th {
+            background: #f8f9fa;
+            color: #2c3e50;
+            font-weight: 600;
+            padding: 12px 15px;
+            text-align: left;
+            border: 1px solid #e0e0e0;
+        }
+
+        .option-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border: 1px solid #e0e0e0;
+            color: #34495e;
+        }
+
+        .option-table th:last-child,
+        .option-table td:last-child {
+            width: 100px;
+            text-align: center;
+        }
+
+        .option-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .option-table tr:hover {
+            background: #f0f7ff;
+        }
+
+        .option-table .delete-btn {
+            padding: 10px 20px;
+            background: #95a5a6;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            height: 40px;
+            transition: all 0.2s ease;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .option-table .delete-btn:hover {
+            background: #7f8c8d;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .option-table .delete-btn:active {
+            transform: translateY(0);
+            box-shadow: none;
+        }
+
+        /* 열 추가 버튼 스타일 */
+        .add-column-btn,
+        input[type="button"].add-column-btn {
+            padding: 10px 20px;
+            background: #2ecc71;  /* 밝은 녹색 */
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            height: 40px;
+            transition: all 0.2s ease;
+            margin: 15px 0;
+            min-width: 120px;
+            text-align: center;
+            display: inline-block;
+            font-weight: 500;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .add-column-btn:hover,
+        input[type="button"].add-column-btn:hover {
+            background: #27ae60;  /* 진한 녹색 */
+            transform: translateY(-1px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+        }
+
+        .add-column-btn:active,
+        input[type="button"].add-column-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background: #27ae60;  /* 진한 녹색 */
+        }
+
+        .add-column-btn:focus,
+        input[type="button"].add-column-btn:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.3);  /* 녹색 그림자 */
+        }
+
+        .option-table .input-container {
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .option-table input[type="text"]:hover,
+        .option-table input[type="number"]:hover {
+            border-color: #3498db;
+        }
+
+        .option-table input[type="text"]:focus,
+        .option-table input[type="number"]:focus {
+            border-color: #2980b9;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+
+        .option-table input[readonly] {
+            border: 1px solid #e0e0e0;
+            background-color: #f8f9fa;
+            color: #2c3e50;
+            cursor: not-allowed;
+            opacity: 0.9;
+        }
+
+        .option-table input[readonly]:hover {
+            border-color: #e0e0e0;
+        }
+
+        .option-table input[readonly]:focus {
+            border-color: #e0e0e0;
+            box-shadow: none;
+        }
+
+        #quicksetbuttons {
+            margin: 15px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        #quicksetbuttons input[type="button"] {
+            padding: 8px 16px;
+            background: #34495e;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.95em;
+            transition: all 0.2s ease;
+            margin: 5px;
+            min-width: 100px;
+            text-align: center;
+        }
+
+        #quicksetbuttons input[type="button"]:hover {
+            background: #2c3e50;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        #quicksetbuttons input[type="button"]:active {
+            transform: translateY(0);
+            box-shadow: none;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .input-group label {
+                display: block;
+                width: auto;
+                margin-bottom: 5px;
+            }
+
+            .input-group input[type="number"],
+            .input-group input[type="text"],
+            .input-group select,
+            .input-group .btn {
+                width: 100%;
+            }
+
+            #quicksetbuttons input[type="button"] {
+                width: calc(100% - 10px);
+                margin: 5px;
+            }
+
+            .result-item {
+                text-align: center;
+            }
+
+            .result-section input[type="text"] {
+                width: 100%;
+            }
+        }
+
+        .result-section {
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 25px;
+            margin-top: 30px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e0e0e0;
+        }
+
+        .result-section h3 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .result-item {
+            margin-bottom: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .result-label {
+            font-weight: 500;
+            color: #2c3e50;
+        }
+
+        .result-value {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .result-value-number {
+            font-weight: 600;
+            color: #3498db;
+        }
+
+        .result-value-unit {
+            font-size: 0.9em;
+            color: #7f8c8d;
+            font-weight: normal;
+            margin-left: 2px;
+        }
+
+        .result-value-mesos {
+            font-size: 0.9em;
+            color: #7f8c8d;
+            font-weight: normal;
+        }
+
+        .result-section input[type="text"]:focus {
+            outline: none;
+            border-color: #e0e0e0;
+            box-shadow: none;
+        }
+
+        .tip-box {
+            background: #fff3cd;
+            border: 1px solid #ffeeba;
+            border-radius: 8px;
+            padding: 15px 20px;
+            margin: 20px 0;
+            color: #856404;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .tip-box strong {
+            color: #664d03;
+            font-weight: 600;
+        }
+
+        /* 퀵셋 버튼 섹션 스타일 */
+        .quickset-title {
+            color: #2c3e50;
+            font-size: 1.2em;
+            margin-bottom: 12px;
+            font-weight: 600;
+            display: block;
+        }
+
+        .quickset-description {
+            color: #7f8c8d;
+            font-size: 0.95em;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+    </style>
+</head>
 <body>
     <div w3-include-html="nav-header.html"></div>
-    <section>
-        <div class="div-content">
-            <h1>메이플스토리2 추가 확률 등장확률 계산기</h1>
-            <p>추가 확률 계산용 페이지</p>
-            <p>이 페이지의 아이템은 메이플스토리2 공식 홈페이지에 공시된 확률 페이지<a href="https://maplestory2.nexon.com/Probability/ItemOption">[링크]</a>에 게시된 표 정보를 이용하여 만들었습니다.</p>
-            <br/>
-           
-            <h2>추가 옵션 선택</h2>
-            <div id="somethingTable" class="ms2-frame">
-                <div>
-                    <label>추가 옵션 줄 수 : </label> <input type="number" id="pickAdditionalOptionCounts" value="3">
-                    <label>장비 등급 : </label>
-                    <select id="select-pickItemGrade">
-                        <option value="exceptional">엑설런트</option>
-                        <option value="legendary">레전더리</option>
-                        <option value="ascendant">에픽</option>
-                    </select>
-                    <input type="button" id="calculateAdditionalOption" value="계산">
-                </div>
-                <div>
-                    <label>뽑고 싶은 추가 옵션(들) : 아래 표의 셀에 하나씩 넣으세요</label>
-                    <div id="additionalOptionPickinputTable"></div>
-                </div>
-                <div>
-                    <label>뽑기 시 필수 탑재 옵션(들) : 꼭 나와야 하는 추가 옵션들을 하나씩 넣으세요</label>
-                    <div id="additionalOptionEssentialPickinputTable"></div>
-                </div> 
-                    
-                    
-                    
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h2>메이플스토리2 추가 옵션 확률 계산기</h2>
+                <p>이 페이지의 아이템은 메이플스토리2 공식 홈페이지에 공시된 확률 페이지에 게시된 표 정보를 이용하여 만들었습니다.</p>
+            </div>
 
+            <div class="tip-box">
+                <strong>Tip:</strong> 옵션 고정을 구현하고 싶으면 해당 옵션을 제거하고 옵션을 제거한 횟수만큼 추가 옵션 줄 수를 빼세요.
+            </div>
+
+            <div class="input-group">
+                <label>추가 옵션 줄 수:</label>
+                <input type="number" id="pickAdditionalOptionCounts" value="3" min="1">
+                <label>장비 등급:</label>
+                <select id="select-pickItemGrade">
+                    <option value="exceptional">엑설런트</option>
+                    <option value="legendary">레전더리</option>
+                    <option value="ascendant">에픽</option>
+                </select>
+                <button id="calculateAdditionalOption" class="btn">계산</button>
+            </div>
+
+            <div class="table-container">
+                <h3>뽑고 싶은 추가 옵션(들)</h3>
+                <div id="additionalOptionPickinputTable"></div>
+            </div>
+
+            <div class="table-container">
+                <h3>뽑기 시 필수 탑재 옵션(들)</h3>
+                <div id="additionalOptionEssentialPickinputTable"></div>
+            </div>
+
+            <div class="result-section">
+                <h3>계산 결과</h3>
+                <div class="result-item">
+                    <span class="result-label">획득 확률:</span>
+                    <span class="result-value">
+                        <span class="result-value-number" id="output_getRate">계산되지 않음</span>
+                        <span class="result-value-unit">%</span>
+                    </span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">산술 요구 뽑기 횟수:</span>
+                    <span class="result-value">
+                        <span class="result-value-number" id="output_getTrial">계산되지 않음</span>
+                        <span class="result-value-unit">회</span>
+                    </span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">산술 요구 크리스탈 파편:</span>
+                    <span class="result-value">
+                        <span class="result-value-number" id="output_getCrystalFragmentAmounts">계산되지 않음</span>
+                        <span class="result-value-unit">개</span>
+                        <span id="output_getCrystalFragmentAmounts_mesos" class="result-value-mesos"></span>
+                    </span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">시행 뽑기 성공 확률 배율:</span>
+                    <span class="result-value">
+                        <span class="result-value-number" id="output_getTrialToSuccessRateRatio">계산되지 않음</span>
+                        <span class="result-value-unit">배</span>
+                    </span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">시행 뽑기 성공 확률:</span>
+                    <span class="result-value">
+                        <span class="result-value-number" id="output_getTrialToSuccessRate">계산되지 않음</span>
+                        <span class="result-value-unit">%</span>
+                    </span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">시행 뽑기 실패 확률:</span>
+                    <span class="result-value">
+                        <span class="result-value-number" id="output_getTrialToFailRate">계산되지 않음</span>
+                        <span class="result-value-unit">%</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h2>추가 옵션 표</h2>
+            </div>
+            <div id="quicksetbuttons" class="input-group">
+                <h3 class="quickset-title">장비 부위별 옵션 빠른 설정</h3>
+                <p class="quickset-description">아래 버튼을 클릭하여 해당 부위의 획득 가능한 추가 옵션 구성을 바로 불러올 수 있습니다.</p>
+                <!-- 빠른 값 설정용 버튼들이 여기에 들어갑니다 -->
+            </div>
+            <div id="additionalOptionTable" class="table-container">
+                <!-- 옵션 테이블이 여기에 들어갑니다 -->
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h2>X회 시행 시 확률 및 예상 비용 계산</h2>
+            </div>
+            <div class="input-group">
+                <label>장비 등급:</label>
+                <select id="select_trial_pickItemGrade">
+                    <option value="exceptional">엑설런트</option>
+                    <option value="legendary">레전더리</option>
+                    <option value="ascendant">에픽</option>
+                </select>
+                <button id="btn_getMyPickRate" class="btn">계산</button>
+            </div>
+
+            <div class="input-group">
+                <label>획득 확률:</label>
+                <input type="text" id="input_trial_getRate" placeholder="직접 값을 넣으세요"> %
+                <button id="btn_copy_probability" class="btn" style="margin-left: 10px;">위 계산 결과 반영</button>
+            </div>
+
+            <div class="input-group">
+                <label>요구 뽑기 횟수:</label>
+                <input type="number" id="input_trial_getTrial" placeholder="직접 값을 넣으세요" min="0"> 회
+            </div>
+
+            <div class="input-group">
+                <label>시작 변경 횟수:</label>
+                <input type="number" id="input_trial_getStartTrial" placeholder="직접 값을 넣으세요" value="0" min="0"> 회
+            </div>
+
+            <div class="input-group">
+                <label>크리스탈 파편 할인률:</label>
+                <input type="text" id="input_trial_getDiscountRate" placeholder="직접 값을 넣으세요" value="0"> %
+            </div>
+
+            <div class="result-section">
+                <h3>계산 결과</h3>
+                <div class="result-item">
+                    <span class="result-label">뽑기 성공 확률:</span>
+                    <span class="result-value">
+                        <span class="result-value-number" id="output_trial_getRate">계산되지 않음</span>
+                        <span class="result-value-unit">%</span>
+                    </span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">요구 크리스탈 파편:</span>
+                    <span class="result-value">
+                        <span class="result-value-number" id="output_trial_getRequireCrystalFragmentAmounts">계산되지 않음</span>
+                        <span class="result-value-unit">개</span>
+                        <span id="output_trial_getRequireCrystalFragmentAmounts_mesos" class="result-value-mesos"></span>
+                    </span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">산술 요구 뽑기 횟수:</span>
+                    <span class="result-value">
+                        <span class="result-value-number" id="output_trial_getTrial">계산되지 않음</span>
+                        <span class="result-value-unit">회</span>
+                    </span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">산술 요구 크리스탈 파편:</span>
+                    <span class="result-value">
+                        <span class="result-value-number" id="output_trial_getCrystalFragmentAmounts">계산되지 않음</span>
+                        <span class="result-value-unit">개</span>
+                        <span id="output_trial_getCrystalFragmentAmounts_mesos" class="result-value-mesos"></span>
+                    </span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">시행 뽑기 성공 확률 배율:</span>
+                    <span class="result-value">
+                        <span class="result-value-number" id="output_trial_getTrialToSuccessRateRatio">계산되지 않음</span>
+                        <span class="result-value-unit">배</span>
+                    </span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">시행 뽑기 성공 확률:</span>
+                    <span class="result-value">
+                        <span class="result-value-number" id="output_trial_getTrialToSuccessRate">계산되지 않음</span>
+                        <span class="result-value-unit">%</span>
+                    </span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">시행 뽑기 실패 확률:</span>
+                    <span class="result-value">
+                        <span class="result-value-number" id="output_trial_getTrialToFailRate">계산되지 않음</span>
+                        <span class="result-value-unit">%</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import {DOMTable} from "./domtable.mjs";
+        import {MS2AdditionalOptions, MS2AdditionalOptionChangeFee} from "./ms2_additionaloptions.mjs";
+        
+        const optionChangeFeeRatios = [
+            1,  //0회
+            1.25,
+            1.56,
+            1.95,
+            2.44,
+            3.05,
+            3.81,
+            4.765,
+            5.96,
+            7.45,
+            8.59,
+            10.65,
+            13.21,
+            16.385,
+            20.315  //14회(옵션 변경 15회 시도), MAX
+        ]
+
+        function calculateOptionChangeFee(start, trials, initialCosts, discountRate = 0){
+            function feeConversion(initialCosts, discountRate){
+                return Math.floor(initialCosts* (1-discountRate));
+            }
+            let remainingTrials = Math.ceil(trials);
+            let max_length_fee = optionChangeFeeRatios.length - 1;
+            let result_costs = 0;
+            if(start < max_length_fee){
+                for(let i = start ; i <= max_length_fee && remainingTrials > 0 ; i++){
+                    result_costs += feeConversion(initialCosts * optionChangeFeeRatios[i], discountRate);
+                    remainingTrials -= 1;
+                    console.log(`${i} 번째 가격 계산, 남은 시도 : ${remainingTrials}회 / 가격: ${feeConversion(initialCosts * optionChangeFeeRatios[i], discountRate)}, 누적 가격 : ${result_costs}`);
+                }
+            }
+            
+            result_costs += feeConversion(optionChangeFeeRatios[max_length_fee] * initialCosts, discountRate) * remainingTrials;
+            return result_costs;
+        }
+        function filterOptionGroups(targetOptionName, targetOptionGroups) {
+            let result_array = [];
+            let target_option = targetOptionGroups.find((e) => e.name === targetOptionName);
+            if (!target_option) return [...targetOptionGroups];
+            
+            // 현재 옵션의 그룹 정보 확인
+            let target_group = target_option.optionGroup;
+            console.log(`필터링: ${targetOptionName}, 그룹: ${target_group}`);
+            
+            // 그룹이 있는 옵션만 필터링
+            for (const targetArrayOption of targetOptionGroups) {
+                // 같은 이름의 옵션이면 건너뛰기
+                if (target_option.name === targetArrayOption.name) continue;
                 
-            </div>
-            <h3>계산 결과</h3>
-            <div id="calculateResultTable" class="ms2-frame">
-                <div>
-                    <label>획득 확률 : </label> <input type="text" id="output_getRate" readonly placeholder="계산되지 않음"> <label>%</label>
-                </div>
-                <div>
-                    <label>산술 요구 뽑기 횟수 : </label> <input type="text" id="output_getTrial"  readonly placeholder="계산되지 않음"> <label>회</label>
-                </div>
-                <div>
-                    <label>산술 요구 크리스탈 파편 : </label> <input type="text" id="output_getCrystalFragmentAmounts"  readonly placeholder="계산되지 않음"> <label>개 (x 1,000메소)</label>
-                </div>
-                <div>
-                    <label>산술 요구 뽑기 횟수의 시행 뽑기 성공 확률 배율 : </label> <input type="text" id="output_getTrialToSuccessRateRatio" value="" readonly placeholder="계산되지 않음"> <label>배</label>
-                </div>
-                <div>
-                    <label>산술 요구 뽑기 횟수의 시행 뽑기 성공 확률 : </label> <input type="text" id="output_getTrialToSuccessRate" value="" readonly placeholder="계산되지 않음"> <label>%</label>
-                </div>
-                <div>
-                    <label>산술 요구 뽑기 횟수의 시행 뽑기 실패 확률 : </label> <input type="text" id="output_getTrialToFailRate" value="" readonly placeholder="계산되지 않음"> <label>%</label>
-                </div>
-            </div>
-            <h2>추가 옵션 표 입력(내용 수정 및 추가, 삭제 가능)</h2>
-            <p>Tip : <strong>옵션 고정</strong>을 구현하고 싶으면 해당 옵션을 제거하고 옵션을 제거한 횟수만큼 추가 옵션 줄 수를 빼세요.</p>
-            <div class="ms2-frame">
-                <h3>빠른 값 설정용 버튼</h3>
-                <p>기본 확률 값 적용 대상 장비 아이템 : 60레벨 이상 모든 장비 아이템(방어구, 액세서리)</p>
-                <p>기준 장비 : 크리스탈 샤인드 장비 / 기본 지정 값 : 엑설런트 망토</p>
-                <div id="quicksetbuttons">
-                    <!-- 이 영역 안에 input(Button) 타입의 빠른 값 설정용 테이블이 들어옵니다. -->
-                </div>
-            </div>
-           
-            <div id="additionalOptionTable" class="ms2-frame">
-                <!-- 이 영역 안에 input 타입의 테이블이 들어옵니다-->
-            </div>
-
-            <h3>X회 시행 시 확률 및 예상 비용 계산</h3>
-            <div class="ms2-frame">
-                <div class="ms2-frame">
-                    <div>
-                        <label>장비 등급 : </label>
-                        <select id="select_trial_pickItemGrade">
-                            <option value="exceptional">엑설런트</option>
-                            <option value="legendary">레전더리</option>
-                            <option value="ascendant">에픽</option>
-                        </select>
-                        <input type="button" id="btn_getMyPickRate" value="계산">
-                    </div>
-                    
-                    <div>
-                        <label>획득 확률 : </label> <input type="text" id="input_trial_getRate" placeholder="직접 값을 넣으세요"> <label>%</label>
-                    </div>
-                    <div>
-                        <label>요구 뽑기 횟수 : </label> <input type="numnber" id="input_trial_getTrial"  placeholder="직접 값을 넣으세요"> <label>회</label>
-                    </div>
-                    <div>
-                        <label>시작 변경 횟수 : </label> <input type="number" id="input_trial_getStartTrial"  placeholder="직접 값을 넣으세요" value="0"> <label>회</label>
-                    </div>
-                    <div>
-                        <label>크리스탈 파편 할인률 : </label> <input type="text" id="input_trial_getDiscountRate" placeholder="직접 값을 넣으세요" value="0"> <label>%</label>
-                    </div>
-                </div>
-                <div id="calculateTrialResultTable" class="ms2-frame">
-                    <div>
-                        <label>뽑기 성공 확률 : </label> <input type="text" id="output_trial_getRate" readonly placeholder="계산되지 않음"> <label>%</label>
-                    </div>
-                    <div>
-                        <label>뽑기 시행 시 요구 크리스탈 파편 : </label> <input type="text" id="output_trial_getRequireCrystalFragmentAmounts"  readonly placeholder="계산되지 않음"> <label>개 (x 1,000메소)</label>
-                    </div>
-                    <h3>산술 요구 단순 계산 - 입력한 획득 확률 기준(뽑기 성공 확률 기준 아님)</h3>
-                    <div>
-                        <label>산술 요구 뽑기 횟수 : </label> <input type="text" id="output_trial_getTrial"  readonly placeholder="계산되지 않음"> <label>회</label>
-                    </div>
-                    <div>
-                        <label>산술 요구 크리스탈 파편 : </label> <input type="text" id="output_trial_getCrystalFragmentAmounts"  readonly placeholder="계산되지 않음"> <label>개 (x 1,000메소)</label>
-                    </div>
-                    <div>
-                        <label>산술 요구 뽑기 횟수의 시행 뽑기 성공 확률 배율 : </label> <input type="text" id="output_trial_getTrialToSuccessRateRatio" value="" readonly placeholder="계산되지 않음"> <label>배</label>
-                    </div>
-                    <div>
-                        <label>산술 요구 뽑기 횟수의 시행 뽑기 성공 확률 : </label> <input type="text" id="output_trial_getTrialToSuccessRate" value="" readonly placeholder="계산되지 않음"> <label>%</label>
-                    </div>
-                    <div>
-                        <label>산술 요구 뽑기 횟수의 시행 뽑기 실패 확률 : </label> <input type="text" id="output_trial_getTrialToFailRate" value="" readonly placeholder="계산되지 않음"> <label>%</label>
-                    </div>
-                </div>
-            </div>
-            <script type="module">
-                import {DOMTable} from "./domtable.mjs";    //DOM TABLE 만들어 주는 모듈
-                import {MS2AdditionalOptions, MS2AdditionalOptionChangeFee} from "./ms2_additionaloptions.mjs";
-                
-                const optionChangeFeeRatios = [
-                    1,  //0회
-                    1.25,
-                    1.56,
-                    1.95,
-                    2.44,
-                    3.05,
-                    3.81,
-                    4.765,
-                    5.96,
-                    7.45,
-                    8.59,
-                    10.65,
-                    13.21,
-                    16.385,
-                    20.315  //14회(옵션 변경 15회 시도), MAX
-                ]
-
-                function calculateOptionChangeFee(start, trials, initialCosts, discountRate = 0){
-                    function feeConversion(initialCosts, discountRate){
-                        return Math.floor(initialCosts* (1-discountRate));
-                    }
-                    let remainingTrials = Math.ceil(trials);
-                    let max_length_fee = optionChangeFeeRatios.length - 1;
-                    let result_costs = 0;
-                    if(start < max_length_fee){
-                        for(let i = start ; i <= max_length_fee && remainingTrials > 0 ; i++){
-                            result_costs += feeConversion(initialCosts * optionChangeFeeRatios[i], discountRate);
-                            remainingTrials -= 1;
-                            console.log(`${i} 번째 가격 계산, 남은 시도 : ${remainingTrials}회 / 가격: ${feeConversion(initialCosts * optionChangeFeeRatios[i], discountRate)}, 누적 가격 : ${result_costs}`);
-                        }
-                    }
-                    
-                    result_costs += feeConversion(optionChangeFeeRatios[max_length_fee] * initialCosts, discountRate) * remainingTrials;
-                    return result_costs;
-                }
-                function filterOptionGroups(targetOptionName,targetOptionGroups){
-                    let result_array = [];
-                    let target_option = Array.from(targetOptionGroups).find((e)=>e.name == targetOptionName);
-                    if(target_option == undefined) return [...targetOptionGroups];
-                    for(const targetArrayOption of targetOptionGroups){
-                        if(target_option.name == targetArrayOption.name) continue;
-                        if(target_option?.optionGroup !== undefined)
-                            if(target_option.optionGroup == targetArrayOption.optionGroup) continue;
-                        result_array.push(targetArrayOption);
-                    }
-                    return result_array;
-                }
-
-                function filterArrayContent(targetContents, targetArray){
-                    let target_contentArray = targetContents;
-                    if(!(Array.isArray(target_contentArray))) target_contentArray = [targetContents]; //배열이 아닌 것을 배열 형태로 변경(원소가 1개)
-                    let result_array = [];
-                    for(const targetArrayCell of targetArray){
-                        if(Array.from(target_contentArray).includes(targetArrayCell)) continue;
-                        console.log(`filterArrayContent : 배열 ${target_contentArray}의 원소 ${targetArrayCell}이(가) 빠져나갔습니다.`);
-                        result_array.push(targetArrayCell);
-                    }
-                    return result_array;
+                // 그룹이 있고, 같은 그룹이면 건너뛰기
+                if (target_group && targetArrayOption.optionGroup === target_group) {
+                    console.log(`제외: ${targetArrayOption.name} (같은 그룹)`);
+                    continue;
                 }
                 
-                function getSummationPropertyRate(targetOptions){
-                    let return_rate = Array.from(targetOptions).reduce((a,c)=> a + c.probability, 0);
-                    return return_rate;
-                }
+                console.log(`포함: ${targetArrayOption.name}`);
+                result_array.push(targetArrayOption);
+            }
+            
+            console.log("필터링 결과:", result_array);
+            return result_array;
+        }
 
-                function getSumArrayNumbers(targetArrayNumber){
-                    return Array.from(targetArrayNumber).reduce((a,c)=>a+c,0);
-                }
+        function filterArrayContent(targetContents, targetArray){
+            let target_contentArray = targetContents;
+            if(!(Array.isArray(target_contentArray))) target_contentArray = [targetContents]; //배열이 아닌 것을 배열 형태로 변경(원소가 1개)
+            let result_array = [];
+            for(const targetArrayCell of targetArray){
+                if(Array.from(target_contentArray).includes(targetArrayCell)) continue;
+                console.log(`filterArrayContent : 배열 ${target_contentArray}의 원소 ${targetArrayCell}이(가) 빠져나갔습니다.`);
+                result_array.push(targetArrayCell);
+            }
+            return result_array;
+        }
+        
+        function getSummationPropertyRate(targetOptions){
+            let return_rate = Array.from(targetOptions).reduce((a,c)=> a + Number(c.probability), 0);
+            return return_rate;
+        }
 
-                /**
-                * @param {array} targetOptionnames         뽑고자 하는 추가 옵션의 종류를 담은 배열
-                * @param {number} optionAmounts            대상 추가 옵션의 줄 수
-                * @param {object} targetOptionGroups       그룹 옵션, 기본 값 options
-                * @param {array} targetEssntialOptionNames 뽑기에 꼭 필요한 옵션(필수 옵션)
-                */
-                function getOptionPropertyRate(targetOptionnames, optionAmounts, targetOptionGroups = options, targetEssntialOptionNames=[]){
-                    /* 주의 : targetEssentialOptionNames의 이름은 옵션 고정을 뜻하는 것이 아닌, 해당 옵션이 필수로 들어가야 한다는 것을 의미합니다 */
-                    console.log("Depth : ", optionAmounts);
-                    if(!(Array.isArray(targetEssntialOptionNames))) targetEssntialOptionNames = [targetEssntialOptionNames];
-                    /* (추가)옵션의 줄 수가 0줄 이하이면, 또는 남아있는 요구 옵션이 없는 경우(애초에 뽑을 옵션이 없거나 이미 원하는 옵션을 다 뽑은 경우) */
-                    if(!(optionAmounts > 0 && targetOptionnames.length > 0)){
-                        if(targetEssntialOptionNames.length <= 0) return 1; // 필수 옵션이 지정되어 있지 않으면(필수 옵션을 다 뽑으면) 확률 100%
-                        else return 0; // 필수로 뽑아야 하는 옵션이 남아 있으면 확률은 0% (그런 경우 없음)
-                    } 
-                    let return_rate = 0;
-                    let current_optionGroups = [...targetOptionGroups];
-                    console.log(current_optionGroups);
-                    
-                    let result_ratios = []; //결과 확률 값들을 모은 배열
+        function getSumArrayNumbers(targetArrayNumber){
+            return Array.from(targetArrayNumber).reduce((a,c)=>a+Number(c),0);
+        }
 
-                    /**
-                    * 확률 구하는 함수 정의
-                    * @param {array} targetOptionName    현재 선택한 추가 옵션을 뺀 배열입니다.
-                    * @param {number} targetOptionGroups     현재 추가 옵션을 선택하여 뽑아야 할 추가 옵션의 개수가 하나 줄어들었다는 표시를 하는 변수입니다.
-                    * @param {array} targetOptionGroups  현재 선택한 옵션의 같은 그룹으로 묶여있는 모든 추가 옵션을 뺀 배열입니다.
-                    * @param {array} targetEssntialOptionNames    필수로 뽑아야 하는 추가 옵션에서 현재 선택한 추가 옵션을 뺀 배열입니다.
-                    * @returns 확률 값
-                    */
-                    function getOptionPropertyRateByAdditionalOptionName(targetOptionName, optionAmounts, targetOptionGroups, targetEssntialOptionNames){
-                        let ratio_summation = getSummationPropertyRate(targetOptionGroups);
-                        console.log("현재 옵션 구성 확률(최종 기준) : ",ratio_summation);
-                        let target_option = targetOptionGroups.find((e)=>e?.name === targetOptionName);
-                        console.log(`검사 : ${targetOptionName}, 결과 : ${target_option?.name}, 표기 확률 : ${target_option?.probability}, 실질 확률 : ${target_option?.probability/ratio_summation}`);
-                        let current_option_rate = target_option?.probability / ratio_summation; // 표기 확률을 총 확률로 나누면 현재 총 구성 중 실질 확률을 계산할 수 있다.
-                        if(Number.isNaN(current_option_rate)) current_option_rate = 0;
+        /**
+         * 추가 옵션 확률을 계산하는 함수
+         * @param {string[]} targetOptionnames - 뽑고자 하는 추가 옵션의 이름 배열 (예: ["보스 몬스터 공격 시 대미지 증가"])
+         * @param {number} optionAmounts - 장비의 추가 옵션 줄 수 (예: 3)
+         * @param {Array} targetOptionGroups - 전체 옵션 테이블 데이터 (MS2AdditionalOptions에서 가져온 데이터)
+         * @param {string[]} targetEssntialOptionNames - 필수로 포함되어야 하는 옵션 이름 배열 (예: ["보스 몬스터 공격 시 대미지 증가"])
+         * @returns {number} 계산된 확률 (0~1 사이의 값)
+         * 
+         * 사용 예시:
+         * getOptionPropertyRate(
+         *     ["보스 몬스터 공격 시 대미지 증가"],  // 뽑고 싶은 옵션
+         *     3,                                  // 3줄 옵션
+         *     MS2AdditionalOptions["cape"],      // 망토 옵션 테이블
+         *     ["보스 몬스터 공격 시 대미지 증가"]  // 필수 옵션
+         * )
+         */
+        function getOptionPropertyRate(targetOptionnames, optionAmounts, targetOptionGroups, targetEssntialOptionNames = []) {
+            console.log("=== getOptionPropertyRate 파라미터 확인 ===");
+            console.log("targetOptionnames:", targetOptionnames);
+            console.log("optionAmounts:", optionAmounts);
+            console.log("targetOptionGroups:", targetOptionGroups);
+            console.log("targetEssntialOptionNames:", targetEssntialOptionNames);
 
-                        /** 
-                         * 더 깊은 확률 구하기
-                         * @param {array} param_removedAdditionalOptions    현재 선택한 추가 옵션을 뺀 배열입니다.
-                         * @param {number} param_decreasedOptionAmounts     현재 추가 옵션을 선택하여 뽑아야 할 추가 옵션의 개수가 하나 줄어들었다는 표시를 하는 변수입니다.
-                         * @param {array} param_filteredAdditionalOptionGroups  현재 선택한 옵션의 같은 그룹으로 묶여있는 모든 추가 옵션을 뺀 배열입니다.
-                         * @param {array} param_removedEssentialAdditionalOptions    필수로 뽑아야 하는 추가 옵션에서 현재 선택한 추가 옵션을 뺀 배열입니다.
-                        */
-                        let param_removedAdditionalOptions =  filterArrayContent([targetOptionName],targetOptionnames);
-                        let param_decreasedOptionAmounts = optionAmounts - 1;
-                        let param_filteredAdditionalOptionGroups =  filterOptionGroups([targetOptionName], current_optionGroups);
-                        let param_removedEssentialAdditionalOptions = filterArrayContent([targetOptionName], targetEssntialOptionNames);
+            if (!(Array.isArray(targetEssntialOptionNames))) targetEssntialOptionNames = [targetEssntialOptionNames];
+            if (!(Array.isArray(targetOptionnames))) targetOptionnames = [targetOptionnames];
+            
+            if (!(optionAmounts > 0 && targetOptionnames.length > 0)) {
+                if (targetEssntialOptionNames.length <= 0) return 1;
+                else return 0;
+            }
+            
+            let return_rate = 0;
+            let current_optionGroups = [...targetOptionGroups];
+            console.log("현재 옵션 그룹:", current_optionGroups);
+            
+            // 전체 확률 합계 계산
+            let total_probability = getSummationPropertyRate(current_optionGroups);
+            console.log("전체 확률 합계:", total_probability);
+            
+            let result_ratios = [];
 
-                        current_option_rate = current_option_rate * getOptionPropertyRate(
-                            param_removedAdditionalOptions,
-                            param_decreasedOptionAmounts, 
-                            param_filteredAdditionalOptionGroups,
-                            param_removedEssentialAdditionalOptions
-                        );
-                        console.log("결과 값 : ", current_option_rate);
-                        return current_option_rate;
-                    }
-
-                    /* 각 옵션 별 확률 구하기 */
-                    for(const targetOptionName of targetOptionnames){
-                        result_ratios.push(getOptionPropertyRateByAdditionalOptionName(targetOptionName, optionAmounts, targetOptionGroups, targetEssntialOptionNames));
-                        
-                    }
-                    /* 만약, 장비의 추가 옵션 줄 수보다 뽑아야 하는 옵션보다 더 적은 경우라면, 꽝 확률 곱하기 성공 확률의 경우의 수까지 모두 계산해야 합니다. */
-
-                    if(optionAmounts > targetOptionnames.length){
-                        console.log(`장비의 추가 옵션 줄 수(${optionAmounts})보다 뽑아야 하는 추가 옵션의 개수(${targetOptionnames.length})보다 더 적습니다. 따라서 뽑아야 하는 추가 옵션을 못 뽑았을 경우의 확률도 계산합니다.`);
-                        /**
-                         * 사전처리 - 1 : 원하는 옵션을 못 뽑을 확률을 구하는 데, 뽑고 싶은 추가옵션 중 하나 이상이 추가옵션 그룹에 속한 경우 원하지 않는 추가옵션 배열에 뽑아야 할 추가옵션에 지정된 그룹 배열에 들어있는 같은 그룹의 추가옵션들을 모두 빼버린다.
-                         * (이유 : 내가 뽑아야 할 추가 옵션 그룹에서 뽑아야 하지 않을 그룹의 옵션에서 원하는 옵션이 나올 확률은 반드시 0입니다)
-                         * 
-                         * 사전처리 - 2 : 원하는 옵션을 못 뽑을 확률을 구하는 데, 뽑고 싶은 추가옵션 아닌 추가 옵션이 하나 이상이 추가옵션 그룹에 속한 경우
-                         * 2. 블라블라
-                         */
-                        let uselessAdditionalOptions = filterArrayContent(current_optionGroups, targetOptionnames); //뽑아야 하는 옵션을 모두 제거한 쓸모없는 추가 옵션들
-                        let current_option_rate = 0; //아무 확률도 계산하지 않을 경우 확률은 0
-                        uselessAdditionalOptions.sort();
-                        
-                        // 사전처리 - 1 : 원하는 옵션을 못 뽑을 확률을 구하는 데, 뽑고 싶은 추가옵션 중 하나 이상이 추가옵션 그룹에 속한 경우
-                        let targetRemoveAdditionalOptionGroupNames = targetOptionGroups.filter((e)=>{
-                            let result = targetOptionnames.includes(e?.name) && !(e.optionGroup);
-                            console.log(`원소 : ${e.name} 그룹 : ${e.optionGroup} 결과 : ${result}`);
-                            return result;
-                        });
-                        console.log(targetRemoveAdditionalOptionGroupNames);
-                        let targetRemoveAdditionalOptionGroups = uselessAdditionalOptions.reduce((a,c,i)=>{
-                            
-                        },{}); // 제거할 (그룹 옵션이 포함된)추가옵션 목록들
-
-                        let someBundles = []; // {options}
-                        
-                        /* 확률 계산 압축 */
-                        for (let i = 0; i <= uselessAdditionalOptions.length; i++) {
-                            let someBundles = uselessAdditionalOptions.slice(0, i); // i개의 쓸모없는 추가 옵션 묶음을 선택
-                            let remainingUselessOptions = uselessAdditionalOptions.slice(i); // 선택하지 않은 나머지 쓸모없는 추가 옵션들
-
-                            let bundleProbability = 1; // 현재 묶음의 확률 초기화
-
-                            // 각 묶음에 대한 확률 계산
-                            for (const bundleOption of someBundles) {
-                                let optionRate = getOptionPropertyRateByAdditionalOptionName(bundleOption, optionAmounts, filteredOptionGroups, targetEssntialOptionNames);
-                                bundleProbability *= optionRate;
-                            }
-
-                            // // 나머지 쓸모없는 추가 옵션에 대한 확률 계산
-                            // for (const remainingOption of remainingUselessOptions) {
-                            //     let remainingOptionRate = getOptionPropertyRateByAdditionalOptionName(remainingOption, optionAmounts, filteredOptionGroups, targetEssntialOptionNames);
-                            //     bundleProbability *= (1 - remainingOptionRate); // 나머지 옵션을 뽑지 못할 확률은 (1 - 확률)
-                            // }   
-
-                            current_option_rate += bundleProbability; // 현재 묶음에 대한 확률을 전체 확률에 더함
-                        }
-
-                        result_ratios.push(current_option_rate);
-
-                    }
-                    console.log(`확률 모음 값 : ${result_ratios}`);
-                    return_rate = getSumArrayNumbers(result_ratios);
-                    return return_rate;
-                }
-
-                // let result_value = getOptionPropertyRate([
-                //         "보스 몬스터 공격 시 대미지 증가", 
-                //         "공격속도", 
-                //         "크리티컬 명중", 
-                //         "크리티컬 대미지"
-                //     ], 
-                //     3, 
-                //     MS2AdditionalOptions["belt"], 
-                //     //["크리티컬 대미지","보스 몬스터 공격 시 대미지 증가"] // 필수 옵션 이름 지정. 없으면 빈 배열로 냅두세요
-                // ); // 유효 옵션 (크크보, 크공보, 크크공, 크공보)
-                // console.log(`확률 값 : ${result_value}`);
-
-                let div_additionalOptionTable = document.getElementById("additionalOptionTable");
-                let additionalOptions_belt = MS2AdditionalOptions["cape"];
-                let domTable = new DOMTable(div_additionalOptionTable, additionalOptions_belt);
-                let pickTable = new DOMTable(document.getElementById("additionalOptionPickinputTable"), [{"optionName": "크리티컬 대미지"},{"optionName": "크리티컬 명중"},{"optionName": "보스 몬스터 공격 시 대미지 증가"},{"optionName": "공격속도"}]);
-                let essentialPickTable = new DOMTable(document.getElementById("additionalOptionEssentialPickinputTable"), [{"optionName": "보스 몬스터 공격 시 대미지 증가"}]);
-                domTable.repaint();
-                function onclick_btn_calculateAdditionalOptions(event){
-                    let pickCounts = document.getElementById("pickAdditionalOptionCounts").value;
-                    let pickedAdditionalOptions = Array.from(pickTable.getFromDOM()).map(e=>e?.["optionName"]);
-                    
-                    let pickedEssentialAditionalOptions = Array.from(essentialPickTable.getFromDOM()).map(e=>e?.["optionName"]);
-                    console.log("aaa");
-                    console.log(pickCounts);
-                    let optionTable = Array.from(domTable.getFromDOM())
-                    let resultPickAdditionalOptionRate = getOptionPropertyRate(
-                        pickedAdditionalOptions,
-                        pickCounts,
-                        optionTable,
-                        pickedEssentialAditionalOptions
-                    )
-                    console.log(`pick : ${resultPickAdditionalOptionRate}`);
-                    
-                    //획득 확률 넣기
-                    let text_getRate = document.getElementById("output_getRate");
-                    let output_getRate = numberPercentageToDecimalString(resultPickAdditionalOptionRate,6);
-                    //text_getRate.value = `${(resultPickAdditionalOptionRate * 100).toFixed(2)}`;   //획득 확률
-
-                    //시도 횟수 넣기
-                    let text_output_trial = document.getElementById("output_getTrial");
-                    let output_trial =  Math.ceil(1/resultPickAdditionalOptionRate);
-                    //text_output_trial.value = output_trial;
-
-                    //장비 등급 이름 가져오기
-                    let dom_select_itemgrade = document.getElementById("select-pickItemGrade");
-                    let text_select_itemgrade = `${dom_select_itemgrade.options[dom_select_itemgrade.selectedIndex].text}`;
-
-                    //크리스탈 파편 요구량 넣기
-                    let text_output_getCrystalFragmentAmounts = document.getElementById("output_getCrystalFragmentAmounts");
-                    let output_getCrystalFragmentAmounts = calculateOptionChangeFee(0,output_trial,MS2AdditionalOptionChangeFee?.[text_select_itemgrade]?.crystalFragments, 0);
-                    //text_output_getCrystalFragmentAmounts.value = calculateOptionChangeFee(0,output_trial,optionChangeFeeByGrade["에픽"], 0);
-
-                    let output_getTrialToSuccessRateRatio =  geometricSeriesSum(1,(1-resultPickAdditionalOptionRate),output_trial);
-                    let output_getTrialToSuccessRate = resultPickAdditionalOptionRate * output_getTrialToSuccessRateRatio;
-                    let output_getTrialToFailRate = 1-output_getTrialToSuccessRate;
-
-                    let DOMObjectNamesDict={
-                        "output_getRate" : output_getRate,
-                        "output_getTrial" : output_trial,
-                        "output_getCrystalFragmentAmounts":output_getCrystalFragmentAmounts,
-                        "output_getTrialToSuccessRateRatio" : output_getTrialToSuccessRateRatio,
-                        "output_getTrialToSuccessRate" : output_getTrialToSuccessRate*100,
-                        "output_getTrialToFailRate" :output_getTrialToFailRate*100,
-                    }   
-                    function numberPercentageToDecimalString(target_percent, digit=0){
-                        return `${(target_percent * 100).toFixed(digit)}`
-                    }
-
-                    //등비수열
-                    function geometricSeriesSum(a, r, n) {
-                        if (r === 1) {
-                            return a * n;
-                        } else {
-                            return a * (1 - Math.pow(r, n)) / (1 - r);
-                        }
-                    }
-
-                    // id 데이터 입력
-                    (function DOMinputByDict(target_dict){
-                        if(target_dict instanceof Object){
-                            for(let key in target_dict){
-                                let _domObject = document.getElementById(key);
-                                if(_domObject instanceof HTMLInputElement) _domObject.value = target_dict[key];
-                                else _domObject.innerText = target_dict[key];
-                            }
-                        }
-                    })(DOMObjectNamesDict);
-                }
-
-                function onclick_btn_getMyPickRate(event){
-                    function adjustRatioNumber(target_number){
-                        target_number = Number(target_number);
-                        target_number = target_number === NaN || target_number < 0 ? 0 : target_number > 1 ? 1 : target_number;
-                        return target_number 
-                    }
-                    function adjustUnsignedInteger(target_number){
-                        target_number = Number(target_number);
-                        target_number = target_number === NaN || target_number < 0 ? 0 : target_number;
-                        return target_number;
-                    }
-
-                    let input_DOMObjectNamesDict={
-                        "select_trial_pickItemGrade" : (value)=>String(value),  //장비 등급(한글. 엑설런트, 레전더리, 에픽 등급 중 1개 선택됨)
-                        "input_trial_getRate": (value)=>adjustRatioNumber(Number(value)/100),
-                        "input_trial_getTrial" : (value)=>adjustUnsignedInteger(Number(value)),    //시행횟수
-                        "input_trial_getStartTrial" : (value)=>adjustUnsignedInteger(Number(value)),   //시작 시행 횟수 (장비에 표기된 이미 시행된 횟수. 기본 값 : 0회)
-                        "input_trial_getDiscountRate" : (value)=>adjustRatioNumber(Number(value)/100)  //할인률 (백분율 값, 모험레벨 21% + 웨딩 5단계 혜택 = 최대 26%)
-                    }
-                    
-                    function getFromDictInput(target_input_DOMObjectNamesDict){
-                        for(let key in target_input_DOMObjectNamesDict){
-                            let value_func = target_input_DOMObjectNamesDict[key];
-                            let value_text = "";
-                            console.log(key);
-                            let _tag = document.getElementById(key);
-
-                            // 값 가져오기
-                            if(_tag instanceof HTMLSelectElement) String(value_text=_tag?.options?.[_tag.selectedIndex]?.text); //select tag 선택 값 가져오기
-                            else if (_tag instanceof HTMLInputElement) value_text = _tag.value;
-                            else value_text = _tag?.innerText;
-
-                            // 값 요리하기
-                            if(value_func instanceof Function) value_text = value_func(value_text);
-
-                            // 함수가 있던 자리에 실제로 받은 값 입력
-                            target_input_DOMObjectNamesDict[key] = value_text;
-
-                        }
-
-                        //입력한 Dict 반환(값을 받지 않아도 내용물은 변경됩니다)
-                        return target_input_DOMObjectNamesDict
-                    }
-
-                    getFromDictInput(input_DOMObjectNamesDict);
-
-                    let select_trial_pickItemGrade = input_DOMObjectNamesDict["select_trial_pickItemGrade"]; //장비 등급 (한글/한국어로)가져오기
-                    let input_trial_getRate = input_DOMObjectNamesDict["input_trial_getRate"]; //획득 확률(소숫점 형태. 100% 확률인 경우 값은 1) 가져오기
-                    let output_trial_getFailRate = 1-input_trial_getRate;   //실패 확률
-                    let input_trial_getTrial= input_DOMObjectNamesDict["input_trial_getTrial"];     //시도 횟수 가져오기
-                    let input_trial_getStartTrial = input_DOMObjectNamesDict["input_trial_getStartTrial"];   //시작 횟수 가져오기.
-                    let input_trial_getDiscountRate = input_DOMObjectNamesDict["input_trial_getDiscountRate"]; //할인률(소숫점 형태. 100% 확률인 경우 값은 1) 가져오기
-
-
-                    // 넣을 값 요리하기
-                    let output_trial_getRate = geometricSeriesSum(input_trial_getRate,(1-input_trial_getRate), input_trial_getTrial); // 시행 후 결과 확률 계산
-                    let output_trial_getRequireCrystalFragmentAmounts = calculateOptionChangeFee(input_trial_getStartTrial,input_trial_getTrial,MS2AdditionalOptionChangeFee?.[select_trial_pickItemGrade]?.crystalFragments, input_trial_getDiscountRate); //시행 시 요구되는 크리스탈 파편 요구량 계산
-
-                    // 얻은 결과와 별개로 확률 값과 시행 횟수 자료를 기반으로 산술 요구 관련 계산 요리하기
-                    let output_trial_getTrial = Math.ceil(1/input_trial_getRate);  //단순 산술 요구 시행 횟수 (시도 횟수 기반)
-                    let output_trial_getCrystalFragmentAmounts = calculateOptionChangeFee(input_trial_getStartTrial,output_trial_getTrial,MS2AdditionalOptionChangeFee?.[select_trial_pickItemGrade]?.crystalFragments, input_trial_getDiscountRate); //시행 시 요구되는 크리스탈 파편 요구량 계산 (주의 : 기존 변경 횟수 x 추가 요구 횟수)
-                    let output_trial_getTrialToSuccessRateRatio =  geometricSeriesSum(1,(1-input_trial_getRate),output_trial_getTrial); //단순 산술 횟수 기반 시행 확률 배율 계산
-                    let output_trial_getTrialToSuccessRate = input_trial_getRate * output_trial_getTrialToSuccessRateRatio; //단순 산술 횟수 기반 시행 확률 계산
-                    let output_trial_getTrialToFailRate = 1-output_trial_getTrialToSuccessRate;
-
-                    let DOMObjectNamesDict={
-                        "output_trial_getRate" : numberPercentageToDecimalString(output_trial_getRate,6),
-                        "output_trial_getRequireCrystalFragmentAmounts" : output_trial_getRequireCrystalFragmentAmounts,
-                        "output_trial_getTrial" : output_trial_getTrial,
-                        "output_trial_getCrystalFragmentAmounts":output_trial_getCrystalFragmentAmounts,
-                        "output_trial_getTrialToSuccessRateRatio" : output_trial_getTrialToSuccessRateRatio,
-                        "output_trial_getTrialToSuccessRate" : numberPercentageToDecimalString(output_trial_getTrialToSuccessRate,6),
-                        "output_trial_getTrialToFailRate" :numberPercentageToDecimalString(output_trial_getTrialToFailRate,6),
-                    }   
-                    function numberPercentageToDecimalString(target_percent, digit=0){
-                        return `${(target_percent * 100).toFixed(digit)}`
-                    }
-
-                    //등비수열
-                    function geometricSeriesSum(a, r, n) {
-                        if (r === 1) {
-                            return a * n;
-                        } else {
-                            return a * (1 - Math.pow(r, n)) / (1 - r);
-                        }
-                    }
-
-                    // id 데이터 입력
-                    (function DOMinputByDict(target_dict){
-                        if(target_dict instanceof Object){
-                            for(let key in target_dict){
-                                let _domObject = document.getElementById(key);
-                                if(_domObject instanceof HTMLInputElement) _domObject.value = target_dict[key];
-                                else _domObject.innerText = target_dict[key];
-                            }
-                        }
-                    })(DOMObjectNamesDict);
-                }
-                let btn_calculateAdditionalOption = document.getElementById("calculateAdditionalOption");
-                btn_calculateAdditionalOption.addEventListener("click",onclick_btn_calculateAdditionalOptions);
+            function getOptionPropertyRateByAdditionalOptionName(targetOptionName, optionAmounts, targetOptionGroups, targetEssntialOptionNames) {
+                let ratio_summation = total_probability;
+                console.log(`\n=== ${targetOptionName} 옵션 확률 계산 ===`);
+                console.log("현재 옵션 구성 확률(최종 기준) : ", ratio_summation);
                 
-                let btn_getMyPickRate = document.getElementById("btn_getMyPickRate");
-                btn_getMyPickRate.addEventListener("click",onclick_btn_getMyPickRate);
+                let target_option = targetOptionGroups.find((e) => e?.name === targetOptionName);
+                console.log("찾은 옵션:", target_option);
+                
+                if (!target_option) {
+                    console.error("옵션을 찾을 수 없음:", targetOptionName);
+                    return 0;
+                }
 
-                //버튼 자동 생성
-                let div_quicksetbuttons = document.getElementById("quicksetbuttons");
-                let additional_option_keys = Array.from(Object.keys(MS2AdditionalOptions));
-                additional_option_keys.forEach((key)=>{
-                    let _btn = document.createElement("input");
-                    _btn.type="button";
-                    _btn.value=key;
-                    _btn.addEventListener("click", (e)=>{
-                        let key_name = e.target.value;
-                        let target_object = MS2AdditionalOptions?.[key_name];
-                        if(target_object instanceof Object)
-                            domTable.setTargetObjectArray(MS2AdditionalOptions[key_name]);
-                    });
-                    div_quicksetbuttons.appendChild(_btn);
+                let option_probability = Number(target_option.probability) || 0;
+                console.log(`검사 : ${targetOptionName}`);
+                console.log(`표기 확률 : ${option_probability}`);
+                console.log(`실질 확률 : ${(option_probability/ratio_summation).toFixed(6)}`);
+                
+                let current_option_rate = option_probability / ratio_summation;
+                if (Number.isNaN(current_option_rate)) current_option_rate = 0;
+
+                let param_removedAdditionalOptions = filterArrayContent([targetOptionName], targetOptionnames);
+                let param_decreasedOptionAmounts = optionAmounts - 1;
+                
+                let param_filteredAdditionalOptionGroups = filterOptionGroups(targetOptionName, current_optionGroups);
+                console.log("필터링된 옵션 그룹:", param_filteredAdditionalOptionGroups);
+                
+                let param_removedEssentialAdditionalOptions = filterArrayContent([targetOptionName], targetEssntialOptionNames);
+
+                console.log("재귀 호출 파라미터:", {
+                    removedOptions: param_removedAdditionalOptions,
+                    decreasedAmounts: param_decreasedOptionAmounts,
+                    filteredGroups: param_filteredAdditionalOptionGroups,
+                    removedEssential: param_removedEssentialAdditionalOptions
                 });
 
-            </script>
-        </div>
-    </section>
+                let deeper_rate = getOptionPropertyRate(
+                    param_removedAdditionalOptions,
+                    param_decreasedOptionAmounts,
+                    param_filteredAdditionalOptionGroups,
+                    param_removedEssentialAdditionalOptions
+                );
+
+                console.log("재귀 호출 결과:", deeper_rate);
+                current_option_rate = current_option_rate * deeper_rate;
+                console.log(`최종 결과 값 : ${current_option_rate.toFixed(6)}`);
+                return current_option_rate;
+            }
+
+            for (const targetOptionName of targetOptionnames) {
+                console.log(`\n=== ${targetOptionName} 옵션 처리 시작 ===`);
+                let optionRate = getOptionPropertyRateByAdditionalOptionName(targetOptionName, optionAmounts, current_optionGroups, targetEssntialOptionNames);
+                console.log(`${targetOptionName}의 확률: ${optionRate.toFixed(6)}`);
+                result_ratios.push(optionRate);
+            }
+
+            if (optionAmounts > targetOptionnames.length) {
+                console.log(`\n=== 미사용 옵션 확률 계산 ===`);
+                console.log(`장비의 추가 옵션 줄 수(${optionAmounts})가 뽑아야 하는 추가 옵션의 개수(${targetOptionnames.length})보다 더 많습니다.`);
+                
+                // 남은 옵션 줄 수 계산
+                let remainingLines = optionAmounts - targetOptionnames.length;
+                console.log(`남은 줄 수: ${remainingLines}`);
+                
+                // 현재까지의 확률 (원하는 옵션들이 나올 확률)
+                let currentProbability = getSumArrayNumbers(result_ratios);
+                console.log("원하는 옵션들의 확률:", currentProbability.toFixed(6));
+                
+                // 남은 줄에 대한 확률 계산
+                // 최소 한 줄에 원하는 옵션이 나올 확률 = 1 - (모든 줄에 원하는 옵션이 나오지 않을 확률)
+                let remainingProbability = 1 - Math.pow(1 - currentProbability, optionAmounts);
+                console.log("남은 줄에 대한 확률:", remainingProbability.toFixed(6));
+                
+                // 최종 확률 계산
+                return_rate = remainingProbability;
+                console.log("최종 확률:", return_rate.toFixed(6));
+                
+                // 검산 로그
+                console.log("=== 확률 검산 ===");
+                console.log("기본 확률:", currentProbability.toFixed(6));
+                console.log("나오지 않을 확률:", (1 - currentProbability).toFixed(6));
+                console.log("모든 줄에 나오지 않을 확률:", Math.pow(1 - currentProbability, optionAmounts).toFixed(6));
+                console.log("최소 한 줄에 나올 확률:", remainingProbability.toFixed(6));
+            } else {
+                return_rate = getSumArrayNumbers(result_ratios);
+                console.log(`최종 확률 : ${return_rate.toFixed(6)}`);
+            }
+            
+            return return_rate;
+        }
+        
+        /**
+         * 초기 추가 옵션 계산 환경 세팅.
+         * 
+         * 추가 옵션 테이블 세팅 [cape]의 모든 추가옵션 로드
+         * 추가 옵션 선택 테이블 초기값 세팅 - 크리티컬 대미지, 크리티컬 명중, 보스 몬스터 공격 시 대미지 증가, 공격속도
+         * 추가 옵션 필수 선택 테이블 초기값 세팅 - 보스 몬스터 공격 시 대미지 증가
+         * 
+        */
+        let div_additionalOptionTable = document.getElementById("additionalOptionTable");
+        let additionalOptions_belt = MS2AdditionalOptions["cape"];
+        let domTable = new DOMTable(div_additionalOptionTable, additionalOptions_belt);
+        let pickTable = new DOMTable(document.getElementById("additionalOptionPickinputTable"), [{"optionName": "크리티컬 대미지"},{"optionName": "크리티컬 명중"},{"optionName": "보스 몬스터 공격 시 대미지 증가"},{"optionName": "공격속도"}]);
+        let essentialPickTable = new DOMTable(document.getElementById("additionalOptionEssentialPickinputTable"), [{"optionName": "보스 몬스터 공격 시 대미지 증가"}]);
+        domTable.repaint();
+        function onclick_btn_calculateAdditionalOptions(event){
+            let pickCounts = parseInt(document.getElementById("pickAdditionalOptionCounts").value) || 0;
+            
+            // DOMTable의 getFromDOM() 메서드를 사용하여 옵션 값 가져오기
+            let pickedAdditionalOptions = pickTable.getFromDOM()
+                .map(row => row.optionName)
+                .filter(name => name); // null이나 빈 문자열 제거
+            
+            let pickedEssentialAditionalOptions = essentialPickTable.getFromDOM()
+                .map(row => row.optionName)
+                .filter(name => name); // null이나 빈 문자열 제거
+
+            console.log("=== 입력값 확인 ===");
+            console.log("추가 옵션 줄 수:", pickCounts);
+            console.log("선택된 추가 옵션들:", pickedAdditionalOptions);
+            console.log("선택된 필수 옵션들:", pickedEssentialAditionalOptions);
+
+            // 현재 선택된 장비 등급의 옵션 테이블 가져오기
+            let itemGrade = document.getElementById("select-pickItemGrade").value;
+            let optionTable = domTable.getFromDOM();
+
+            console.log("선택된 장비 등급:", itemGrade);
+            console.log("옵션 테이블:", optionTable);
+
+            // 옵션 테이블이 올바른 형식인지 확인
+            if (!Array.isArray(optionTable) || optionTable.length === 0) {
+                console.error("옵션 테이블이 올바르지 않습니다:", optionTable);
+                return;
+            }
+
+            console.log("getOptionPropertyRate 파라미터 확인: ", pickedAdditionalOptions, pickCounts, optionTable, pickedEssentialAditionalOptions);
+            let resultPickAdditionalOptionRate = getOptionPropertyRate(
+                pickedAdditionalOptions,
+                pickCounts,
+                optionTable,
+                pickedEssentialAditionalOptions
+            );
+            console.log(`pick : ${resultPickAdditionalOptionRate}`);
+            
+            //획득 확률 넣기
+            let text_getRate = document.getElementById("output_getRate");
+            let output_getRate = numberPercentageToDecimalString(resultPickAdditionalOptionRate,6);
+            //text_getRate.value = `${(resultPickAdditionalOptionRate * 100).toFixed(2)}`;   //획득 확률
+
+            //시도 횟수 넣기
+            let text_output_trial = document.getElementById("output_getTrial");
+            let output_trial =  Math.ceil(1/resultPickAdditionalOptionRate);
+            //text_output_trial.value = output_trial;
+
+            //장비 등급 이름 가져오기
+            let dom_select_itemgrade = document.getElementById("select-pickItemGrade");
+            let text_select_itemgrade = `${dom_select_itemgrade.options[dom_select_itemgrade.selectedIndex].text}`;
+
+            //크리스탈 파편 요구량 넣기
+            let text_output_getCrystalFragmentAmounts = document.getElementById("output_getCrystalFragmentAmounts");
+            let output_getCrystalFragmentAmounts = calculateOptionChangeFee(0,output_trial,MS2AdditionalOptionChangeFee?.[text_select_itemgrade]?.crystalFragments, 0);
+            //text_output_getCrystalFragmentAmounts.value = calculateOptionChangeFee(0,output_trial,optionChangeFeeByGrade["에픽"], 0);
+
+            let output_getTrialToSuccessRateRatio =  geometricSeriesSum(1,(1-resultPickAdditionalOptionRate),output_trial);
+            let output_getTrialToSuccessRate = resultPickAdditionalOptionRate * output_getTrialToSuccessRateRatio;
+            let output_getTrialToFailRate = 1-output_getTrialToSuccessRate;
+
+            let DOMObjectNamesDict={
+                "output_getRate" : output_getRate,
+                "output_getTrial" : output_trial,
+                "output_getCrystalFragmentAmounts": output_getCrystalFragmentAmounts.toLocaleString(),
+                "output_getCrystalFragmentAmounts_mesos": `(${(output_getCrystalFragmentAmounts * 1000).toLocaleString()} 메소)`,
+                "output_getTrialToSuccessRateRatio" : output_getTrialToSuccessRateRatio,
+                "output_getTrialToSuccessRate" : output_getTrialToSuccessRate*100,
+                "output_getTrialToFailRate" :output_getTrialToFailRate*100,
+            }   
+            function numberPercentageToDecimalString(target_percent, digit=0){
+                return `${(target_percent * 100).toFixed(digit)}`
+            }
+
+            //등비수열
+            function geometricSeriesSum(a, r, n) {
+                if (r === 1) {
+                    return a * n;
+                } else {
+                    return a * (1 - Math.pow(r, n)) / (1 - r);
+                }
+            }
+
+            // id 데이터 입력
+            (function DOMinputByDict(target_dict){
+                if(target_dict instanceof Object){
+                    for(let key in target_dict){
+                        let _domObject = document.getElementById(key);
+                        if(_domObject instanceof HTMLInputElement) _domObject.value = target_dict[key];
+                        else _domObject.innerText = target_dict[key];
+                    }
+                }
+            })(DOMObjectNamesDict);
+        }
+
+        function onclick_btn_getMyPickRate(event){
+            function adjustRatioNumber(target_number){
+                target_number = Number(target_number);
+                target_number = target_number === NaN || target_number < 0 ? 0 : target_number > 1 ? 1 : target_number;
+                return target_number 
+            }
+            function adjustUnsignedInteger(target_number){
+                target_number = Number(target_number);
+                target_number = target_number === NaN || target_number < 0 ? 0 : target_number;
+                return target_number;
+            }
+
+            let input_DOMObjectNamesDict={
+                "select_trial_pickItemGrade" : (value)=>String(value),  //장비 등급(한글. 엑설런트, 레전더리, 에픽 등급 중 1개 선택됨)
+                "input_trial_getRate": (value)=>adjustRatioNumber(Number(value)/100),
+                "input_trial_getTrial" : (value)=>adjustUnsignedInteger(Number(value)),    //시행횟수
+                "input_trial_getStartTrial" : (value)=>adjustUnsignedInteger(Number(value)),   //시작 시행 횟수 (장비에 표기된 이미 시행된 횟수. 기본 값 : 0회)
+                "input_trial_getDiscountRate" : (value)=>adjustRatioNumber(Number(value)/100)  //할인률 (백분율 값, 모험레벨 21% + 웨딩 5단계 혜택 = 최대 26%)
+            }
+            
+            function getFromDictInput(target_input_DOMObjectNamesDict){
+                for(let key in target_input_DOMObjectNamesDict){
+                    let value_func = target_input_DOMObjectNamesDict[key];
+                    let value_text = "";
+                    console.log(key);
+                    let _tag = document.getElementById(key);
+
+                    // 값 가져오기
+                    if(_tag instanceof HTMLSelectElement) String(value_text=_tag?.options?.[_tag.selectedIndex]?.text); //select tag 선택 값 가져오기
+                    else if (_tag instanceof HTMLInputElement) value_text = _tag.value;
+                    else value_text = _tag?.innerText;
+
+                    // 값 요리하기
+                    if(value_func instanceof Function) value_text = value_func(value_text);
+
+                    // 함수가 있던 자리에 실제로 받은 값 입력
+                    target_input_DOMObjectNamesDict[key] = value_text;
+
+                }
+
+                //입력한 Dict 반환(값을 받지 않아도 내용물은 변경됩니다)
+                return target_input_DOMObjectNamesDict
+            }
+
+            getFromDictInput(input_DOMObjectNamesDict);
+
+            let select_trial_pickItemGrade = input_DOMObjectNamesDict["select_trial_pickItemGrade"]; //장비 등급 (한글/한국어로)가져오기
+            let input_trial_getRate = input_DOMObjectNamesDict["input_trial_getRate"]; //획득 확률(소숫점 형태. 100% 확률인 경우 값은 1) 가져오기
+            let output_trial_getFailRate = 1-input_trial_getRate;   //실패 확률
+            let input_trial_getTrial= input_DOMObjectNamesDict["input_trial_getTrial"];     //시도 횟수 가져오기
+            let input_trial_getStartTrial = input_DOMObjectNamesDict["input_trial_getStartTrial"];   //시작 횟수 가져오기.
+            let input_trial_getDiscountRate = input_DOMObjectNamesDict["input_trial_getDiscountRate"]; //할인률(소숫점 형태. 100% 확률인 경우 값은 1) 가져오기
+
+
+            // 넣을 값 요리하기
+            let output_trial_getRate = geometricSeriesSum(input_trial_getRate,(1-input_trial_getRate), input_trial_getTrial); // 시행 후 결과 확률 계산
+            let output_trial_getRequireCrystalFragmentAmounts = calculateOptionChangeFee(input_trial_getStartTrial,input_trial_getTrial,MS2AdditionalOptionChangeFee?.[select_trial_pickItemGrade]?.crystalFragments, input_trial_getDiscountRate); //시행 시 요구되는 크리스탈 파편 요구량 계산
+
+            // 얻은 결과와 별개로 확률 값과 시행 횟수 자료를 기반으로 산술 요구 관련 계산 요리하기
+            let output_trial_getTrial = Math.ceil(1/input_trial_getRate);  //단순 산술 요구 시행 횟수 (시도 횟수 기반)
+            let output_trial_getCrystalFragmentAmounts = calculateOptionChangeFee(input_trial_getStartTrial,output_trial_getTrial,MS2AdditionalOptionChangeFee?.[select_trial_pickItemGrade]?.crystalFragments, input_trial_getDiscountRate); //시행 시 요구되는 크리스탈 파편 요구량 계산 (주의 : 기존 변경 횟수 x 추가 요구 횟수)
+            let output_trial_getTrialToSuccessRateRatio =  geometricSeriesSum(1,(1-input_trial_getRate),output_trial_getTrial); //단순 산술 횟수 기반 시행 확률 배율 계산
+            let output_trial_getTrialToSuccessRate = input_trial_getRate * output_trial_getTrialToSuccessRateRatio; //단순 산술 횟수 기반 시행 확률 계산
+            let output_trial_getTrialToFailRate = 1-output_trial_getTrialToSuccessRate;
+
+            let DOMObjectNamesDict={
+                "output_trial_getRate" : numberPercentageToDecimalString(output_trial_getRate,6),
+                "output_trial_getRequireCrystalFragmentAmounts" : output_trial_getRequireCrystalFragmentAmounts.toLocaleString(),
+                "output_trial_getRequireCrystalFragmentAmounts_mesos": `(${(output_trial_getRequireCrystalFragmentAmounts * 1000).toLocaleString()} 메소)`,
+                "output_trial_getTrial" : output_trial_getTrial,
+                "output_trial_getCrystalFragmentAmounts": output_trial_getCrystalFragmentAmounts.toLocaleString(),
+                "output_trial_getCrystalFragmentAmounts_mesos": `(${(output_trial_getCrystalFragmentAmounts * 1000).toLocaleString()} 메소)`,
+                "output_trial_getTrialToSuccessRateRatio" : output_trial_getTrialToSuccessRateRatio,
+                "output_trial_getTrialToSuccessRate" : numberPercentageToDecimalString(output_trial_getTrialToSuccessRate,6),
+                "output_trial_getTrialToFailRate" :numberPercentageToDecimalString(output_trial_getTrialToFailRate,6),
+            }   
+            function numberPercentageToDecimalString(target_percent, digit=0){
+                return `${(target_percent * 100).toFixed(digit)}`
+            }
+
+            //등비수열
+            function geometricSeriesSum(a, r, n) {
+                if (r === 1) {
+                    return a * n;
+                } else {
+                    return a * (1 - Math.pow(r, n)) / (1 - r);
+                }
+            }
+
+            // id 데이터 입력
+            (function DOMinputByDict(target_dict){
+                if(target_dict instanceof Object){
+                    for(let key in target_dict){
+                        let _domObject = document.getElementById(key);
+                        if(_domObject instanceof HTMLInputElement) _domObject.value = target_dict[key];
+                        else _domObject.innerText = target_dict[key];
+                    }
+                }
+            })(DOMObjectNamesDict);
+        }
+        let btn_calculateAdditionalOption = document.getElementById("calculateAdditionalOption");
+        btn_calculateAdditionalOption.addEventListener("click",onclick_btn_calculateAdditionalOptions);
+        
+        let btn_getMyPickRate = document.getElementById("btn_getMyPickRate");
+        btn_getMyPickRate.addEventListener("click",onclick_btn_getMyPickRate);
+
+        // 확률 복사 버튼 이벤트 리스너
+        let btn_copy_probability = document.getElementById("btn_copy_probability");
+        btn_copy_probability.addEventListener("click", function() {
+            let calculatedRate = document.getElementById("output_getRate").textContent;
+            if (calculatedRate && calculatedRate !== "계산되지 않음") {
+                document.getElementById("input_trial_getRate").value = calculatedRate;
+            } else {
+                alert("먼저 위의 확률을 계산해주세요!");
+            }
+        });
+
+        //버튼 자동 생성
+        let div_quicksetbuttons = document.getElementById("quicksetbuttons");
+        let additional_option_keys = Array.from(Object.keys(MS2AdditionalOptions));
+        additional_option_keys.forEach((key)=>{
+            let _btn = document.createElement("input");
+            _btn.type="button";
+            _btn.value=key;
+            _btn.addEventListener("click", (e)=>{
+                let key_name = e.target.value;
+                let target_object = MS2AdditionalOptions?.[key_name];
+                if(target_object instanceof Object)
+                    domTable.setTargetObjectArray(MS2AdditionalOptions[key_name]);
+            });
+            div_quicksetbuttons.appendChild(_btn);
+        });
+
+        // Select 색상 변경 함수
+        function updateSelectColor(selectElement) {
+            const value = selectElement.value;
+            switch(value) {
+                case 'exceptional':
+                    selectElement.style.color = '#9370DB'; // 보라색
+                    break;
+                case 'legendary':
+                    selectElement.style.color = '#FFD700'; // 금색
+                    break;
+                case 'ascendant':
+                    selectElement.style.color = '#FF4500'; // 선홍색에서 빨간색 사이
+                    break;
+            }
+        }
+
+        // 모든 select 요소에 이벤트 리스너 추가
+        document.querySelectorAll('select').forEach(select => {
+            // 초기 색상 설정
+            updateSelectColor(select);
+            
+            // change 이벤트 리스너 추가
+            select.addEventListener('change', function() {
+                updateSelectColor(this);
+            });
+        });
+    </script>
 </body>
+</html>

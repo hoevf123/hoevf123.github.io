@@ -6,11 +6,148 @@
     <link rel="stylesheet" href="common.css">
     <script src="w3-include-html.js"></script>
     <style>
-        div.ms2-info-block{
-            border: 1px solid #333333;
-            padding:15px;
-            border-radius: 15px;
-            
+        .ms2-info-block {
+            background: #ffffff;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .character-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .character-info {
+            flex-grow: 1;
+        }
+
+        .character-name {
+            color: #2c3e50;
+            margin: 0 0 5px 0;
+            font-size: 1.8em;
+        }
+
+        .character-job-class {
+            color: #666;
+            margin: 0;
+            font-size: 1.1em;
+        }
+
+        .character-thumbnail {
+            width: 100px;
+            height: 100px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .homework-section {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .homework-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .homework-title {
+            color: #2c3e50;
+            margin: 0;
+            font-size: 1.4em;
+        }
+
+        .homework-date {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .dungeon-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .dungeon-item {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .dungeon-name {
+            color: #2c3e50;
+            font-weight: 500;
+        }
+
+        .dungeon-count {
+            color: #3498db;
+            font-weight: bold;
+        }
+
+        .progress-section {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #3498db;
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .meso-info {
+            background: #fff3cd;
+            border: 1px solid #ffeeba;
+            border-radius: 6px;
+            padding: 15px;
+            margin-top: 20px;
+            color: #856404;
+        }
+
+        .trophy-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #666;
+            margin-top: 10px;
+        }
+
+        .trophy-icon {
+            font-size: 1.2em;
         }
     </style>
 </head>
@@ -176,9 +313,7 @@
                     let root_div = document.createElement("div");
                     ret_val = root_div;
 
-                    // 1-depth : id of chracter
                     for(let ch_id in json_data){
-                        // Step 1. get Data
                         let character_name = json_data[ch_id]?.character_name;
                         let character_thumbnail_image_blob = json_data[ch_id]?.character_thumbnail_image_blob;
                         let character_job_class = json_data[ch_id]?.character_job_class;
@@ -186,63 +321,91 @@
                         character_job_class = get_job_class_name(character_job_class);
                         let achived_trophy_count = json_data[ch_id]?.trophy;
                         let dungeon_cleared_records = json_data[ch_id]?.dungeon_cleared_records;
-                        let dungeon_cleared_summation_count = dungeon_cleared_records.reduce((a,c,i)=>{a = a + Number(c?.dungeon_cleared_amount) ?? 0; console.log(c?.dungeon_cleared_amount); return a;}, 0);
+                        let dungeon_cleared_summation_count = dungeon_cleared_records.reduce((a,c,i)=>{a = a + Number(c?.dungeon_cleared_amount) ?? 0; return a;}, 0);
                         let dungeon_cleared_summation_score = dungeon_cleared_records.reduce((a,c,i)=>{a = a + Math.min(Number(c?.dungeon_cleared_amount) ?? 0, 300); return a;}, 0);
                         let dungeon_cleared_summation_max_score = dungeon_cleared_records.reduce((a,c,i)=>{a = a + 300; return a;}, 0);
-                        let dungeon_cleared_summation_percentage_decimal = Math.round(dungeon_cleared_summation_score/dungeon_cleared_summation_max_score*10000)/100; //소수점 2자리까지 표현
+                        let dungeon_cleared_summation_percentage_decimal = Math.round(dungeon_cleared_summation_score/dungeon_cleared_summation_max_score*10000)/100;
                         let dungeon_require_highest_level = dungeon_cleared_records.reduce((a,c,i)=>{let _curr_req_level = c?.["dungeon_info"]?.["dungeonReqLevel"]; if(Number.isInteger(_curr_req_level) && _curr_req_level>a) a = _curr_req_level; return a;},0);
                         let character_adventure_dungeon_earn_bonus_meso = character_adventure_dungeon_reward_meso(dungeon_require_highest_level);
-                        let character_adventure_dungeon_clear_meso = dungeon_require_highest_level >= 70 ? 14000 : dungeon_require_highest_level >= 50 ? 10000 : 0; //도는 던전 입장 제한 레벨 * 200메소 적용. 50레벨, 70레벨 던전만 돈다고 가정.
+                        let character_adventure_dungeon_clear_meso = dungeon_require_highest_level >= 70 ? 14000 : dungeon_require_highest_level >= 50 ? 10000 : 0;
                         let character_adventure_dungeon_earn_meso = character_adventure_dungeon_clear_meso*30;
                         let today = new Date();
                         let today_year = today.getFullYear();
                         let today_month = today.getMonth() + 1;
                         let today_date = today.getDate();
-                        
-                        console.log("dungeon_require_highest_level :", dungeon_require_highest_level);
                         let remaining_day = (6-(today.getDay()+2)+7)%7;
                         let str_remaining_day_diplay = new String(remaining_day > 0 ? `${remaining_day} 일` : "24시간 미만으로");
-                        // Step 2. make root div
-                        let ch_root_div = createTag("div", "ms2-frame ms2-info-block " + new String(ch_id));
-                        
-                        // Step 3. inject fron data to HTML Tag Elements.
-                        let _tags = {};
-                        _tags.character_name = createTag("h1", "character-name",character_name);
-                        _tags.character_thumbnail_image_blob = createTag("img", "characater_thumbnail_image");
-                        _tags.character_thumbnail_image_blob.src = "data:image/png;base64,"+character_thumbnail_image_blob;
-                        _tags.character_thumbnail_image_blob.alt = `characater_thumbnail_image(${new String(character_name)})`;
-                        _tags.character_job_class=createTag("p","character-job-class",`직업 : ${new String(character_job_class)}`+ ` (캐릭터 레벨 ${dungeon_require_highest_level} 이상)` ?? "");
-                        if(Number.isFinite(character_adventure_dungeon_earn_bonus_meso))
-                            _tags.character_adventure_dungeon_earn_meso = createTag("p", "character_adventure_dungeon_earn_meso", `이 캐릭터는 모험 던전 30회를 돌아 통해 최소 1주 당 ${character_adventure_dungeon_earn_bonus_meso.toLocaleString('en-US')}의 보너스 메소와 ${character_adventure_dungeon_earn_meso.toLocaleString("en-US")}의 던전 클리어 메소를 획득하실 수 있습니다.`);
-                        _tags.achived_trophy_count = createTag("p", "achived-trophy-count", "🏆 " + new String(achived_trophy_count));
-                        _tags.dungeon_cleared_summation_score = createTag("p", "dungeon_cleared_summation_score", `던전 종합 점수 : ${new String(dungeon_cleared_summation_score)} / ${new String(dungeon_cleared_summation_max_score)} (${dungeon_cleared_summation_percentage_decimal}% 완주, 총 ${new String(dungeon_cleared_summation_count)}회 클리어)`);
-                        //_tags.dungeon_cleared_summation_score_progress = createTag("progress", "progress_dungeon_cleared_summation_score", dungeon_cleared_summation_score,{"max":dungeon_cleared_summation_max_score,"value":dungeon_cleared_summation_score}); //progress bar may be added when supports coloring by css percentage values.
-                        //homework
-                        _tags.head_homework = createTag("h1", "head_homework", `일일 숙제`);
-                        _tags.additional_homework = createTag("p", "head_homework_comment", `(${today_year}년 ${today_month}월 ${today_date}일 기준, 주간 숙제 초기화까지 ${str_remaining_day_diplay} 남았습니다.)`);
-                        _tags.test_dungeon_results = dungeon_cleared_records.reduce((a,c,i)=>{
-                            //태그 조립에 필요한 보스 몬스터의 이름과 클리어 횟수 추출
-                            let _dungeon_clear_records = {
-                                "dungeon_name":c?.["dungeon_info"]?.["dungeonName"], 
-                                //"dungeon_monster_id":c?.["dungeon_info"]?.  ["monsterId"],
-                                "dungeon_clear_count":c?.["dungeon_cleared_amount"],
-                                "dungeon_clear_count_unit" :"회",
-                            };
-                            console.log(_dungeon_clear_records);
-                            let _tag_div_dungeon_record = Object.keys(_dungeon_clear_records).reduce((record_a, record_c, record_i)=>{
-                                //태그 조립 
-                                let _tag_prop = createTag("span",new String(record_c),new String(_dungeon_clear_records?.[record_c]));
-                                [_tag_prop].forEach((e)=>record_a.appendChild(e));
-                                return record_a;}
-                            , createTag("p", "test-dungeon-result-record"));
-                            console.log("Tag c : ", _tag_div_dungeon_record);
-                            a.appendChild(_tag_div_dungeon_record);
-                            return a;}
-                            , createTag("div", "test-dungeon-results"));
-                        
-                        Object.values(_tags).forEach((e)=>ch_root_div.appendChild(e)); // inject execution
 
-                        // Step 4. inject made root to master div tag.
+                        let ch_root_div = createTag("div", "ms2-info-block " + new String(ch_id));
+                        
+                        // Character Header
+                        let header_div = createTag("div", "character-header");
+                        let info_div = createTag("div", "character-info");
+                        
+                        let name_h1 = createTag("h1", "character-name", character_name);
+                        let job_p = createTag("p", "character-job-class", `${character_job_class} (레벨 ${dungeon_require_highest_level} 이상)`);
+                        let thumbnail_img = createTag("img", "character-thumbnail");
+                        thumbnail_img.src = "data:image/png;base64,"+character_thumbnail_image_blob;
+                        thumbnail_img.alt = `캐릭터 이미지(${character_name})`;
+
+                        info_div.appendChild(name_h1);
+                        info_div.appendChild(job_p);
+                        header_div.appendChild(thumbnail_img);
+                        header_div.appendChild(info_div);
+                        ch_root_div.appendChild(header_div);
+
+                        // Homework Section
+                        let homework_section = createTag("div", "homework-section");
+                        let homework_header = createTag("div", "homework-header");
+                        let homework_title = createTag("h2", "homework-title", "일일 던전 숙제");
+                        let homework_date = createTag("p", "homework-date", `${today_year}년 ${today_month}월 ${today_date}일 기준, 주간 초기화까지 ${str_remaining_day_diplay} 남음`);
+                        
+                        homework_header.appendChild(homework_title);
+                        homework_header.appendChild(homework_date);
+                        homework_section.appendChild(homework_header);
+
+                        // Progress Bar
+                        let progress_section = createTag("div", "progress-section");
+                        let progress_bar = createTag("div", "progress-bar");
+                        let progress_fill = createTag("div", "progress-fill");
+                        progress_fill.style.width = `${dungeon_cleared_summation_percentage_decimal}%`;
+                        
+                        let progress_text = createTag("div", "progress-text");
+                        progress_text.innerHTML = `<span>던전 클리어 진행도</span><span>${dungeon_cleared_summation_score}/${dungeon_cleared_summation_max_score} (${dungeon_cleared_summation_percentage_decimal}%)</span>`;
+                        
+                        progress_bar.appendChild(progress_fill);
+                        progress_section.appendChild(progress_bar);
+                        progress_section.appendChild(progress_text);
+                        homework_section.appendChild(progress_section);
+
+                        // Dungeon List
+                        let dungeon_list = createTag("div", "dungeon-list");
+                        dungeon_cleared_records.forEach(record => {
+                            let dungeon_item = createTag("div", "dungeon-item");
+                            let dungeon_name = createTag("span", "dungeon-name", record?.dungeon_info?.dungeonName);
+                            let dungeon_count = createTag("span", "dungeon-count", `${record?.dungeon_cleared_amount}회`);
+                            
+                            dungeon_item.appendChild(dungeon_name);
+                            dungeon_item.appendChild(dungeon_count);
+                            dungeon_list.appendChild(dungeon_item);
+                        });
+                        homework_section.appendChild(dungeon_list);
+
+                        // Meso Info
+                        if(Number.isFinite(character_adventure_dungeon_earn_bonus_meso)) {
+                            let meso_info = createTag("div", "meso-info");
+                            meso_info.innerHTML = `<strong>주간 예상 수익</strong><br>
+                                보너스 메소: ${character_adventure_dungeon_earn_bonus_meso.toLocaleString('en-US')} 메소<br>
+                                던전 클리어 메소: ${character_adventure_dungeon_earn_meso.toLocaleString("en-US")} 메소`;
+                            homework_section.appendChild(meso_info);
+                        }
+
+                        // Trophy Info
+                        let trophy_info = createTag("div", "trophy-info");
+                        trophy_info.innerHTML = `<span class="trophy-icon">🏆</span> <span>획득한 트로피: ${achived_trophy_count}개</span>`;
+                        homework_section.appendChild(trophy_info);
+
+                        ch_root_div.appendChild(homework_section);
                         root_div.appendChild(ch_root_div);
                     }
                     
