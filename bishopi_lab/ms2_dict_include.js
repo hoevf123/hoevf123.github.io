@@ -1,4 +1,3 @@
-
 class DictData {
     constructor(typename, tuple_tag_format, tuple_datas, represent_tag_target) {
         this.typename = typename;
@@ -10,164 +9,163 @@ class DictData {
         if(represent_tag_target==undefined){
             represent_tag_target=this.represent_tag_target;
         }
-        let tags = document.getElementsByClassName(represent_tag_target);
-        Array.prototype.forEach.call(tags, e => e.innerHTML="");
+        let target = document.getElementById(represent_tag_target);
+        if(target) {
+            target.innerHTML = "";
+        }
     }
     representData(represent_tag_target) {
         if(represent_tag_target==undefined){
             represent_tag_target=this.represent_tag_target;
         }
         if (represent_tag_target!==undefined) {
-            // tag creation method definition
-            function CreateTag(tag_name, tag_classname, innerText) {
-                // init value
-                tag_name = tag_name || "div";
-                tag_classname = tag_classname || "";
-                innerText = innerText || "";
+            function CreateTag(tagFormat, content) {
+                if (!Array.isArray(tagFormat)) {
+                    const element = document.createElement(tagFormat);
+                    if (content) {
+                        element.textContent = content;
+                    }
+                    return element;
+                }
 
-                let tag = document.createElement(new String(tag_name));
-                tag.className = new String(tag_classname);
-                innerText = new String(innerText);
-                if(tag_name=="audio"){
-                    tag.controls="controls";
-                    tag.src=innerText;
-                    // let source_tag = document.createElement("source");
-                    // source_tag.src=innerText;
-                    // if(String.prototype.endsWith.call(innerText,".mp3"))source_tag.type="audio/mpeg";
-                    // else if(String.prototype.endsWith.call(innerText,".ogg"))source_tag.type="audio/ogg";
-                    // tag.appendChild(source_tag);
-                    tag.innerText=innerText;
-                }
-                else if(tag_name=="a"){
-                    innerText = innerText.trim();
-                    if(innerText.startsWith("http")){
-                        tag.innerText=innerText;
-                        tag.href=innerText;
-                    }
-                    else {
-                        let local_blocked_file_type=["mp3"];
-                        while(String.prototype.startsWith.call(innerText,"./")){
-                            innerText=innerText.substring(2); //remove ./ at the header one
-                        }
-                        if((innerText == "") || local_blocked_file_type.reduce((a,c)=> a || innerText.endsWith("."+ new String(c)),false)){
-                            //do nothing if blocked file type detected
-                            return undefined;
-                        }
-                        else{
-                            tag.innerText = "[" + String.prototype.split.call(innerText,"/").reverse()[0] + "]";
-                            tag.href=innerText;
-                            tag.style.textOverflow="ellipsis";
-                        }
-                    }
-                }
-                else if(tag_name=="img"){
-                    tag.src=innerText;
-                    tag.alt=innerText;
-                }
-                else if (innerText.trim().startsWith("http")) {
-                    let link_tag = document.createElement("a");
-                    link_tag.href = innerText.trim();
-                    link_tag.innerText = innerText;
-                    tag.appendChild(link_tag);
-                }
+                const [tagName, className, subTags] = tagFormat;
+                const element = document.createElement(tagName);
                 
-                else {
-                    tag.innerText = innerText;
+                if (className) {
+                    element.className = className;
                 }
 
-                return tag;
+                if (content === undefined || content === null) {
+                    return element;
+                }
+
+                // Handle special cases
+                if (tagName === 'a' && className === 'link-addr') {
+                    element.href = content;
+                    element.textContent = content;
+                }
+                else if (tagName === 'img') {
+                    element.src = content;
+                    element.alt = '';
+                }
+                else if (tagName === 'audio') {
+                    element.controls = true;
+                    element.src = content;
+                }
+                else if (tagName === 'div' && className === 'pallete-cost' && Array.isArray(content)) {
+                    const [price, currency] = content;
+                    
+                    const priceElement = document.createElement(subTags[0][0]);
+                    priceElement.className = subTags[0][1];
+                    priceElement.textContent = price.toLocaleString();
+                    element.appendChild(priceElement);
+                    
+                    const currencyElement = document.createElement(subTags[1][0]);
+                    currencyElement.className = `${subTags[1][1]} ${currency}`;
+                    currencyElement.textContent = currency === 'meso' ? '메소' : '메릿';
+                    element.appendChild(currencyElement);
+                }
+                else if (tagName === 'div' && (className === 'hash-tags' || className === 'pallete-tags') && Array.isArray(content)) {
+                    content.forEach(tag => {
+                        const span = document.createElement('span');
+                        span.textContent = tag;
+                        element.appendChild(span);
+                    });
+                }
+                else if (tagName === 'a' && className === 'download-links' && Array.isArray(content)) {
+                    content.forEach(link => {
+                        const linkElement = document.createElement('a');
+                        linkElement.href = link;
+                        linkElement.textContent = link;
+                        linkElement.className = 'download-link';
+                        element.appendChild(linkElement);
+                    });
+                }
+                else if (tagName === 'div' && className === 'bgm_filename') {
+                    if (Array.isArray(content)) {
+                        content.forEach(filename => {
+                            const filenameElement = document.createElement('div');
+                            filenameElement.className = 'filename-item';
+                            filenameElement.textContent = filename;
+                            element.appendChild(filenameElement);
+                        });
+                    } else {
+                        element.textContent = content;
+                    }
+                }
+                else if (tagName === 'a' && className === 'bgm_src') {
+                    element.href = content;
+                    element.textContent = content;
+                    if (content.includes('maplestory2.nexon.com')) {
+                        element.classList.add('reference-link');
+                    } else {
+                        element.classList.add('download-link');
+                    }
+                }
+                else if (Array.isArray(content)) {
+                    // Handle nested arrays recursively
+                    content.forEach(item => {
+                        if (subTags) {
+                            const subElement = CreateTag(subTags, item);
+                            if (subElement) {
+                                element.appendChild(subElement);
+                            }
+                        } else {
+                            const textNode = document.createTextNode(item);
+                            element.appendChild(textNode);
+                        }
+                    });
+                }
+                else {
+                    element.textContent = content;
+                }
+
+                return element;
             }
-            function flatten_array(...target_array){
-                const reducer = function(a,c){
-                    if(c instanceof Array) return a.concat(c.reduce(reducer,[]));
-                    else return a.concat(c);
-                };
-                return Array.prototype.reduce.call(target_array,reducer, []);
-            }
 
-            function temp_something(arr){
-                return Array.prototype.reduce.call(arr,function(a,c,i){return a;},[]);
-            }
+            let tag_root = document.createElement("div");
+            tag_root.className = "dict-result " + this.typename;
 
-
-            // 1. make dict-result(root) div tag.
-            let tag_root = CreateTag("div","dict-result " + this.typename);
-
-            // 2. make cells in data results
             let tag_dictdatas = [];
             for(let idx_datas = 0 ; idx_datas < this.datas.length ; idx_datas++){
                 let c = this.datas[idx_datas];
                 let tuple_tag_format = this.tuple_tag_format;
-                // forced data to Array type.
-                let target_data_arr = c;
-                //let tuple_tag_format = this.tuple_tag_format;
-                if(!(target_data_arr instanceof Array)) target_data_arr = [target_data_arr];
+                let target_data_arr = Array.isArray(c) ? c : [c];
 
-                // 2-1. make root cell of each div tag.
-                let tag_cell_root = CreateTag("div", "dict-data", "");
-                tag_cell_root.addEventListener("click",(function(){
-                    //this : tag_cell_root, it change states of dict-data selected or not.
+                let tag_cell_root = document.createElement("div");
+                tag_cell_root.className = "dict-data";
+                tag_cell_root.addEventListener("click", function(){
                     let str_selected_className = "selected";
-                        if(this.classList.contains(str_selected_className))this.classList.remove(str_selected_className);
-                        else this.classList.add(str_selected_className);
-                    }).bind(tag_cell_root)
-                );
-
-                // 2-2. insert data to HTMLElement in the head cell tag
-                // function name "asd" has no meaning.
-                function asd(target_tag_root, target_tag_type, target_tag_className, target_data){
-                    let ret_tag = undefined;
-                    if(target_data === undefined){
-                        
-                    }
-                    else if(target_data instanceof Array){
-                        let _inside_tag = CreateTag("div", target_tag_className);
-                        target_data.forEach((e)=>{asd(_inside_tag, target_tag_type, target_tag_className, e);});
-                        if(!(_inside_tag.hasChildNodes()))ret_tag = undefined;
-                        else ret_tag = _inside_tag;
-                    }
-                    else if(target_data instanceof Object){
-                        // convert dict type to array classname format and array data(s)
-                        let _inside_tag = CreateTag("div", target_tag_className);
-                        let key_names = Object.keys(target_data);
-                        let tagFramewithDatas = Array.prototype.reduce.call(key_names, function(a, c, i){
-                            // c = name of keynames, used as className
-                            a.push([String(target_tag_type), String(c), target_data[c]]);
-                            return a;
-                        }, []);
-                        tagFramewithDatas.forEach(function(e){
-                            return asd(_inside_tag, e[0], e[1], e[2]);
-                        });
-                        ret_tag = _inside_tag;
-                    }
-                    else{
-                        ret_tag = CreateTag(target_tag_type, target_tag_className, String(target_data));
-                    }
-
-                    if(ret_tag instanceof HTMLElement) {
-                        if(target_tag_root instanceof HTMLElement) target_tag_root.appendChild(ret_tag);
-                        return ret_tag;
-                    }
-                    else return;
-                }
-                target_data_arr.forEach(function(data_cell, idx_data_cell){
-                    if(tuple_tag_format[idx_data_cell] instanceof Array){
-                        let tag_name = tuple_tag_format[idx_data_cell][0] || tag_name;
-                        let tag_className = tuple_tag_format[idx_data_cell][1] || tag_className;
-                        asd(tag_cell_root, tag_name, tag_className ,data_cell);
+                    if(this.classList.contains(str_selected_className)) {
+                        this.classList.remove(str_selected_className);
+                    } else {
+                        this.classList.add(str_selected_className);
                     }
                 });
-                
-                console.log(tag_cell_root);
-                // return completly made cell tag.
-                if(tag_cell_root instanceof HTMLElement) tag_dictdatas.push(tag_cell_root);
-            }; 
 
-            // 3. combine dict-data tags into (master) dict-result.
-            tag_dictdatas.forEach((e)=>tag_root.appendChild(e));
-            // 3. represent combined tag datas to represent area(s).
-            let tags = document.getElementsByClassName(represent_tag_target);
-            Array.prototype.forEach.call(tags, e => e.appendChild(document.createElement("li").appendChild(tag_root)));
+                target_data_arr.forEach((data_cell, idx_data_cell) => {
+                    if(tuple_tag_format[idx_data_cell] instanceof Array) {
+                        let tag_name = tuple_tag_format[idx_data_cell][0];
+                        let tag_className = tuple_tag_format[idx_data_cell][1];
+                        let subTags = tuple_tag_format[idx_data_cell][2];
+                        const element = CreateTag([tag_name, tag_className, subTags], data_cell);
+                        if(element) {
+                            tag_cell_root.appendChild(element);
+                        }
+                    }
+                });
+
+                if(tag_cell_root.hasChildNodes()) {
+                    tag_dictdatas.push(tag_cell_root);
+                }
+            }
+
+            tag_dictdatas.forEach(e => tag_root.appendChild(e));
+
+            let target = document.getElementById(represent_tag_target);
+            if(target) {
+                target.appendChild(tag_root);
+            }
         }
     }
 }

@@ -5,6 +5,7 @@
     <title>비숍이 실험실</title>
     <link rel="stylesheet" href="common.css">
     <script src="w3-include-html.js"></script>
+    <script src="nav-header.js"></script>
     <style>
         .info-grid {
             display: grid;
@@ -70,6 +71,17 @@
             font-size: 1.1em;
             line-height: 1.6;
         }
+
+        .category-section {
+            margin-bottom: 40px;
+        }
+
+        .category-section h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3498db;
+        }
     </style>
 </head>
 
@@ -78,39 +90,69 @@
     <section>
         <div class="div-content">
             <div class="page-intro">
-                <h1>메이플스토리2 정보 사전</h1>
-                <p>메이플스토리2의 다양한 게임 정보를 한눈에 모아보는 페이지입니다. 던전, 장비, 인챈트 등 게임 플레이에 도움이 되는 정보들을 카테고리별로 정리했습니다.</p>
+                <h1>게임 정보</h1>
+                <p>메이플스토리2의 다양한 게임 정보를 한눈에 모아보는 페이지입니다. 던전, 아이템, 인챈트 등 게임 플레이에 도움이 되는 정보들을 카테고리별로 정리했습니다.</p>
             </div>
             
-            <div class="info-grid">
-                <div class="info-card">
-                    <h3>던전 정보</h3>
-                    <p>메이플스토리2의 다양한 던전 정보와 공략을 확인하세요.</p>
-                    <a href="./ms2_info_dungeons.html">자세히 보기</a>
+            <div class="category-section">
+                <h2>던전 정보</h2>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h3>던전 목록</h3>
+                        <p>메이플스토리2의 다양한 던전 정보와 공략을 확인하세요.</p>
+                        <a href="./ms2_info_dungeons.html">자세히 보기</a>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h3>던전 순위 정보</h3>
+                        <p>각 던전의 난이도와 보상 순위를 확인하세요.</p>
+                        <a href="./ms2_info_dungeon_rank.html">자세히 보기</a>
+                    </div>
                 </div>
-                
-                <div class="info-card">
-                    <h3>스킨 세트 정보</h3>
-                    <p>게임 내 다양한 스킨 세트의 정보와 획득 방법을 알아보세요.</p>
-                    <a href="./ms2_info_skinset.html">자세히 보기</a>
+            </div>
+
+            <div class="category-section">
+                <h2>아이템 정보</h2>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h3>아이템 사전</h3>
+                        <p>게임 내 다양한 아이템의 정보와 획득 방법을 알아보세요.</p>
+                        <a deprecated-href="./ms2_info_dictionary.html">(추후 제작 예정)</a>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h3>인챈트 정보</h3>
+                        <p>장비 강화를 위한 인챈트 시스템의 상세 정보를 확인하세요.</p>
+                        <a deprecated-href="./ms2_info_enchant.html">(추후 제작 예정)</a>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h3>스킨 세트 정보</h3>
+                        <p>게임 내 다양한 스킨 세트의 정보와 획득 방법을 알아보세요.</p>
+                        <a deprecated-href="./ms2_info_skinset.html">(추후 제작 예정)</a>
+                    </div>
                 </div>
-                
-                <div class="info-card">
-                    <h3>인챈트 정보</h3>
-                    <p>장비 강화를 위한 인챈트 시스템의 상세 정보를 확인하세요.</p>
-                    <a href="./ms2_info_enchant.html">자세히 보기</a>
+            </div>
+
+            <div class="category-section">
+                <h2>확률 정보</h2>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h3>방어구 추가옵션 확률 (테스트)</h3>
+                        <p>모자, 상의, 하의 방어구의 추가옵션 등장 확률을 검증한 결과를 확인하세요.</p>
+                        <a href="./ms2_info_additionaloptions_probablity_test.html">자세히 보기</a>
+                    </div>
                 </div>
-                
-                <div class="info-card">
-                    <h3>던전 순위 정보</h3>
-                    <p>각 던전의 난이도와 보상 순위를 확인하세요.</p>
-                    <a href="./ms2_info_dungeon_rank.html">자세히 보기</a>
-                </div>
-                
-                <div class="info-card">
-                    <h3>방어구 추가옵션 확률</h3>
-                    <p>모자, 상의, 하의 방어구의 추가옵션 등장 확률을 검증한 결과를 확인하세요.</p>
-                    <a href="./ms2_info_additionaloptions_probablity_test.html">자세히 보기</a>
+            </div>
+
+            <div class="category-section">
+                <h2>초보자 가이드</h2>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h3>게임 플레이 가이드</h3>
+                        <p>메이플스토리2를 처음 시작하는 분들을 위한 기본 가이드를 제공합니다.</p>
+                        <a href="./ms2_gameplay_guide.html">자세히 보기</a>
+                    </div>
                 </div>
             </div>
         </div>

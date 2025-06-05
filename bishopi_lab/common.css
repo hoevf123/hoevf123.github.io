@@ -6,13 +6,8 @@
 @font-face{
 	font-family:"gyeonggicheonneyon-light";
 	src:url("경기서체웹폰트/Title_Light.otf");
-	
 }
-@media(max-width:700px){
-    ul.navbar-target1>li, ul.sub-menu>li{
-        display: table;
-    }
-}
+
 /* CSS code start */
 /* 모든 문서의 기본 설정 */
 *{
@@ -31,6 +26,9 @@ div.div-content{
     min-width:800px;
     margin:auto;
     padding:30px;
+    background-color: #f0f2f5;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 /* 태그의 display를 flex로 설정 */
@@ -45,683 +43,451 @@ a.disable-default-font-color{
     color:inherit;
     text-decoration: inherit;
 }
-li>ul.sub-menu.hide{
-    display:none;
-}
-li>ul.sub-menu:hover, li>ul.sub-menu{
-    display:inherit;
-}
 
-/* 네비게이터(상단) */
-div.navigator-area{
-    display:inline-block;
-    position:relative;
-    background-color:rgb(52, 86, 197);
-    width:100%;
-    text-align: center;
-    height:auto;
-    padding:0px;                                            
-    margin:0px;
-}
-div.navigator-area>a{text-decoration: none;}
-div.navigator-area h1{font-size: 32px; color:#05c5ff; text-shadow: -5px -2px black; position:relative;}
-ul.navbar-target1, ul.sub-menu{
-    padding:0px;
-    margin:0px;
-    display:flex;
-    justify-content: center;
-    flex-grow: 1;
-}
-ul.navbar-target1>li, ul.sub-menu>li{
-    position: relative;
-    display:inline-block;
-    list-style: none;
-    min-width:50px;
-    width:auto;
-    padding-left:10px;
-    padding-right:10px;
-    padding-top:10px;
-    padding-bottom: 10px;
-    height:auto;
-    background-color: bisque;
-    vertical-align: middle;
-    font-weight: 400;
-    color:black;
-    font-size:medium;
-}
-ul.navbar-target1>li{
-    vertical-align: center;
-    min-width:60px;
-    min-height:60px;
-}
-ul.navbar-target1 li:hover, ul.sub-menu>li:hover{background-color:rgb(255, 241, 224); }
-ul.navbar-target1 li.disabled{background-color:gray;}
-ul.navbar-target1 li.red{background-color:tomato;}
-ul.navbar-target1 li.red:hover{background-color:rgb(255, 120, 96);}
-ul.navbar-target1 li.orange{background-color:rgb(255, 180, 40);}
-ul.navbar-target1 li.orange:hover{background-color:rgb(252, 200, 60);}
-ul.navbar-target1 li.green{background-color: lightgreen;}
-ul.navbar-target1 li.green:hover{background-color: rgb(171, 243, 171);}
-ul.navbar-target1 li.skyblue{background-color: skyblue;}
-ul.navbar-target1 li.skyblue:hover{background-color: rgb(175, 220, 238);}
-ul.navbar-target1 li.peach{background-color: rgb(255, 102, 153);}
-ul.navbar-target1 li.peach:hover{background-color: rgb(240 , 120, 160);}
-ul.navbar-target1 li.lightpink{background-color: lightpink;}
-ul.navbar-target1 li.lightpink:hover{background-color: rgb(253, 201, 211);}
-ul.navbar-target1 li.white{background-color: white;}
-ul.navbar-target1 li.transparent{background-color: transparent;}
-
-ul.navbar-target1>li p{  text-align: center; margin:0px;}
-
-.navbar-target>div.login_btn_area{display:inline; position:right;}
-li.right{display:flex; align-items: center;}
-.tag-center{display:inline-block;}
-
-ul.navbar-target1>li:hover ul.navbar-target1{
-    display:inline-block;
-    animation-name:hello;
-}
-@keyframes aaa{
-
+/* Common Frame Styles */
+.ms2-frame {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 10px 0;
 }
 
-
-/* ms2-dict */
-ul.ms2-dict-represent-area{
-    padding:0px;
+.ms2-frame.border {
+    border: 1px solid #dee2e6;
 }
 
-/* ms2-dict header*/
-.dict-data p.hash-tag{
-    display:inline;
-}
-
-/* dictdata result revealing space*/
-div.dict-result{
-    width:1040px;
-    max-width: 1040px;
-    padding:0px;
-    margin:auto;
-}
-
-/* dict-result and dict-data*/
-.dict-data:not(.selected){
-    border:1px dashed #000000;
-    padding:10px;
-}
-.dict-data.selected{
-    border:1px solid rgba(255, 0, 0,1);
-    padding:10px;
-}
-
-div.dict-result>div.dict-data:hover{animation: dictdata-initial-to-white 0.5s forwards;}
-@keyframes dictdata-initial-to-white { 0%{background-color: initial;} 100%{background-color: #ffffff;}}
-
-div.dict-result>div.dict-data:not(.selected) *{display: none !important;}
-div.dict-result>div.dict-data .ms2-dictdata-title{display: inherit !important;}
-div.dict-result>div.dict-data .ms2-dictdata-thumbnail{display: none !important;}
-.dict-data p.hash-tag::before{content:"#";}
-
-@keyframes div-selected-open{
-    from{
-        display:hidden;
-    }
-    to{
-        display:inline-block;
-    }
-}
-
-/* Design type 1 */
-div.dict-result.designType1>div.dict-data{display: inline-block; width:490px; max-width: 100%; padding:10px; margin:0px;}
-div.dict-result.designType1>div.dict-data img.thumb-img{max-width: 100%; display:block;}
-
-div.dict-result.월페이퍼>div.dict-data{
-    display: inline-block;
-    width:490px;
-    max-width: 100%;
-    padding:10px;
-    margin:0px;
-}
-div.dict-result.월페이퍼>div.dict-data:hover{animation: 월페이퍼 0.5s forwards;}
-@keyframes 월페이퍼 {
-    0%{background-color: initial;}
-    100%{background-color: #ffffff;}
-}
-
-div.dict-result.월페이퍼>div.dict-data img.thumb-img{
-    max-width: 100%;
-    display:block;
-}
-
-div.dict-result.공방도안>div.dict-data{
-    display: inline-block;
-    width:240px;
-    padding:5px;
-    margin:0px;
-}
-div.dict-result.공방도안>div.dict-data img.pallete-img{
-    width:240px;
-    display:inline-block;   
-}
-
-/* 던전 정보 */
-div.dict-result>div.dict-data p.ms2-require-level:before{
-    content:"입장 레벨 : ";
-}
-div.dict-result>div.dict-data p.ms2-dungeon-release-date:before{
-    content:"던전 출시일 : ";
-}
-div.dict-result>div.dict-data p.ms2-dungeon-closed-date:before{
-    content:"던전 폐쇄일 : ";
-}
-div.dict-result>div.dict-data p.ms2-minimum-require-players:before{
-    content:"입장 가능 최소인원 : ";
-}
-div.dict-result>div.dict-data p.ms2-minimum-require-players:after{
-    content:"명";
-}
-div.dict-result>div.dict-data p.ms2-maximum-require-players:before{
-    content:"입장 가능 최대인원 : ";
-}
-div.dict-result>div.dict-data p.ms2-maximum-require-players:after{
-    content:"명";
-}
-div.dict-result>div.dict-data p.ms2-dungeon-closed-date{
-    background-color: darkgray; 
-}
-
-/* 스킨 세트 사전 */
-div.dict-result.스킨.세트 div.ms2-skin-item {
-    border: 1px dashed #000000;
-}
-div.dict-result.스킨.세트 div.ms2-skin-item *{
-    position: relative;
-    display:inline-block;
-    padding:5px;
-    margin:5px;
-}
-div.dict-result.스킨.세트 .packageName{
-    font-size:1.5em;
-}
-div.dict-result.스킨.세트 .tradeType{
-    color:red;
-}
-
-div.dict-result.스킨.세트 div.items{
-    border-radius: 5px;
-    background-color:lightgray;
-}
-
-/* 대미지 계산기 */
-
-/* ms2-damage-checker equipped inventory displaying area styles */
-div.equipped-inventory, div.ms2-inventory{
-    display:inline-block;
-    background-color:#595959;
-    border-radius: 5px;
-    padding:5px;
-    vertical-align: middle;
-}
-
-div.ms2-item-slot{
-    display : inline-block;
-    width:60px;
-    height:60px;
-    background-color: #333333; /* item's background color */
-    background-size: 100%;
-    border-radius: 5px;
-    border-width: 1px;
-    border-color:#000000;
-    border-style: solid;
-}
-div.ms2-item-slot img,
-div.ms2-item-slot div{
-    display: inline-block;
-    position: relative;
-    width: 100%;
-    height:100%;
-    margin: 0px;
-    border-radius: inherit;
-    background-size: inherit;
-}
-
-/* ms2-item equipment (and skins) */
-div.ms2-item-slot.headgear{background-image: url("./pictogram/slot_headgear.png");}
-div.ms2-item-slot.shirt{background-image: url("./pictogram/slot_shirt.png");}
-div.ms2-item-slot.pants{background-image: url("./pictogram/slot_pants.png");}
-div.ms2-item-slot.gloves{background-image: url("./pictogram/slot_gloves.png");}
-div.ms2-item-slot.shoes{background-image: url("./pictogram/slot_shoes.png");}
-div.ms2-item-slot.earings{background-image: url("./pictogram/slot_earings.png");}
-div.ms2-item-slot.necklace{background-image: url("./pictogram/slot_necklace.png");}
-div.ms2-item-slot.rings{background-image: url("./pictogram/slot_rings.png");}
-div.ms2-item-slot.cape{background-image: url("./pictogram/slot_cape.png");}
-div.ms2-item-slot.belt{background-image: url("./pictogram/slot_belt.png");}
-div.ms2-item-slot.weapon,
-div.ms2-item-slot.subweapon{background-image: url("./pictogram/slot_weapon.png");}
-
-/* ms2-item (unique for) skins */
-div.ms2-item-slot.eyedeco{background-image: url("./pictogram/slot_eyedeco.png");}
-div.ms2-item-slot.facedeco{background-image: url("./pictogram/slot_facedeco.png");}
-
-/* ms2-item badges */
-div.ms2-item-slot.badge-transparent{background-image: url("./pictogram/slot_badge_transparent.png");}
-div.ms2-item-slot.badge-speakballon{background-image: url("./pictogram/slot_badge_speakballon.png");}
-div.ms2-item-slot.badge-nametag{background-image: url("./pictogram/slot_badge_nametag.png");}
-div.ms2-item-slot.badge-autoharvest{background-image: url("./pictogram/slot_badge_autoharvest.png");}
-div.ms2-item-slot.badge-coupleeffect{background-image: url("./pictogram/slot_badge_coupleeffect.png");}
-div.ms2-item-slot.badge-effect{background-image: url("./pictogram/slot_badge_effect.png");}
-div.ms2-item-slot.badge-tombstone{background-image: url("./pictogram/slot_badge_tombstone.png");}
-div.ms2-item-slot.badge-damagefont{background-image: url("./pictogram/slot_badge_damagefont.png");}
-div.ms2-item-slot.badge-swimmingtube{background-image: url("./pictogram/slot_badge_swimmingtube.png");}
-div.ms2-item-slot.badge-fishing{background-image: url("./pictogram/slot_badge_fishing.png");}
-div.ms2-item-slot.badge-petskin{background-image: url("./pictogram/slot_badge_petskin.png");}
-div.ms2-item-slot.badge-meta{background-image: url("./pictogram/slot_badge_meta.png");}
-
-/* ms2-item mark (for head, available to set mark at character status window) */
-div.ms2-item-slot.mark{background-image:url("./pictogram/slot_badge_mark.png")}
-
-/* ms2-item non-calculative item gradiant apeearance to darken */
-div.ms2-item-slot .nooption,
-div.ms2-item-slot .expired,
-div.ms2-item-slot.headgear :not(.headgear),
-div.ms2-item-slot.shirt :not(.shirt):not(.suit),
-div.ms2-item-slot.pants :not(.pants),
-div.ms2-item-slot.gloves :not(.gloves),
-div.ms2-item-slot.shoes :not(.shoes),
-div.ms2-item-slot.earings :not(.earings),
-div.ms2-item-slot.necklace :not(.necklace),
-div.ms2-item-slot.rings :not(.rings),
-div.ms2-item-slot.cape :not(.cape),
-div.ms2-item-slot.belt :not(.belt),
-div.ms2-item-slot.right-hand.weapon :not(.weapon):not(.orb):not(.gauntlets):not(.blade):not(.scepter):not(.staff):not(.bow):not(.cannon):not(.throw):not(.knife):not(.greatsword):not(.longsword):not(.bludgeon),
-div.ms2-item-slot.left-hand.weapon :not(.subweapon):not(.throw):not(.knife):not(.shield):not(.codex),
-div.ms2-item-slot.eyedeco :not(.eyedeco),
-div.ms2-item-slot.facedeco :not(.facedeco),
-div.ms2-item-slot.badge-transparent :not(.badge-transparent),
-div.ms2-item-slot.badge-speakballon :not(.badge-speakballon),
-div.ms2-item-slot.badge-nametag :not(.badge-nametag),
-div.ms2-item-slot.badge-autoharvest :not(.badge-autoharvest),
-div.ms2-item-slot.badge-coupleeffect :not(.badge-coupleeffect),
-div.ms2-item-slot.badge-effect :not(.badge-effect),
-div.ms2-item-slot.badge-tombstone :not(.badge-tombstone),
-div.ms2-item-slot.badge-damagefont :not(.badge-damagefont),
-div.ms2-item-slot.badge-swimmingtube :not(.badge-swimmingtube),
-div.ms2-item-slot.badge-fishing :not(.badge-fishing),
-div.ms2-item-slot.badge-petskin :not(.badge-petskin),
-div.ms2-item-slot.badge-meta :not(.badge-meta){
-    filter:brightness(40%);
-}
-
-
-/* ms2-item expired icon appear */
-div.ms2-item-slot .expired{
-    background: url(./pictogram/slot_expired.png);    
-}
-/* ms2-damage-checker damage result showing area styles */
-
-div.ms2-status-score-frame{
-    display: block;
-    color : #fffefb;
-    padding : 15px;
-    position: relative;
-    font-size: 2em;
-    background-color:#372525;
-    border:50px soild #642827;
-    border-radius: 5px;
-    height: 35px;
-    max-width: 600px;
-}
-
-div.ms2-status-score-frame>.header-score{
-    display:inline;
-    position: absolute;
-    color:inherit;
-    padding:auto;
-    margin:auto;
-    text-align: left;
-    vertical-align: middle;
-    left: 15px;
-}
-
-div.ms2-status-score-frame>.value-score{
-    display:inline;
-    position: absolute;
-    color:inherit;
-    padding:auto;
-    margin:auto;
-    text-align: right;
-    vertical-align: middle;
-    right: 15px;
-}
-
-div.ms2-attack-damage{
-    color : #fffefb;
-    background-color:#372525;
-    border:50px soild #642827;
-}
-
-div.ms2-attack-damage>.header-score{
-    display:inline;
-    position: absolute;
-    color:#ff5f5f;
-    text-shadow: 0px 2px 2px black;
-    padding:auto;
-    margin:auto;
-    text-align: left;
-    vertical-align: middle;
-    left: 15px;
-}
-/* div.ms2-attack-damage>.value-score{} */
-
-div.ms2-defense{
-    color : #fffefb;
-    background-color:#233549;
-    border:50px soild #3b5c6f;
-}
-
-div.ms2-defense>.header-score{
-    color:#56c1e1;
-    text-shadow: 0px 2px 2px black;
-}
-
-
-/* div.ms2-defense>.value-score{} */
-
-
-div.ms2-gear{
-    color : #fffefb;
-    background-color:#3c3723;
-    border:50px soild #8b7d3e;
-}
-
-div.ms2-gear>.header-score{
-    color:#ffeefb;
-    text-shadow: 0px 2px 2px black;
-}
-/* div.ms2-gear>.value-score{} */
-
-
-/* ms2-damage-checker result styles */
-.ms2-damage-check-generating-area{
-    position: relative;
-    border:1px dashed #000000;
-    padding-left:10px;
-    padding-right:10px;
-    padding-top:5px;
-    padding-bottom:5px;
-    max-width: 600px;
-    background:#3b3b3b;
-    color:#fffefb;
-    font-size: 1em;
-    border-radius: 10px;
-}
-
-.ms2-damage-check-generating-area>div.object-key-value-set p{
-    display: inline-block;
-    width:auto;
-    max-width:250px;
-    vertical-align: middle;
-    position: relative;
-    margin:10px;
-    left:0px;
-}
-.ms2-damage-check-generating-area>div.object-key-value-set select   {
-    background-color: inherit;
-    text-align: right;
-    text-align-last:right;
-    color:inherit;
-    font: inherit;
-    /* appearance: none; */
-    padding:0.3em;
-    border:0px;
-}
-
-
-.ms2-damage-check-generating-area>div.object-key-value-set select option:checked{ color: #fdd41a;}
-
-.ms2-damage-check-generating-area>div.object-key-value-set select.weaponQuality option[value="Rare"]:not(:checked){ color:lime;}
-.ms2-damage-check-generating-area>div.object-key-value-set select.weaponQuality option[value="Exceptional"]:not(:checked){color:#56c1e1;}
-.ms2-damage-check-generating-area>div.object-key-value-set select.weaponQuality option[value="Epic"]:not(:checked){color:purple;}
-.ms2-damage-check-generating-area>div.object-key-value-set select.weaponQuality option[value="Legendary"]:not(:checked){color:orange;}
-.ms2-damage-check-generating-area>div.object-key-value-set select.weaponQuality option[value="Ascendant"]:not(:checked){color:orangered;}
-
-
-.ms2-damage-check-generating-area>div.object-key-value-set select option,
-.ms2-damage-check-generating-area>div.object-key-value-set input{
-    color:inherit;
-    font: inherit;
-    text-align: right;
-    text-align-last: right;
-    margin-left:auto;
-    margin-right:0;
-    width:8em;
-    height:auto;
-    padding:0.1em;
-    background-color: #2e2e2e;
-}
-
-
-.ms2-damage-check-generating-area>div.object-key-value-set :not(div):not(.object-key){
-    display: inline-block;
-    position: relative;
-    margin:auto;
-    vertical-align: middle;
-    text-align: right;
-    right:0px;
-}
-
-.ms2-damage-check-generating-area>div.object-key-value-set{
-    display:flex;
-}
-.ms2-damage-check-generating-area>div.object-key-value-set .object-key{
-    width:16em;
-}
-
-
-/* Maplestory2 UI Style Frame skin */
-div.ms2-frame.border{
-    border:2px solid #a1a1a1;
-    background-color:#c8c8c8c8;
-    padding:1px;
-    border-radius:3px;
-}
-div.ms2-frame{
-    border:2px solid #a1a1a1;
-    background-color:#fcfcfc;
-    padding:10px;
-    border-radius:5px;
-}
-div.ms2-frame.lightdark{ border:2px solid #434343; background-color:#2b2b2b;}
-div.ms2-frame.gray{ border:2px solid #434343; background-color:#3b3b3b;}
-div.ms2-frame.lightgray{ border:2px solid #434343; background-color:#434343;}
-
-div.ms2-frame.title{
-    background-color:silver;
-    animation-name: ms2-title-animation;
-    animation-duration: 3s;
-    animation:infinite;
-    padding:3px;
-}
-
-@keyframes ms2-title-animation {
-    0%{
-        background-color: darkgray;
-    }
-    50%{
-        background-color: silver;
-    }
-    100%{
-        background-color: darkgray;
-    }
-}
-
-
-/* div-ms2-item item-image */
-div.ms2-item-slot[data-item-name="fire prism scepter"]{background-image: url("./pictogram/item_fire_prism_scepter.png");}
-div.ms2-item-slot[data-item-name="fire prism codex"]{background-image: url("./pictogram/item_fire_prism_codex.png");}
-
-/* div-ms2-enchant header to table */
-div.ms2-upgrade-sequence{
-    border:1px dashed #000000;
-}
-div.ms2-upgrade-sequence p{
-    display:inline-block;
-}
-
-
-
-/* ms2-boss-rank-list */
-.ms2-boss-rank-list li{ list-style-type: none; display: inline-block;}
-.ms2-boss-rank-list li div{position: relative; display: inline-block;}
-.ms2-boss-rank-list li div.div-linkblock-button{min-height:200px; margin:0px; padding:5px; border-radius : 15px; /*background-color:lightsalmon;*/}
-.ms2-boss-rank-list li div.thumbimg{padding:0px; margin:0px}
-.ms2-boss-rank-list li p{ text-align: center;}
-.ms2-boss-rank-list li p.dungeon-require-level{padding:5px; margin:5px; border-radius: 10px;}
-
-
-/* link button of ms2-boss-rank (conventional)*/
-.ms2-boss-rank-list li>a div:not(.dungeon-closed) img{ border: 5px solid rgb(255, 124, 72); z-index: 0;}
-.ms2-boss-rank-list li>a div:not(.dungeon-closed) p.mob-level,
-.ms2-boss-rank-list li>a div:not(.dungeon-closed) p.dungeon-require-level{ background-color: rgb(255, 124, 72);}
-.ms2-boss-rank-list li:hover>a div:not(.dungeon-closed) img{ border-color:darkorange;}
-.ms2-boss-rank-list li:hover>a div:not(.dungeon-closed) p.mob-level{ background-color:darkorange;}
-.ms2-boss-rank-list li:hover>a div.div-linkblock-button{ background-color:rgb(250, 193, 124);}
-
-/* link button of ms2-boss-rank but its dungeon recording(or open state) is expired */
-.ms2-boss-rank-list li>a div.dungeon-closed img{ border: 5px solid #333333; z-index: 0;}
-.ms2-boss-rank-list li>a div.dungeon-closed p.mob-level,
-.ms2-boss-rank-list li>a div.dungeon-closed p.dungeon-require-level{ background-color: #333333;}
-.ms2-boss-rank-list li:hover>a div.dungeon-closed img{ border-color:red;}
-.ms2-boss-rank-list li:hover>a div.dungeon-closed p.mob-level{ background-color:red;}
-.ms2-boss-rank-list li:hover>a div.div-linkblock-button.dungeon-closed{ background-color:salmon;}
-
-/* link button of ms2-boss-rank (not have link) */
-.ms2-boss-rank-list li>:not(a) *{filter:brightness(60%);}
-.ms2-boss-rank-list li>:not(a) img{ border: 5px solid darkgray; z-index: 0; }
-.ms2-boss-rank-list li>:not(a) p.mob-level,
-.ms2-boss-rank-list li>:not(a) p.dungeon-require-level{ background-color: darkgray;}
-.ms2-boss-rank-list li:hover>:not(a) img{ border-color:red;}
-.ms2-boss-rank-list li:hover>:not(a) p.mob-level{ background-color:red;}
-.ms2-boss-rank-list li:hover>:not(a) div.div-linkblock-button{background-color:rgb(250, 124, 124);}
-
-
-
-
-/* link button ingredients decoration */
-.ms2-boss-rank-list li img{ position:inherit; width:120px; height: 120px; background-color: black; border-radius: 15px; margin:0px; padding:0px;}
-.ms2-boss-rank-list li p.dungeon-type,
-.ms2-boss-rank-list li p.mob-level{position:absolute; z-index: 1;}
-.ms2-boss-rank-list li p.dungeon-name,
-.ms2-boss-rank-list li p.mob-name{padding:3px; margin:3px; max-width: 120px; line-break:strict; word-break: keep-all;}
-.ms2-boss-rank-list li p.dungeon-require-level{color:white;}
-.ms2-boss-rank-list li p.mob-level{left:0px; top:0px; margin:0px; padding:5px; border-radius: 15px 0px 5px 0px; color:white;}
-.ms2-boss-rank-list li p.dungeon-type{position: absolute; right: 0px; bottom:0px; padding:2px; border-radius:2px; background-color:magenta; margin:10px;}
-.ms2-boss-rank-list li p.dungeon-type[data-dungeon-type="카오스 레이드"]{ background-color:crimson;}
-.ms2-boss-rank-list li p.dungeon-type[data-dungeon-type="리버스 레이드"]{ background-color:lightpink;}
-.ms2-boss-rank-list li p.dungeon-type[data-dungeon-type="포트리스 럼블"]{ background-color:skyblue;}
-.ms2-boss-rank-list li p.dungeon-type[data-dungeon-type="월드 인베이전"]{ background-color:orange;}
-.ms2-boss-rank-list li p.dungeon-type[data-dungeon-type="아이 오브 라펜타"]{ background-color:mediumorchid;}
-.ms2-boss-rank-list li p.dungeon-type[data-dungeon-type="칠흑의 성전"]{ background-color:crimson;}
-
-.ms2-boss-rank-list li a * {text-decoration: none; color:black;}
-
-
-/* dict-data header names display */
-.dictdata-names>li{
-    position: relative;
-    display:inline-block;
-    list-style: none;
-    min-width:50px;
-    width:auto;
-    padding-left:10px;
-    padding-right:10px;
-    padding-top:10px;
-    padding-bottom: 10px;
-    margin-top:3px;
-    margin-bottom:3px;
-    margin-left:auto;
-    margin-right:auto;
-    height:auto;
-    background-color: bisque;
-    vertical-align: middle;
-    border-radius: 10px;
-    font-weight: 400;
-    color:black;
-    font-size:medium;
-}
-.pallete-cost-meso::after{
-    content: "메소";
-}
-.pallete-cost-meret::after{
-    content: "메럿";
-}
-
-/* 장비 슬롯 */
-.equipped-inventory.equipment .headgear,
-.equipped-inventory.equipment .shirt,
-.equipped-inventory.equipment .pants,
-.equipped-inventory.equipment .gloves,
-.equipped-inventory.equipment .shoes,
-.equipped-inventory.equipment .earings,
-.equipped-inventory.equipment .necklace,
-.equipped-inventory.equipment .rings,
-.equipped-inventory.equipment .cape,
-.equipped-inventory.equipment .belt,
-.equipped-inventory.equipment .right-hand.weapon,
-.equipped-inventory.equipment .left-hand.weapon,
-/* 스킨 슬롯 */
-.equipped-inventory.skin .headgear,
-.equipped-inventory.skin .shirt,
-.equipped-inventory.skin .pants,
-.equipped-inventory.skin .gloves,
-.equipped-inventory.skin .shoes,
-.equipped-inventory.skin .earings,
-.equipped-inventory.skin .necklace,
-.equipped-inventory.skin .rings,
-.equipped-inventory.skin .cape,
-.equipped-inventory.skin .eyedeco,
-.equipped-inventory.skin .facedeco,
-.equipped-inventory.skin .right-hand.weapon,
-.equipped-inventory.skin .left-hand.weapon {
-    /* 슬롯 스타일 */
-    width: 50px;
-    height: 50px;
-    border: 1px solid #666;
-    background-color: rgba(0, 0, 0, 0.3);
-    cursor: pointer;
-    transition: all 0.2s ease;
-    position: relative;
+/* Common Status Score Frame */
+.ms2-status-score-frame {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
+    padding: 10px;
+    background-color: white;
+    border-radius: 4px;
+    margin: 5px 0;
 }
 
-/* 슬롯 호버 효과 */
-.equipped-inventory.equipment .headgear:hover,
-.equipped-inventory.equipment .shirt:hover,
-.equipped-inventory.equipment .pants:hover,
-.equipped-inventory.equipment .gloves:hover,
-.equipped-inventory.equipment .shoes:hover,
-.equipped-inventory.equipment .earings:hover,
-.equipped-inventory.equipment .necklace:hover,
-.equipped-inventory.equipment .rings:hover,
-.equipped-inventory.equipment .cape:hover,
-.equipped-inventory.equipment .belt:hover,
-.equipped-inventory.equipment .right-hand.weapon:hover,
-.equipped-inventory.equipment .left-hand.weapon:hover,
-.equipped-inventory.skin .headgear:hover,
-.equipped-inventory.skin .shirt:hover,
-.equipped-inventory.skin .pants:hover,
-.equipped-inventory.skin .gloves:hover,
-.equipped-inventory.skin .shoes:hover,
-.equipped-inventory.skin .earings:hover,
-.equipped-inventory.skin .necklace:hover,
-.equipped-inventory.skin .rings:hover,
-.equipped-inventory.skin .cape:hover,
-.equipped-inventory.skin .eyedeco:hover,
-.equipped-inventory.skin .facedeco:hover,
-.equipped-inventory.skin .right-hand.weapon:hover,
-.equipped-inventory.skin .left-hand.weapon:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    border-color: #888;
+.ms2-status-score-frame .header-score {
+    font-weight: bold;
+    margin: 0;
 }
+
+.ms2-status-score-frame .value-score {
+    margin: 0;
+    color: #007bff;
+}
+
+/* Common Item Slot Styles */
+.ms2-item-slot {
+    width: 48px;
+    height: 48px;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    margin: 2px;
+    display: inline-block;
+    background-color: white;
+    position: relative;
+}
+
+.ms2-item {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.ms2-item.skin {
+    opacity: 0.7;
+}
+
+/* Common Inventory Grid */
+.equipped-inventory,
+.ms2-character-equipment-generating-area {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(48px, 1fr));
+    gap: 5px;
+    padding: 10px;
+    background-color: white;
+    border-radius: 4px;
+}
+
+/* Common Select Styles */
+.ms2-select {
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    padding: 8px;
+    font-size: 14px;
+    width: 100%;
+    max-width: 300px;
+}
+
+.ms2-select:focus {
+    outline: none;
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
+
+/* Common Button Styles */
+.add-gear-btn, 
+.add-skin-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.add-gear-btn:hover, 
+.add-skin-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Common Container Styles */
+.item-select-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.gear-select-container, 
+.skin-select-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.selected-item, 
+.selected-skin {
+    width: 64px;
+    height: 64px;
+    border: 2px solid #007bff;
+    border-radius: 4px;
+    margin: 10px 0;
+}
+
+/* Navigation Styles */
+.site-header {
+    background: linear-gradient(135deg, #2c3e50, #3498db);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.main-nav {
+    width: 100%;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
+}
+
+.site-title {
+    text-decoration: none;
+}
+
+.site-title h1 {
+    color: #fff;
+    font-size: 1.8rem;
+    margin: 0;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    transition: color 0.3s ease;
+}
+
+.site-title:hover h1 {
+    color: #f1c40f;
+}
+
+.mobile-menu-button {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.menu-icon {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: #fff;
+    position: relative;
+    transition: background-color 0.3s ease;
+}
+
+.menu-icon::before,
+.menu-icon::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    transition: transform 0.3s ease;
+}
+
+.menu-icon::before {
+    transform: translateY(-8px);
+}
+
+.menu-icon::after {
+    transform: translateY(8px);
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 20px;
+}
+
+.nav-item {
+    position: relative;
+}
+
+.nav-button {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1rem;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+/* 메인 메뉴 아이템별 색상 */
+.nav-item:nth-child(1) .nav-button {
+    background: linear-gradient(45deg, #e74c3c, #c0392b);
+}
+
+.nav-item:nth-child(2) .nav-button {
+    background: linear-gradient(45deg, #2ecc71, #27ae60);
+}
+
+.nav-item:nth-child(3) .nav-button {
+    background: linear-gradient(45deg, #f1c40f, #f39c12);
+}
+
+.nav-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.submenu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #fff;
+    min-width: 200px;
+    border-radius: 5px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    padding: 10px 0;
+    margin-top: 5px;
+}
+
+.nav-item.active .submenu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.submenu li {
+    list-style: none;
+}
+
+.submenu a {
+    display: block;
+    padding: 10px 20px;
+    color: #2c3e50;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.submenu a:hover {
+    background: #f8f9fa;
+    color: #3498db;
+    padding-left: 25px;
+}
+
+/* 모바일 반응형 스타일 */
+@media (max-width: 768px) {
+    .mobile-menu-button {
+        display: block;
+    }
+
+    .nav-container {
+        padding: 0 15px;
+    }
+
+    .nav-menu {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        right: 0;
+        background: #2c3e50;
+        flex-direction: column;
+        padding: 20px;
+        gap: 10px;
+        transform: translateY(-100%);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .nav-menu.active {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .nav-item {
+        width: 100%;
+    }
+
+    .nav-button {
+        width: 100%;
+        text-align: left;
+        padding: 15px;
+    }
+
+    .submenu {
+        position: static;
+        background: rgba(255,255,255,0.1);
+        box-shadow: none;
+        margin-top: 10px;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        display: none;
+    }
+
+    .nav-item.active .submenu {
+        display: block;
+    }
+
+    .submenu a {
+        color: #fff;
+        padding: 12px 25px;
+    }
+
+    .submenu a:hover {
+        background: rgba(255,255,255,0.1);
+        color: #f1c40f;
+    }
+}
+
+/* Build Info Page Styles */
+.div-content {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 40px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.div-content h1 {
+    color: #2c3e50;
+    font-size: 2.5em;
+    margin-bottom: 1em;
+    text-align: center;
+    border-bottom: 3px solid #3498db;
+    padding-bottom: 0.5em;
+}
+
+.div-content h2 {
+    color: #34495e;
+    font-size: 1.8em;
+    margin: 1.5em 0 0.8em;
+    padding-left: 0.5em;
+    border-left: 4px solid #3498db;
+}
+
+.div-content h3 {
+    color: #2c3e50;
+    font-size: 1.4em;
+    margin: 1.2em 0 0.6em;
+}
+
+.div-content p {
+    line-height: 1.6;
+    color: #2c3e50;
+    margin: 0.8em 0;
+}
+
+.div-content ul {
+    list-style-type: none;
+    padding-left: 1.5em;
+}
+
+.div-content ul li {
+    margin: 0.8em 0;
+    position: relative;
+}
+
+.div-content ul li::before {
+    content: "•";
+    color: #3498db;
+    font-weight: bold;
+    position: absolute;
+    left: -1.2em;
+}
+
+.div-content a {
+    color: #3498db;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.div-content a:hover {
+    color: #2980b9;
+    text-decoration: underline;
+}
+
+.div-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 1em 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.div-content br {
+    margin: 1.5em 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .div-content {
+        padding: 20px;
+        margin: 20px;
+    }
+    
+    .div-content h1 {
+        font-size: 2em;
+    }
+    
+    .div-content h2 {
+        font-size: 1.5em;
+    }
+    
+    .div-content h3 {
+        font-size: 1.2em;
+    }
+}
+
+/* Dungeon Ranking Page Styles */

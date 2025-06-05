@@ -5,6 +5,89 @@
     <title>비숍이 실험실</title>
     <link rel="stylesheet" href="common.css">
     <script src="w3-include-html.js"></script>
+    <script src="nav-header.js"></script>
+    <style>
+
+        /* ms2-boss-rank-list */
+        
+        .ms2-boss-rank-list { list-style-type: none; padding: 0; margin: 0; }
+        .ms2-boss-rank-list li{ list-style-type: none; display: inline-block;}
+        .ms2-boss-rank-list li div{position: relative; display: inline-block;}
+        .ms2-boss-rank-list li div.div-linkblock-button{min-height:200px; margin:0px; padding:5px; border-radius : 15px; background: #fff8f0; border: 2px solid #ffe49b; box-shadow: 0 2px 8px rgba(255, 124, 72, 0.08); transition: box-shadow 0.2s, border-color 0.2s, background 0.2s;}
+        .ms2-boss-rank-list li div.thumbimg{padding:0px; margin:0px}
+        .ms2-boss-rank-list li p{ text-align: center;}
+        .ms2-boss-rank-list li p.dungeon-require-level{padding:5px; margin:5px; border-radius: 10px;}
+
+
+        /* link button of ms2-boss-rank (conventional)*/
+        .ms2-boss-rank-list li>a div:not(.dungeon-closed) img{ border: 5px solid rgb(255, 124, 72); z-index: 0;}
+        .ms2-boss-rank-list li>a div:not(.dungeon-closed) p.mob-level,
+        .ms2-boss-rank-list li>a div:not(.dungeon-closed) p.dungeon-require-level{ background-color: rgb(255, 124, 72);}
+        .ms2-boss-rank-list li:hover>a div:not(.dungeon-closed) img{ border-color:darkorange;}
+        .ms2-boss-rank-list li:hover>a div:not(.dungeon-closed) p.mob-level{ background-color:darkorange;}
+        .ms2-boss-rank-list li:hover>a div.div-linkblock-button,
+        .ms2-boss-rank-list li > a div.div-linkblock-button:hover {
+            background: #ffbf7e;
+            border-color: orange;
+            box-shadow: 0 4px 16px rgba(255, 124, 72, 0.18);
+        }
+
+        /* link button of ms2-boss-rank but its dungeon recording(or open state) is expired */
+        .ms2-boss-rank-list li>a div.dungeon-closed img{ border: 5px solid #333333; z-index: 0;}
+        .ms2-boss-rank-list li>a div.dungeon-closed p.mob-level,
+        .ms2-boss-rank-list li>a div.dungeon-closed p.dungeon-require-level{ background-color: #333333;}
+        .ms2-boss-rank-list li:hover>a div.dungeon-closed img{ border-color:red;}
+        .ms2-boss-rank-list li:hover>a div.dungeon-closed p.mob-level{ background-color:red;}
+        .ms2-boss-rank-list li:hover>a div.div-linkblock-button.dungeon-closed{ background-color:salmon;}
+
+        /* link button of ms2-boss-rank (not have link) */
+        .ms2-boss-rank-list li>:not(a) *{filter:brightness(60%);}
+        .ms2-boss-rank-list li>:not(a) img{ border: 5px solid darkgray; z-index: 0; }
+        .ms2-boss-rank-list li>:not(a) p.mob-level,
+        .ms2-boss-rank-list li>:not(a) p.dungeon-require-level{ background-color: darkgray;}
+        .ms2-boss-rank-list li:hover>:not(a) img{ border-color:red;}
+        .ms2-boss-rank-list li:hover>:not(a) p.mob-level{ background-color:red;}
+        .ms2-boss-rank-list li:hover>:not(a) div.div-linkblock-button{background-color:rgb(250, 124, 124);}
+
+
+
+
+        /* link button ingredients decoration */
+        .ms2-boss-rank-list li img{ position:inherit; width:120px; height: 120px; background-color: black; border-radius: 15px; margin:0px; padding:0px;}
+        .ms2-boss-rank-list li p.dungeon-type,
+        .ms2-boss-rank-list li p.mob-level{position:absolute; z-index: 1;}
+        .ms2-boss-rank-list li p.dungeon-name,
+        .ms2-boss-rank-list li p.mob-name{padding:3px; margin:3px; max-width: 120px; line-break:strict; word-break: keep-all;}
+        .ms2-boss-rank-list li p.dungeon-require-level{color:white;}
+        .ms2-boss-rank-list li p.mob-level{left:0px; top:0px; margin:0px; padding:5px; border-radius: 15px 0px 5px 0px; color:white;}
+        .ms2-boss-rank-list li p.dungeon-type{position: absolute; right: 0px; bottom:0px; padding:2px; border-radius:2px; background-color:magenta; margin:10px;}
+        .ms2-boss-rank-list li p.dungeon-type[data-dungeon-type="카오스 레이드"]{ background-color:crimson;}
+        .ms2-boss-rank-list li p.dungeon-type[data-dungeon-type="리버스 레이드"]{ background-color:lightpink;}
+        .ms2-boss-rank-list li p.dungeon-type[data-dungeon-type="포트리스 럼블"]{ background-color:skyblue;}
+        .ms2-boss-rank-list li p.dungeon-type[data-dungeon-type="월드 인베이전"]{ background-color:orange;}
+        .ms2-boss-rank-list li p.dungeon-type[data-dungeon-type="아이 오브 라펜타"]{ background-color:mediumorchid;}
+        .ms2-boss-rank-list li p.dungeon-type[data-dungeon-type="칠흑의 성전"]{ background-color:crimson;}
+
+        .ms2-boss-rank-list li a * {text-decoration: none; color:black;}
+
+        .ms2-boss-rank-list li::before { display: none !important; content: none !important; }
+
+        .ms2-boss-rank-list li div.div-linkblock-button.dungeon-closed {
+            background: #616161;
+            border-color: #bbb;
+            box-shadow: 0 2px 8px rgba(120,120,120,0.10);
+            color: #888;
+        }
+        .ms2-boss-rank-list li div.div-linkblock-button.dungeon-closed * {
+            color: #888 !important;
+        }
+        .ms2-boss-rank-list li:hover > a div.div-linkblock-button.dungeon-closed,
+        .ms2-boss-rank-list li > a div.div-linkblock-button.dungeon-closed:hover {
+            background: #ff6767;
+            border-color: #ffb0b0;
+            box-shadow: 0 4px 16px rgba(120,120,120,0.18);
+        }
+    </style>
 </head>
 
 <body>

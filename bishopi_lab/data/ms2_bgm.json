@@ -1,0 +1,1830 @@
+{
+    "typename": "배경음악",
+    "tuple_tag_format": [
+        [
+            "p",
+            "title ms2-dictdata-title"
+        ],
+        [
+            "p",
+            "music_play_location"
+        ],
+        [
+            "p",
+            "ms2_file_name ms2-dictdata-title"
+        ],
+        [
+            "a",
+            "bgm_src"
+        ]
+    ],
+    "datas": [
+        [
+            "",
+            "",
+            "BGM_AbandonedForest_Intro_01.mp3",
+            "./Maplestory2/BGM/BGM_AbandonedForest_Intro_01.mp3"
+        ],
+        [
+            "",
+            "",
+            "BGM_AbandonedForest_Loop_01.mp3",
+            "./Maplestory2/BGM/BGM_AbandonedForest_Loop_01.mp3"
+        ],
+        [
+            "",
+            "",
+            "BGM_AbandonedForest_Loop_02.mp3",
+            "./Maplestory2/BGM/BGM_AbandonedForest_Loop_02.mp3"
+        ],
+        [
+            "",
+            "티아만",
+            "BGM_Acropolis_01.mp3",
+            "./Maplestory2/BGM/BGM_Acropolis_01.mp3"
+        ],
+        [
+            "",
+            "",
+            "BGM_AfterSorrow_01.mp3",
+            "./Maplestory2/BGM/BGM_AfterSorrow_01.mp3"
+        ],
+        [
+            "Alkeina Theme",
+            "바베니, 알케이나 고원",
+            "BGM_Alkeina_Theme_01.mp3",
+            "./Maplestory2/BGM/BGM_Alkeina_Theme_01.mp3"
+        ],
+        [
+            "Grace of Two",
+            "결혼식장 - 트라이아 아모르앙 웨딩홀",
+            "BGM_AmorangWeddingHall_01.mp3",
+            "./Maplestory2/BGM/BGM_AmorangWeddingHall_01.mp3"
+        ],
+        [
+            "",
+            "트라이아 - 아모르앙 웨딩홀",
+            "BGM_AmorangWeddingHall_02.mp3",
+            "./Maplestory2/BGM/BGM_AmorangWeddingHall_02.mp3"
+        ],
+        [
+            "",
+            "트라이아 - 아모르앙 웨딩홀",
+            "BGM_AmorangWeddingHall_03.mp3",
+            "./Maplestory2/BGM/BGM_AmorangWeddingHall_03.mp3"
+        ],
+        [
+            "",
+            "크리티아스 톱니바퀴 미니게임",
+            "BGM_ArcaneJourney_01.mp3",
+            "./Maplestory2/BGM/BGM_ArcaneJourney_01.mp3"
+        ],
+        [
+            "",
+            "(던전)숨겨진 격납고",
+            [
+                "BGM_Archeon_Intro_01.mp3",
+                "BGM_Archeon_Loop_01.mp3"
+            ],
+            [
+                "./Maplestory2/BGM/BGM_Archeon_Intro_01.mp3",
+                "./Maplestory2/BGM/BGM_Archeon_Loop_01.mp3"
+            ]
+        ],
+        [
+            "",
+            "스카이 포트리스 갑판 - (보스)아머드 체키 전투",
+            "BGM_ArmoredChecky_Theme_01.mp3",
+            "./Maplestory2/BGM/BGM_ArmoredChecky_Theme_01.mp3"
+        ],
+        [
+            "",
+            "",
+            "BGM_Assassin_Theme_01.mp3",
+            "./Maplestory2/BGM/BGM_Assassin_Theme_01.mp3"
+        ],
+        [
+            "",
+            "(던전)마드라칸 지하도 수로",
+            [
+                "BGM_Barlog's Desire_Intro.mp3",
+                "BGM_Barlog's Desire_Loop.mp3"
+            ],
+            [
+                "./Maplestory2/BGM/BGM_Barlog's Desire_Intro.mp3",
+                "./Maplestory2/BGM/BGM_Barlog's Desire_Loop.mp3"
+            ]
+        ],
+        [
+            "",
+            "",
+            "BGM_BattleStage_01.mp3",
+            "./Maplestory2/BGM/BGM_BattleStage_01.mp3"
+        ],
+        [
+            "Afternoon Tea",
+            "뷰티 스트리트",
+            "BGM_BeautyStreet_01.mp3",
+            [
+                "./Maplestory2/BGM/BGM_BeautyStreet_01.mp3",
+                "http://maple2.vod.nexoncdn.co.kr/official/bgm/Afternoon%20Tea.mp3"
+            ]
+        ],
+        [
+            "",
+            "",
+            "BGM_BeautyStreet_Quest_01.mp3",
+            "./Maplestory2/BGM/BGM_BeautyStreet_Quest_01.mp3"
+        ],
+        [
+            "",
+            "",
+            "BGM_Berserker_Theme_01.mp3",
+            "./Maplestory2/BGM/BGM_Berserker_Theme_01.mp3"
+        ],
+        [
+            "",
+            "",
+            "BGM_BindCrystal_Theme_01.mp3",
+            "./Maplestory2/BGM/BGM_BindCrystal_Theme_01.mp3"
+        ],
+        [
+            "",
+            "(던전)우당탕 블랙빈 놀이터 - 달려달려 서킷",
+            "BGM_BlackBeanBoss_01.mp3",
+            "./Maplestory2/BGM/BGM_BlackBeanBoss_01.mp3"
+        ],
+        [
+            "",
+            "(던전)우당탕 블랙빈 놀이터 - 쓱싹쓱싹 아틀리에",
+            "BGM_BlackBeanBoss_02.mp3",
+            "./Maplestory2/BGM/BGM_BlackBeanBoss_02.mp3"
+        ],
+        [
+            "",
+            "(맵)블랙마켓",
+            "BGM_BlackMarket_01.mp3",
+            "./Maplestory2/BGM/BGM_BlackMarket_01.mp3"
+        ],
+        [
+            "",
+            "(던전)블랙 오닉스 타워",
+            "BGM_BlackOynx_01.mp3",
+            "./Maplestory2/BGM/BGM_BlackOynx_01.mp3"
+        ],
+        [
+            "",
+            "",
+            "BGM_BlackStar_Theme_01.mp3",
+            "./Maplestory2/BGM/BGM_BlackStar_Theme_01.mp3"
+        ],
+        [
+            "",
+            "",
+            "BGM_BlackStar_Theme_02.mp3",
+            "./Maplestory2/BGM/BGM_BlackStar_Theme_02.mp3"
+        ],
+        [
+            "",
+            "",
+            [
+                "BGM_BlackStar_Trap_Intro_01.mp3",
+                "BGM_BlackStar_Trap_Loop_01.mp3"
+            ],
+            [
+                "./Maplestory2/BGM/BGM_BlackStar_Trap_Intro_01.mp3",
+                "./Maplestory2/BGM/BGM_BlackStar_Trap_Loop_01.mp3"
+            ]
+        ],
+        [
+            "",
+            "(던전) 푸른 화염의 혼돈 [보스가 맵에 존재하지 않을 때]",
+            [
+                "BGM_BlueLuke_battle.mp3"
+            ],
+            [
+                "./Maplestory2/BGM/BGM_BlueLuke_battle.mp3"
+            ]
+        ],
+        [
+            "",
+            "",
+            [
+                "BGM_Boss_01_Intro.mp3",
+                "BGM_Boss_01_Loop.mp3"
+            ],
+            [
+                "./Maplestory2/BGM/BGM_Boss_01_Intro.mp3",
+                "./Maplestory2/BGM/BGM_Boss_01_Loop.mp3"
+            ]
+        ],
+        [
+            "",
+            "",
+            [
+                "BGM_Boss_02_intro.mp3",
+                "BGM_Boss_02_main.mp3"
+            ],
+            [
+                "./Maplestory2/BGM/BGM_Boss_02_intro.mp3",
+                "./Maplestory2/BGM/BGM_Boss_02_main.mp3"
+            ]
+        ],
+        [
+            "",
+            "",
+            [
+                "BGM_Boss_03_Intro.mp3",
+                "BGM_Boss_03_Loop.mp3"
+            ],
+            [
+                "./Maplestory2/BGM/BGM_Boss_03_Intro.mp3",
+                "./Maplestory2/BGM/BGM_Boss_03_Loop.mp3"
+            ]
+        ],
+        [
+            "",
+            "",
+            [
+                "BGM_Boss_04_Intro.mp3",
+                "BGM_Boss_04_Loop.mp3"
+            ],
+            [
+                "./Maplestory2/BGM/BGM_Boss_04_Intro.mp3",
+                "./Maplestory2/BGM/BGM_Boss_04_Loop.mp3"
+            ]
+        ],
+        [
+            "",
+            "",
+            [
+                "BGM_Boss_05_Intro.mp3",
+                "BGM_Boss_05_Loop.mp3"
+            ],
+            [
+                "./Maplestory2/BGM/BGM_Boss_05_Intro.mp3",
+                "./Maplestory2/BGM/BGM_Boss_05_Loop.mp3"
+            ]
+        ],
+        [
+            "",
+            "(던전)마드라칸 첨탑",
+            [
+                "BGM_Boss_06_Intro.mp3",
+                "BGM_Boss_06_Loop.mp3"
+            ],
+            [
+                "./Maplestory2/BGM/BGM_Boss_06_Intro.mp3",
+                "./Maplestory2/BGM/BGM_Boss_06_Loop.mp3"
+            ]
+        ],
+        [
+            "",
+            "(던전)알케이나 델파이온, (던전)에네르 성 쟁탈전",
+            [
+                "BGM_Boss_07_intro_01.mp3",
+                "BGM_Boss_07_loop_01.mp3"
+            ],
+            [
+                "./Maplestory2/BGM/BGM_Boss_07_intro_01.mp3",
+                "./Maplestory2/BGM/BGM_Boss_07_loop_01.mp3"
+            ]
+        ],
+        [
+            "",
+            "(던전)투르카의 공중요새",
+            [
+                "BGM_Boss_08_Intro.mp3",
+                "BGM_Boss_08_Loop.mp3"
+            ],
+            [
+                "./Maplestory2/BGM/BGM_Boss_08_Intro.mp3",
+                "./Maplestory2/BGM/BGM_Boss_08_Loop.mp3"
+            ]
+        ],
+        [
+            "",
+            "(던전)마드라칸 잠입 선택루트",
+            "BGM_Boss_Event_Loop_01.mp3",
+            "./Maplestory2/BGM/BGM_Boss_Event_Loop_01.mp3"
+        ],
+        [
+            "",
+            "(던전)퀸크빈 럼블 던전 로비",
+            "BGM_Colosseum_room_01.mp3",
+            "./Maplestory2/BGM/BGM_Colosseum_room_01.mp3"
+        ],
+        [
+            "",
+            "(던전)퀸크빈 럼블",
+            "BGM_Colosseum_stadium_01.mp3",
+            "./Maplestory2/BGM/BGM_Colosseum_stadium_01.mp3"
+        ],
+        [
+            "",
+            "(던전 보스)인페르녹 조우",
+            [
+                "BGM_CrimsonBarlogBoss_Intro_01.mp3",
+                "BGM_CrimsonBarlogBoss_Loop_01.mp3"
+            ],
+            [
+                "./Maplestory2/BGM/BGM_CrimsonBarlogBoss_Intro_01.mp3",
+                "./Maplestory2/BGM/BGM_CrimsonBarlogBoss_Loop_01.mp3"
+            ]
+        ],
+        [
+            "",
+            "",
+            "BGM_DarkSide_01.mp3",
+            "./Maplestory2/BGM/BGM_DarkSide_01.mp3"
+        ],
+        [
+            "",
+            "어둠의 뿌리, 다크 스트림",
+            [
+                "BGM_DarkStream_Intro.mp3",
+                "BGM_DarkStream_Loop.mp3"
+            ],
+            [
+                "./Maplestory2/BGM/BGM_DarkStream_Intro.mp3",
+                "./Maplestory2/BGM/BGM_DarkStream_Loop.mp3"
+            ]
+        ],
+        [
+            "",
+            "(던전)어둠의 샘",
+            "BGM_DarkTears_01.mp3",
+            "./Maplestory2/BGM/BGM_DarkTears_01.mp3"
+        ],
+        [
+            "",
+            "",
+            "BGM_DarkTower_01.mp3",
+            "./Maplestory2/BGM/BGM_DarkTower_01.mp3"
+        ],
+        [
+            "",
+            "",
+            "BGM_Dark_Laboratory_Loop_01.mp3",
+            "./Maplestory2/BGM/BGM_Dark_Laboratory_Loop_01.mp3"
+        ],
+        [
+            "",
+            "(미니게임)빛나는 모자 - 설눈이의 꿈",
+            "BGM_Dream.mp3",
+            "./Maplestory2/BGM/BGM_Dream.mp3"
+        ],
+        [
+            "",
+            "던전 로비",
+            "BGM_Dungeon_01.mp3",
+            "./Maplestory2/BGM/BGM_Dungeon_01.mp3"
+        ],
+        [
+            "The Love Forest",
+            "결혼식장 - 엘리니아 러브 포레스트",
+            "BGM_ElliniaLoveForest_01.mp3",
+            "./Maplestory2/BGM/BGM_ElliniaLoveForest_01.mp3"
+        ],
+        [
+            "The Glory Forest",
+            "엘리니아",
+            "BGM_Ellinia_01.mp3",
+            [
+                "./Maplestory2/BGM/BGM_Ellinia_01.mp3",
+                "http://maple2.vod.nexoncdn.co.kr/official/bgm/The%20Glory%20Forest.mp3"
+            ]
+        ],
+        [
+            "",
+            "엘리니아 지역 필드",
+            "BGM_Ellinia_field_01.mp3",
+            "./Maplestory2/BGM/BGM_Ellinia_field_01.mp3"
+        ],
+        [
+            "",
+            "엘리니아 지역 필드",
+            "BGM_Ellinia_field_02.mp3",
+            "./Maplestory2/BGM/BGM_Ellinia_field_02.mp3"
+        ],
+        [
+            "",
+            "에레브의 침실",
+            "BGM_Ereb's_Bedchamber_01.mp3",
+            "./Maplestory2/BGM/BGM_Ereb's_Bedchamber_01.mp3"
+        ],
+        [
+            "",
+            "시공의 균열, 시공의 균열이 생긴 에레브의 침실",
+            "BGM_Ereb's_Dream_01.mp3",
+            "./Maplestory2/BGM/BGM_Ereb's_Dream_01.mp3"
+        ],
+        [
+            "",
+            "(던전)아이 오브 라펜타 보스",
+            [
+                "BGM_EyeOfLapenta_Boss_intro_01.mp3",
+                "BGM_EyeOfLapenta_Boss_Loop_01.mp3"
+            ],
+            [
+                "./Maplestory2/BGM/BGM_EyeOfLapenta_Boss_intro_01.mp3",
+                "./Maplestory2/BGM/BGM_EyeOfLapenta_Boss_Loop_01.mp3"
+            ]
+        ],
+        [
+            "",
+            "(맵)아이 오브 라펜타",
+            "BGM_EyeOfLapenta_Field_01.mp3",
+            "./Maplestory2/BGM/BGM_EyeOfLapenta_Field_01.mp3"
+        ],
+        [
+            "",
+            "(던전)블랙샤드 체임버",
+            [
+                "BGM_EyeOfLapenta_FinalBoss_Intro_01.mp3",
+                "BGM_EyeOfLapenta_FinalBoss_Loop_01.mp3"
+            ],
+            [
+                "./Maplestory2/BGM/BGM_EyeOfLapenta_FinalBoss_Intro_01.mp3",
+                "./Maplestory2/BGM/BGM_EyeOfLapenta_FinalBoss_Loop_01.mp3"
+            ]
+        ],
+        [
+            "",
+            "(던전)아이 오브 라펜타 던전 로비",
+            "BGM_EyeOfLapenta_Lobby_01.mp3",
+            "./Maplestory2/BGM/BGM_EyeOfLapenta_Lobby_01.mp3"
+        ],
+        [
+            "",
+            "(던전)아이 오브 라펜타",
+            "BGM_EyeOfLapenta_mob_Loop_01.mp3",
+            "./Maplestory2/BGM/BGM_EyeOfLapenta_mob_Loop_01.mp3"
+        ],
+        [
+            "Dice in Wonderland",
+            "핑크하트의 스위트 캐슬, 빛나는 모자 - (미니게임)스페이스 번지 점프",
+            "BGM_FantasyCastle_01.mp3",
+            [
+                "./Maplestory2/BGM/BGM_FantasyCastle_01.mp3",
+                "http://maple2.vod.nexoncdn.co.kr/official/bgm/Dice%20In%20Wonderland.mp3"
+            ]
+        ],
+        [
+            "",
+            "성벽 테마 배경음",
+            "BGM_FantasyCastle_02.mp3",
+            "./Maplestory2/BGM/BGM_FantasyCastle_02.mp3"
+        ],
+        [
+            "",
+            "네르만 대장간 거리",
+            "BGM_ForgeStreet_01.mp3",
+            "./Maplestory2/BGM/BGM_ForgeStreet_01.mp3"
+        ],
+        [
+            "",
+            "크리티아스 필드맵 - 오로라 레이크",
+            "BGM_ForgottenRealm_01.mp3",
+            "./Maplestory2/BGM/BGM_ForgottenRealm_01.mp3"
+        ],
+        [
+            "",
+            "크리티아스 필드맵",
+            [
+                "BGM_ForgottenTown_Intro_01.mp3",
+                "BGM_ForgottenTown_Castle_Loop_01.mp3"
+            ],
+            [
+                "./Maplestory2/BGM/BGM_ForgottenTown_Intro_01.mp3",
+                "./Maplestory2/BGM/BGM_ForgottenTown_Castle_Loop_01.mp3"
+            ]
+        ],
+        [
+            "",
+            "크리티아스 - 키델 그랜드 브릿지",
+            [
+                "BGM_ForgottenTown_Intro_01.mp3",
+                "BGM_ForgottenTown_Loop_01.mp3"
+            ],
+            [
+                "./Maplestory2/BGM/BGM_ForgottenTown_Intro_01.mp3",
+                "./Maplestory2/BGM/BGM_ForgottenTown_Loop_01.mp3"
+            ]
+        ],
+        [
+            "",
+            "",
+            "BGM_ForgottenTown_Loop_02.mp3",
+            "./Maplestory2/BGM/BGM_ForgottenTown_Loop_02.mp3"
+        ],
+        [
+            "",
+            "프론티어 저택",
+            "BGM_Frontier_Conference_01.mp3",
+            "./Maplestory2/BGM/BGM_Frontier_Conference_01.mp3"
+        ],
+        [
+            "",
+            "프론티어 저택 내부",
+            "BGM_Frontier_Mansion_01.mp3",
+            "./Maplestory2/BGM/BGM_Frontier_Mansion_01.mp3"
+        ],
+        [
+            "",
+            "",
+            "BGM_GiganTika_01_Pre.mp3",
+            "./Maplestory2/BGM/BGM_GiganTika_01_Pre.mp3"
+        ],
+        [
+            "",
+            "폐기물 매립지 - (보스)기간티카 등장",
+            [
+                "BGM_GiganTika_Intro_01.mp3",
+                "BGM_GiganTika_Loop_01.mp3",
+                "BGM_GiganTika_Loop_02.mp3"
+            ],
+            [
+                "./Maplestory2/BGM/BGM_GiganTika_Intro_01.mp3",
+                "./Maplestory2/BGM/BGM_GiganTika_Loop_01.mp3",
+                "./Maplestory2/BGM/BGM_GiganTika_Loop_02.mp3"
+            ]
+        ],
+        [
+            "",
+            "",
+            "BGM_Guidance_Theme_01.mp3",
+            "./Maplestory2/BGM/BGM_Guidance_Theme_01.mp3"
+        ],
+        [
+            "",
+            "(던전)인도자의 성지",
+            "BGM_Guidance_Theme_02.mp3",
+            "./Maplestory2/BGM/BGM_Guidance_Theme_02.mp3"
+        ],
+        [
+            "",
+            "던전 로비(기본) 등등...",
+            "BGM_GuildBattle_01.mp3",
+            "./Maplestory2/BGM/BGM_GuildBattle_01.mp3"
+        ],
+        [
+            "",
+            "(이벤트)해피 빌리지 필드",
+            "BGM_HairyFairy_01.mp3",
+            "./Maplestory2/BGM/BGM_HairyFairy_01.mp3"
+        ],
+        [
+            "",
+            "(이벤트)해피 빌리지 필드",
+            "BGM_HairyFairy_02.mp3",
+            "./Maplestory2/BGM/BGM_HairyFairy_02.mp3"
+        ],
+        [
+            "",
+            "(이벤트)해피 빌리지 필드",
+            "BGM_HairyFairy_03.mp3",
+            "./Maplestory2/BGM/BGM_HairyFairy_03.mp3"
+        ],
+        [
+            "",
+            "(이벤트)해피 빌리지 필드",
+            "BGM_HairyFairy_04.mp3",
+            "./Maplestory2/BGM/BGM_HairyFairy_04.mp3"
+        ],
+        [
+            "",
+            "(이벤트)해피 빌리지 필드",
+            "BGM_HairyFairy_05_DC.mp3",
+            "./Maplestory2/BGM/BGM_HairyFairy_05_DC.mp3"
+        ],
+        [
+            "",
+            "할로윈 이벤트 맵 배경음악, (모험[일반], 구)사무친 원한의 대저택",
+            "BGM_Halloween_01.mp3",
+            "./Maplestory2/BGM/BGM_Halloween_01.mp3"
+        ],
+        [
+            "Chiming Shore",
+            "해변 배경음",
+            "BGM_HappyBeach_01.mp3",
+            [
+                "./Maplestory2/BGM/BGM_HappyBeach_01.mp3",
+                "http://maple2.vod.nexoncdn.co.kr/official/bgm/Chiming%20Shore.mp3"
+            ]
+        ],
+        [
+            "",
+            "",
+            "BGM_HappyBirthday_01.mp3",
+            "./Maplestory2/BGM/BGM_HappyBirthday_01.mp3"
+        ],
+        [
+            "",
+            "(이밴트 맵)해피 빌리지",
+            "BGM_HappyWinter_01.mp3",
+            "./Maplestory2/BGM/BGM_HappyWinter_01.mp3"
+        ],
+        [
+            "",
+            "(이밴트 맵)해피 빌리지",
+            "BGM_HappyWinter_02.mp3",
+            "./Maplestory2/BGM/BGM_HappyWinter_02.mp3"
+        ],
+        [
+            "Small Happiness",
+            "결혼식장 - 헤네시스 하모니 웨딩 채플",
+            "BGM_HarmonyWeddingChapel_01.mp3",
+            "./Maplestory2/BGM/BGM_HarmonyWeddingChapel_01.mp3"
+        ],
+        [
+            "",
+            "",
+            "BGM_HarmonyWeddingChapel_02.mp3",
+            "./Maplestory2/BGM/BGM_HarmonyWeddingChapel_02.mp3"
+        ],
+        [
+            "",
+            "",
+            "BGM_HeavyGunner_Theme_01.mp3",
+            "./Maplestory2/BGM/BGM_HeavyGunner_Theme_01.mp3"
+        ],
+        [
+            "",
+            "",
+            "BGM_HenesysShadow_01.mp3",
+            "./Maplestory2/BGM/BGM_HenesysShadow_01.mp3"
+        ],
+        [
+            "Spring Breeze / Forest Stacatto",
+            "헤네시스",
+            "BGM_Henesys_01.mp3",
+            [
+                "./Maplestory2/BGM/BGM_Henesys_01.mp3",
+                "https://soundcloud.com/maplestory2/bgm-henesys-01",
+                "http://maple2.vod.nexoncdn.co.kr/ost/05_Forest_Staccato.mp3"
+            ]
+        ],
+        [
+            "",
+            "헤네시스 필드(경쾌한)",
+            "BGM_Henesys_field_01.mp3",
+            "./Maplestory2/BGM/BGM_Henesys_field_01.mp3"
+        ],
+        [
+            "",
+            "헤네시스 필드(포근한)",
+            "BGM_Henesys_field_02.mp3",
+            "./Maplestory2/BGM/BGM_Henesys_field_02.mp3"
+        ],
+        [
+            "",
+            "헤네시스 필드(초저녁)",
+            "BGM_Henesys_field_03.mp3",
+            "./Maplestory2/BGM/BGM_Henesys_field_03.mp3"
+        ],
+        [
+            "",
+            "(이벤트)숨바꼭질",
+            [
+                "BGM_HideNSeek_Intro_01.mp3",
+                "BGM_HideNSeek_Loop_01.mp3"
+            ],
+            [
+                "./Maplestory2/BGM/BGM_HideNSeek_Intro_01.mp3",
+                "./Maplestory2/BGM/BGM_HideNSeek_Loop_01.mp3"
+            ]
+        ],
+        [
+            "Breeze Of Sands",
+            "카르카르 아일랜드 - 루델리 시티 인근 사막",
+            "BGM_HistoricDesert_01.mp3",
+            [
+                "./Maplestory2/BGM/BGM_HistoricDesert_01.mp3",
+                "http://maple2.vod.nexoncdn.co.kr/official/bgm/Breeze%20Of%20Sands.mp3"
+            ]
+        ],
+        [
+            "",
+            "(이벤트)혁이 참참참",
+            "BGM_HyukYi's Arcade_01.mp3",
+            "./Maplestory2/BGM/BGM_HyukYi's Arcade_01.mp3"
+        ],
+        [
+            "",
+            "얼음/눈 맵",
+            "BGM_IceAge_field_01.mp3",
+            "./Maplestory2/BGM/BGM_IceAge_field_01.mp3"
+        ],
+        [
+            "To The Highest Peak",
+            "얼음/눈 맵",
+            "BGM_IceLand_01.mp3",
+            [
+                "./Maplestory2/BGM/BGM_IceLand_01.mp3",
+                "http://maple2.vod.nexoncdn.co.kr/official/bgm/To%20The%20Highest%20Peak.mp3"
+            ]
+        ],
+        [
+            "Shiny Lane",
+            "얼음/눈 맵",
+            "BGM_IceVillage_01.mp3",
+            [
+                "./Maplestory2/BGM/BGM_IceVillage_01.mp3",
+                "http://maple2.vod.nexoncdn.co.kr/official/bgm/Shiny%20Lane.mp3"
+            ]
+        ],
+        [
+            "",
+            "실내 배경음",
+            "BGM_indoor_01.mp3",
+            "./Maplestory2/BGM/BGM_indoor_01.mp3"
+        ],
+        [
+            "",
+            "실내 배경음 - 포근함(헤네시스 - 넬프 어머니의 집 등)",
+            "BGM_indoor_02.mp3",
+            "./Maplestory2/BGM/BGM_indoor_02.mp3"
+        ],
+        [
+            "",
+            "",
+            [
+                "BGM_IntoTheTempest_Intro_01.mp3",
+                "BGM_IntoTheTempest_Loop_01.mp3"
+            ],
+            [
+                "./Maplestory2/BGM/BGM_IntoTheTempest_Intro_01.mp3",
+                "./Maplestory2/BGM/BGM_IntoTheTempest_Loop_01.mp3"
+            ]
+        ],
+        [
+            "",
+            "",
+            "BGM_Intro_Theme_01.mp3",
+            "./Maplestory2/BGM/BGM_Intro_Theme_01.mp3"
+        ],
+        [
+            "",
+            "(이벤트 미니게임)크리스마스 때려때려 돈나무",
+            "BGM_JingleBell_01.mp3",
+            "./Maplestory2/BGM/BGM_JingleBell_01.mp3"
+        ],
+        [
+            "",
+            "(던전)비욘드 링크 트리스",
+            [
+                "BGM_Kandura_Theme_Intro_01.mp3",
+                "BGM_Kandura_Theme_Loop_01.mp3"
+            ],
+            [
+                "./Maplestory2/BGM/BGM_Kandura_Theme_Intro_01.mp3",
+                "./Maplestory2/BGM/BGM_Kandura_Theme_Loop_01.mp3"
+            ]
+        ],
+        [
+            "",
+            "(던전)비욘드 링크 트리스 - 칸두라 폭주",
+            [
+                "BGM_Kandura_Theme_Intro_02.mp3",
+                "BGM_Kandura_Theme_Loop_02.mp3"
+            ],
+            [
+                "./Maplestory2/BGM/BGM_Kandura_Theme_Intro_02.mp3",
+                "./Maplestory2/BGM/BGM_Kandura_Theme_Loop_02.mp3"
+            ]
+        ],
+        [
+            "",
+            "",
+            "BGM_Kargon_01.mp3",
+            "./Maplestory2/BGM/BGM_Kargon_01.mp3"
+        ],
+        [
+            "",
+            "커닝시티 필드",
+            "BGM_KerningCity.mp3",
+            "./Maplestory2/BGM/BGM_KerningCity.mp3"
+        ],
+        [
+            "",
+            "커닝시티",
+            "BGM_KerningCity_02.mp3",
+            "./Maplestory2/BGM/BGM_KerningCity_02.mp3"
+        ],
+        [
+            "",
+            "커닝시티 필드",
+            "BGM_KerningCity_field_01.mp3",
+            "./Maplestory2/BGM/BGM_KerningCity_field_01.mp3"
+        ],
+        [
+            "",
+            "커닝시티 필드",
+            "BGM_KerningCity_field_02.mp3",
+            "./Maplestory2/BGM/BGM_KerningCity_field_02.mp3"
+        ],
+        [
+            "",
+            "",
+            "BGM_Knight_Theme_01.mp3",
+            "./Maplestory2/BGM/BGM_Knight_Theme_01.mp3"
+        ],
+        [
+            "",
+            "포레인 숲, 리치몬드, 바베니 전초 기지",
+            "BGM_KritiasGeorkTheme_01.mp3",
+            "./Maplestory2/BGM/BGM_KritiasGeorkTheme_01.mp3"
+        ],
+        [
+            "",
+            "게오르크 기계 맵 테마, ~~~ 실내",
+            "BGM_KritiasGeorkTheme_02.mp3",
+            "./Maplestory2/BGM/BGM_KritiasGeorkTheme_02.mp3"
+        ],
+        [
+            "",
+            "란멜",
+            "BGM_KritiasMachineTheme_01.mp3",
+            "./Maplestory2/BGM/BGM_KritiasMachineTheme_01.mp3"
+        ],
+        [
+            "",
+            "공중요새 투르칼리온",
+            "BGM_Kritias_DarkFort_01.mp3",
+            "./Maplestory2/BGM/BGM_Kritias_DarkFort_01.mp3"
+        ],
+        [
+            "",
+            "초로록 둥지,",
+            "BGM_Kritias_SecretForest_01.mp3",
+            "./Maplestory2/BGM/BGM_Kritias_SecretForest_01.mp3"
+        ],
+        [
+            "",
+            "난민 피난처 갈란, 버려진 황무지",
+            "BGM_Kritias_WasteLand_01.mp3",
+            "./Maplestory2/BGM/BGM_Kritias_WasteLand_01.mp3"
+        ],
+        [
+            "",
+            "",
+            "BGM_Kylian_Theme_01.mp3",
+            "./Maplestory2/BGM/BGM_Kylian_Theme_01.mp3"
+        ],
+        [
+            "",
+            "(던전)생명의 틈 - 생명의 숲",
+            "BGM_Lapenta_01.mp3",
+            "./Maplestory2/BGM/BGM_Lapenta_01.mp3"
+        ],
+        [
+            "Dreaming Sailor / Wind of Adventure",
+            "리스항구",
+            "BGM_Lith_01.mp3",
+            [
+                "./Maplestory2/BGM/BGM_Lith_01.mp3",
+                "https://soundcloud.com/maplestory2/dreaming-sailor",
+                "http://maple2.vod.nexoncdn.co.kr/ost/19_Wind_of_Adventure.mp3"
+            ]
+        ],
+        [
+            "",
+            "서버 선택 화면(대양 테마)",
+            [
+                "BGM_Login_Ocenland_Start_01.mp3",
+                "BGM_Login_Ocenland_Loop_01.mp3"
+            ],
+            [
+                "./Maplestory2/BGM/BGM_Login_Ocenland_Start_01.mp3",
+                "./Maplestory2/BGM/BGM_Login_Ocenland_Loop_01.mp3"
+            ]
+        ],
+        [
+            "Reminisce",
+            "서버 선택 화면(겨울 시즌)",
+            [
+                "BGM_Login_Reminisce_Start_01.mp3",
+                "BGM_Login_Reminisce_Loop_01.mp3"
+            ],
+            [
+                "./Maplestory2/BGM/BGM_Login_Reminisce_Start_01.mp3",
+                "./Maplestory2/BGM/BGM_Login_Reminisce_Loop_01.mp3",
+                "http://maple2.vod.nexoncdn.co.kr/ost/11_Reminisce.mp3"
+            ]
+        ],
+        [
+            "",
+            "(던전)얼어붙은 신전",
+            "BGM_Lonely_Kana_01.mp3",
+            "./Maplestory2/BGM/BGM_Lonely_Kana_01.mp3"
+        ],
+        [
+            "Bouncing Coins",
+            "루디브리엄 필드",
+            "BGM_Ludibrium_01.mp3",
+            [
+                "./Maplestory2/BGM/BGM_Ludibrium_01.mp3",
+                "http://maple2.vod.nexoncdn.co.kr/official/bgm/Bouncing%20Coins.mp3"
+            ]
+        ],
+        [
+            "With Light Steps",
+            "루디브리엄 필드",
+            "BGM_Ludibrium_02.mp3",
+            [
+                "./Maplestory2/BGM/BGM_Ludibrium_02.mp3",
+                "http://maple2.vod.nexoncdn.co.kr/official/bgm/With%20Light%20Steps.mp3"
+            ]
+        ],
+        [
+            "",
+            "",
+            "BGM_Lumieragon_01.mp3",
+            "./Maplestory2/BGM/BGM_Lumieragon_01.mp3"
+        ],
+        [
+            "Energetic Wave",
+            "결혼식장 - 럭셔리 웨딩 크루즈",
+            "BGM_LuxuryCruiseWedding_01.mp3",
+            [
+                "./Maplestory2/BGM/BGM_LuxuryCruiseWedding_01.mp3",
+                "http://maple2vod-nexon30.ktics.co.kr/ost/BGM07_EnergeticWave_LuxuryCruiseWedding.mp3"
+            ]
+        ],
+        [
+            "",
+            "서버 선택 화면(마드리아 테마)",
+            "BGM_Madria_Theme_01.mp3",
+            "./Maplestory2/BGM/BGM_Madria_Theme_01.mp3"
+        ],
+        [
+            "Yester Story / MS2 Main Theme",
+            "서버 선택 화면(봄/가을 테마)",
+            "BGM_MainTheme_01.mp3",
+            [
+                "./Maplestory2/BGM/BGM_MainTheme_01.mp3",
+                "https://soundcloud.com/maplestory2/yester-story",
+                "http://maple2.vod.nexoncdn.co.kr/ost/09_MS2_Main_Theme.mp3"
+            ]
+        ],
+        [
+            "",
+            "(아케이드)스프링 팜",
+            "BGM_MapleArcade_01_Loop.mp3",
+            "./Maplestory2/BGM/BGM_MapleArcade_01_Loop.mp3"
+        ],
+        [
+            "",
+            "(아케이드)스프링 팜",
+            "BGM_MapleArcade_02.mp3",
+            "./Maplestory2/BGM/BGM_MapleArcade_02.mp3"
+        ],
+        [
+            "",
+            "(이벤트 맵)메이플 마블",
+            "BGM_MapleEvent_Intro_01.mp3",
+            "./Maplestory2/BGM/BGM_MapleEvent_Intro_01.mp3"
+        ],
+        [
+            "",
+            "(이벤트 맵)메이플 마블",
+            "BGM_MapleEvent_Loop_01.mp3",
+            "./Maplestory2/BGM/BGM_MapleEvent_Loop_01.mp3"
+        ],
+        [
+            "The Little Adventurer",
+            "메이플 아일랜드 필드",
+            "BGM_MapleIsland_01.mp3",
+            [
+                "./Maplestory2/BGM/BGM_MapleIsland_01.mp3",
+                "http://maple2.vod.nexoncdn.co.kr/official/bgm/The%20Little%20Adventurer.mp3"
+            ]
+        ],
+        [
+            "Sweet Serenity",
+            "웨딩 빌리지",
+            "BGM_MapleWeddingVillage_01.mp3",
+            [
+                "./Maplestory2/BGM/BGM_MapleWeddingVillage_01.mp3",
+                "http://maple2vod-nexon30.ktics.co.kr/ost/BGM01_SweetSerenity_WeddingVillage.mp3"
+            ]
+        ],
+        [
+            "",
+            "(미니게임)케이 이벤트 - 루디브리엄 대탈출, 트랩 마스터, 파이널 서바이버, 메이플 OX 퀴즈쇼",
+            "BGM_Massive.mp3",
+            "./Maplestory2/BGM/BGM_Massive.mp3"
+        ],
+        [
+            "",
+            "(미니게임)케이 이벤트 - 크레이지 러너즈, 스프링 비치, (던전)캐시마트 아르바이트",
+            "BGM_Massive_02.mp3",
+            "./Maplestory2/BGM/BGM_Massive_02.mp3"
+        ],
+        [
+            "",
+            "",
+            "BGM_Michael_Theme_01.mp3",
+            "./Maplestory2/BGM/BGM_Michael_Theme_01.mp3"
+        ],
+        [
+            "",
+            "",
+            "BGM_Michael_Theme_02.mp3",
+            "./Maplestory2/BGM/BGM_Michael_Theme_02.mp3"
+        ],
+        [
+            "",
+            "(퀘스트 에필로그)미카 엔딩",
+            "BGM_Mika_Epilogue_01.mp3",
+            "./Maplestory2/BGM/BGM_Mika_Epilogue_01.mp3"
+        ],
+        [
+            "",
+            "서버 선택 화면(모랑 숲 테마)",
+            [
+                "BGM_MomoAndTheSecretForest_Intro_01.mp3",
+                "BGM_MomoAndTheSecretForest_Loop_01.mp3"
+            ],
+            [
+                "./Maplestory2/BGM/BGM_MomoAndTheSecretForest_Intro_01.mp3",
+                "./Maplestory2/BGM/BGM_MomoAndTheSecretForest_Loop_01.mp3"
+            ]
+        ],
+        [
+            "",
+            "크리티아스 - 오염된 모랑 숲, 초로록 둥지",
+            [
+                "BGM_MorangAndTheSecretForest_Intro_01.mp3",
+                "BGM_MorangAndTheSecretForest_Loop_01.mp3"
+            ],
+            [
+                "./Maplestory2/BGM/BGM_MorangAndTheSecretForest_Intro_01.mp3",
+                "./Maplestory2/BGM/BGM_MorangAndTheSecretForest_Loop_01.mp3"
+            ]
+        ],
+        [
+            "",
+            "퍼니퍼니 아일랜드 - (보스)머쉬킹",
+            "BGM_MushroomRichKing_01.mp3",
+            "./Maplestory2/BGM/BGM_MushroomRichKing_01.mp3"
+        ],
+        [
+            "",
+            "[던전]대양의 수호신, (초기)스카이 포트리스 함교",
+            "BGM_OceanLand_01.mp3",
+            "./Maplestory2/BGM/BGM_OceanLand_01.mp3"
+        ],
+        [
+            "",
+            "페리온",
+            "BGM_Perion.mp3",
+            "./Maplestory2/BGM/BGM_Perion.mp3"
+        ],
+        [
+            "Sacred Highland",
+            "결혼식장 - 페리온 서약의 골짜기",
+            "BGM_PerionWeddingValley_01.mp3",
+            "./Maplestory2/BGM/BGM_PerionWeddingValley_01.mp3"
+        ],
+        [
+            "",
+            "페리온 필드",
+            "BGM_Perion_field_01.mp3",
+            "./Maplestory2/BGM/BGM_Perion_field_01.mp3"
+        ],
+        [
+            "",
+            "페리온 필드",
+            "BGM_Perion_field_02.mp3",
+            "./Maplestory2/BGM/BGM_Perion_field_02.mp3"
+        ],
+        [
+            "",
+            "(미니게임)웨딩 피냐타",
+            "BGM_PinataTheUnicorn_Battle_Loop_01.mp3",
+            "./Maplestory2/BGM/BGM_PinataTheUnicorn_Battle_Loop_01.mp3"
+        ],
+        [
+            "",
+            "(미니게임)웨딩 피냐타",
+            [
+                "BGM_PinataTheUnicorn_Intro_01.mp3",
+                "BGM_PinataTheUnicorn_Loop_01.mp3"
+            ],
+            [
+                "./Maplestory2/BGM/BGM_PinataTheUnicorn_Intro_01.mp3",
+                "./Maplestory2/BGM/BGM_PinataTheUnicorn_Loop_01.mp3"
+            ]
+        ],
+        [
+            "",
+            [
+                "(이벤트 미니게임)핑크빈 셋, 둘, 하나!",
+                "이계의 놀이터"
+            ],
+            "BGM_PinkBean's Arcade_01.mp3",
+            "./Maplestory2/BGM/BGM_PinkBean's Arcade_01.mp3"
+        ],
+        [
+            "",
+            "[던전] 이계의 존재",
+            [
+                "BGM_PinkBean_Intro_01.mp3",
+                "BGM_PinkBean_Loop_01.mp3"
+            ],
+            [
+                "./Maplestory2/BGM/BGM_PinkBean_Intro_01.mp3",
+                "./Maplestory2/BGM/BGM_PinkBean_Loop_01.mp3"
+            ]
+        ],
+        [
+            "",
+            "[던전]달빛 선장의 요새 / 오르비스 공중 함선(인페르녹 최후의 방어선 1,2페이즈)",
+            "BGM_PirateShip_01.mp3",
+            "./Maplestory2/BGM/BGM_PirateShip_01.mp3"
+        ],
+        [
+            "",
+            "독액 동굴",
+            "BGM_PosionCave_01.mp3",
+            "./Maplestory2/BGM/BGM_PosionCave_01.mp3"
+        ],
+        [
+            "",
+            "",
+            "BGM_Priest_Theme_01.mp3",
+            "./Maplestory2/BGM/BGM_Priest_Theme_01.mp3"
+        ],
+        [
+            "",
+            "알리카르 감옥",
+            "BGM_Prison_01.mp3",
+            "./Maplestory2/BGM/BGM_Prison_01.mp3"
+        ],
+        [
+            "Puppet Theatre",
+            "(이벤트 맵)블러디 몽슈슈 호텔",
+            "BGM_PuppetTheatre_01.mp3",
+            [
+                "./Maplestory2/BGM/BGM_PuppetTheatre_01.mp3",
+                "http://maple2.vod.nexoncdn.co.kr/ost/10_Puppet_Theatre.mp3"
+            ]
+        ],
+        [
+            "",
+            "",
+            "BGM_Ranger_Theme_01.mp3",
+            "./Maplestory2/BGM/BGM_Ranger_Theme_01.mp3"
+        ],
+        [
+            "Snowy Dream",
+            "서버 선택 화면(2020 겨울 테마)",
+            "BGM_Reminiscing_01.mp3",
+            [
+                "./Maplestory2/BGM/BGM_Reminiscing_01.mp3",
+                "http://maple2vod-nexon30.ktics.co.kr/ost/BGM08_SnowyDream_Login2019Winter.mp3"
+            ]
+        ],
+        [
+            "",
+            "",
+            "BGM_ReversedRebirth_01.mp3",
+            "./Maplestory2/BGM/BGM_ReversedRebirth_01.mp3"
+        ],
+        [
+            "Road To Home",
+            "서버 선택 화면(가을 테마)",
+            [
+                "BGM_RoadtoHome_Intro_01.mp3",
+                "BGM_RoadtoHome_Loop_01.mp3"
+            ],
+            [
+                "./Maplestory2/BGM/BGM_RoadtoHome_Intro_01.mp3",
+                "./Maplestory2/BGM/BGM_RoadtoHome_Loop_01.mp3",
+                "http://maple2.vod.nexoncdn.co.kr/ost/12_Road_to_Home.mp3"
+            ]
+        ],
+        [
+            "The Little Boy",
+            "루델리 시티",
+            "BGM_RoyalCity_01.mp3",
+            [
+                "./Maplestory2/BGM/BGM_RoyalCity_01.mp3",
+                "http://maple2.vod.nexoncdn.co.kr/official/bgm/The%20Little%20Boy.mp3"
+            ]
+        ],
+        [
+            "The Big R",
+            "루델리 시티 필드",
+            "BGM_RoyalCity_Field_01.mp3",
+            [
+                "./Maplestory2/BGM/BGM_RoyalCity_Field_01.mp3",
+                "http://maple2.vod.nexoncdn.co.kr/official/bgm/The%20Big%20R.mp3"
+            ]
+        ],
+        [
+            "Echo Of The Runes",
+            "",
+            "BGM_RuneBlader_Cave_01.mp3",
+            [
+                "./Maplestory2/BGM/BGM_RuneBlader_Cave_01.mp3",
+                "http://maple2.vod.nexoncdn.co.kr/official/bgm/Echo%20Of%20The%20Runes.mp3"
+            ]
+        ],
+        [
+            "",
+            "",
+            "BGM_RuneBlader_Cave_02.mp3",
+            "./Maplestory2/BGM/BGM_RuneBlader_Cave_02.mp3"
+        ],
+        [
+            "The Mission Fateful",
+            "",
+            "BGM_RuneBlader_Fortress_01.mp3",
+            [
+                "./Maplestory2/BGM/BGM_RuneBlader_Fortress_01.mp3",
+                "http://maple2.vod.nexoncdn.co.kr/official/bgm/The%20Mission%20Fateful.mp3"
+            ]
+        ],
+        [
+            "Seashell Under The Sands",
+            "",
+            "BGM_RuneBlader_Island_01.mp3",
+            [
+                "./Maplestory2/BGM/BGM_RuneBlader_Island_01.mp3",
+                "http://maple2.vod.nexoncdn.co.kr/official/bgm/Seashell%20With%20The%20Moon.mp3"
+            ]
+        ],
+        [
+            "Little Chatterers",
+            "꽃비 숲길",
+            "BGM_SecretSakura_01.mp3",
+            [
+                "./Maplestory2/BGM/BGM_SecretSakura_01.mp3",
+                "http://maple2.vod.nexoncdn.co.kr/official/bgm/Little%20Chatterers.mp3"
+            ]
+        ],
+        [
+            "",
+            "탈리스커 필드",
+            "BGM_SF_field_01.mp3",
+            "./Maplestory2/BGM/BGM_SF_field_01.mp3"
+        ],
+        [
+            "",
+            "그림자 원정대 / 군단전 / 길드레이드 링크5 : 불사의 결투장",
+            "BGM_ShadowExpedition_Loop_01.mp3",
+            "./Maplestory2/BGM/BGM_ShadowExpedition_Loop_01.mp3"
+        ],
+        [
+            "",
+            "쉐도우 게이트 인근 지역",
+            "BGM_ShadowGate_01.mp3",
+            "./Maplestory2/BGM/BGM_ShadowGate_01.mp3"
+        ],
+        [
+            "",
+            "",
+            "BGM_ShadowHidden_01.mp3",
+            "./Maplestory2/BGM/BGM_ShadowHidden_01.mp3"
+        ],
+        [
+            "",
+            "커닝시티 인근 SF 테마 필드",
+            "BGM_ShadowSF_01.mp3",
+            "./Maplestory2/BGM/BGM_ShadowSF_01.mp3"
+        ],
+        [
+            "",
+            "쉐도우 월드 필드",
+            "BGM_ShadowWorld_01.mp3",
+            "./Maplestory2/BGM/BGM_ShadowWorld_01.mp3"
+        ],
+        [
+            "",
+            "커닝시티 - 아케이드 센터 / 쁘띠 쇼핑몰",
+            "BGM_ShoppingAcade_01.mp3",
+            "./Maplestory2/BGM/BGM_ShoppingAcade_01.mp3"
+        ],
+        [
+            "",
+            "(에픽 퀘스트)",
+            "BGM_SkyFortress_Battle_01.mp3",
+            "./Maplestory2/BGM/BGM_SkyFortress_Battle_01.mp3"
+        ],
+        [
+            "",
+            "(포트리스 럼블) 블리체 전투",
+            "BGM_SkyFortress_Bliche_01.mp3",
+            "./Maplestory2/BGM/BGM_SkyFortress_Bliche_01.mp3"
+        ],
+        [
+            "",
+            "(포트리스 럼블) 콘대르 전투",
+            "BGM_SkyFortress_Conder_01.mp3",
+            "./Maplestory2/BGM/BGM_SkyFortress_Conder_01.mp3"
+        ],
+        [
+            "",
+            "(포트리스 럼블) 메이슨 전투",
+            "BGM_SkyFortress_Mason_01.mp3",
+            "./Maplestory2/BGM/BGM_SkyFortress_Mason_01.mp3"
+        ],
+        [
+            "",
+            "(포트리스 럼블) 네이린 전투",
+            "BGM_SkyFortress_Neirin_01.mp3",
+            "./Maplestory2/BGM/BGM_SkyFortress_Neirin_01.mp3"
+        ],
+        [
+            "",
+            "(포트리스 럼블) 샤텐 전투",
+            "BGM_SkyFortress_Schatten_01.mp3",
+            "./Maplestory2/BGM/BGM_SkyFortress_Schatten_01.mp3"
+        ],
+        [
+            "",
+            "스카이 포트리스 함교",
+            [
+                "BGM_SkyFortress_Theme_Intro_01.mp3",
+                "BGM_SkyFortress_Theme_Loop_01.mp3"
+            ],
+            [
+                "./Maplestory2/BGM/BGM_SkyFortress_Theme_Intro_01.mp3",
+                "./Maplestory2/BGM/BGM_SkyFortress_Theme_Loop_01.mp3"
+            ]
+        ],
+        [
+            "",
+            "",
+            "BGM_SkyTower_01.mp3",
+            "./Maplestory2/BGM/BGM_SkyTower_01.mp3"
+        ],
+        [
+            "Twinking Hearts",
+            "결혼식장 - 루델리 스카이 캐슬",
+            "BGM_SkyWeddingCastle_01.mp3",
+            "./Maplestory2/BGM/BGM_SkyWeddingCastle_01.mp3"
+        ],
+        [
+            "",
+            "눈보라 산맥, 서릿발 신전",
+            "BGM_SnowLand_01.mp3",
+            "./Maplestory2/BGM/BGM_SnowLand_01.mp3"
+        ],
+        [
+            "",
+            "",
+            "BGM_Sorrow_01.mp3",
+            "./Maplestory2/BGM/BGM_Sorrow_01.mp3"
+        ],
+        [
+            "",
+            "",
+            "BGM_SoulBinder_Theme_01.mp3",
+            "./Maplestory2/BGM/BGM_SoulBinder_Theme_01.mp3"
+        ],
+        [
+            "",
+            "",
+            "BGM_SoulBinder_Theme_02.mp3",
+            "./Maplestory2/BGM/BGM_SoulBinder_Theme_02.mp3"
+        ],
+        [
+            "",
+            "트라이아 - 시공의 균열",
+            "BGM_Spacetime_01.mp3",
+            "./Maplestory2/BGM/BGM_Spacetime_01.mp3"
+        ],
+        [
+            "Spring In Kritias",
+            "서버 선택 화면(크리티아스의 봄 테마)",
+            "BGM_SpringInKritias_01.mp3",
+            "./Maplestory2/BGM/BGM_SpringInKritias_01.mp3"
+        ],
+        [
+            "",
+            "",
+            "BGM_Striker_Theme_01.mp3",
+            "./Maplestory2/BGM/BGM_Striker_Theme_01.mp3"
+        ],
+        [
+            "Tales of Light",
+            "최초의 전직 테마곡",
+            [
+                "BGM_TalesofLight.mp3",
+                "BGM_TalesOfLight_MR.mp3"
+            ],
+            [
+                "https://youtu.be/Sm2B_YYPQWo",
+                "./Maplestory2/BGM/BGM_TalesOfLight_MR.mp3"
+            ]
+        ],
+        [
+            "",
+            "탈리스커",
+            "BGM_Talisker_01.mp3",
+            "./Maplestory2/BGM/BGM_Talisker_01.mp3"
+        ],
+        [
+            "Secrets Under The Sands",
+            "미나르, 미나르 주변 필드, 나즈카르 신전",
+            "BGM_Temple_01.mp3",
+            [
+                "./Maplestory2/BGM/BGM_Temple_01.mp3",
+                "http://maple2.vod.nexoncdn.co.kr/official/bgm/Secrets%20Under%20The%20Sands.mp3"
+            ]
+        ],
+        [
+            "",
+            "(이벤트)크리스마스 이벤트 퀘스트 맵 / (이벤트)블러디 몽슈슈 호텔 퀘스트 맵 ",
+            "BGM_The Nightmare Before Christmas_01.mp3",
+            "./Maplestory2/BGM/BGM_The Nightmare Before Christmas_01.mp3"
+        ],
+        [
+            "",
+            "",
+            "BGM_Theme_Ereb_01.mp3",
+            "./Maplestory2/BGM/BGM_Theme_Ereb_01.mp3"
+        ],
+        [
+            "",
+            "",
+            "BGM_Thief_Theme_01.mp3",
+            "./Maplestory2/BGM/BGM_Thief_Theme_01.mp3"
+        ],
+        [
+            "",
+            "(던전)티마이온 회랑",
+            "BGM_Timaion_01.mp3",
+            "./Maplestory2/BGM/BGM_Timaion_01.mp3"
+        ],
+        [
+            "Timeless Town",
+            "크리티아스 필드",
+            "BGM_TimelessTown_01.mp3",
+            [
+                "./Maplestory2/BGM/BGM_TimelessTown_01.mp3",
+                "http://maple2.vod.nexoncdn.co.kr/ost/17_Timeless_Town.mp3"
+            ]
+        ],
+        [
+            "",
+            "크리티아스 필드",
+            "BGM_TimelessTown_02.mp3",
+            "./Maplestory2/BGM/BGM_TimelessTown_02.mp3"
+        ],
+        [
+            "",
+            "(던전)트라이아 성 지하",
+            "BGM_TriaAttack_01.mp3",
+            "./Maplestory2/BGM/BGM_TriaAttack_01.mp3"
+        ],
+        [
+            "Tria",
+            "트라이아",
+            "BGM_Tria_01.mp3",
+            [
+                "./Maplestory2/BGM/BGM_Tria_01.mp3",
+                "http://maple2.vod.nexoncdn.co.kr/ost/18_Tria.mp3"
+            ]
+        ],
+        [
+            "",
+            "개미굴",
+            "BGM_UnderGround_01.mp3",
+            "./Maplestory2/BGM/BGM_UnderGround_01.mp3"
+        ],
+        [
+            "",
+            "(던전)루디브리엄 시계탑",
+            [
+                "BGM_WakeUp_Intro_01.mp3",
+                "BGM_WakeUp_Loop_01.mp3"
+            ],
+            [
+                "./Maplestory2/BGM/BGM_WakeUp_Intro_01.mp3",
+                "./Maplestory2/BGM/BGM_WakeUp_Loop_01.mp3"
+            ]
+        ],
+        [
+            "",
+            "(이벤트) 크리스마스 퀘스트 엔딩",
+            "BGM_WarmHug_01.mp3",
+            "./Maplestory2/BGM/BGM_WarmHug_01.mp3"
+        ],
+        [
+            "",
+            "(웨딩)결혼식 행진",
+            "BGM_WeddingMarch_01.mp3",
+            "./Maplestory2/BGM/BGM_WeddingMarch_01.mp3"
+        ],
+        [
+            "",
+            "(웨딩)결혼식 행진",
+            "BGM_WeddingMarch_02.mp3",
+            "./Maplestory2/BGM/BGM_WeddingMarch_02.mp3"
+        ],
+        [
+            "",
+            "",
+            "BGM_WeiHong_Theme_01.mp3",
+            "./Maplestory2/BGM/BGM_WeiHong_Theme_01.mp3"
+        ],
+        [
+            "",
+            "",
+            "BGM_Wizard_Theme_01.mp3",
+            "./Maplestory2/BGM/BGM_Wizard_Theme_01.mp3"
+        ],
+        [
+            "",
+            "머쉬킹 챔피언십(머쉬킹 로얄) 인트로",
+            "BGM_YOYO_Intro_01.mp3",
+            "./Maplestory2/BGM/BGM_YOYO_Intro_01.mp3"
+        ],
+        [
+            "",
+            "머쉬킹 챔피언십(머쉬킹 로얄) - 태초의 버섯 섬 경기 대기",
+            "BGM_YOYO_Lobby_01.mp3",
+            "./Maplestory2/BGM/BGM_YOYO_Lobby_01.mp3"
+        ],
+        [
+            "",
+            "머쉬킹 챔피언십(머쉬킹 로얄) - 태초의 버섯 섬",
+            "BGM_YOYO_Loop_01.mp3",
+            "./Maplestory2/BGM/BGM_YOYO_Loop_01.mp3"
+        ],
+        [
+            "",
+            "(보스)자쿰",
+            [
+                "BGM_Zakum_Intro.mp3",
+                "BGM_Zakum_Loop.mp3"
+            ],
+            [
+                "./Maplestory2/BGM/BGM_Zakum_Intro.mp3",
+                "./Maplestory2/BGM/BGM_Zakum_Loop.mp3"
+            ]
+        ],
+        [
+            "",
+            "무음",
+            "bridge.mp3",
+            "./Maplestory2/BGM/bridge.mp3"
+        ],
+        [
+            "",
+            "무음",
+            "bridge2.mp3",
+            "./Maplestory2/BGM/bridge2.mp3"
+        ],
+        [
+            "",
+            "무음",
+            "bridge3.mp3",
+            "./Maplestory2/BGM/bridge3.mp3"
+        ],
+        [
+            "",
+            "(이벤트 케이 이벤트)크리스마스 댄스댄스스탑 시작",
+            "DDStop_Christmas_DanceIntro_01.mp3",
+            "./Maplestory2/BGM/DDStop_Christmas_DanceIntro_01.mp3"
+        ],
+        [
+            "",
+            "(이벤트 케이 이벤트)크리스마스 댄스댄스스탑 숫자맞추기",
+            "DDStop_Christmas_DanceLoop_01.mp3",
+            "./Maplestory2/BGM/DDStop_Christmas_DanceLoop_01.mp3"
+        ],
+        [
+            "",
+            "(이벤트 케이 이벤트)크리스마스 댄스댄스스탑 - 댄스타임",
+            [
+                "DDStop_Christmas_Loop_01.mp3",
+                "DDStop_Christmas_Loop_02.mp3",
+                "DDStop_Christmas_Loop_03.mp3",
+                "DDStop_Christmas_Loop_04.mp3",
+                "DDStop_Christmas_Loop_05.mp3",
+                "DDStop_Christmas_Loop_06.mp3",
+                "DDStop_Christmas_Loop_07.mp3",
+                "DDStop_Christmas_Loop_08.mp3",
+                "DDStop_Christmas_Loop_09.mp3",
+                "DDStop_Christmas_Loop_10.mp3",
+                "DDStop_Christmas_Loop_11.mp3",
+                "DDStop_Christmas_Loop_12.mp3",
+                "DDStop_Christmas_Loop_13.mp3",
+                "DDStop_Christmas_Loop_14.mp3",
+                "DDStop_Christmas_Loop_15.mp3"
+            ],
+            [
+                "./Maplestory2/BGM/DDStop_Christmas_Loop_01.mp3",
+                "./Maplestory2/BGM/DDStop_Christmas_Loop_02.mp3",
+                "./Maplestory2/BGM/DDStop_Christmas_Loop_03.mp3",
+                "./Maplestory2/BGM/DDStop_Christmas_Loop_04.mp3",
+                "./Maplestory2/BGM/DDStop_Christmas_Loop_05.mp3",
+                "./Maplestory2/BGM/DDStop_Christmas_Loop_06.mp3",
+                "./Maplestory2/BGM/DDStop_Christmas_Loop_07.mp3",
+                "./Maplestory2/BGM/DDStop_Christmas_Loop_08.mp3",
+                "./Maplestory2/BGM/DDStop_Christmas_Loop_09.mp3",
+                "./Maplestory2/BGM/DDStop_Christmas_Loop_10.mp3",
+                "./Maplestory2/BGM/DDStop_Christmas_Loop_11.mp3",
+                "./Maplestory2/BGM/DDStop_Christmas_Loop_12.mp3",
+                "./Maplestory2/BGM/DDStop_Christmas_Loop_13.mp3",
+                "./Maplestory2/BGM/DDStop_Christmas_Loop_14.mp3",
+                "./Maplestory2/BGM/DDStop_Christmas_Loop_15.mp3"
+            ]
+        ],
+        [
+            "",
+            "(케이 이벤트)댄스댄스스탑 시작",
+            "DDStop_DanceIntro_01.mp3",
+            "./Maplestory2/BGM/DDStop_DanceIntro_01.mp3"
+        ],
+        [
+            "",
+            "(케이 이벤트)댄스댄스스탑 숫자맞추기",
+            "DDStop_DanceLoop_01.mp3",
+            "./Maplestory2/BGM/DDStop_DanceLoop_01.mp3"
+        ],
+        [
+            "",
+            "(케이 이벤트)댄스댄스스탑 숫자맞추기",
+            "DDStop_DanceLoop_02.mp3",
+            "./Maplestory2/BGM/DDStop_DanceLoop_02.mp3"
+        ],
+        [
+            "",
+            "(케이 이벤트)댄스댄스스탑 - 댄스타임",
+            [
+                "DDStop_Loop_01.mp3",
+                "DDStop_Loop_02.mp3",
+                "DDStop_Loop_03.mp3",
+                "DDStop_Loop_04.mp3",
+                "DDStop_Loop_05.mp3",
+                "DDStop_Loop_06.mp3",
+                "DDStop_Loop_07.mp3",
+                "DDStop_Loop_08.mp3",
+                "DDStop_Loop_09.mp3",
+                "DDStop_Loop_10.mp3",
+                "DDStop_Loop_11.mp3",
+                "DDStop_Loop_12.mp3",
+                "DDStop_Loop_13.mp3",
+                "DDStop_Loop_14.mp3",
+                "DDStop_Loop_15.mp3",
+                "DDStop_Loop_16.mp3",
+                "DDStop_Loop_17.mp3",
+                "DDStop_Loop_18.mp3",
+                "DDStop_Loop_19.mp3"
+            ],
+            [
+                "./Maplestory2/BGM/DDStop_Loop_01.mp3",
+                "./Maplestory2/BGM/DDStop_Loop_02.mp3",
+                "./Maplestory2/BGM/DDStop_Loop_03.mp3",
+                "./Maplestory2/BGM/DDStop_Loop_04.mp3",
+                "./Maplestory2/BGM/DDStop_Loop_05.mp3",
+                "./Maplestory2/BGM/DDStop_Loop_06.mp3",
+                "./Maplestory2/BGM/DDStop_Loop_07.mp3",
+                "./Maplestory2/BGM/DDStop_Loop_08.mp3",
+                "./Maplestory2/BGM/DDStop_Loop_09.mp3",
+                "./Maplestory2/BGM/DDStop_Loop_10.mp3",
+                "./Maplestory2/BGM/DDStop_Loop_11.mp3",
+                "./Maplestory2/BGM/DDStop_Loop_12.mp3",
+                "./Maplestory2/BGM/DDStop_Loop_13.mp3",
+                "./Maplestory2/BGM/DDStop_Loop_14.mp3",
+                "./Maplestory2/BGM/DDStop_Loop_15.mp3",
+                "./Maplestory2/BGM/DDStop_Loop_16.mp3",
+                "./Maplestory2/BGM/DDStop_Loop_17.mp3",
+                "./Maplestory2/BGM/DDStop_Loop_18.mp3",
+                "./Maplestory2/BGM/DDStop_Loop_19.mp3"
+            ]
+        ],
+        [
+            "",
+            "(미니게임)웨딩 댄스댄스스탑 시작",
+            "DDstop_Wedding_DanceIntro_01.mp3",
+            "./Maplestory2/BGM/DDstop_Wedding_DanceIntro_01.mp3"
+        ],
+        [
+            "",
+            "(미니게임)웨딩 댄스댄스스탑 숫자맞추기",
+            "DDstop_Wedding_DanceLoop_01.mp3",
+            "./Maplestory2/BGM/DDstop_Wedding_DanceLoop_01.mp3"
+        ],
+        [
+            "",
+            "(미니게임)웨딩 댄스댄스스탑 - 댄스타임",
+            [
+                "DDstop_Wedding_Loop_01.mp3",
+                "DDstop_Wedding_Loop_02.mp3",
+                "DDstop_Wedding_Loop_03.mp3",
+                "DDstop_Wedding_Loop_04.mp3",
+                "DDstop_Wedding_Loop_05.mp3",
+                "DDstop_Wedding_Loop_06.mp3",
+                "DDstop_Wedding_Loop_07.mp3",
+                "DDstop_Wedding_Loop_08.mp3"
+            ],
+            [
+                "./Maplestory2/BGM/DDstop_Wedding_Loop_01.mp3",
+                "./Maplestory2/BGM/DDstop_Wedding_Loop_02.mp3",
+                "./Maplestory2/BGM/DDstop_Wedding_Loop_03.mp3",
+                "./Maplestory2/BGM/DDstop_Wedding_Loop_04.mp3",
+                "./Maplestory2/BGM/DDstop_Wedding_Loop_05.mp3",
+                "./Maplestory2/BGM/DDstop_Wedding_Loop_06.mp3",
+                "./Maplestory2/BGM/DDstop_Wedding_Loop_07.mp3",
+                "./Maplestory2/BGM/DDstop_Wedding_Loop_08.mp3"
+            ]
+        ],
+        [
+            "",
+            "무음",
+            "silence1.mp3",
+            "./Maplestory2/BGM/silence1.mp3"
+        ],
+        [
+            "2022년 신규 던전(추정)",
+            "신규 던전(2021.03.17 인게임 파일 추가)",
+            [
+                "BGM_ChekcMate_Battle.mp3",
+                "BGM_ChekcMate_Boss.mp3",
+                "BGM_Primadonna_battle.mp3"
+            ],
+            [
+                "https://youtu.be/BVDUYpW06uU",
+                "https://youtu.be/2AaKAC7d7NY",
+                "https://youtu.be/gIUXps9HvXQ"
+            ]
+        ],
+        [
+            "메투난다",
+            "(Youtube)메이플2 리스타트",
+            [
+                "MS2_MV_AR.mp3"
+            ],
+            [
+                "https://youtu.be/WHNwjph_r5g",
+                "http://maple2.vod.nexoncdn.co.kr/ost/21_MS2_MV_AR.mp3"
+            ]
+        ],
+        [
+            "핑크빈 송",
+            "(Youtube)핑크빈송 ♬",
+            null,
+            "https://youtu.be/LGbHpuaVxRw"
+        ],
+        [
+            "혁이 프로젝트- Mirror",
+            "(Youtube)프로듀스 혁이",
+            [
+                "MS2_MirrorMirror.mp3",
+                "MS2_MirrorMirror_MR.mp3"
+            ],
+            [
+                "https://youtu.be/k7oSqjd_OJg",
+                "http://maple2.vod.nexoncdn.co.kr/ost/22_MS2_MirrorMirror_MR.mp3"
+            ]
+        ],
+        [
+            "우리들의행복해지는방법(feat.해피월드)",
+            "(Youtube)메이플스토리2 오픈 2주년 기념 뮤직비디오",
+            "",
+            "https://youtu.be/uQLdpz1j9_0"
+        ],
+        [
+            "블랙빈 송",
+            "(Youtube)블랙빈",
+            "BGM09_BlackBeanSong_01.mp3",
+            [
+                "https://youtu.be/litRxevuHmM",
+                "http://maple2vod-nexon30.ktics.co.kr/ost/BGM09_BlackBeanSong_01.mp3"
+            ]
+        ],
+        [
+            "",
+            "서버 선택 화면(메이플스토리2 1주년 테마)",
+            "BGM_1stAnniversary_Login_Theme_01.mp3",
+            "https://youtu.be/2GkcwG_TgIE"
+        ],
+        [
+            "",
+            "서버 선택 화면(메이플스토리2 오픈베타)",
+            "BGM_Login_Theme_01.mp3",
+            "https://youtu.be/hf7XUpQsi1g"
+        ],
+        [
+            "MS2 5주년 헌정곡",
+            "(Youtube)메이플스토리2-메이플월드는지금63",
+            "",
+            "https://youtu.be/Zv17Lo_uRT8?t=332"
+        ],
+        [
+            "",
+            "(Youtube)메이플스토리2 게임 플레이 영상 첫 공개!",
+            "(단 한 번도 공개된 적 없는 음원)",
+            "https://youtu.be/xZ0-cZHEexw"
+        ]
+    ],
+    "represent_tag_target": "ms2-dict-represent-area"
+}

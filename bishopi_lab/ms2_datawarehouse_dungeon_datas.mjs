@@ -22,21 +22,24 @@ export const temp_dungeon_datas = [
         "dungeonName": "벛꽃 숲의 비밀",
         "requireLevel": 17,
         "minimumRequirePlayers": 1,
-        "maximumRequirePlayers": 4
+        "maximumRequirePlayers": 4,
+        "dungeonReleaseDate": "2015.09.22"
     },
     {
         "dungeonType": "모험[일반]",
         "dungeonName": "오염된 정원",
         "requireLevel": 17,
         "minimumRequirePlayers": 1,
-        "maximumRequirePlayers": 4
+        "maximumRequirePlayers": 4,
+        "dungeonReleaseDate": "2015.09.22"
     },
     {
         "dungeonType": "모험[일반]",
         "dungeonName": "골든타워 7층",
         "requireLevel": 21,
         "minimumRequirePlayers": 1,
-        "maximumRequirePlayers": 4
+        "maximumRequirePlayers": 4,
+        "dungeonReleaseDate": "2015.07.07"
     },
     {
         "dungeonType": "모험[일반]",
@@ -45,7 +48,8 @@ export const temp_dungeon_datas = [
         "minimumRequirePlayers": 1,
         "maximumRequirePlayers": 4,
         "dungeonDescription": "던전 설명 넣는 곳",
-        "dungeonClosedDate": "2020-07-09"
+        "dungeonClosedDate": "2020-07-09",
+        "dungeonReleaseDate": "2015.07.07"
     },
     {
         "dungeonType": "모험[일반]",
@@ -53,9 +57,9 @@ export const temp_dungeon_datas = [
         "requireLevel": 21,
         "minimumRequirePlayers": 1,
         "maximumRequirePlayers": 4,
-        
         "dungeonDescription": "던전 설명 넣는 곳",
-        "dungeonClosedDate": "2020-07-09"
+        "dungeonClosedDate": "2020-07-09",
+        "dungeonReleaseDate": "2015.07.07"
     },
     {
         "dungeonType": "모험[일반]",
@@ -64,7 +68,8 @@ export const temp_dungeon_datas = [
         "minimumRequirePlayers": 1,
         "maximumRequirePlayers": 4,
         "dungeonDescription": "던전 설명 넣는 곳",
-        "dungeonClosedDate": "2020-07-09"
+        "dungeonClosedDate": "2020-07-09",
+        "dungeonReleaseDate": "2015.07.07"
     },
     {
         "dungeonType": "모험[일반]",
@@ -73,28 +78,32 @@ export const temp_dungeon_datas = [
         "minimumRequirePlayers": 1,
         "maximumRequirePlayers": 4,
         "dungeonDescription": "던전 설명 넣는 곳",
-        "dungeonClosedDate": "2020-07-09"
+        "dungeonClosedDate": "2020-07-09",
+        "dungeonReleaseDate": "2015.09.22"
     },
     {
         "dungeonType": "모험[일반]",
         "dungeonName": "뱅코르타",
         "requireLevel": 28,
         "minimumRequirePlayers": 1,
-        "maximumRequirePlayers": 4
+        "maximumRequirePlayers": 4,
+        "dungeonReleaseDate": "2015.07.07"
     },
     {
         "dungeonType": "모험[일반]",
         "dungeonName": "꽃비 숲길",
         "requireLevel": 29,
         "minimumRequirePlayers": 1,
-        "maximumRequirePlayers": 4
+        "maximumRequirePlayers": 4,
+        "dungeonReleaseDate": "2015.10.29"
     },
     {
         "dungeonType": "모험[일반]",
         "dungeonName": "그림자 군단의 제단",
         "requireLevel": 30,
         "minimumRequirePlayers": 1,
-        "maximumRequirePlayers": 4
+        "maximumRequirePlayers": 4,
+        "dungeonReleaseDate": "2015.07.07"
     },
     {
         "dungeonType": "모험[일반]",
@@ -103,7 +112,8 @@ export const temp_dungeon_datas = [
         "minimumRequirePlayers": 1,
         "maximumRequirePlayers": 4,
         "dungeonDescription": "던전 설명 넣는 곳",
-        "dungeonClosedDate": "2020-07-09"
+        "dungeonClosedDate": "2020-07-09",
+        "dungeonReleaseDate": "2015.07.07"
     },
     {
         "dungeonType": "모험[일반]",
@@ -112,35 +122,40 @@ export const temp_dungeon_datas = [
         "minimumRequirePlayers": 1,
         "maximumRequirePlayers": 4,
         "dungeonDescription": "던전 설명 넣는 곳",
-        "dungeonClosedDate": "2020-07-09"
+        "dungeonClosedDate": "2020-07-09",
+        "dungeonReleaseDate": "2015.07.07"
     },
     {
         "dungeonType": "모험[일반]",
         "dungeonName": "왕궁 지하",
         "requireLevel": 34,
         "minimumRequirePlayers": 1,
-        "maximumRequirePlayers": 4
+        "maximumRequirePlayers": 4,
+        "dungeonReleaseDate": "2015.07.29"
     },
     {
         "dungeonType": "모험[일반]",
         "dungeonName": "혼돈의 숲",
         "requireLevel": 35,
         "minimumRequirePlayers": 1,
-        "maximumRequirePlayers": 4
+        "maximumRequirePlayers": 4,
+        "dungeonReleaseDate": "2015.07.29"
     },
     {
         "dungeonType": "모험[일반]",
         "dungeonName": "생명의 틈",
         "requireLevel": 36,
         "minimumRequirePlayers": 1,
-        "maximumRequirePlayers": 4
+        "maximumRequirePlayers": 4,
+        "dungeonReleaseDate": "2015.07.29"
     },
     {
         "dungeonType": "모험[일반]",
         "dungeonName": "이그니코르",
         "requireLevel": 38,
         "minimumRequirePlayers": 1,
-        "maximumRequirePlayers": 4
+        "maximumRequirePlayers": 4,
+        "dungeonReleaseDate": "2015.10.29"
     },
     {
         "dungeonType": "모험[일반]",
@@ -149,21 +164,24 @@ export const temp_dungeon_datas = [
         "minimumRequirePlayers": 1,
         "maximumRequirePlayers": 4,
         "dungeonDescription": "던전 설명 넣는 곳",
-        "dungeonClosedDate": "2020-07-09"
+        "dungeonClosedDate": "2020-07-09",
+        "dungeonReleaseDate": "2015.07.29"
     },
     {
         "dungeonType": "모험[일반]",
         "dungeonName": "호루스의 둥지",
         "requireLevel": 39,
         "minimumRequirePlayers": 1,
-        "maximumRequirePlayers": 4
+        "maximumRequirePlayers": 4,
+        "dungeonReleaseDate": "2015.07.29"
     },
     {
         "dungeonType": "모험[일반]",
         "dungeonName": "루디브리엄 시계탑",
         "requireLevel": 1,
         "minimumRequirePlayers": 1,
-        "maximumRequirePlayers": 4
+        "maximumRequirePlayers": 4,
+        "dungeonReleaseDate": "2015.07.29"
     },
     {
         "dungeonType": "모험[일반]",
@@ -172,21 +190,24 @@ export const temp_dungeon_datas = [
         "minimumRequirePlayers": 1,
         "maximumRequirePlayers": 4,
         "dungeonDescription": "던전 설명 넣는 곳",
-        "dungeonClosedDate": "2020-07-09"
+        "dungeonClosedDate": "2020-07-09",
+        "dungeonReleaseDate": "2015.07.29"
     },
     {
         "dungeonType": "모험[일반]",
         "dungeonName": "카트라무스 하층부",
         "requireLevel": 43,
         "minimumRequirePlayers": 1,
-        "maximumRequirePlayers": 4
+        "maximumRequirePlayers": 4,
+        "dungeonReleaseDate": "2015.08.20"
     },
     {
         "dungeonType": "모험[일반]",
         "dungeonName": "카트라무스 상층부",
         "requireLevel": 43,
         "minimumRequirePlayers": 1,
-        "maximumRequirePlayers": 4
+        "maximumRequirePlayers": 4,
+        "dungeonReleaseDate": "2015.08.20"
     },
     {
         "dungeonType": "모험[일반]",
@@ -195,7 +216,8 @@ export const temp_dungeon_datas = [
         "minimumRequirePlayers": 1,
         "maximumRequirePlayers": 4,
         "dungeonDescription": "던전 설명 넣는 곳",
-        "dungeonClosedDate": "2020-07-09"
+        "dungeonClosedDate": "2020-07-09",
+        "dungeonReleaseDate": "2015.08.20"
     },
     {
         "dungeonType": "모험[일반]",
@@ -204,7 +226,8 @@ export const temp_dungeon_datas = [
         "minimumRequirePlayers": 1,
         "maximumRequirePlayers": 4,
         "dungeonDescription": "던전 설명 넣는 곳",
-        "dungeonClosedDate": "2020-07-09"
+        "dungeonClosedDate": "2020-07-09",
+        "dungeonReleaseDate": "2015.08.20"
     },
     {
         "dungeonType": "모험[일반]",
@@ -213,7 +236,8 @@ export const temp_dungeon_datas = [
         "minimumRequirePlayers": 1,
         "maximumRequirePlayers": 4,
         "dungeonDescription": "던전 설명 넣는 곳",
-        "dungeonClosedDate": "2020-07-09"
+        "dungeonClosedDate": "2020-07-09",
+        "dungeonReleaseDate": "2015.09.22"
     },
     {
         "dungeonType": "모험[일반]",
@@ -222,7 +246,8 @@ export const temp_dungeon_datas = [
         "minimumRequirePlayers": 1,
         "maximumRequirePlayers": 4,
         "dungeonDescription": "던전 설명 넣는 곳",
-        "dungeonClosedDate": "2020-07-09"
+        "dungeonClosedDate": "2020-07-09",
+        "dungeonReleaseDate": "2015.08.20"
     },
     {
         "dungeonType": "모험[일반]",
@@ -231,35 +256,40 @@ export const temp_dungeon_datas = [
         "minimumRequirePlayers": 1,
         "maximumRequirePlayers": 4,
         "dungeonDescription": "던전 설명 넣는 곳",
-        "dungeonClosedDate": "2020-07-09"
+        "dungeonClosedDate": "2020-07-09",
+        "dungeonReleaseDate": "2015.08.20"
     },
     {
         "dungeonType": "모험[일반]",
         "dungeonName": "환상 피라미드",
         "requireLevel": 50,
         "minimumRequirePlayers": 1,
-        "maximumRequirePlayers": 4
+        "maximumRequirePlayers": 4,
+        "dungeonReleaseDate": "2015.08.20"
     },
     {
         "dungeonType": "모험[일반]",
         "dungeonName": "얼어붙은 신전",
         "requireLevel": 50,
         "minimumRequirePlayers": 1,
-        "maximumRequirePlayers": 4
+        "maximumRequirePlayers": 4,
+        "dungeonReleaseDate": "2015.08.20"
     },
     {
         "dungeonType": "모험[일반]",
         "dungeonName": "트로닉스 벙커",
         "requireLevel": 50,
         "minimumRequirePlayers": 1,
-        "maximumRequirePlayers": 4
+        "maximumRequirePlayers": 4,
+        "dungeonReleaseDate": "2015.08.20"
     },
     {
         "dungeonType": "모험[일반]",
         "dungeonName": "폭주열차 블랙노프 1호",
         "requireLevel": 50,
         "minimumRequirePlayers": 1,
-        "maximumRequirePlayers": 4
+        "maximumRequirePlayers": 4,
+        "dungeonReleaseDate": "2015.10.29"
     },
     {
         "dungeonType": "모험[일반]",
@@ -268,28 +298,32 @@ export const temp_dungeon_datas = [
         "minimumRequirePlayers": 1,
         "maximumRequirePlayers": 4,
         "dungeonDescription": "던전 설명 넣는 곳",
-        "dungeonClosedDate": "2020-07-09"
+        "dungeonClosedDate": "2020-07-09",
+        "dungeonReleaseDate": "2015.10.29"
     },
     {
         "dungeonType": "모험[일반]",
         "dungeonName": "어둠의 이면",
         "requireLevel": 50,
         "minimumRequirePlayers": 1,
-        "maximumRequirePlayers": 4
+        "maximumRequirePlayers": 4,
+        "dungeonReleaseDate": "2015.10.29"
     },
     {
         "dungeonType": "모험[일반]",
         "dungeonName": "푸른 그림자 동굴",
         "requireLevel": 50,
         "minimumRequirePlayers": 1,
-        "maximumRequirePlayers": 4
+        "maximumRequirePlayers": 4,
+        "dungeonReleaseDate": "2015.10.29"
     },
     {
         "dungeonType": "모험[일반]",
         "dungeonName": "폭주열차 블랙노프 2호",
         "requireLevel": 50,
         "minimumRequirePlayers": 1,
-        "maximumRequirePlayers": 4
+        "maximumRequirePlayers": 4,
+        "dungeonReleaseDate": "2015.10.29"
     },
     {
         "dungeonType": "모험[일반]",
@@ -298,7 +332,8 @@ export const temp_dungeon_datas = [
         "minimumRequirePlayers": 1,
         "maximumRequirePlayers": 4,
         "dungeonDescription": "던전 설명 넣는 곳",
-        "dungeonClosedDate": "2020-07-09"
+        "dungeonClosedDate": "2020-07-09",
+        "dungeonReleaseDate": "2015.10.29"
     },
     {
         "dungeonType": "모험[어려움]",
@@ -477,8 +512,8 @@ export const temp_dungeon_datas = [
             "아이템점수 7150점"
         ],
         "dungeonDescription": "던전 설명 넣는 곳",
-        "dungeonReleaseDate": "2017-01-12",
-        "dungeonClosedDate": "2018-07-05"
+        "dungeonReleaseDate": "2017.01.12",
+        "dungeonClosedDate": "2018.07.05"
     },
     {
         "dungeonType": "모험[일반]",
@@ -490,8 +525,8 @@ export const temp_dungeon_datas = [
             "아이템점수 7400점"
         ],
         "dungeonDescription": "던전 설명 넣는 곳",
-        "dungeonReleaseDate": "2017-01-12",
-        "dungeonClosedDate": "2018-07-05"
+        "dungeonReleaseDate": "2017.01.12",
+        "dungeonClosedDate": "2018.07.05"
     },
     {
         "dungeonType": "모험[일반]",
@@ -503,8 +538,8 @@ export const temp_dungeon_datas = [
             "아이템점수 7500점"
         ],
         "dungeonDescription": "던전 설명 넣는 곳",
-        "dungeonReleaseDate": "2017-01-12",
-        "dungeonClosedDate": "2018-07-05"
+        "dungeonReleaseDate": "2017.01.12",
+        "dungeonClosedDate": "2018.07.05"
     },
     {
         "dungeonType": "모험[일반]",
@@ -517,8 +552,8 @@ export const temp_dungeon_datas = [
             "트로피 : 분노의 요새 : 성벽 공략 획득"
         ],
         "dungeonDescription": "던전 설명 넣는 곳",
-        "dungeonReleaseDate": "2017-02-09",
-        "dungeonClosedDate": "2018-07-05"
+        "dungeonReleaseDate": "2017.02.09",
+        "dungeonClosedDate": "2018.07.05"
     },
     {
         "dungeonType": "모험[일반]",
@@ -530,8 +565,8 @@ export const temp_dungeon_datas = [
             "아이템점수 7700점"
         ],
         "dungeonDescription": "던전 설명 넣는 곳",
-        "dungeonReleaseDate": "2017-02-09",
-        "dungeonClosedDate": "2018-07-05"
+        "dungeonReleaseDate": "2017.02.09",
+        "dungeonClosedDate": "2018.07.05"
     },
     {
         "dungeonType": "모험[일반]",
@@ -543,8 +578,8 @@ export const temp_dungeon_datas = [
             "아이템점수 7650점"
         ],
         "dungeonDescription": "던전 설명 넣는 곳",
-        "dungeonReleaseDate": "2017-02-09",
-        "dungeonClosedDate": "2018-07-05"
+        "dungeonReleaseDate": "2017.02.09",
+        "dungeonClosedDate": "2018.07.05"
     },
     //54-56 Hard Dungeons.
     {
@@ -557,8 +592,8 @@ export const temp_dungeon_datas = [
             "아이템점수 7600점"
         ],
         "dungeonDescription": "던전 설명 넣는 곳",
-        "dungeonReleaseDate": "2017-01-12",
-        "dungeonClosedDate": "2018-07-05"
+        "dungeonReleaseDate": "2017.01.12",
+        "dungeonClosedDate": "2018.07.05"
     },
     {
         "dungeonType": "모험[어려움]",
@@ -571,7 +606,7 @@ export const temp_dungeon_datas = [
             "트로피 : 분노의 요새 : 침투로 확보"
         ],
         "dungeonDescription": "던전 설명 넣는 곳",
-        "dungeonClosedDate": "2018-07-05"
+        "dungeonClosedDate": "2018.07.05"
     },
     {
         "dungeonType": "모험[어려움]",
@@ -583,8 +618,8 @@ export const temp_dungeon_datas = [
             "아이템점수 6700점"
         ],
         "dungeonDescription": "던전 설명 넣는 곳",
-        "dungeonReleaseDate": "2017-01-12",
-        "dungeonClosedDate": "2018-07-05"
+        "dungeonReleaseDate": "2017.01.12",
+        "dungeonClosedDate": "2018.07.05"
     },
     {
         "dungeonType": "카오스 레이드",
@@ -598,11 +633,17 @@ export const temp_dungeon_datas = [
             "입장 요일 : 일요일, 월요일, 수요일, 금요일"
         ],
         "dungeonDescription": "던전 설명 넣는 곳",
-        "dungeonReleaseDate": "2017-02-09",
-        "dungeonClosedDate": "2018-07-05",
-        "isRankInfoUpdatable":true,
-        "isRankSearchable":true,
-        "representiveBossMonster" : {monsterLevel: 56, monsterId: 23200064, monsterName: "루카락스", dungeonClosed: true, thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000064_b_bigwingchimera_p.png" },
+        "dungeonReleaseDate": "2017.02.09",
+        "dungeonClosedDate": "2018.07.05",
+        "isRankInfoUpdatable": true,
+        "isRankSearchable": true,
+        "representiveBossMonster": {
+            "monsterLevel": 56,
+            "monsterId": 23200064,
+            "monsterName": "루카락스",
+            "dungeonClosed": true,
+            "thumbnailImage": MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000064_b_bigwingchimera_p.png"
+        }
     },
     {
         "dungeonType": "리버스 레이드",
@@ -615,11 +656,17 @@ export const temp_dungeon_datas = [
             "입장 요일 : 토요일, 일요일"
         ],
         "dungeonDescription": "던전 설명 넣는 곳",
-        "dungeonReleaseDate": "2017-07-27",
-        "dungeonClosedDate": "2018-07-05",
-        "isRankInfoUpdatable":true,
-        "isRankSearchable":true,
-        "representiveBossMonster" : {monsterLevel: "??", monsterId: 23000088, monsterName: "핑크빈", dungeonClosed: true, thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000088_b_pinkbean_p.png" },
+        "dungeonReleaseDate": "2017.07.27",
+        "dungeonClosedDate": "2018.07.05",
+        "isRankInfoUpdatable": true,
+        "isRankSearchable": true,
+        "representiveBossMonster": {
+            "monsterLevel": "??",
+            "monsterId": 23000088,
+            "monsterName": "핑크빈",
+            "dungeonClosed": true,
+            "thumbnailImage": MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000088_b_pinkbean_p.png"
+        }
     },
     {
         "dungeonType": "이벤트",
@@ -628,7 +675,7 @@ export const temp_dungeon_datas = [
         "minimumRequirePlayers": 4,
         "maximumRequirePlayers": 4,
         "dungeonDescription": "던전 블라블라",
-        "dungeonReleaseDate": "2017-02-23"
+        "dungeonReleaseDate": "2017.02.23"
     },
     //Fortress Rumble
     {
@@ -983,7 +1030,8 @@ export const temp_dungeon_datas = [
         "maximumRequirePlayers": 1,
         "dungeonEnterCondition": [
             "아이템점수 19000점"
-        ]
+        ],
+        "dungeonReleaseDate": "2019.03.14"
     },
     //Santury of Darkness (Kritias Hard Dungeon)
     {
@@ -1153,7 +1201,7 @@ export const temp_dungeon_datas = [
             "아이템 점수 60700점"
         ],
         "dungeonDescription": "시간의 흐름을 어지럽히며 메이플 월드를 정복하려는 닥터 피피, 닥터 피피의 연구소에서 모험가들의 힘과 메이플 월드의 몬스터들을 철저히 분석해 만든 몬스터들이 등장했다고 한다.\n 매드 닥터의 연구소로 가서 닥터 피피의 코를 납작하게 눌러주자.",
-        "dungeonReleaseDate": "2020-07-09"
+        "dungeonReleaseDate": "2020.07.09"
     },
     {
         "dungeonType": "카오스 레이드",
@@ -1165,7 +1213,7 @@ export const temp_dungeon_datas = [
             "아이템 점수 231000점"
         ],
         "dungeonDescription": "잠든 줄 알았던 데보라크가 다시 깨어났다. 더 깊은 곳에서 더욱 더 강해진 힘으로 우리를 위협하고 있다. 다시 데보라크를 잠재울 수 있는 자는 누구인가?",
-        "dungeonReleaseDate": "2020-08-13"
+        "dungeonReleaseDate": "2020.08.13"
     },
     {
         "dungeonType": "카오스 레이드",
@@ -1177,7 +1225,7 @@ export const temp_dungeon_datas = [
             "아이템 점수 255000점"
         ],
         "dungeonDescription": "잠든 줄 알았던 데보라크가 다시 깨어났다. 더 깊은 곳에서 더욱 더 강해진 힘으로 우리를 위협하고 있다. 다시 데보라크를 잠재울 수 있는 자는 누구인가?",
-        "dungeonReleaseDate": "2020-08-13",
+        "dungeonReleaseDate": "2020.08.13",
         "isRankSearchable":true,
         "isRankInfoUpdatable":true,
         "representiveBossMonster" :  { monsterLevel: 70, monsterId: 23200008, monsterName: "데보라크", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/61000050_devilhugeblue_p.png" },
@@ -1191,8 +1239,8 @@ export const temp_dungeon_datas = [
         "dungeonEnterCondition": [
             "아이템 점수 2021점"
         ],
-        "dungeonReleaseDate": "2021-01-14",
-        "dungeonClosedDate": "2021-02-18"
+        "dungeonReleaseDate": "2021.01.14",
+        "dungeonClosedDate": "2021.02.18"
     },
     {
         "dungeonType": "카오스 레이드",
@@ -1204,7 +1252,7 @@ export const temp_dungeon_datas = [
             "아이템 점수 203000점"
         ],
         "dungeonDescription": "이계에서 소환된 장난꾸러기 블랙빈과 핑크빈이 모험가들을 그들의 놀이터로 소환했다. 블랙빈과 핑크빈을 물리치고 이계의 놀이터를 탈출하자.",
-        "dungeonReleaseDate": "2021-02-18"
+        "dungeonReleaseDate": "2021.02.18"
     },
     {
         "dungeonType": "카오스 레이드",
@@ -1217,7 +1265,7 @@ export const temp_dungeon_datas = [
             "아이템 점수 265000점"
         ],
         "dungeonDescription": "이계에서 소환된 장난꾸러기 블랙빈과 핑크빈이 모험가들을 그들의 놀이터로 소환했다. 블랙빈과 핑크빈을 물리치고 이계의 놀이터를 탈출하자.",
-        "dungeonReleaseDate": "2021-02-18",
+        "dungeonReleaseDate": "2021.02.18",
         "isRankSearchable":true,
         "isRankInfoUpdatable":true,
         "representiveBossMonster" : { monsterLevel: 70, monsterId: 23000160, monsterName: "핑크빈", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000088_b_pinkbean_p.png" },
@@ -1233,7 +1281,7 @@ export const temp_dungeon_datas = [
             "아이템 점수 335000점"
         ],
         "dungeonDescription": "영원의 동굴 깊숙한 곳, 한때 영혼의 성채라 불리었던 지역 깊은 곳에서 수상한 공간이 발견되었다. 푸른 화염으로 뒤덮혀 강력한 힘이 느껴지는 이곳에는 거대한 골렘만이 남아있다. 대체 이곳에서 무슨 일이 있었던것일까? 우선 폭주화가 시작된 골렘을 잠재워보자.",
-        "dungeonReleaseDate": "2021-09-09",
+        "dungeonReleaseDate": "2021.09.09",
         "isRankSearchable":true,
         "isRankInfoUpdatable":false,
         //2021-09-09 new dungeon. (no longer used after 2021.10.14 update)
@@ -1251,7 +1299,7 @@ export const temp_dungeon_datas = [
             "아이템 점수 383000점"
         ],
         "dungeonDescription": "영원의 동굴 깊숙한 곳, 한때 영혼의 성채라 불리었던 지역 깊은 곳에서 수상한 공간이 발견되었다. 푸른 화염으로 뒤덮혀 강력한 힘이 느껴지는 이곳에는 거대한 골렘만이 남아있다. 대체 이곳에서 무슨 일이 있었던것일까? 우선 폭주화가 시작된 골렘을 잠재워보자.",
-        "dungeonReleaseDate": "2021-10-14",
+        "dungeonReleaseDate": "2021.10.14",
         "isRankSearchable":true,
         "isRankInfoUpdatable":true,
         "representiveBossMonster" : { monsterLevel: 70, monsterId: 23000401, monsterName: "광기 어린 블루 루크", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/23000400_b_blueluke_p.png" },
@@ -1266,7 +1314,7 @@ export const temp_dungeon_datas = [
             "아이템 점수 231000점"
         ],
         "dungeonDescription": "휴머노이드 공학이라는 기만책을 펼치며, 위험한 연구룰 총괄한 칸두라! 그림자 군단에 필적할 새로운 군단의 탄생은 이제 막바지에 이르렀는데… 칸두라를 쓰러뜨리고 그의 연구를 저지할 자는 과연 누구인가!",
-        "dungeonReleaseDate": "2022-01-13",
+        "dungeonReleaseDate": "2022.01.13",
     },
     //2022-05-12 붉은 장미 극장[일반](델라 로사)
     {
@@ -1280,7 +1328,7 @@ export const temp_dungeon_datas = [
             "아이템 점수 501500점"
         ],
         "dungeonDescription": "붉은빛의 어둠 속, 균열의 시공간. 오래 전 불타 사라졌던 붉은 장미 극장이 발견되었다. 그곳에서 죽은 줄 알았던 메이플 월드 최고의 프리마돈나 델라 로사가 사라진 연주단원들을 이용해서 빛과 어둠의 아리아 공연을 펼치고 있었다. 그녀의 공연을 멈추지 않으면 시간의 균열은 더욱 가속화되고 세상이 위험에 빠질 수 있다.",
-        "dungeonReleaseDate": "2022-05-12",
+        "dungeonReleaseDate": "2022.05.12",
         "isRankSearchable":true,
         "isRankInfoUpdatable":true,
         "representiveBossMonster" :{ monsterLevel: 70, monsterId: 44100001, monsterName: "델라 로사", thumbnailImage: MAPLESTORY2_IMAGEPORTRAIT_DIR + "mob/41110001_b_primadonna_p.png"},

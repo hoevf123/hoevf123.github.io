@@ -1,26 +1,318 @@
 <!DOCTYPE html>
-
+<html lang="ko">
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>비숍이 실험실</title>
     <link rel="stylesheet" href="common.css">
+    <style>
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            position: relative;
+        }
+        .search-container {
+            margin: 20px 0;
+            position: relative;
+            max-width: 100%;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .search-container input {
+            width: 100%;
+            padding: 12px 20px;
+            font-size: 16px;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            box-sizing: border-box;
+        }
+        .search-container input:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 0 3px rgba(0,123,255,0.1);
+        }
+        .search-container input::placeholder {
+            color: #adb5bd;
+        }
+        .category-buttons {
+            display: flex;
+            gap: 8px;
+            margin: 24px 0;
+            flex-wrap: wrap;
+            padding: 8px;
+            background-color: #f8f9fa;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .category-btn {
+            padding: 8px 16px;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            background-color: white;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 14px;
+            font-weight: 500;
+            color: #495057;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            flex: 0 1 auto;
+            min-width: 100px;
+            text-align: center;
+            white-space: nowrap;
+        }
+        .category-btn:hover {
+            background-color: #f8f9fa;
+            border-color: #007bff;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .category-btn.active {
+            background-color: #007bff;
+            color: white;
+            border-color: #007bff;
+            box-shadow: 0 4px 6px rgba(0,123,255,0.2);
+        }
+        .dict-result {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            width: 100%;
+            padding: 0;
+            margin: 0;
+            background-color: transparent;
+            box-sizing: border-box;
+        }
+        .dict-data {
+            width: 100%;
+            height: 100%;
+            border: 1px solid #e9ecef;
+            border-radius: 12px;
+            padding: 20px;
+            background-color: white;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            box-sizing: border-box;
+            cursor: pointer;
+        }
+        .dict-data:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border-color: #dee2e6;
+        }
+        .dict-data.selected {
+            border-color: #007bff;
+            box-shadow: 0 0 0 3px rgba(0,123,255,0.1);
+        }
+        .dict-data .ms2-dictdata-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #212529;
+            margin: 0;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #e9ecef;
+        }
+        .dict-data p {
+            margin: 5px 0;
+            color: #495057;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        .dict-data p:first-child {
+            font-weight: 600;
+            color: #007bff;
+        }
+        .info-title {
+            color: #6c757d;
+            font-weight: 500;
+            margin-right: 4px;
+        }
+        .dict-data .ms2-dungeon-type {
+            color: #6c757d;
+            font-size: 13px;
+            margin-bottom: 4px;
+        }
+        .dict-data .ms2-dungeon-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: #212529;
+            margin-bottom: 12px;
+        }
+        .dict-data .ms2-dungeon-enter-condition {
+            padding-left: 8px;
+            border-left: 3px solid #e9ecef;
+            margin-left: 4px;
+        }
+        .dict-data .ms2-dungeon-enter-condition br {
+            margin: 4px 0;
+        }
+        .div-thumbimg {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            background: #fff;
+            border: 2px solid #ff8855;
+        }
+        .div-thumbimg img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+        .dungeon-type-badge {
+            position: absolute;
+            right: 6px;
+            bottom: 6px;
+            background: #ff8855;
+            color: #fff;
+            font-size: 0.95em;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-weight: bold;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            border: 2px solid #fff;
+            z-index: 2;
+        }
+        .require-level-badge {
+            margin-top: 0;
+            background: #4a90e2;
+            font-size: 0.9em;
+            padding: 3px 12px;
+        }
+        .player-count-badge {
+            display: inline-block;
+            background: #50c878;
+            color: #fff;
+            font-size: 0.9em;
+            padding: 3px 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            margin: 4px 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            border: 2px solid #fff;
+        }
+        .mob-level-badge {
+            margin-top: 4px;
+        }
+        .enter-condition-list {
+            list-style: none;
+            padding-left: 0;
+            margin: 8px 0;
+        }
+        .enter-condition-list li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 6px;
+            color: #495057;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        .enter-condition-list li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #007bff;
+            font-weight: bold;
+        }
+        .enter-condition-list li:last-child {
+            margin-bottom: 0;
+        }
+        /* 날짜 표시 스타일 */
+        .date-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 4px 0;
+        }
+        
+        .date-icon {
+            font-size: 1.2em;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+        }
+        
+        .date-icon.release {
+            background-color: #e3f2fd;
+            color: #1976d2;
+        }
+        
+        .date-icon.closed {
+            background-color: #ffebee;
+            color: #d32f2f;
+        }
+        
+        .date-text {
+            font-size: 0.95em;
+            color: #424242;
+        }
+        
+        /* 날짜가 없는 경우 스타일 */
+        .ms2-dungeon-release-date:empty,
+        .ms2-dungeon-closed-date:empty {
+            display: none;
+        }
+        .dungeon-info {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 12px;
+        }
+        .require-level-badge {
+            display: inline-block;
+            background: #4a90e2;
+            color: #fff;
+            font-size: 0.9em;
+            padding: 3px 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            border: 2px solid #fff;
+            width: fit-content;
+        }
+        .player-count-badge {
+            display: inline-block;
+            background: #50c878;
+            color: #fff;
+            font-size: 0.9em;
+            padding: 3px 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            border: 2px solid #fff;
+            width: fit-content;
+        }
+    </style>
     <script src="w3-include-html.js"></script>
+    <script src="nav-header.js"></script>
 </head>
-
 <body>
     <div w3-include-html="nav-header.html"></div>
     <section>
-        <div class="div-content">
+        <div class="container">
             <h1>던전 정보</h1>
             <p>메이플스토리2에 존재하는, 또는 존재했었던 던전들의 정보를 모아보았습니다.</p>
-            <p>던전 내용 추후 제작 예정</p>
-            <p>※ 아래에 있는 <strong>점선으로 된 영역</strong>을 클릭하면 던전의 상세 정보를 보실 수 있습니다. ※</p>
-            <div class="ms2-frame">
-                <div class="ms2-frame title"><p>던전 정보</p></div>
-                <ul class="ms2-dict-represent-area"></ul>
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="던전 이름을 입력하세요...">
             </div>
+            <div class="category-buttons" id="categoryButtons"></div>
+            <div id="ms2-dict-represent-area"></div>
             <script type="text/javascript" src="ms2_dict_include.js"></script>
             <script type="module" src="ms2_dict_dungeon_datas.mjs"></script>
         </div>
     </section>
 </body>
+</html>

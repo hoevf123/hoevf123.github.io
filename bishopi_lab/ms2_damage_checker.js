@@ -246,23 +246,23 @@ class MS2DamageChecker{
             let connector_player_tag_connection = {};            
             for(const arg_name in connector_player_tag_sample){
                 let object_stack = [];
-                
 
                 // create header tag
                 let _tag_string_alias = (tag_sample_tagalias?.[arg_name] === undefined || tag_sample_tagalias[arg_name] instanceof Object) ? arg_name : tag_sample_tagalias[arg_name];
                 let header_tag = createTag("p", "object-key " + new String(arg_name), _tag_string_alias);
                 let content_tag = null;
                 let arg_content = connector_player_tag_sample[arg_name];
-                let arg_content_type =typeof(arg_content);
+                let arg_content_type = typeof(arg_content);
                 console.log("Current Seeing content : ", arg_content);
-                if(!(arg_content_type == "number" || arg_content_type == "object" || arg_content_type == "string"))continue;
+                if(!(arg_content_type == "number" || arg_content_type == "object" || arg_content_type == "string" || arg_content instanceof Array))continue;
 
 
                 if(arg_content instanceof Array){
                     //create select box list
-                    let tag_selectbox = createTag("select",arg_name);
-                    let tag_options = Array.prototype.reduce.call(arg_content,function(a,c){
-                        a.push(createTag("option",arg_name,c));
+                    let tag_selectbox = createTag("select", arg_name);
+                    tag_selectbox.setAttribute('aria-label', _tag_string_alias);
+                    let tag_options = Array.prototype.reduce.call(arg_content, function(a,c){
+                        a.push(createTag("option", arg_name, c));
                         return a;
                     },[]);
                     //insert options to selectbox
@@ -271,37 +271,38 @@ class MS2DamageChecker{
                     });
                     //indicates content tag
                     content_tag = tag_selectbox;
-                }
-                else if(typeof(arg_content) == "number" || typeof(arg_content) == "string"){ 
-                    let tag_inputbox = createTag("input",arg_name, arg_content);
-                    if(typeof(arg_content) == "number") tag_inputbox.type="number";
-                    //indicates content tag
+
+                } else if(typeof(arg_content) == "number" || typeof(arg_content) == "string"){ 
+                    let tag_inputbox = createTag("input", arg_name, arg_content);
+                    if(typeof(arg_content) == "number") tag_inputbox.type = "number";
+                    tag_inputbox.className = "ms2-damage-input";
                     content_tag = tag_inputbox;
                 }
                 else{
                     //nested object(s)
-                    let tag_div = createTag("div",new String(arg_name));
+                    let tag_div = createTag("div", new String(arg_name));
                     let ret_vals = CreateSomething(arg_content, tag_sample_tagalias?.[arg_name]);
                     let ret_tagset = ret_vals[0];
                     let ret_connetor_player_tag_connection = ret_vals[1];
                     if(ret_vals instanceof Array){
                         ret_tagset.forEach((e)=>tag_div.appendChild(e));
                         connector_player_tag_connection[arg_name]=ret_connetor_player_tag_connection;
-                        content_tag =tag_div;
+                        content_tag = tag_div;
                     }
-                    
                 }
                 
-                //insert tag when acontent tag is well created
-                console.log("header_tag", header_tag, "content_tag " , content_tag);
-                if(header_tag instanceof HTMLElement && content_tag instanceof HTMLElement){
-                    if(connector_player_tag_connection[arg_name]===undefined)
-                        connector_player_tag_connection[arg_name]=content_tag;
+                //insert tag when content tag is well created
+                console.log("header_tag", header_tag, "content_tag ", content_tag);
+                 if (header_tag instanceof HTMLElement && content_tag instanceof HTMLElement) {
+                     if (connector_player_tag_connection[arg_name] === undefined) {
+                          connector_player_tag_connection[arg_name] = content_tag;
+                     }
+
                     // create container div tag of key-value set.
-                    let container_tag = createTag("div","object-key-value-set " + new String(arg_name));
-                    [header_tag, content_tag].forEach(e=>container_tag.appendChild(e));
+                    let container_tag = createTag("div", "object-key-value-set " + new String(arg_name));
+                    [header_tag, content_tag].forEach(e => container_tag.appendChild(e));
                     assembled_tags.push(container_tag);
-                }
+                 }
             }
 
             return [assembled_tags, connector_player_tag_connection];

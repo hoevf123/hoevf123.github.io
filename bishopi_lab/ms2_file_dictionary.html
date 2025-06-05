@@ -1,36 +1,752 @@
 <!DOCTYPE html>
-
+<html lang="ko">
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>비숍이 실험실</title>
     <link rel="stylesheet" href="common.css">
-    <script src="w3-include-html.js"></script>
+    <style>
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            position: relative;
+        }
+        .search-container {
+            margin: 20px 0;
+            position: relative;
+            max-width: 100%;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .search-container input {
+            width: 100%;
+            padding: 12px 20px;
+            font-size: 16px;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            box-sizing: border-box;
+        }
+        .search-container input:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 0 3px rgba(0,123,255,0.1);
+        }
+        .search-container input::placeholder {
+            color: #adb5bd;
+        }
+        .category-buttons {
+            display: flex;
+            gap: 12px;
+            margin: 24px 0;
+            flex-wrap: wrap;
+            padding: 4px;
+            background-color: #f8f9fa;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .category-btn {
+            padding: 10px 20px;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            background-color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            font-weight: 500;
+            color: #495057;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            flex: 1;
+            min-width: 120px;
+            text-align: center;
+        }
+        .category-btn:hover {
+            background-color: #f8f9fa;
+            border-color: #007bff;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .category-btn.active {
+            background-color: #007bff;
+            color: white;
+            border-color: #007bff;
+            box-shadow: 0 4px 6px rgba(0,123,255,0.2);
+        }
+        .category-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-top: 24px;
+            position: relative;
+            min-height: 200px;
+            padding: 0;
+            background-color: transparent;
+            border-radius: 0;
+            box-shadow: none;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .dict-result {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            width: 100%;
+            padding: 0;
+            margin: 0;
+            background-color: transparent;
+            box-sizing: border-box;
+        }
+        .dict-data {
+            width: 100%;
+            height: 100%;
+            border: 1px solid #e9ecef;
+            border-radius: 12px;
+            padding: 20px;
+            background-color: white;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            box-sizing: border-box;
+        }
+        .dict-data:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border-color: #dee2e6;
+        }
+        .dict-data .ms2-dictdata-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #212529;
+            margin: 0;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #e9ecef;
+        }
+        .dict-data .link-date {
+            color: #666;
+            font-size: 14px;
+            margin: 5px 0;
+        }
+        .dict-data .thumb-img {
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+            object-fit: cover;
+            margin: 10px 0;
+        }
+        .dict-data .link-addr {
+            color: #666;
+            font-size: 14px;
+            margin: 5px 0;
+            padding: 8px 15px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            word-break: break-all;
+        }
+        .dict-data .bgm_location,
+        .dict-data .bgm_filename {
+            color: #666;
+            font-size: 14px;
+            margin: 5px 0;
+            padding: 5px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+        }
+        .dict-data .pallete-cost {
+            color: #666;
+            font-size: 14px;
+            margin: 5px 0;
+            padding: 8px 12px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .dict-data .pallete-cost .price {
+            font-weight: 500;
+            color: #333;
+        }
+        .dict-data .pallete-cost .currency {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 2px 6px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        .dict-data .pallete-cost .currency.meso {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        .dict-data .pallete-cost .currency.meret {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        .dict-data .pallete-cost .currency::before {
+            content: '';
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        .dict-data .pallete-cost .currency.meso::before {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23856404"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>');
+        }
+        .dict-data .pallete-cost .currency.meret::before {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23721c24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>');
+        }
+        .dict-data.locked-item {
+            opacity: 0.7;
+            position: relative;
+        }
+        .dict-data.locked-item::after {
+            content: '🔒';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 1.2em;
+        }
+        .reference-link {
+            background-color: #6c757d !important;
+        }
+        .reference-link:hover {
+            background-color: #5a6268 !important;
+        }
+        .download-link {
+            background-color: #007bff !important;
+        }
+        .download-link:hover {
+            background-color: #0056b3 !important;
+        }
+        .no-results {
+            text-align: center;
+            padding: 40px 20px;
+            color: #6c757d;
+            font-style: italic;
+            grid-column: 1 / -1;
+            background-color: #f8f9fa;
+            border-radius: 12px;
+            margin: 20px 4px;
+            border: 1px solid #e9ecef;
+        }
+        .notice-box {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .notice-box h2 {
+            color: #dc3545;
+            margin-top: 0;
+        }
+        .notice-box p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .notice-box strong {
+            color: #dc3545;
+        }
+        .dict-result.월페이퍼 {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            width: 100%;
+        }
+        .dict-result.월페이퍼 .dict-data {
+            grid-column: auto;
+            background-color: white;
+        }
+        .dict-result.월페이퍼 .dict-data img.thumb-img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin: 10px 0;
+            min-height: 200px;
+            background-color: #f8f9fa;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="%23dee2e6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 64px;
+        }
+        .dict-result.월페이퍼 .dict-data .download-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 10px 0;
+        }
+        .dict-result.월페이퍼 .dict-data .download-links a {
+            background-color: #28a745;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 4px;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.2s;
+            flex: 1;
+            min-width: 120px;
+            max-width: 200px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            word-wrap: break-word;
+            word-break: break-word;
+            line-height: 1.2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .dict-result.월페이퍼 .dict-data .download-links a:hover {
+            background-color: #218838;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        .dict-result.월페이퍼 .dict-data .hash-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin: 5px 0;
+        }
+        .dict-result.월페이퍼 .dict-data .hash-tags span {
+            background-color: #e9ecef;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            color: #495057;
+        }
+        .dict-result.월페이퍼 .dict-data .hash-tags span::before {
+            content: "#";
+            color: #6c757d;
+            margin-right: 2px;
+        }
+        .dict-result.공방도안 {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            width: 100%;
+        }
+        .dict-result.공방도안 .dict-data {
+            grid-column: auto;
+            background-color: white;
+        }
+        .dict-result.공방도안 .dict-data img.pallete-img {
+            width: 100%;
+            height: auto;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin: 10px 0;
+        }
+        .dict-result.공방도안 .dict-data .pallete-info {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 5px 0;
+        }
+        .dict-result.공방도안 .dict-data .pallete-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin: 5px 0;
+        }
+        .dict-result.공방도안 .dict-data .pallete-tags span {
+            background-color: #e9ecef;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+        }
+        .dict-result.공방도안 .dict-data .pallete-author {
+            color: #6c757d;
+            font-size: 14px;
+            margin: 5px 0;
+        }
+        .dict-result.공방도안 .dict-data .optimization-info {
+            background-color: #e3f2fd;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 5px 0;
+            font-size: 14px;
+        }
+        .dict-result.공방도안 .dict-data.locked-item {
+            opacity: 0.7;
+            position: relative;
+        }
+        .dict-result.공방도안 .dict-data.locked-item::after {
+            content: '🔒';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 1.2em;
+        }
+        .dict-result.배경음악 {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            width: 100%;
+        }
+        .dict-result.배경음악 .dict-data {
+            grid-column: auto;
+            background-color: white;
+        }
+        .dict-result.배경음악 .dict-data .bgm-player {
+            width: 100%;
+            margin: 10px 0;
+        }
+        .dict-result.배경음악 .dict-data .bgm-info {
+            background-color: rgba(0,0,0,0.03);
+            padding: 10px;
+            border-radius: 4px;
+            margin: 5px 0;
+        }
+        .dict-result.배경음악 .dict-data .bgm_filename {
+            background-color: #f8f9fa;
+            padding: 8px 12px;
+            border-radius: 4px;
+            margin: 5px 0;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 14px;
+            color: #495057;
+            border: 1px solid #e9ecef;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .dict-result.배경음악 .dict-data .bgm_filename::before {
+            content: '🎵';
+            font-size: 16px;
+            margin-right: 8px;
+        }
+        .dict-result.배경음악 .dict-data .bgm_filename .filename-item {
+            padding: 4px 8px;
+            background-color: #fff;
+            border-radius: 3px;
+            border: 1px solid #e9ecef;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .dict-result.배경음악 .dict-data .bgm_filename .filename-item:not(:last-child) {
+            border-bottom: 1px dashed #e9ecef;
+        }
+        .dict-result.배경음악 .dict-data .bgm_src {
+            display: inline-block;
+            padding: 8px 15px;
+            border-radius: 4px;
+            text-decoration: none;
+            text-align: center;
+            width: 100%;
+            box-sizing: border-box;
+            margin: 5px 0;
+        }
+    </style>
 </head>
-
 <body>
+    <!-- 헤더 include -->
     <div w3-include-html="nav-header.html"></div>
-    <section>
-        <div class="div-content">
-            <h1>파일 사전</h1>
-            <p>공식 홈페이지 또는 인게임 내에서 볼 수 있는 자료들을 모아 봤습니다.</p>
-            <p>주의 : 이 페이지에 있는 모든 자료들은 NEXON Corp. 와 해당 저작물을 최초 제작한 원작자, 법적 저작권 소유자의 소유물로 개인적인 용도로만 사용하실 것을 부탁드립니다. (영리 목적 사용 불가능)</p>
-            <p><strong>GM 1:1 문의 답변 내용 : 상용 목적 자료 사용 불가능, 저작권 분쟁 또는 침해 발생 가능성이 완전히 없는 범위에서만 사용(별도 사설서버 저장 안 됨), 홈페이지 링크 관련 자료 게시 가능</strong></p>
-            <br/>
-            <p>아래에 있는 자료들의 대부분은 2020년 5월 27일에 있었던 <strong>글로벌 서버 서비스 종료</strong>로 남겨진 공식 아카이브 서버에서 다운로드 받으실 수도 있습니다. <a href="https://maplestory.nexon.net/ms2archive">[링크]</a></p>
+
+    <div class="container">
+        <h1>메이플스토리2 파일 사전</h1>
+        
+        <div class="notice-box">
+            <h2>주의사항</h2>
+            <p>이 페이지에 있는 모든 자료들은 NEXON Corp. 와 해당 저작물을 최초 제작한 원작자, 법적 저작권 소유자의 소유물로 개인적인 용도로만 사용하실 것을 부탁드립니다. (영리 목적 사용 불가능)</p>
+            
+            <p><strong>GM 1:1 문의 답변 내용 :</strong><br>
+            - 상용 목적 자료 사용 불가능<br>
+            - 저작권 분쟁 또는 침해 발생 가능성이 완전히 없는 범위에서만 사용(별도 사설서버 저장 안 됨)<br>
+            - 홈페이지 링크 관련 자료 게시 가능</p>
+
+            <p>아래에 있는 자료들의 대부분은 2020년 5월 27일에 있었던 <strong>글로벌 서버 서비스 종료</strong>로 남겨진 공식 아카이브 서버에서 다운로드 받으실 수도 있었습니다만... 현재는 이 경로로는 다운로드를 받을 수 없습니다.</p>
+
             <p>주인장의 개인적인 생각이지만, 모종의 이유로 "COOL SUMMER" 이후에 나오는 작품은 더 이상 없는 것으로 보입니다.</p>
+
             <p>이 페이지에 있는 모든 자료는 메이플스토리2 한국 홈페이지 또는 인게임에서 획득 가능한 자료들만 사용합니다.</p>
-            <br/>
+
             <p><strong>아래에 수록된 정보들은 임시방편으로 제작 및 탑재된 것들이며, 몇몇 정보 및 작업이 누락되어 있습니다.</strong></p>
+
             <p><strong>배경음악을 제외한 모든 파일 및 자료는 데이터 유실(홈페이지 개편으로 인한 원본 삭제) 방지를 위해 github.io 저장소(Repository) 내에 복사본을 저장하여 사용 중입니다.</strong></p>
-            <br/>
-            <div>
-                <h1>목록</h1>
-                <p>* 아래에 있는 버튼 클릭 시 버튼에 적혀있는 자료들이 보여집니다.*</p>
-                <ul class="ms2-dict-represent-area"></ul>
-            </div>
-            <br />
-            <script type="text/javascript" src="ms2_dict_include.js"></script>
-            <script type="text/javascript" src="ms2_file_dict_datas.js"></script>
         </div>
-    </section>
+
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="검색어를 입력하세요...">
+        </div>
+
+        <div class="category-buttons">
+            <button class="category-btn active" data-category="wallpaper">월페이퍼</button>
+            <button class="category-btn" data-category="bgm">배경음악</button>
+            <button class="category-btn" data-category="included_palletes_origin">공방도안(기본제공)</button>
+            <button class="category-btn" data-category="custom_palletes_origin">공방도안(원본)</button>
+            <button class="category-btn" data-category="custom_palletes_paint_optimized">공방도안(그림판 최적화)</button>
+        </div>
+
+        <div class="category-content" id="categoryContent">
+        </div>
+    </div>
+
+    <script src="w3-include-html.js"></script>
+    <script src="ms2_dict_include.js"></script>
+    <script>
+        // w3-include-html로 헤더 포함
+        window.addEventListener('DOMContentLoaded', function() {
+            if (window.w3IncludeHTML) w3IncludeHTML();
+        });
+    </script>
+    <script>
+        // 카테고리별 파일명과 데이터 구조 매핑
+        const categoryConfig = {
+            wallpaper: {
+                file: 'ms2_wallpaper.json',
+                tupleFormat: [
+                    ['div', 'ms2-dictdata-title'],
+                    ['div', 'link-addr'],
+                    ['img', 'thumb-img'],
+                    ['div', 'link-date'],
+                    ['a', 'download-links'],
+                    ['div', 'hash-tags']
+                ],
+                displayClass: '월페이퍼'
+            },
+            bgm: {
+                file: 'ms2_bgm.json',
+                tupleFormat: [
+                    ['div', 'ms2-dictdata-title'],  // 제목
+                    ['div', 'bgm_location'],       // 위치
+                    ['div', 'bgm_filename'],       // 파일명
+                    ['audio', 'bgm-player'],       // 오디오 플레이어
+                    ['a', 'bgm_src'],             // 다운로드 링크
+                    ['div', 'bgm-info']           // 추가 정보
+                ],
+                displayClass: '배경음악'
+            },
+            included_palletes_origin: {
+                file: 'ms2_included_palletes_origin.json',
+                tupleFormat: [
+                    ['div', 'ms2-dictdata-title'],  // 제목
+                    ['img', 'pallete-img'],        // 도안 이미지
+                    ['div', 'pallete-cost', [      // 비용
+                        ['div', 'price'],
+                        ['div', 'currency']
+                    ]],
+                    ['div', 'pallete-info'],       // 도안 정보
+                    ['div', 'pallete-tags']        // 태그
+                ],
+                displayClass: '공방도안'
+            },
+            custom_palletes_origin: {
+                file: 'ms2_custom_palletes_origin.json',
+                tupleFormat: [
+                    ['div', 'ms2-dictdata-title'],  // 제목
+                    ['img', 'pallete-img'],        // 도안 이미지
+                    ['div', 'pallete-cost', [      // 비용
+                        ['div', 'price'],
+                        ['div', 'currency']
+                    ]],
+                    ['div', 'pallete-info'],       // 도안 정보
+                    ['div', 'pallete-tags'],       // 태그
+                    ['div', 'pallete-author']      // 제작자
+                ],
+                displayClass: '공방도안'
+            },
+            custom_palletes_paint_optimized: {
+                file: 'ms2_custom_palletes_paint_optimized.json',
+                tupleFormat: [
+                    ['div', 'ms2-dictdata-title'],  // 제목
+                    ['img', 'pallete-img'],        // 도안 이미지
+                    ['div', 'pallete-cost', [      // 비용
+                        ['div', 'price'],
+                        ['div', 'currency']
+                    ]],
+                    ['div', 'pallete-info'],       // 도안 정보
+                    ['div', 'pallete-tags'],       // 태그
+                    ['div', 'pallete-author'],     // 제작자
+                    ['div', 'optimization-info']   // 최적화 정보
+                ],
+                displayClass: '공방도안'
+            }
+        };
+
+        // DOM 생성 완료를 기다리는 Promise
+        function waitForDOM(targetElement) {
+            return new Promise((resolve) => {
+                const observer = new MutationObserver((mutations, obs) => {
+                    if (targetElement.children.length > 0) {
+                        obs.disconnect();
+                        resolve();
+                    }
+                });
+
+                observer.observe(targetElement, {
+                    childList: true,
+                    subtree: true
+                });
+
+                setTimeout(() => {
+                    observer.disconnect();
+                    resolve();
+                }, 5000);
+            });
+        }
+
+        // 파일 목록 생성 함수
+        async function createFileList(category) {
+            const categoryContent = document.getElementById('categoryContent');
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const config = categoryConfig[category];
+
+            if (!config) {
+                categoryContent.innerHTML = '<p>잘못된 카테고리입니다.</p>';
+                return;
+            }
+
+            try {
+                console.log(`[${category}] 데이터 로딩 시작...`);
+                
+                // Promise를 사용한 데이터 로드
+                const response = await new Promise((resolve, reject) => {
+                    const xhr = new XMLHttpRequest();
+                    xhr.overrideMimeType("application/json");
+                    xhr.open("GET", `./data/${config.file}`, true);
+                    xhr.onreadystatechange = function() {
+                        if (xhr.readyState === 4) {
+                            if (xhr.status === 200) {
+                                resolve(xhr.responseText);
+                            } else {
+                                reject(new Error('데이터를 불러올 수 없습니다.'));
+                            }
+                        }
+                    };
+                    xhr.send(null);
+                });
+
+                const data = JSON.parse(response);
+                
+                console.log(`[${category}] 데이터 구조:`, {
+                    typename: data.typename,
+                    tuple_tag_format: data.tuple_tag_format,
+                    total_items: data.datas.length
+                });
+
+                console.log(`[${category}] 데이터 미리보기 (최대 5개):`, data.datas.slice(0, 5));
+
+                // 기존 내용을 비우기 전에 새로운 결과를 준비
+                const resultDiv = document.createElement('div');
+                resultDiv.className = `dict-result ${config.displayClass}`;
+                resultDiv.id = `result-${category}`;
+
+                const dictData = new DictData(
+                    data.typename,
+                    config.tupleFormat,
+                    data.datas,
+                    resultDiv.id
+                );
+
+                if (searchTerm) {
+                    dictData.datas = dictData.datas.filter(item => 
+                        item.some(text => {
+                            if (Array.isArray(text)) {
+                                return text.some(t => t && t.toString().toLowerCase().includes(searchTerm));
+                            }
+                            return text && text.toString().toLowerCase().includes(searchTerm);
+                        })
+                    );
+                    console.log(`[${category}] 검색 결과: ${dictData.datas.length}개 항목`);
+                }
+
+                // 기존 내용을 비우고 새로운 결과 추가
+                categoryContent.innerHTML = '';
+                categoryContent.appendChild(resultDiv);
+                dictData.representData();
+
+                await waitForDOM(resultDiv);
+                console.log(`[${category}] 생성된 DOM 구조:`, resultDiv.innerHTML);
+
+                // 카테고리별 추가 처리
+                if (category === 'bgm') {
+                    document.querySelectorAll('.bgm_src').forEach(link => {
+                        if (link.href.includes('maplestory2.nexon.com')) {
+                            link.classList.add('reference-link');
+                        } else {
+                            link.classList.add('download-link');
+                        }
+                    });
+                } else if (category.includes('palletes')) {
+                    document.querySelectorAll('.pallete-img').forEach(img => {
+                        if (img.src.includes('locked.png')) {
+                            img.parentElement.classList.add('locked-item');
+                        }
+                    });
+                }
+
+                if (dictData.datas.length === 0) {
+                    const noResults = document.createElement('p');
+                    noResults.className = 'no-results';
+                    noResults.textContent = '검색 결과가 없습니다.';
+                    categoryContent.appendChild(noResults);
+                }
+
+                console.log(`[${category}] 데이터 로딩 완료`);
+            } catch (error) {
+                console.error(`[${category}] 에러 발생:`, error);
+                categoryContent.innerHTML = '<p>데이터를 불러올 수 없습니다.</p>';
+            }
+        }
+
+        // 초기 로드
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('페이지 로드 완료');
+            
+            // 카테고리 버튼 이벤트 리스너
+            document.querySelectorAll('.category-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    const prevActive = document.querySelector('.category-btn.active');
+                    if (prevActive) {
+                        prevActive.classList.remove('active');
+                    }
+                    button.classList.add('active');
+                    const category = button.dataset.category;
+                    console.log(`카테고리 변경: ${category}`);
+                    // URL 해시 업데이트
+                    window.location.hash = category;
+                    createFileList(category);
+                });
+            });
+
+            // 검색 입력 이벤트 리스너
+            document.getElementById('searchInput').addEventListener('input', () => {
+                const activeCategory = document.querySelector('.category-btn.active').dataset.category;
+                console.log(`검색어 입력: ${document.getElementById('searchInput').value}`);
+                createFileList(activeCategory);
+            });
+
+            // URL 해시 기반 초기 카테고리 로드
+            function loadCategoryFromHash() {
+                const hash = window.location.hash.slice(1); // '#' 제거
+                const validCategories = Object.keys(categoryConfig);
+                
+                if (hash && validCategories.includes(hash)) {
+                    // 해당 카테고리 버튼 활성화
+                    const targetButton = document.querySelector(`.category-btn[data-category="${hash}"]`);
+                    if (targetButton) {
+                        targetButton.click();
+                    } else {
+                        createFileList('wallpaper'); // 기본값
+                    }
+                } else {
+                    createFileList('wallpaper'); // 기본값
+                }
+            }
+
+            // 해시 변경 이벤트 리스너
+            window.addEventListener('hashchange', loadCategoryFromHash);
+
+            // 초기 로드
+            loadCategoryFromHash();
+        });
+    </script>
+    <script src="nav-header.js"></script>
 </body>
+</html>
