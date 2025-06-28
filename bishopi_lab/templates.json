@@ -1,0 +1,66 @@
+{
+    "templates": [
+        {
+            "id": "furniture_001",
+            "name": "Basic Chair",
+            "category": "furniture",
+            "thumbnail": "templates/thumbnails/chair_thumb.png",
+            "image": "templates/furniture/chair.png",
+            "description": "Basic chair template with customizable colors",
+            "colorZones": [
+                {"name": "seat", "color": "#FF0000"},
+                {"name": "back", "color": "#00FF00"},
+                {"name": "legs", "color": "#0000FF"}
+            ]
+        },
+        {
+            "id": "furniture_002",
+            "name": "Simple Table",
+            "category": "furniture",
+            "thumbnail": "templates/thumbnails/table_thumb.png",
+            "image": "templates/furniture/table.png",
+            "description": "Simple table template",
+            "colorZones": [
+                {"name": "top", "color": "#FF0000"},
+                {"name": "legs", "color": "#0000FF"}
+            ]
+        },
+        {
+            "id": "wall_001",
+            "name": "Basic Wall",
+            "category": "wall",
+            "thumbnail": "templates/thumbnails/wall_thumb.png",
+            "image": "templates/wall/basic_wall.png",
+            "description": "Basic wall template",
+            "colorZones": [
+                {"name": "main", "color": "#FFFFFF"},
+                {"name": "trim", "color": "#CCCCCC"}
+            ]
+        },
+        {
+            "id": "floor_001",
+            "name": "Wooden Floor",
+            "category": "floor",
+            "thumbnail": "templates/thumbnails/floor_thumb.png",
+            "image": "templates/floor/wooden_floor.png",
+            "description": "Wooden floor pattern",
+            "colorZones": [
+                {"name": "planks", "color": "#8B4513"},
+                {"name": "gaps", "color": "#000000"}
+            ]
+        },
+        {
+            "id": "workshop_001",
+            "name": "Workshop Table",
+            "category": "workshop",
+            "thumbnail": "templates/thumbnails/workshop_table_thumb.png",
+            "image": "templates/workshop/workshop_table.png",
+            "description": "Workshop table with color zones",
+            "colorZones": [
+                {"name": "surface", "color": "#8B4513"},
+                {"name": "legs", "color": "#4A4A4A"},
+                {"name": "tools", "color": "#696969"}
+            ]
+        }
+    ]
+} 

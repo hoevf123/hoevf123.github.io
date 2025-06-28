@@ -25,13 +25,33 @@
             [100000, "meso"]
         ],
         [
+            "디자인 티셔츠 (남)",
+            "./Maplestory2/Custom/Equip/template_T-shirt_M.png",
+            [200, "meret"]
+        ],
+        [
             "디자인 티셔츠 (여)",
             "./Maplestory2/Custom/Equip/template_T-shirt_F.png",
             [100000, "meso"]
         ],
         [
+            "디자인 티셔츠 (여)",
+            "./Maplestory2/Custom/Equip/template_T-shirt_F.png",
+            [200, "meret"]
+        ],
+        [
             "디자인 반바지 (남)",
             "./Maplestory2/Custom/Equip/template_pants_half_M.png",
+            [100000, "meso"]
+        ],
+        [
+            "디자인 반바지 (남)",
+            "./Maplestory2/Custom/Equip/template_pants_half_M.png",
+            [200, "meret"]
+        ],
+        [
+            "디자인 반바지 (여)",
+            "./Maplestory2/Custom/Equip/template_pants_half_F.png",
             [100000, "meso"]
         ],
         [
@@ -167,644 +187,644 @@
         [
             "디자인 샤프 블레이드 (블레이드)",
             "./Maplestory2/Custom/Equip/template_sharp_blade.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 블레이드 (블레이드)",
             "./Maplestory2/Custom/Equip/template_blade.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 너클 (너클)",
             "./Maplestory2/Custom/Equip/template_knuckles.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 크리스탈 오브 (오브)",
             "./Maplestory2/Custom/Equip/template_crystal_orb.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 오브 (오브)",
             "./Maplestory2/Custom/Equip/template_orb.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 헌팅캡 (남)",
             "./Maplestory2/Custom/Equip/template_hunting_cap_M.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 헌팅캡 (여)",
             "./Maplestory2/Custom/Equip/template_hunting_cap_F.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 동물탈 (남)",
             "./Maplestory2/Custom/Equip/template_animal_hat_M.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 동물탈 (여)",
             "./Maplestory2/Custom/Equip/template_animal_hat_F.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 야구모자 (남)",
             "./Maplestory2/Custom/Equip/template_baseball_cap_M.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 야구모자 (여)",
             "./Maplestory2/Custom/Equip/template_baseball_cap_F.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 비니 (남)",
             "./Maplestory2/Custom/Equip/template_beanie_M.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 비니 (여)",
             "./Maplestory2/Custom/Equip/template_beanie_F.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 헬멧 (남)",
             "./Maplestory2/Custom/Equip/template_helmet_M.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 헬멧 (여)",
             "./Maplestory2/Custom/Equip/template_helmet_F.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 봉투 모자 (남)",
             "./Maplestory2/Custom/Equip/template_paper_bag_hat_M.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 봉투 모자 (여)",
             "./Maplestory2/Custom/Equip/template_paper_bag_hat_F.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 수영모자 (남)",
             "./Maplestory2/Custom/Equip/template_swimming_cap_M.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 수영모자 (여)",
             "./Maplestory2/Custom/Equip/template_swimming_cap_F.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 코트 (남)",
             "./Maplestory2/Custom/Equip/template_coat_M.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 코트 (여)",
             "./Maplestory2/Custom/Equip/template_coat_F.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 언밸런스(비대칭) 코트 (남)",
             "./Maplestory2/Custom/Equip/template_asymmetrical_coat_M.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 언밸런스(비대칭) 코트 (여)",
             "./Maplestory2/Custom/Equip/template_asymmetrical_coat_F.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 긴팔 원피스 (남)",
             "./Maplestory2/Custom/Equip/template_long_sleeve_dress_M.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 긴팔 원피스 (여)",
             "./Maplestory2/Custom/Equip/template_long_sleeve_dress_F.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 원피스 (남)",
             "./Maplestory2/Custom/Equip/template_dress_M.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 원피스 (여)",
             "./Maplestory2/Custom/Equip/template_dress_F.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 져지 (남)",
             "./Maplestory2/Custom/Equip/template_jersey_M.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 져지 (여)",
             "./Maplestory2/Custom/Equip/template_jersey_F.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 후드티 (남)",
             "./Maplestory2/Custom/Equip/template_hoodie_M.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 후드티 (여)",
             "./Maplestory2/Custom/Equip/template_hoodie_F.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 쫄티 (남)",
             "./Maplestory2/Custom/Equip/template_sleek_shirt_M.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 쫄티 (여)",
             "./Maplestory2/Custom/Equip/template_sleek_shirt_F.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 박시 티셔츠 (남)",
             "./Maplestory2/Custom/Equip/template_boxy_shirt_M.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 박시 티셔츠 (여)",
             "./Maplestory2/Custom/Equip/template_boxy_shirt_F.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 티셔츠 (남)",
             "./Maplestory2/Custom/Equip/template_T-shirt_M.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 티셔츠 (여)",
             "./Maplestory2/Custom/Equip/template_T-shirt_F.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 쫄바지 (남)",
             "./Maplestory2/Custom/Equip/template_tight_pants_M.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 쫄바지 (여)",
             "./Maplestory2/Custom/Equip/template_tight_pants_F.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 치마 (남)",
             "./Maplestory2/Custom/Equip/template_skirt_M.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 치마 (여)",
             "./Maplestory2/Custom/Equip/template_skirt_F.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 반바지 (남)",
             "./Maplestory2/Custom/Equip/template_pants_half_M.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 반바지 (여)",
             "./Maplestory2/Custom/Equip/template_pants_half_F.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 손모아 장갑 (남)",
             "./Maplestory2/Custom/Equip/template_mittens_M.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 손모아 장갑 (여)",
             "./Maplestory2/Custom/Equip/template_mittens_F.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 신발 (남)",
             "./Maplestory2/Custom/Equip/template_shoes_M.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 신발 (여)",
             "./Maplestory2/Custom/Equip/template_shoes_F.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 레인부츠 (남)",
             "./Maplestory2/Custom/Equip/template_rain_boots_M.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 레인부츠 (여)",
             "./Maplestory2/Custom/Equip/template_rain_boots_F.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 숏 망토",
             "./Maplestory2/Custom/Equip/template_short_cape.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 책가방",
             "./Maplestory2/Custom/Equip/template_backpack.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 망토",
             "./Maplestory2/Custom/Equip/template_cape.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 가면 (남)",
             "./Maplestory2/Custom/Equip/template_mask_M.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 가면 (여)",
             "./Maplestory2/Custom/Equip/template_mask_F.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 슬로프 큐브",
             "./Maplestory2/Custom/Cube/template_slope_cube.png",
-            [50, "meso"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [50, "meso"]
+            
         ],
         [
             "디자인 삼각형 큐브",
             "./Maplestory2/Custom/Cube/template_triangle_cube.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 아치형 큐브",
             "./Maplestory2/Custom/Cube/template_arch_type_cube.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 아치 기둥 큐브",
             "./Maplestory2/Custom/Cube/template_arch_pillar_cube.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 아치 천장 큐브",
             "./Maplestory2/Custom/Cube/template_arch_ceiling_cube.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 사다리꼴 슬로프 큐브",
             "./Maplestory2/Custom/Cube/template_trapezoid_slope_cube.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 사다리꼴 모서리 큐브",
             "./Maplestory2/Custom/Cube/template_trapezoid_edge_cube.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 사다리꼴 기둥 큐브",
             "./Maplestory2/Custom/Cube/template_trapezoid_pillar_cube.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 납작 원통 큐브",
             "./Maplestory2/Custom/Cube/template_broad_cylinder_cube.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 카드 큐브",
             "./Maplestory2/Custom/Cube/template_card_cube.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 3단 계단 큐브",
             "./Maplestory2/Custom/Cube/template_3-step_stairs_cube.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 사각 기둥 하단 큐브",
             "./Maplestory2/Custom/Cube/template_square_pillar_base_cube.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 사각 기둥 큐브",
             "./Maplestory2/Custom/Cube/template_square_pillar_cube.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 원 기둥 큐브",
             "./Maplestory2/Custom/Cube/template_round_pillar_cube.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 원뿔 나무(전등) 큐브",
             "./Maplestory2/Custom/Cube/template_lamp_cube.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 소파 큐브",
             "./Maplestory2/Custom/Cube/template_sofa_cube.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 사각 테이블 큐브",
             "./Maplestory2/Custom/Cube/template_rectangle_table_cube.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 깃발 큐브",
             "./Maplestory2/Custom/Cube/template_flag_cube.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 지붕 큐브",
             "./Maplestory2/Custom/Cube/template_roof_cube.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 삼각 지붕 큐브",
             "./Maplestory2/Custom/Cube/template_triangle_roof_cube.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 화단 큐브",
             "./Maplestory2/Custom/Cube/template_flower_garden_cube.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 코너 파티션 큐브",
             "./Maplestory2/Custom/Cube/template_corner_partition_cube.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 파티션 큐브",
             "./Maplestory2/Custom/Cube/template_partition_cube.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 원목 침대 큐브",
             "./Maplestory2/Custom/Cube/template_wooden_bed_cube.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 수납장 큐브",
             "./Maplestory2/Custom/Cube/template_dresser_cube.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 의자 큐브",
             "./Maplestory2/Custom/Cube/template_chair_cube.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 코너 테이블 큐브",
             "./Maplestory2/Custom/Cube/template_corner_table_cube.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 바 테이블 큐브",
             "./Maplestory2/Custom/Cube/template_bar_table_cube.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 바닥 판넬 큐브",
             "./Maplestory2/Custom/Cube/template_floor_panel_cube.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 두루마리 장식 큐브",
             "./Maplestory2/Custom/Cube/template_scroll_decoration_cube.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 큐브",
             "./Maplestory2/Custom/Cube/template_design_cube.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 칸막이 큐브",
             "./Maplestory2/Custom/Cube/template_divider_cube.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 투명(투과) 박스 큐브",
             "./Maplestory2/Custom/Cube/template_traversable_box_cube.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 회전 큐브",
             "./Maplestory2/Custom/Cube/template_spinning_cube.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 직각 큐브",
             "./Maplestory2/Custom/Cube/template_broad_rectangle_cube.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 함정 큐브",
             "./Maplestory2/Custom/Cube/template_trap_door_cube.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 계단 큐브",
             "./Maplestory2/Custom/Cube/template_stairs_cube.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 원통 큐브",
             "./Maplestory2/Custom/Cube/template_cylinder_cube.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 (사각)탁자 큐브",
             "./Maplestory2/Custom/Cube/template_square_table_cube.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 책장 큐브",
             "./Maplestory2/Custom/Cube/template_bookcase_cube.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 미니 액자 큐브",
             "./pictogram/locked.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 자동 회전 원통 큐브",
             "./pictogram/locked.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 원형 식탁",
             "./pictogram/locked.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 침대",
             "./pictogram/locked.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 미니밴",
             "./Maplestory2/Custom/Ridee/template_minivan.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 지프",
             "./Maplestory2/Custom/Ridee/template_jeep.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 에퀴리아",
             "./Maplestory2/Custom/Ridee/template_equirria.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 네이키드 비스트",
             "./Maplestory2/Custom/Ridee/template_naked_beast.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 보니토",
             "./Maplestory2/Custom/Ridee/template_bonito.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 인티모",
             "./Maplestory2/Custom/Ridee/template_intimo.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 포크레인(굴착기)",
             "./Maplestory2/Custom/Ridee/template_excavator.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "디자인 레이싱 머신",
             "./Maplestory2/Custom/Ridee/template_racing_machine.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ],
         [
             "탑 디자이너 광고 트럭",
             "./pictogram/locked.png",
-            [500, "meret"],
-            "https://maplestory2.nexon.com/Home/Main"
+            [500, "meret"]
+            
         ]
     ],
     "represent_tag_target": "ms2_custom_palletes_origin-target"

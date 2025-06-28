@@ -22,421 +22,201 @@
         [
             "아기칠면조 망토(디자인 망토)",
             "./Maplestory2/Custom/Equip/Babyturkey_Mantle.png",
-            [500, "meso"]
+            [500, "meret"]
         ],
         [
             "Cha_Bag_D(디자인 배낭)",
             "./Maplestory2/Custom/Equip/Cha_Bag_D.png",
-            [500, "meso"]
+            [500, "meret"]
         ],
         [
             "의사 원피스 가운(여성용 디자인 원피스)",
             "./Maplestory2/Custom/Equip/Doctor_Onepice_F.png",
-            [500, "meso"]
+            [500, "meret"]
         ],
         [
             "듀크 원피스(남성용 디자인 원피스)",
             "./Maplestory2/Custom/Equip/Duke_Onepice_M.png",
-            [500, "meso"]
+            [500, "meret"]
         ],
         [
             "축구 바지(디자인 바지)",
             "./Maplestory2/Custom/Equip/Football_Pants.png",
-            [500, "meso"]
+            [500, "meret"]
         ],
         [
             "축구 바지(여성용 디자인 바지)",
             "./Maplestory2/Custom/Equip/Football_Pants_F.png",
-            [500, "meso"]
+            [500, "meret"]
         ],
         [
             "축구 상의(디자인 탑)",
             "./Maplestory2/Custom/Equip/Football_Top.png",
-            [500, "meso"]
+            [500, "meret"]
         ],
         [
             "축구 상의(여성용 디자인 탑)",
             "./Maplestory2/Custom/Equip/Football_Top_F.png",
-            [500, "meso"]
+            [500, "meret"]
         ],
         [
             "더키 장갑(디자인 장갑)",
             "./Maplestory2/Custom/Equip/gloves_duck.png",
-            [500, "meso"]
+            [500, "meret"]
         ],
         [
             "더키 장갑(여성용 디자인 장갑)",
             "./Maplestory2/Custom/Equip/gloves_F_duck.png",
-            [500, "meso"]
+            [500, "meret"]
         ],
         [
             "메이플 자이언츠(디자인 탑)",
             "./Maplestory2/Custom/Equip/maplegiants_Top.png",
-            [500, "meso"]
+            [500, "meret"]
         ],
         [
             "메이플 자이언츠(여성용 디자인 탑)",
             "./Maplestory2/Custom/Equip/maplegiants_Top_F.png",
-            [500, "meso"]
+            [500, "meret"]
         ],
         [
             "메이플 자이언츠 바지(여성용 디자인 바지)",
             "./Maplestory2/Custom/Equip/MaplegiantsPants_F.png",
-            [500, "meso"]
+            [500, "meret"]
         ],
         [
             "메이플 자아언츠 반소매 상의(여성용 디자인 탑)",
             "./Maplestory2/Custom/Equip/MaplegiantsTop_F.png",
-            [500, "meso"]
+            [500, "meret"]
         ],
         [
             "단풍잎 패턴 코트(여성용 디자인 한벌)",
             "./Maplestory2/Custom/Equip/maplepattern_coat_f.png",
-            [500, "meso"]
+            [500, "meret"]
         ],
         [
             "단풍잎 패턴 코트(남성용 디자인 한벌)",
             "./Maplestory2/Custom/Equip/maplepattern_coat_m.png",
-            [500, "meso"]
+            [500, "meret"]
         ],
         [
             "더키 원피스(여성용 디자인 원피스)",
             "./Maplestory2/Custom/Equip/onepiece_F_duck.png",
-            [500, "meso"]
+            [500, "meret"]
         ],
         [
             "모던 룩 원피스(여성용 디자인 원피스)",
             "./Maplestory2/Custom/Equip/onepiece_F_modernlook.png",
-            [500, "meso"]
+            [500, "meret"]
         ],
         [
             "버섯 원피스(디자인 원피스)",
             "./Maplestory2/Custom/Equip/onepiece_mushroom.png",
-            [500, "meso"]
+            [500, "meret"]
         ],
         [
             "점박이 바지(디자인 바지)",
             "./Maplestory2/Custom/Equip/pants_dot.png",
-            [500, "meso"]
+            [500, "meret"]
         ],
         [
             "청바지(여성용 디자인 바지)",
             "./Maplestory2/Custom/Equip/pants_F_jeans.png",
-            [500, "meso"]
+            [500, "meret"]
         ],
         [
             "오리너구리 모자(여성용 디자인 캡)",
             "./Maplestory2/Custom/Equip/Platypus_Cap_C.png",
-            [500, "meso"]
+            [500, "meret"]
         ],
         [
             "점박이 셔츠(디자인 탑)",
             "./Maplestory2/Custom/Equip/shirt_dot.png",
-            [500, "meso"]
+            [500, "meret"]
         ],
         [
             "메이플스토리2 로고 셔츠(여성용 디자인 탑)",
             "./Maplestory2/Custom/Equip/shirt_F_logo.png",
-            [500, "meso"]
+            [500, "meret"]
         ],
         [
             "검정색 부츠(디자인 신발)",
             "./Maplestory2/Custom/Equip/shoes_blackboots.png",
-            [500, "meso"]
+            [500, "meret"]
         ],
         [
             "데블린 신발(여성용 디자인 신발)",
             "./Maplestory2/Custom/Equip/shoes_F_devlin.png",
-            [500, "meso"]
+            [500, "meret"]
         ],
         [
             "눈사람 저지(남성용 디자인 탑)",
             "./Maplestory2/Custom/Equip/snowman_jersey_f.png",
-            [500, "meso"]
+            [500, "meret"]
         ],
         [
             "눈사람 저지(여성용 디자인 탑)",
             "./Maplestory2/Custom/Equip/snowman_jersey_m.png",
-            [500, "meso"]
+            [500, "meret"]
         ],
         [
             "눈사람 가면(여성용 디자인 가면)",
             "./Maplestory2/Custom/Equip/snowman_mask_f.png",
-            [500, "meso"]
+            [500, "meret"]
         ],
         [
             "눈사람 가면(남성용 디자인 가면)",
             "./Maplestory2/Custom/Equip/snowman_mask_m.png",
-            [500, "meso"]
+            [500, "meret"]
         ],
         [
             "다람쥐 모자(디자인 동물 탈)",
             "./Maplestory2/Custom/Equip/Squirrel_Hat_C.png",
-            [500, "meso"]
+            [500, "meret"]
         ],
         [
             "수영모(디자인 수영모)",
             "./Maplestory2/Custom/Equip/snowman_jersey_m.png",
-            [500, "meso"]
+            [500, "meret"]
         ],
         [
             "화사한 수영모(여성용 디자인 수영모)",
             "./Maplestory2/Custom/Equip/swimmigcap_F_floral.png",
-            [500, "meso"]
+            [500, "meret"]
         ],
         [
             "타이즈 바지(남성용 디자인 바지)",
             "./Maplestory2/Custom/Equip/TaizzPants_M.png",
-            [500, "meso"]
+            [500, "meret"]
         ],
         [
             "상자(디자인 큐브)",
             "./Maplestory2/Custom/Cube/box.png",
-            [500, "meso"]
+            [500, "meret"]
         ],
         [
             "어항(디자인 큐브)",
             "./Maplestory2/Custom/Cube/fish tank.png",
-            [500, "meso"]
+            [500, "meret"]
         ],
         [
             "오븐(디자인 책장 큐브)",
             "./Maplestory2/Custom/Cube/oven.png",
-            [500, "meso"]
+            [500, "meret"]
         ],
         [
             "종이 집(디자인 큐브)",
             "./Maplestory2/Custom/Cube/paper house.png",
-            [500, "meso"]
+            [500, "meret"]
         ],
         [
             "피아노(디자인 계단 큐브)",
             "./Maplestory2/Custom/Cube/piano.png",
-            [500, "meso"]
+            [500, "meret"]
         ],
         [
             "기둥(디자인 원통형 큐브)",
             "./Maplestory2/Custom/Cube/sign.png",
-            [500, "meso"]
-        ],
-        [
-            "디자인 슬로프 큐브",
-            "./Maplestory2/Custom/optimized/template_slope_cube.png",
-            [50, "meso"]
-        ],
-        [
-            "디자인 삼각형 큐브",
-            "./Maplestory2/Custom/optimized/template_triangle_cube.png",
-            [50, "meso"]
-        ],
-        [
-            "디자인 아치형 큐브",
-            "./Maplestory2/Custom/optimized/template_arch_type_cube.png",
-            [50, "meso"]
-        ],
-        [
-            "디자인 아치 기둥 큐브",
-            "./Maplestory2/Custom/optimized/template_arch_pillar_cube.png",
-            [50, "meso"]
-        ],
-        [
-            "디자인 아치 천장 큐브",
-            "./Maplestory2/Custom/optimized/template_arch_ceiling_cube.png",
-            [50, "meso"]
-        ],
-        [
-            "디자인 사다리꼴 슬로프 큐브",
-            "./Maplestory2/Custom/optimized/template_trapezoid_slope_cube.png",
-            [50, "meso"]
-        ],
-        [
-            "디자인 사다리꼴 모서리 큐브",
-            "./Maplestory2/Custom/optimized/template_trapezoid_edge_cube.png",
-            [50, "meso"]
-        ],
-        [
-            "디자인 사다리꼴 기둥 큐브",
-            "./Maplestory2/Custom/optimized/template_trapezoid_pillar_cube.png",
-            [50, "meso"]
-        ],
-        [
-            "디자인 납작 원통 큐브",
-            "./Maplestory2/Custom/optimized/template_broad_cylinder_cube.png",
-            [50, "meso"]
-        ],
-        [
-            "디자인 카드 큐브",
-            "./Maplestory2/Custom/optimized/template_card_cube.png",
-            [100, "meso"]
-        ],
-        [
-            "디자인 3단 계단 큐브",
-            "./Maplestory2/Custom/optimized/template_3-step_stairs_cube.png",
-            [100, "meso"]
-        ],
-        [
-            "디자인 사각 기둥 하단 큐브",
-            "./Maplestory2/Custom/optimized/template_square_pillar_base_cube.png",
-            [100, "meso"]
-        ],
-        [
-            "디자인 사각 기둥 큐브",
-            "./Maplestory2/Custom/optimized/template_square_pillar_cube.png",
-            [100, "meso"]
-        ],
-        [
-            "디자인 원 기둥 큐브",
-            "./Maplestory2/Custom/optimized/template_round_pillar_cube.png",
-            [100, "meso"]
-        ],
-        [
-            "디자인 원뿔 나무(전등) 큐브",
-            "./Maplestory2/Custom/optimized/template_lamp_cube.png",
-            [100, "meso"]
-        ],
-        [
-            "디자인 소파 큐브",
-            "./Maplestory2/Custom/optimized/template_sofa_cube.png",
-            [100, "meso"]
-        ],
-        [
-            "디자인 사각 테이블 큐브",
-            "./Maplestory2/Custom/optimized/template_rectangle_table_cube.png",
-            [100, "meso"]
-        ],
-        [
-            "디자인 깃발 큐브",
-            "./Maplestory2/Custom/optimized/template_flag_cube.png",
-            [100, "meso"]
-        ],
-        [
-            "디자인 지붕 큐브",
-            "./Maplestory2/Custom/optimized/template_roof_cube.png",
-            [100, "meso"]
-        ],
-        [
-            "디자인 삼각 지붕 큐브",
-            "./Maplestory2/Custom/optimized/template_triangle_roof_cube.png",
-            [100, "meso"]
-        ],
-        [
-            "디자인 화단 큐브",
-            "./Maplestory2/Custom/optimized/template_flower_garden_cube.png",
-            [100, "meso"]
-        ],
-        [
-            "디자인 코너 파티션 큐브",
-            "./Maplestory2/Custom/optimized/template_corner_partition_cube.png",
-            [100, "meso"]
-        ],
-        [
-            "디자인 파티션 큐브",
-            "./Maplestory2/Custom/optimized/template_partition_cube.png",
-            [100, "meso"]
-        ],
-        [
-            "디자인 원목 침대 큐브",
-            "./Maplestory2/Custom/optimized/template_wooden_bed_cube.png",
-            [100, "meso"]
-        ],
-        [
-            "디자인 수납장 큐브",
-            "./Maplestory2/Custom/optimized/template_dresser_cube.png",
-            [100, "meso"]
-        ],
-        [
-            "디자인 의자 큐브",
-            "./Maplestory2/Custom/optimized/template_chair_cube.png",
-            [100, "meso"]
-        ],
-        [
-            "디자인 코너 테이블 큐브",
-            "./Maplestory2/Custom/optimized/template_corner_table_cube.png",
-            [100, "meso"]
-        ],
-        [
-            "디자인 바 테이블 큐브",
-            "./Maplestory2/Custom/optimized/template_bar_table_cube.png",
-            [100, "meso"]
-        ],
-        [
-            "디자인 바닥 판넬 큐브",
-            "./Maplestory2/Custom/optimized/template_floor_panel_cube.png",
-            [100, "meso"]
-        ],
-        [
-            "디자인 두루마리 장식 큐브",
-            "./Maplestory2/Custom/optimized/template_scroll_decoration_cube.png",
-            [100, "meso"]
-        ],
-        [
-            "디자인 큐브",
-            "./Maplestory2/Custom/optimized/template_design_cube.png",
-            [100, "meso"]
-        ],
-        [
-            "디자인 칸막이 큐브",
-            "./Maplestory2/Custom/optimized/template_divider_cube.png",
-            [100, "meso"]
-        ],
-        [
-            "디자인 투명(투과) 박스 큐브",
-            "./Maplestory2/Custom/optimized/template_traversable_box_cube.png",
-            [100, "meso"]
-        ],
-        [
-            "디자인 회전 큐브",
-            "./Maplestory2/Custom/optimized/template_spinning_cube.png",
-            [150, "meso"]
-        ],
-        [
-            "디자인 직각 큐브",
-            "./Maplestory2/Custom/optimized/template_broad_rectangle_cube.png",
-            [100, "meso"]
-        ],
-        [
-            "디자인 함정 큐브",
-            "./Maplestory2/Custom/optimized/template_trap_door_cube.png",
-            [150, "meso"]
-        ],
-        [
-            "디자인 계단 큐브",
-            "./Maplestory2/Custom/optimized/template_stairs_cube.png",
-            [100, "meso"]
-        ],
-        [
-            "디자인 원통 큐브",
-            "./Maplestory2/Custom/optimized/template_cylinder_cube.png",
-            [100, "meso"]
-        ],
-        [
-            "디자인 (사각)탁자 큐브",
-            "./Maplestory2/Custom/optimized/template_square_table_cube.png",
-            [100, "meso"]
-        ],
-        [
-            "디자인 책장 큐브",
-            "./Maplestory2/Custom/optimized/template_bookcase_cube.png",
-            [100, "meso"]
-        ],
-        [
-            "디자인 미니 액자 큐브",
-            "./pictogram/locked.png",
-            [500, "meret"]
-        ],
-        [
-            "디자인 자동 회전 원통 큐브",
-            "./pictogram/locked.png",
-            [500, "meret"]
-        ],
-        [
-            "디자인 원형 식탁",
-            "./pictogram/locked.png",
-            [500, "meret"]
-        ],
-        [
-            "디자인 침대",
-            "./pictogram/locked.png",
             [500, "meret"]
         ]
     ],
