@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hoevf123's Portfolio</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        body {
+            padding-top: 56px;
+        }
+        .hero-section {
+            background: #f8f9fa;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+        .hero-section .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+        }
+        .section {
+            padding: 60px 0;
+        }
+        .project-card {
+            height: 100%;
+        }
+        .card-img-top {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .tech-tags .badge {
+            margin-right: 5px;
+        }
+        .footer {
+            background-color: #343a40;
+            color: white;
+            padding: 40px 0;
+        }
+        .footer a {
+            color: #adb5bd;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">hoevf123's Portfolio</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#about">소개</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#projects">프로젝트</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#archive">아카이브</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">연락처</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero-section">
+        <div class="container">
+            <img src="thumb_img.png" alt="Profile Picture" class="profile-img">
+            <h1 class="display-4">Dong's Git Page</h1>
+            <p class="lead">메이플스토리2 - 하이 프리스트 "비숍의하루"</p>
+            <div>
+                <a href="https://github.com/hoevf123" class="btn btn-dark btn-lg m-2" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                <a href="https://blog.naver.com/hoevf" class="btn btn-success btn-lg m-2" target="_blank"><i class="fa-solid fa-blog"></i> Naver Blog</a>
+                <a href="https://www.youtube.com/channel/UCRhcnOL4cirL-CKzqKHSC9Q" class="btn btn-danger btn-lg m-2" target="_blank"><i class="fab fa-youtube"></i> YouTube</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h2 class="section-heading">소개 (About Me)</h2>
+                    <hr class="my-4">
+                    <p class="lead">
+                        저는 게임 개발과 기획에 열정을 가지고 공부하고 있는 학생입니다. 
+                        주로 Unity와 C#을 사용한 개발에 익숙하며, 웹 기술(HTML, CSS, JavaScript)에도 관심이 많습니다. 
+                        다양한 아이디어를 실현하고 사용자에게 즐거움을 주는 콘텐츠를 만드는 것을 목표로 하고 있습니다.
+                    </p>
+                    <h4 class="mt-5">보유 기술 (Skills)</h4>
+                    <div class="tech-tags">
+                        <span class="badge bg-primary">Unity</span>
+                        <span class="badge bg-secondary">C#</span>
+                        <span class="badge bg-success">JavaScript</span>
+                        <span class="badge bg-info text-dark">HTML</span>
+                        <span class="badge bg-warning text-dark">CSS</span>
+                        <span class="badge bg-danger">Java</span>
+                        <span class="badge bg-dark">C/C++</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section bg-light">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-heading">프로젝트 (Projects)</h2>
+                <hr class="my-4">
+            </div>
+            <div class="row g-4">
+                <!-- Project 1: 비숍이 실험실 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="card project-card shadow-sm">
+                        <img src="preview_introduction_of_ms2.png" class="card-img-top" alt="비숍이 실험실">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">비숍이 실험실</h5>
+                            <p class="card-text flex-grow-1">메이플스토리2에서 개인적으로 구현하고 싶은 것들을 담아두는 페이지입니다. 현재 관리 중인 유일한 웹 페이지입니다.</p>
+                            <div class="tech-tags mb-3">
+                                <span class="badge bg-success">JavaScript</span>
+                                <span class="badge bg-info text-dark">HTML</span>
+                                <span class="badge bg-warning text-dark">CSS</span>
+                            </div>
+                            <a href="./bishopi_lab/index.html" class="btn btn-primary mt-auto" target="_blank">Live Demo</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project 2: 캐시마트 아르바이트 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="card project-card shadow-sm">
+                        <img src="preview_cashmart_arbeit_simulation.png" class="card-img-top" alt="캐시마트 아르바이트">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">캐시마트 아르바이트 모작</h5>
+                            <p class="card-text flex-grow-1">메이플스토리2 게임 내 캐시마트 아르바이트 던전을 Javascript로 만들어 본 페이지입니다.<br><small class="text-danger">(※실행 시 데이터 소모 및 소리 주의!)</small><br><small>조작키 : [←↑→↓] , [S]</small></p>
+                             <div class="tech-tags mb-3">
+                                <span class="badge bg-success">JavaScript</span>
+                                <span class="badge bg-info text-dark">HTML</span>
+                            </div>
+                            <a href="./cashmart_test/index_cashmart_exp.html" class="btn btn-primary mt-auto" target="_blank">Live Demo</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project 3: 3D Project (Placeholder) -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="card project-card shadow-sm">
+                        <img src="https://placehold.co/600x400/EAEAEA/808080?text=Future+Project" class="card-img-top" alt="Future Project">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">3D 프로젝트 (예정)</h5>
+                            <p class="card-text flex-grow-1">Unity를 사용한 3D 프로젝트를 이곳에 추가할 예정입니다.</p>
+                            <div class="tech-tags mb-3">
+                                <span class="badge bg-primary">Unity</span>
+                                <span class="badge bg-secondary">C#</span>
+                            </div>
+                            <a href="#" class="btn btn-secondary mt-auto disabled">Coming Soon</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Archive Section -->
+    <section id="archive" class="section">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-heading">아카이브 (Archived Works)</h2>
+                <p class="text-muted">과거에 진행했던 프로젝트 및 학습 자료들입니다.</p>
+                <hr class="my-4">
+            </div>
+            <div class="col-lg-8 mx-auto">
+                <ul class="list-group shadow-sm">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="my-0">메콩학개론</h6>
+                            <small class="text-muted">메이플스토리2가 좋은 게임으로 발전하길 기대하며 만든 사전식 페이지</small>
+                        </div>
+                        <a href="./ms2_entrance/index.html" class="btn btn-outline-primary btn-sm" target="_blank">바로가기</a>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="my-0">GPA-CASE</h6>
+                            <small class="text-muted">컴퓨터공학과 졸업작품 (터치 및 오브젝트 생성 테스트)</small>
+                        </div>
+                        <a href="./GPA-CASE.html" class="btn btn-outline-primary btn-sm" target="_blank">바로가기</a>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="my-0">와앙치키</h6>
+                            <small class="text-muted">개발 역량 부족으로 중단된 졸업작품 프로젝트</small>
+                        </div>
+                        <a href="./와앙/waang.html" class="btn btn-outline-primary btn-sm" target="_blank">바로가기</a>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="my-0">퀸-맥클러스키 주항 구하기</h6>
+                            <small class="text-muted">논리회로의 주항을 구하는 과정을 Table로 구현</small>
+                        </div>
+                        <a href="./Qunn-Mc Decoder/main.html" class="btn btn-outline-primary btn-sm" target="_blank">바로가기</a>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="my-0">Print Page Project</h6>
+                            <small class="text-muted">웹 프린트 서비스를 구현해 본 초기 학습용 HTML</small>
+                        </div>
+                        <a href="./HTMLPage1/print_page_0.0.3.html" class="btn btn-outline-primary btn-sm" target="_blank">바로가기</a>
+                    </li>
+                     <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="my-0">UGC 페인트</h6>
+                            <small class="text-muted">메이플스토리2 UGC 제작용 도트 툴</small>
+                        </div>
+                        <a href="./UGCPaint.html" class="btn btn-outline-primary btn-sm" target="_blank">바로가기</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section bg-light">
+        <div class="container text-center">
+            <h2 class="section-heading">연락처 (Contact)</h2>
+            <hr class="my-4">
+            <p class="lead">
+                문의사항이나 협업 제안은 아래 연락처로 연락주세요.
+            </p>
+            <div class="d-flex justify-content-center align-items-center">
+                 <a href="mailto:hoevf123@naver.com" class="btn btn-primary btn-lg mx-2">
+                    <i class="fas fa-envelope"></i> Naver 메일
+                </a>
+                 <a href="mailto:hoevf123.dongs@gmail.com" class="btn btn-danger btn-lg mx-2">
+                    <i class="fab fa-google"></i> Google 메일
+                </a>
+                 <button class="btn btn-info btn-lg mx-2" onclick="alert('Discord: 비숍의하루#5686')">
+                    <i class="fab fa-discord"></i> Discord 정보
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer text-center">
+        <div class="container">
+            <div class="mb-3">
+                <a href="https://github.com/hoevf123" class="text-white mx-2 fs-4" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://blog.naver.com/hoevf" class="text-white mx-2 fs-4" target="_blank"><i class="fa-solid fa-blog"></i></a>
+                <a href="https://www.youtube.com/channel/UCRhcnOL4cirL-CKzqKHSC9Q" class="text-white mx-2 fs-4" target="_blank"><i class="fab fa-youtube"></i></a>
+            </div>
+            <p class="mb-0">이 웹사이트는 Bootstrap 5를 이용하여 Microsoft Edge 브라우저를 기준으로 만들었습니다.</p>
+            <p class="mb-0">Copyright &copy; hoevf123 2024</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

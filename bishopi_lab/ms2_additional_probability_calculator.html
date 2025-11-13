@@ -583,7 +583,7 @@
             <div class="result-section">
                 <h3>계산 결과</h3>
                 <div class="result-item">
-                    <span class="result-label">획득 확률:</span>
+                    <span class="result-label">1회 시행 시 획득 확률:</span>
                     <span class="result-value">
                         <span class="result-value-number" id="output_getRate">계산되지 않음</span>
                         <span class="result-value-unit">%</span>
@@ -605,24 +605,47 @@
                     </span>
                 </div>
                 <div class="result-item">
-                    <span class="result-label">시행 뽑기 성공 확률 배율:</span>
+                    <span class="result-label">산술 요구 시행 뽑기 성공 확률 배율:</span>
                     <span class="result-value">
                         <span class="result-value-number" id="output_getTrialToSuccessRateRatio">계산되지 않음</span>
                         <span class="result-value-unit">배</span>
                     </span>
                 </div>
                 <div class="result-item">
-                    <span class="result-label">시행 뽑기 성공 확률:</span>
+                    <span class="result-label">산술 요구 시행 뽑기 성공 확률:</span>
                     <span class="result-value">
                         <span class="result-value-number" id="output_getTrialToSuccessRate">계산되지 않음</span>
                         <span class="result-value-unit">%</span>
                     </span>
                 </div>
                 <div class="result-item">
-                    <span class="result-label">시행 뽑기 실패 확률:</span>
+                    <span class="result-label">산술 시행 뽑기 실패 확률:</span>
                     <span class="result-value">
                         <span class="result-value-number" id="output_getTrialToFailRate">계산되지 않음</span>
                         <span class="result-value-unit">%</span>
+                    </span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">개별 옵션 확률(목록):</span>
+                    <span class="result-value">
+                        <div id="output_perOptionRates" style="max-width:600px; text-align:left;"></div>
+                    </span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">조합 확률(목록):</span>
+                    <span class="result-value">
+                        <div style="display:flex;flex-direction:column;gap:8px;max-width:600px; text-align:left;">
+                            <div id="comboControls" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+                                <label style="font-weight:500;">상위:</label>
+                                <input type="number" id="combo_topN" value="10" min="1" style="width:80px;padding:6px;border-radius:6px;border:1px solid #ddd;">
+                                <label style="display:flex;align-items:center;gap:6px;">
+                                    <input type="checkbox" id="combo_showAll"> 모두 보기
+                                </label>
+                                <span title="필수 옵션은 항상 포함됩니다. 조합은 필수 옵션 + 원하는 옵션에서 (뽑기 줄 수 - 필수 수)만큼 선택한 결과입니다. desired.size > picks인 경우엔 '모든 뽑기가 원하는 집합에서만 발생'하는 확률을 별도로 계산합니다." style="font-size:12px;color:#666;">ℹ️</span>
+                            </div>
+                            <div id="output_comboSummary" style="font-size:12px;color:#444"></div>
+                            <div id="output_comboProbabilities" style="max-width:600px; text-align:left;"></div>
+                        </div>
                     </span>
                 </div>
             </div>
@@ -710,21 +733,21 @@
                     </span>
                 </div>
                 <div class="result-item">
-                    <span class="result-label">시행 뽑기 성공 확률 배율:</span>
+                    <span class="result-label">산술 요구 시행 뽑기 성공 확률 배율:</span>
                     <span class="result-value">
                         <span class="result-value-number" id="output_trial_getTrialToSuccessRateRatio">계산되지 않음</span>
                         <span class="result-value-unit">배</span>
                     </span>
                 </div>
                 <div class="result-item">
-                    <span class="result-label">시행 뽑기 성공 확률:</span>
+                    <span class="result-label">산술 요구 시행 뽑기 성공 확률:</span>
                     <span class="result-value">
                         <span class="result-value-number" id="output_trial_getTrialToSuccessRate">계산되지 않음</span>
                         <span class="result-value-unit">%</span>
                     </span>
                 </div>
                 <div class="result-item">
-                    <span class="result-label">시행 뽑기 실패 확률:</span>
+                    <span class="result-label">산술 요구 시행 뽑기 실패 확률:</span>
                     <span class="result-value">
                         <span class="result-value-number" id="output_trial_getTrialToFailRate">계산되지 않음</span>
                         <span class="result-value-unit">%</span>
@@ -839,120 +862,162 @@
          *     ["보스 몬스터 공격 시 대미지 증가"]  // 필수 옵션
          * )
          */
+        // Enhanced exact probability calculation using recursion + memoization.
+        // Two scenarios:
+        // 1) If number of required desired options <= picks -> probability that all required desired options appear (others can be anything).
+        // 2) If number of desired options > picks -> probability that all picks come from the desired set (i.e., you obtain 'picks' items drawn only from the desired set).
+        // Essential options are treated as required; if number of essential options > picks, probability is 0.
         function getOptionPropertyRate(targetOptionnames, optionAmounts, targetOptionGroups, targetEssntialOptionNames = []) {
-            console.log("=== getOptionPropertyRate 파라미터 확인 ===");
-            console.log("targetOptionnames:", targetOptionnames);
-            console.log("optionAmounts:", optionAmounts);
-            console.log("targetOptionGroups:", targetOptionGroups);
-            console.log("targetEssntialOptionNames:", targetEssntialOptionNames);
+            if (!(Array.isArray(targetEssntialOptionNames))) targetEssntialOptionNames = targetEssntialOptionNames ? [targetEssntialOptionNames] : [];
+            if (!(Array.isArray(targetOptionnames))) targetOptionnames = targetOptionnames ? [targetOptionnames] : [];
 
-            if (!(Array.isArray(targetEssntialOptionNames))) targetEssntialOptionNames = [targetEssntialOptionNames];
-            if (!(Array.isArray(targetOptionnames))) targetOptionnames = [targetOptionnames];
-            
-            if (!(optionAmounts > 0 && targetOptionnames.length > 0)) {
-                if (targetEssntialOptionNames.length <= 0) return 1;
-                else return 0;
+            const desiredSet = new Set([...targetOptionnames.filter(Boolean)]);
+            const essentialSet = new Set([...targetEssntialOptionNames.filter(Boolean)]);
+            // neededSet should contain essentials always; include desired only when desired count <= picks
+            const neededSet = new Set([...essentialSet]);
+
+            // If there are no essentials and no desired targets, the event is trivial (probability 1).
+            if (neededSet.size === 0 && desiredSet.size === 0) return 1;
+            if (!(optionAmounts > 0)) return 0;
+            if (essentialSet.size > optionAmounts) return 0; // can't pick all required essentials
+
+            const optionsArray = Array.from(targetOptionGroups).map(o => ({ name: o.name, probability: Number(o.probability) || 0, optionGroup: o.optionGroup }));
+
+            const memo = new Map();
+
+            function stateKey(opts, picksLeft, needed) {
+                const names = opts.map(o => o.name).sort().join('|');
+                const need = Array.from(needed).sort().join('|');
+                return `${picksLeft}::${names}::${need}`;
             }
-            
-            let return_rate = 0;
-            let current_optionGroups = [...targetOptionGroups];
-            console.log("현재 옵션 그룹:", current_optionGroups);
-            
-            // 전체 확률 합계 계산
-            let total_probability = getSummationPropertyRate(current_optionGroups);
-            console.log("전체 확률 합계:", total_probability);
-            
-            let result_ratios = [];
 
-            function getOptionPropertyRateByAdditionalOptionName(targetOptionName, optionAmounts, targetOptionGroups, targetEssntialOptionNames) {
-                let ratio_summation = total_probability;
-                console.log(`\n=== ${targetOptionName} 옵션 확률 계산 ===`);
-                console.log("현재 옵션 구성 확률(최종 기준) : ", ratio_summation);
-                
-                let target_option = targetOptionGroups.find((e) => e?.name === targetOptionName);
-                console.log("찾은 옵션:", target_option);
-                
-                if (!target_option) {
-                    console.error("옵션을 찾을 수 없음:", targetOptionName);
+            // Recursive function to compute probability that all items in `needed` appear within picksLeft draws
+            function recurseNeeded(opts, picksLeft, needed) {
+                if (needed.size === 0) return 1;
+                if (picksLeft === 0) return 0;
+                if (needed.size > picksLeft) return 0;
+
+                const key = stateKey(opts, picksLeft, needed);
+                if (memo.has(key)) return memo.get(key);
+
+                const totalWeight = opts.reduce((s, o) => s + o.probability, 0);
+                if (totalWeight <= 0) {
+                    memo.set(key, 0);
                     return 0;
                 }
 
-                let option_probability = Number(target_option.probability) || 0;
-                console.log(`검사 : ${targetOptionName}`);
-                console.log(`표기 확률 : ${option_probability}`);
-                console.log(`실질 확률 : ${(option_probability/ratio_summation).toFixed(6)}`);
-                
-                let current_option_rate = option_probability / ratio_summation;
-                if (Number.isNaN(current_option_rate)) current_option_rate = 0;
+                let acc = 0;
+                for (const o of opts) {
+                    const p = o.probability / totalWeight;
+                    let nextOpts = o.optionGroup ? opts.filter(x => x.optionGroup !== o.optionGroup) : opts.filter(x => x.name !== o.name);
+                    const nextNeeded = new Set(needed);
+                    nextNeeded.delete(o.name);
+                    acc += p * recurseNeeded(nextOpts, picksLeft - 1, nextNeeded);
+                }
 
-                let param_removedAdditionalOptions = filterArrayContent([targetOptionName], targetOptionnames);
-                let param_decreasedOptionAmounts = optionAmounts - 1;
-                
-                let param_filteredAdditionalOptionGroups = filterOptionGroups(targetOptionName, current_optionGroups);
-                console.log("필터링된 옵션 그룹:", param_filteredAdditionalOptionGroups);
-                
-                let param_removedEssentialAdditionalOptions = filterArrayContent([targetOptionName], targetEssntialOptionNames);
-
-                console.log("재귀 호출 파라미터:", {
-                    removedOptions: param_removedAdditionalOptions,
-                    decreasedAmounts: param_decreasedOptionAmounts,
-                    filteredGroups: param_filteredAdditionalOptionGroups,
-                    removedEssential: param_removedEssentialAdditionalOptions
-                });
-
-                let deeper_rate = getOptionPropertyRate(
-                    param_removedAdditionalOptions,
-                    param_decreasedOptionAmounts,
-                    param_filteredAdditionalOptionGroups,
-                    param_removedEssentialAdditionalOptions
-                );
-
-                console.log("재귀 호출 결과:", deeper_rate);
-                current_option_rate = current_option_rate * deeper_rate;
-                console.log(`최종 결과 값 : ${current_option_rate.toFixed(6)}`);
-                return current_option_rate;
+                memo.set(key, acc);
+                return acc;
             }
 
-            for (const targetOptionName of targetOptionnames) {
-                console.log(`\n=== ${targetOptionName} 옵션 처리 시작 ===`);
-                let optionRate = getOptionPropertyRateByAdditionalOptionName(targetOptionName, optionAmounts, current_optionGroups, targetEssntialOptionNames);
-                console.log(`${targetOptionName}의 확률: ${optionRate.toFixed(6)}`);
-                result_ratios.push(optionRate);
+            // Recursive function to compute probability that ALL picksLeft draws are from allowedSet
+            function recurseAllFromAllowed(opts, picksLeft, allowedSet, mem) {
+                const key = `ALL::${picksLeft}::${opts.map(o=>o.name).sort().join('|')}::${Array.from(allowedSet).sort().join('|')}`;
+                if (mem.has(key)) return mem.get(key);
+                if (picksLeft === 0) return 1;
+                const totalWeight = opts.reduce((s,o)=>s+o.probability,0);
+                if (totalWeight <= 0) { mem.set(key,0); return 0; }
+                let acc = 0;
+                for (const o of opts) {
+                    if (!allowedSet.has(o.name)) continue; // if we pick a non-allowed option, this branch contributes 0
+                    const p = o.probability / totalWeight;
+                    let nextOpts = o.optionGroup ? opts.filter(x => x.optionGroup !== o.optionGroup) : opts.filter(x => x.name !== o.name);
+                    acc += p * recurseAllFromAllowed(nextOpts, picksLeft - 1, allowedSet, mem);
+                }
+                mem.set(key, acc);
+                return acc;
             }
 
-            if (optionAmounts > targetOptionnames.length) {
-                console.log(`\n=== 미사용 옵션 확률 계산 ===`);
-                console.log(`장비의 추가 옵션 줄 수(${optionAmounts})가 뽑아야 하는 추가 옵션의 개수(${targetOptionnames.length})보다 더 많습니다.`);
-                
-                // 남은 옵션 줄 수 계산
-                let remainingLines = optionAmounts - targetOptionnames.length;
-                console.log(`남은 줄 수: ${remainingLines}`);
-                
-                // 현재까지의 확률 (원하는 옵션들이 나올 확률)
-                let currentProbability = getSumArrayNumbers(result_ratios);
-                console.log("원하는 옵션들의 확률:", currentProbability.toFixed(6));
-                
-                // 남은 줄에 대한 확률 계산
-                // 최소 한 줄에 원하는 옵션이 나올 확률 = 1 - (모든 줄에 원하는 옵션이 나오지 않을 확률)
-                let remainingProbability = 1 - Math.pow(1 - currentProbability, optionAmounts);
-                console.log("남은 줄에 대한 확률:", remainingProbability.toFixed(6));
-                
-                // 최종 확률 계산
-                return_rate = remainingProbability;
-                console.log("최종 확률:", return_rate.toFixed(6));
-                
-                // 검산 로그
-                console.log("=== 확률 검산 ===");
-                console.log("기본 확률:", currentProbability.toFixed(6));
-                console.log("나오지 않을 확률:", (1 - currentProbability).toFixed(6));
-                console.log("모든 줄에 나오지 않을 확률:", Math.pow(1 - currentProbability, optionAmounts).toFixed(6));
-                console.log("최소 한 줄에 나올 확률:", remainingProbability.toFixed(6));
-            } else {
-                return_rate = getSumArrayNumbers(result_ratios);
-                console.log(`최종 확률 : ${return_rate.toFixed(6)}`);
+            // If there are essential options, always compute probability that ALL needed (essentials and
+            // desired WHEN desired count fits into picks) appear within picks.
+            if (essentialSet.size > 0) {
+                // include desired into needed only if desired count <= picks
+                if (desiredSet.size <= optionAmounts) {
+                    for (const d of desiredSet) neededSet.add(d);
+                    return recurseNeeded(optionsArray, optionAmounts, neededSet);
+                }
+
+                // desiredSet.size > picks: compute probability that all picks are from allowed set
+                // (allowed = essentials ∪ desired) AND that all essentials (neededSet) are obtained.
+                const allowedSet = new Set([...essentialSet, ...desiredSet]);
+                const memAllowed = new Map();
+                function recurseAllowedWithNeeded(opts, picksLeft, allowedSetLocal, neededLocal) {
+                    const key = `ALW::${picksLeft}::${opts.map(o=>o.name).sort().join('|')}::${Array.from(allowedSetLocal).sort().join('|')}::${Array.from(neededLocal).sort().join('|')}`;
+                    if (memAllowed.has(key)) return memAllowed.get(key);
+                    if (picksLeft === 0) return neededLocal.size === 0 ? 1 : 0;
+                    const totalWeight = opts.reduce((s,o)=>s+o.probability,0);
+                    if (totalWeight <= 0) { memAllowed.set(key,0); return 0; }
+                    let acc = 0;
+                    for (const o of opts) {
+                        if (!allowedSetLocal.has(o.name)) continue;
+                        const p = o.probability / totalWeight;
+                        let nextOpts = o.optionGroup ? opts.filter(x => x.optionGroup !== o.optionGroup) : opts.filter(x => x.name !== o.name);
+                        const nextNeeded = new Set(neededLocal);
+                        nextNeeded.delete(o.name);
+                        acc += p * recurseAllowedWithNeeded(nextOpts, picksLeft - 1, allowedSetLocal, nextNeeded);
+                    }
+                    memAllowed.set(key, acc);
+                    return acc;
+                }
+                return recurseAllowedWithNeeded(optionsArray, optionAmounts, allowedSet, neededSet);
             }
-            
-            return return_rate;
+
+            // Case A: no essentials, desired size > picks -> probability that all picks are from desired set
+            if (desiredSet.size > optionAmounts) {
+                const memA = new Map();
+                return recurseAllFromAllowed(optionsArray, optionAmounts, desiredSet, memA);
+            }
+            // Case B: no essentials, desired size <= picks -> include desired into needed and compute
+            if (desiredSet.size <= optionAmounts) {
+                for (const d of desiredSet) neededSet.add(d);
+            }
+            return recurseNeeded(optionsArray, optionAmounts, neededSet);
+        }
+
+        // Probability that the exact set of picked option NAMES equals targetSet (order-independent)
+        function probabilityOfExactSet(targetSetArray, optionAmounts, targetOptionGroups){
+            const targetSet = new Set(targetSetArray);
+            // quick checks
+            if(!(optionAmounts > 0)) return 0;
+            if(targetSet.size !== optionAmounts) return 0; // we only compute exact-equals sets of same size
+
+            const opts = Array.from(targetOptionGroups).map(o=>({ name: o.name, probability: Number(o.probability)||0, optionGroup: o.optionGroup }));
+            const memo = new Map();
+
+            function stateKey(optsArr, picksLeft, remainingSet){
+                return `${picksLeft}::${optsArr.map(x=>x.name).sort().join('|')}::${Array.from(remainingSet).sort().join('|')}`;
+            }
+
+            function recurse(optsArr, picksLeft, remainingSet){
+                if(picksLeft === 0) return remainingSet.size === 0 ? 1 : 0;
+                if(remainingSet.size > picksLeft) return 0;
+                const key = stateKey(optsArr, picksLeft, remainingSet);
+                if(memo.has(key)) return memo.get(key);
+                const totalWeight = optsArr.reduce((s,o)=>s+o.probability,0);
+                if(totalWeight <= 0){ memo.set(key,0); return 0; }
+                let acc = 0;
+                for(const o of optsArr){
+                    if(!remainingSet.has(o.name)) continue; // if pick is not in target set, sequence invalid
+                    const p = o.probability / totalWeight;
+                    const nextOpts = o.optionGroup ? optsArr.filter(x=>x.optionGroup !== o.optionGroup) : optsArr.filter(x=>x.name !== o.name);
+                    const nextRem = new Set(remainingSet);
+                    nextRem.delete(o.name);
+                    acc += p * recurse(nextOpts, picksLeft-1, nextRem);
+                }
+                memo.set(key, acc);
+                return acc;
+            }
+
+            return recurse(opts, optionAmounts, new Set(targetSet));
         }
         
         /**
@@ -1007,6 +1072,14 @@
                 pickedEssentialAditionalOptions
             );
             console.log(`pick : ${resultPickAdditionalOptionRate}`);
+            // 개별 옵션 확률 계산 (각 원하는 옵션이 뽑힐 확률)
+            let perOptionRates = {};
+            pickedAdditionalOptions.forEach((optName)=>{
+                try{
+                    perOptionRates[optName] = getOptionPropertyRate([optName], pickCounts, optionTable, pickedEssentialAditionalOptions);
+                }catch(e){ perOptionRates[optName] = 0; }
+            });
+            console.log("개별 옵션 확률:", perOptionRates);
             
             //획득 확률 넣기
             let text_getRate = document.getElementById("output_getRate");
@@ -1063,6 +1136,285 @@
                     }
                 }
             })(DOMObjectNamesDict);
+
+            // 개별 옵션 확률을 보여주기
+            (function showPerOptionRates(rates){
+                let container = document.getElementById('output_perOptionRates');
+                if(!container) return;
+                container.innerHTML = '';
+                let ul = document.createElement('ul');
+                ul.style.margin = '0';
+                ul.style.paddingLeft = '16px';
+                for(let k in rates){
+                    let li = document.createElement('li');
+                    // show base probability from option table, fall back to empty
+                    try{
+                        const nameToOpt = Object.fromEntries(optionTable.map(o=>[(o.optionName||o.name), o]));
+                        const base = nameToOpt[k] ? Number(nameToOpt[k].probability) || 0 : 0;
+                        li.innerText = `${k} (${(base*100).toFixed(6)}%) : ${(rates[k]*100).toFixed(6)}%`;
+                    }catch(e){
+                        li.innerText = `${k} : ${(rates[k]*100).toFixed(6)}%`;
+                    }
+                    // show options that become impossible when k is selected (group exclusion)
+                    try{
+                        const nameToOpt = Object.fromEntries(optionTable.map(o=>[(o.optionName||o.name), o]));
+                        function getExcludedNamesBySelected(names){
+                            const sel = new Set(names);
+                            const excluded = new Set();
+                            for(const s of names){
+                                const opt = nameToOpt[s];
+                                if(!opt) continue;
+                                const grp = opt.optionGroup;
+                                if(!grp) continue;
+                                for(const other of optionTable){
+                                    const otherName = other.optionName || other.name;
+                                    if(sel.has(otherName)) continue;
+                                    if((other.optionGroup || null) === grp){
+                                        // skip zero-prob base options
+                                        if(Number(other.probability) <= 0) continue;
+                                        excluded.add(otherName);
+                                    }
+                                }
+                            }
+                            return Array.from(excluded);
+                        }
+                        const ex = getExcludedNamesBySelected([k]);
+                        if(ex.length > 0){
+                            let note = document.createElement('div');
+                            note.style.fontSize = '12px';
+                            note.style.color = '#666';
+                            note.style.marginTop = '4px';
+                            note.innerText = `같이 나올 수 없는 옵션(그룹 배제): ${ex.join(', ')}`;
+                            li.appendChild(note);
+                        }
+                    }catch(e){ /* ignore */ }
+                    ul.appendChild(li);
+                }
+                container.appendChild(ul);
+            })(perOptionRates);
+
+            // 조합 확률(예: essential 포함하여 pickCounts 크기의 모든 조합 확률)을 계산하여 표기
+            (function showComboProbabilities(){
+                let container = document.getElementById('output_comboProbabilities');
+                let summary = document.getElementById('output_comboSummary');
+                if(!container) return;
+                container.innerHTML = '';
+                if(summary) summary.innerHTML = '';
+
+                const desired = Array.from(pickedAdditionalOptions || []);
+                const essential = Array.from(pickedEssentialAditionalOptions || []);
+                if(essential.length > pickCounts){
+                    container.innerText = '필수 옵션 수가 뽑기 줄 수보다 많아 조합이 불가능합니다.';
+                    return;
+                }
+
+                // We support multiple semantic cases:
+                // 1) If desired.size > picks and no essentials: enumerate all subsets of desired of size picks.
+                // 2) If desired.size > picks and essentials exist: include essentials, and choose remaining from desired (subsets of desired)
+                // 3) Otherwise: include all desired+essentials (mustInclude) and fill remaining slots from any other options in the table.
+                const mustIncludeBase = Array.from(new Set([ ...essential ]));
+                let combos = [];
+
+                function combinations(arr, k){
+                    const results = [];
+                    function backtrack(start, combo){
+                        if(combo.length === k){ results.push(combo.slice()); return; }
+                        for(let i=start;i<arr.length;i++){ combo.push(arr[i]); backtrack(i+1, combo); combo.pop(); }
+                    }
+                    if(k===0){ results.push([]); return results; }
+                    backtrack(0,[]);
+                    return results;
+                }
+
+                // Case A: desired list is bigger than picks
+                if(desired.length > pickCounts){
+                    if(essential.length === 0){
+                        // enumerate all pick-sized subsets of desired
+                        combos = combinations(desired, pickCounts);
+                        // combos are arrays of names already
+                    } else {
+                        // include essentials, then pick remaining slots from desired (excluding essentials)
+                        const remainingToChoose = pickCounts - mustIncludeBase.length;
+                        if(remainingToChoose < 0){ container.innerText = '필수 옵션 수가 뽑기 줄 수보다 많습니다.'; return; }
+                        const desiredCandidates = desired.filter(n=> !mustIncludeBase.includes(n));
+                        if(desiredCandidates.length < remainingToChoose){ container.innerText = '원하는 옵션 중에서 남은 슬롯을 채울 수 없습니다.'; return; }
+                        combos = combinations(desiredCandidates, remainingToChoose).map(c => mustIncludeBase.concat(c));
+                    }
+                } else {
+                    // Case B: desired.size <= picks
+                    const mustInclude = Array.from(new Set([ ...mustIncludeBase, ...desired ]));
+                    if(mustInclude.length > pickCounts){ container.innerText = '필수/원하는 옵션 수가 뽑기 줄 수보다 많아 조합이 불가능합니다.'; return; }
+                    const remainingToChoose = pickCounts - mustInclude.length;
+
+                    // candidates are all option names except those already in mustInclude
+                    const allNames = optionTable.map(o=>o.optionName || o.name);
+                    const candidates = allNames.filter(n => !mustInclude.includes(n));
+
+                    if(remainingToChoose === 0){ combos = [ mustInclude.slice() ]; }
+                    else { combos = combinations(candidates, remainingToChoose).map(c=> mustInclude.concat(c)); }
+                }
+
+                if(combos.length === 0){ container.innerText = '표시할 조합이 없습니다.'; return; }
+
+                // helper: map name->option for exclusion lookup
+                const nameToOpt = Object.fromEntries(optionTable.map(o=>[(o.optionName||o.name), o]));
+                function getExcludedNamesBySelected(names){
+                    const sel = new Set(names);
+                    const excluded = new Set();
+                    for(const s of names){
+                        const opt = nameToOpt[s];
+                        if(!opt) continue;
+                        const grp = opt.optionGroup;
+                        if(!grp) continue;
+                        for(const other of optionTable){
+                            const otherName = other.optionName || other.name;
+                            if(sel.has(otherName)) continue;
+                            if((other.optionGroup || null) === grp){
+                                if(Number(other.probability) <= 0) continue; // skip base-zero
+                                excluded.add(otherName);
+                            }
+                        }
+                    }
+                    return Array.from(excluded);
+                }
+
+                // compute probabilities for all combos
+                let comboProbs = combos.map(c=>({ combo: c, prob: probabilityOfExactSet(c, pickCounts, optionTable) || 0 }));
+                // filter out zero-probability combos (user requested these not be displayed)
+                const EPS = 1e-12;
+                comboProbs = comboProbs.filter(x => Number(x.prob) > EPS);
+                // sort by probability desc
+                comboProbs.sort((a,b)=> b.prob - a.prob);
+
+                const totalProb = comboProbs.reduce((s,x)=>s + x.prob, 0);
+
+                // read controls
+                const topNInput = document.getElementById('combo_topN');
+                const showAllInput = document.getElementById('combo_showAll');
+                const topN = Math.max(1, parseInt(topNInput?.value) || 10);
+                const showAll = !!(showAllInput && showAllInput.checked);
+
+                // aggregate 'other' combos (combo entries containing any option outside desired+essential)
+                const mustIncludeSet = new Set([...(essential||[]), ...(desired||[])]);
+                const pureCombos = comboProbs.filter(cp => cp.combo.every(n => mustIncludeSet.has(n)));
+                const otherCombos = comboProbs.filter(cp => !cp.combo.every(n => mustIncludeSet.has(n)));
+                const aggregatedOtherProb = otherCombos.reduce((s,x)=>s + x.prob, 0);
+
+                // compute what will be shown (aggregate counts as 1 entry)
+                let shownEntries = [];
+                // show pure combos first (they represent exact mustInclude-only combos)
+                for(const cp of pureCombos){ shownEntries.push({ label: cp.combo.join(' + '), prob: cp.prob, detail: [cp] }); }
+
+                if(otherCombos.length > 0){
+                    const otherLabelBase = (mustIncludeSet.size > 0) ? `${Array.from(mustIncludeSet).join(' + ')} + ` : '';
+                    const otherLabel = `${otherLabelBase}나머지 옵션 조합 (총 ${otherCombos.length}개)`;
+                    shownEntries.push({ label: otherLabel, prob: aggregatedOtherProb, detail: otherCombos });
+                }
+
+                // If not showing all, apply topN to shownEntries; but ensure aggregatedOther stays if it exists
+                let finalShown = shownEntries;
+                if(!showAll && shownEntries.length > topN){ finalShown = shownEntries.slice(0, topN); }
+
+                // render summary
+                if(summary){
+                    const shownSum = finalShown.reduce((s,e)=>s + e.prob, 0);
+                    summary.innerText = `합계(모든 조합): ${(totalProb*100).toFixed(6)}% | 표시된 합계: ${(shownSum*100).toFixed(6)}% (${finalShown.length}/${shownEntries.length})`;
+                    // sanity check vs 페이지의 획득 확률
+                    try{
+                        const calcRate = Number(resultPickAdditionalOptionRate) || 0;
+                        const diff = Math.abs(totalProb - calcRate);
+                        const eps = 1e-9;
+                        const ok = diff < eps;
+                        let sanity = document.createElement('div');
+                        sanity.style.marginTop = '6px';
+                        sanity.style.fontSize = '13px';
+                        sanity.style.fontWeight = '600';
+                        sanity.style.color = ok ? '#2ecc71' : '#e74c3c';
+                        sanity.innerText = `계산 일치: ${(calcRate*100).toFixed(6)}% vs 조합 합계: ${(totalProb*100).toFixed(6)}%  (차이: ${(diff*100).toFixed(9)}%)`;
+                        summary.appendChild(sanity);
+                    }catch(e){ /* ignore */ }
+                }
+
+                let ul = document.createElement('ul');
+                ul.style.margin = '0';
+                ul.style.paddingLeft = '16px';
+
+                finalShown.forEach((entry)=>{
+                    let li = document.createElement('li');
+                    li.innerText = `${entry.label} : ${(entry.prob*100).toFixed(6)}%`;
+                    ul.appendChild(li);
+                    // show excluded options for this summary entry even when not expanded
+                    try{
+                        // if this entry represents pure combos (detail array of length 1 with exact combo)
+                        if(entry.detail && Array.isArray(entry.detail)){
+                            if(entry.detail.length === 1){
+                                const d = entry.detail[0];
+                                const excl = getExcludedNamesBySelected(d.combo || []);
+                                if(excl.length > 0){
+                                    let exnote = document.createElement('div');
+                                    exnote.style.fontSize = '12px';
+                                    exnote.style.color = '#666';
+                                    exnote.style.marginTop = '4px';
+                                    exnote.innerText = `같이 나올 수 없는 옵션(그룹 배제): ${excl.join(', ')}`;
+                                    li.appendChild(exnote);
+                                }
+                            } else {
+                                // aggregated other entry: union excluded from all detail combos
+                                const union = new Set();
+                                entry.detail.forEach(d=>{
+                                    const arr = getExcludedNamesBySelected(d.combo || []);
+                                    arr.forEach(x=>union.add(x));
+                                });
+                                const unionArr = Array.from(union);
+                                if(unionArr.length > 0){
+                                    let exnote = document.createElement('div');
+                                    exnote.style.fontSize = '12px';
+                                    exnote.style.color = '#666';
+                                    exnote.style.marginTop = '4px';
+                                    exnote.innerText = `이 그룹들로 인해 나올 수 없는 옵션(요약): ${unionArr.join(', ')}`;
+                                    li.appendChild(exnote);
+                                }
+                            }
+                        }
+                    }catch(e){/* ignore */}
+                    // if showAll is enabled and this entry has detail list, show the details under it
+                    if(showAll && entry.detail && Array.isArray(entry.detail) && entry.detail.length > 0){
+                        let sub = document.createElement('ul');
+                        sub.style.margin = '4px 0 0 12px';
+                        sub.style.paddingLeft = '12px';
+                        entry.detail.forEach(d=>{
+                            let sli = document.createElement('li');
+                            sli.innerText = `${d.combo.join(' + ')} : ${(d.prob*100).toFixed(6)}%`;
+                            // compute excluded names due to group exclusion
+                            try{
+                                const excluded = getExcludedNamesBySelected(d.combo || []);
+                                if(excluded.length > 0){
+                                    let exnote = document.createElement('div');
+                                    exnote.style.fontSize = '12px';
+                                    exnote.style.color = '#999';
+                                    exnote.style.marginTop = '4px';
+                                    exnote.innerText = `이 조합으로 인해 나올 수 없는 추가 옵션: ${excluded.join(', ')}`;
+                                    sli.appendChild(exnote);
+                                }
+                            }catch(e){}
+                            sub.appendChild(sli);
+                        });
+                        ul.appendChild(sub);
+                    }
+                });
+
+                // if not showing all and there are more raw combos than summarized entries, add a small note
+                if(!showAll && comboProbs.length > topN){
+                    let more = document.createElement('div');
+                    more.style.marginTop = '8px';
+                    more.style.fontSize = '12px';
+                    more.style.color = '#666';
+                    more.innerText = `표시가 요약되어 있습니다. '모두 보기'를 선택하면 세부 조합을 확인할 수 있습니다.`;
+                    container.appendChild(more);
+                }
+
+                container.appendChild(ul);
+            })();
         }
 
         function onclick_btn_getMyPickRate(event){
@@ -1198,6 +1550,58 @@
             div_quicksetbuttons.appendChild(_btn);
         });
 
+        // 자주 사용하는 추가옵션 및 필수옵션 매핑 버튼 추가
+        // 매핑 규칙 (사용자 요청):
+        // 모자(headgear), 상의(top), 하의(bottom), 신발(shoes): 필수 = '보스 몬스터 공격 시 대미지 증가'
+        // 장갑(gloves): 필수 = '마법 저항력 관통'
+        // 귀고리(earrings), 목걸이(necklace), 반지(rings): 원하는 = ['크리티컬 대미지','크리티컬 명중','보스 몬스터 공격 시 대미지 증가','공격속도'], 필수 = ['보스 몬스터 공격 시 대미지 증가']
+        const presetMappings = {
+            headgear: { desired: ['보스 몬스터 공격 시 대미지 증가'], essential: ['보스 몬스터 공격 시 대미지 증가'] },
+            top: { desired: ['보스 몬스터 공격 시 대미지 증가'], essential: ['보스 몬스터 공격 시 대미지 증가'] },
+            bottom: { desired: ['보스 몬스터 공격 시 대미지 증가'], essential: ['보스 몬스터 공격 시 대미지 증가'] },
+            shoes: { desired: ['보스 몬스터 공격 시 대미지 증가'], essential: ['보스 몬스터 공격 시 대미지 증가'] },
+            gloves: { desired: ['마법 저항력 관통'], essential: ['마법 저항력 관통'] },
+            earrings: { desired: ['크리티컬 대미지','크리티컬 명중','보스 몬스터 공격 시 대미지 증가','공격속도'], essential: ['보스 몬스터 공격 시 대미지 증가'] },
+            necklace: { desired: ['크리티컬 대미지','크리티컬 명중','보스 몬스터 공격 시 대미지 증가','공격속도'], essential: ['보스 몬스터 공격 시 대미지 증가'] },
+            rings: { desired: ['크리티컬 대미지','크리티컬 명중','보스 몬스터 공격 시 대미지 증가','공격속도'], essential: ['보스 몬스터 공격 시 대미지 증가'] },
+            cape: { desired: ['크리티컬 대미지','크리티컬 명중','보스 몬스터 공격 시 대미지 증가','공격속도'], essential: ['보스 몬스터 공격 시 대미지 증가'] },
+            belt: { desired: ['크리티컬 대미지','크리티컬 명중','보스 몬스터 공격 시 대미지 증가','공격속도'], essential: ['보스 몬스터 공격 시 대미지 증가'] }
+        };
+
+        // 버튼 영역 생성
+        let presetDiv = document.createElement('div');
+        presetDiv.id = 'presetOptionButtons';
+        presetDiv.style.marginTop = '10px';
+        presetDiv.className = 'input-group';
+        let presetTitle = document.createElement('h4');
+        presetTitle.innerText = '자주 사용하는 옵션 매핑';
+        presetDiv.appendChild(presetTitle);
+
+        Object.keys(presetMappings).forEach((k)=>{
+            let btn = document.createElement('input');
+            btn.type = 'button';
+            btn.value = `매핑: ${k}`;
+            btn.className = 'add-column-btn';
+            btn.style.marginRight = '8px';
+            btn.addEventListener('click', ()=>{
+                const map = presetMappings[k];
+                // desired -> pickTable, essential -> essentialPickTable
+                const desiredRows = (map.desired || []).map(n=>({ optionName: n }));
+                const essentialRows = (map.essential || []).map(n=>({ optionName: n }));
+                // Also update the main additional option table to the equipment's full option set if available
+                try{
+                    if(MS2AdditionalOptions?.[k]) domTable.setTargetObjectArray(MS2AdditionalOptions[k]);
+                }catch(e){ console.log(e); }
+                pickTable.setTargetObjectArray(desiredRows);
+                essentialPickTable.setTargetObjectArray(essentialRows);
+                // 자동 계산 (현재 pick count 유지)
+                try{ onclick_btn_calculateAdditionalOptions(); }catch(e){ console.log(e); }
+            });
+            presetDiv.appendChild(btn);
+        });
+
+        div_quicksetbuttons.parentNode.insertBefore(presetDiv, div_quicksetbuttons.nextSibling);
+
         // Select 색상 변경 함수
         function updateSelectColor(selectElement) {
             const value = selectElement.value;
@@ -1224,6 +1628,12 @@
                 updateSelectColor(this);
             });
         });
+
+        // combo display controls: when the top-N or show-all control changes, re-run calculation
+        const comboTopN = document.getElementById('combo_topN');
+        const comboShowAll = document.getElementById('combo_showAll');
+        if(comboTopN) comboTopN.addEventListener('change', ()=>{ try{ onclick_btn_calculateAdditionalOptions(); }catch(e){console.log(e);} });
+        if(comboShowAll) comboShowAll.addEventListener('change', ()=>{ try{ onclick_btn_calculateAdditionalOptions(); }catch(e){console.log(e);} });
     </script>
 </body>
 </html>

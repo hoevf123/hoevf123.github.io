@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dong's Github Pages</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Styled progress bar: rounded, gradient fill, consistent height across browsers */
+    .styled-progress {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 10px;
+      border-radius: 9999px;
+      background-color: #f3f4f6; /* tailwind gray-100 */
+      overflow: hidden;
+      box-shadow: inset 0 1px 2px rgba(0,0,0,0.06);
+    }
+    /* WebKit (Chrome, Safari) */
+    .styled-progress::-webkit-progress-bar {
+      background-color: #f3f4f6;
+    }
+    .styled-progress::-webkit-progress-value {
+      background: linear-gradient(90deg,#fb7185 0%, #7c3aed 100%); /* pink -> purple */
+      border-radius: 9999px;
+      transition: width 400ms ease;
+      box-shadow: inset 0 -1px 0 rgba(255,255,255,0.25);
+    }
+    /* Firefox */
+    .styled-progress::-moz-progress-bar {
+      background: linear-gradient(90deg,#fb7185 0%, #7c3aed 100%);
+      border-radius: 9999px;
+      transition: width 400ms ease;
+    }
+    /* Reduced-motion support */
+    @media (prefers-reduced-motion: reduce) {
+      .styled-progress::-webkit-progress-value,
+      .styled-progress::-moz-progress-bar {
+        transition: none;
+      }
+    }
+    /* Circular image progress: SVG ring + clipped image */
+    .circular-progress-wrapper {
+      width: 72px;
+      height: 72px;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    .circular-progress-svg {
+      width: 72px;
+      height: 72px;
+      display: block;
+    }
+    .circular-progress-ring {
+      transform: rotate(-90deg);
+      transform-origin: 50% 50%;
+      transition: stroke-dashoffset 600ms cubic-bezier(.2,.8,.2,1);
+    }
+    .circular-progress-perc {
+      font-size: 0.75rem;
+      fill: #374151; /* gray-700 */
+      font-weight: 600;
+    }
+    .circular-progress-bg {
+      stroke: #f3f4f6; /* gray-100 */
+    }
+    .circular-progress-fill {
+      stroke: url(#grad-skill) ;
+      stroke-linecap: round;
+    }
+    /* hover/interaction for skill items */
+    .skill-item { transition: transform 220ms ease, box-shadow 220ms ease; position: relative; }
+    .skill-item .circular-progress-wrapper { transition: transform 220ms ease; }
+    .skill-item:hover { transform: translateY(-4px); }
+    .skill-item:hover .circular-progress-wrapper { transform: scale(1.06); }
+    /* tooltip (percent) shown on hover — uses data-percent attribute on .skill-item */
+    .skill-item::after {
+      content: attr(data-percent);
+      position: absolute;
+      bottom: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%) translateY(6px);
+      background: rgba(17,24,39,0.92); /* gray-900 */
+      color: #fff;
+      font-size: 11px;
+      padding: 6px 8px;
+      border-radius: 6px;
+      white-space: nowrap;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 180ms ease, transform 180ms ease, visibility 180ms linear;
+      box-shadow: 0 6px 18px rgba(15,23,42,0.25);
+      z-index: 40;
+    }
+    .skill-item:hover::after {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+    }
+    /* visually-hidden for screen readers */
+    .sr-only { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+    /* 잡동사니 섹션 카드 정리 */
+    .section-japdong .junk-grid > div {
+      background: #ffffff;
+      border-radius: 0.75rem;
+      padding: 1rem;
+      box-shadow: 0 6px 18px rgba(15,23,42,0.06);
+      transition: box-shadow 200ms ease, transform 200ms ease;
+    }
+    .section-japdong .junk-grid > div:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 30px rgba(15,23,42,0.12);
+    }
+    .section-japdong .card-title{ color: #7c3aed; font-weight:600; font-size:1rem }
+    .section-japdong .card-meta{ color:#4b5563; font-size:0.95rem }
+    /* unify badge color in 잡동사니 and reduce visual noise (overrides inline utility colors) */
+    .section-japdong .badge { display:inline-block; padding:3px 6px; border-radius:6px; background:#eef2ff !important; color:#3b3054 !important; font-size:11px; line-height:1; margin-right:6px }
+    /* softer, lighter purple link-button and hover/focus states */
+    .section-japdong .junk-link-button{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding:6px 10px;
+      background:#d9c8ff; /* lighter purple */
+      color:#2b1b45;
+      border-radius:6px;
+      font-weight:600;
+      font-size:0.88rem;
+      line-height:1;
+      text-decoration:none;
+      box-shadow:0 6px 12px rgba(137,96,255,0.10);
+      transition:transform 140ms ease, box-shadow 140ms ease, background-color 140ms ease;
+    }
+    .section-japdong .junk-link-button:hover{ transform:translateY(-2px); background:#cbb0ff }
+    .section-japdong .junk-link-button:focus{ outline:3px solid rgba(203,176,255,0.22); outline-offset:3px }
+    /* reduce overall card padding slightly for denser layout */
+    .section-japdong .junk-grid > div { padding: 0.75rem }
+    /* reduce gap between grouped button rows inside the junk grid */
+    .section-japdong .mt-3.flex.gap-2 { gap:6px }
+    /* paragraphs in junk cards: increase vertical spacing and add subtle boundary */
+    .section-japdong .junk-grid p {
+      margin-top:0.6rem;
+      margin-bottom:0.9rem;
+      background: rgba(245,243,255,0.8); /* very light purple tint */
+      border: 1px solid rgba(124,58,237,0.06);
+      padding:0.55rem 0.65rem;
+      border-radius:6px;
+    }
+    /* smaller meta text in cards for better density */
+    .section-japdong .text-sm { font-size:0.9rem }
+  </style>
+</head>
+
+<body class="bg-gradient-to-b from-pink-50 via-purple-50 to-blue-50 font-sans text-gray-800">
+
+  <!-- Shared SVG defs for skill icons (hidden) -->
+  <svg aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden;">
+    <defs>
+      <linearGradient id="grad-skill" x1="0%" x2="100%">
+        <stop offset="0%" stop-color="#fb7185" />
+        <stop offset="100%" stop-color="#7c3aed" />
+      </linearGradient>
+      <clipPath id="clip-skill">
+        <circle cx="50" cy="50" r="36"></circle>
+      </clipPath>
+    </defs>
+  </svg>
+
+  <!-- Hero Section -->
+  <header class="text-center py-20">
+    <h1 class="text-4xl md:text-6xl font-extrabold text-blue-600 drop-shadow-lg">
+      Dong's Github Pages
+    </h1>
+    <p class="mt-4 text-lg text-gray-700">
+      메이플스토리2 - 하이 프리스트 "비숍의하루"
+    </p>
+
+    <div class="mt-6 flex flex-wrap justify-center gap-4 items-center">
+      <img src="assets/images/thumb_img.png" class="w-16 h-16 rounded-full border-2 border-purple-400 shadow-md"
+        alt="프로필 사진(비숍의하루)">
+      <div class="text-left">
+        <!--<img src="assets/images/ico_priest.webp" class="px-1 py-1">-->
+        <span class="block font-bold text-purple-700">Lv. 92 비숍의하루</span>
+        <span class="block text-gray-500 text-sm">
+          2015.06.12 23:11 ~ 2025.05.29 10:00
+        </span>
+      </div>
+
+      <!-- 소셜 버튼 -->
+      <a href="https://github.com/hoevf123"
+        class="flex items-center gap-2 px-5 py-2 bg-purple-500 hover:bg-purple-600 text-white rounded-full shadow-md transition">
+        <img src="assets/images/github-desktop-2018-11-14_12-13-38-icon-resized.jpg.png" class="w-6 h-6 rounded-full"
+          alt="GitHub"> GitHub
+      </a>
+      <a href="https://www.youtube.com/@bishopuiharu_maplestory2"
+        class="flex items-center gap-2 px-5 py-2 bg-red-500 hover:bg-red-600 text-white rounded-full shadow-md transition">
+        <img src="assets/images/youtube_social_square_red.png" class="w-6 h-6 rounded-full" alt="YouTube"> YouTube
+      </a>
+      <a href="https://blog.naver.com/hoevf123"
+        class="flex items-center gap-2 px-5 py-2 bg-green-500 hover:bg-green-600 text-white rounded-full shadow-md transition">
+        <img src="assets/images/icon_naver_blog.png" class="w-6 h-6 rounded-full" alt="Blog"> Blog
+      </a>
+    </div>
+  </header>
+
+
+  <!-- Github Pages Main Site Section -->
+  <section class="max-w-7xl mx-auto px-6 py-16 section-github-pages-site-links">
+    <h2 class="text-3xl font-bold text-purple-600 text-center mb-8">Github Pages Site Links</h2>
+    <div class="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
+      <!-- Project Card -->
+      <a href="/bishopi_lab/index.html">
+        <div class="bg-white rounded-xl shadow-lg p-6 hover:scale-105 transition-transform">
+          <h3 class="text-xl font-semibold text-purple-600">비숍이 실험실</h3>
+          <img src="assets/images/preview_bishopi_lab.png" alt="비숍이 실험실"
+            class="w-full h-48 object-cover rounded-lg mt-4">
+          <p class="mt-2 text-gray-600">메이플스토리2 관련 문서와 연구 프로젝트들을 모아놓은 실험실.</p>
+        </div>
+      </a>
+      <a href="/cashmart_test/index_cashmart_exp.html">
+        <div class="bg-white rounded-xl shadow-lg p-6 hover:scale-105 transition-transform">
+          <h3 class="text-xl font-semibold text-purple-600">캐시마트 아르바이트 모작</h3>
+          <img src="assets/images/preview_cashmart_arbeit_simulation.png" alt="캐시마트 아르바이트 모작"
+            class="w-full h-48 object-cover rounded-lg mt-4">
+          <p class="mt-2 text-gray-600">실험적 웹 앱으로 만든 캐시마트 페이지.</p>
+          <p>조작키 : [←↑→↓] : 방향키 , [S / 게임 내 "Summon Customer" 버튼] : 손님 랜덤 소환</p>
+        </div>
+      </a>
+      <!-- <div class="bg-white rounded-xl shadow-lg p-6 hover:scale-105 transition-transform">
+        <h3 class="text-xl font-semibold text-purple-600">예비 슬롯</h3>
+        <p class="mt-2 text-gray-600">공간이 남아 그대로 방치하고 있지만, 향후에 다른 웹 앱을 위한 예비 공간입니다.</p>
+      </div> -->
+    </div>
+  </section>
+
+  <!-- Resume Border Label Section -->
+  <section class="section-resume-border" style="background:#ffaaaa; width:100%; padding:1em;">
+    <h2 class="text-3xl font-bold text-purple-600 text-center mb-8">이력서 경계 (임시!!!)</h2>
+    <p class="text-xl font-bold text-purple-600 text-center mb-8">아직 제작중인 페이지로, 아래에 있는 모든 내용들은 내용이 다소 부실한 점 양해 부탁드립니다.</p>
+    
+  </section>
+
+  <!-- Self-introduction (MMORPG character card style) -->
+  <section class="bg-white/70 py-24 p-6">
+    <div class="max-w-7xl mx-auto px-6">
+      <!-- Top summary bar -->
+      <div class="flex flex-col md:flex-row items-center gap-4 bg-white p-4 rounded-lg shadow">
+        <img src="assets/images/thumb_img.png" alt="프로필(비숍의하루)" class="w-24 h-24 rounded-full border-2 border-purple-400" loading="lazy">
+        <div class="flex-1">
+          <h2 class="text-2xl font-bold text-purple-700">비숍의하루 <span class="text-sm text-gray-500">(계정주: 김동영)</span></h2>
+          <p class="mt-1 text-gray-600">프로그래밍 기술을 이용하여 게임 시스템을 분석하거나 모방, 안정적인 구조를 설계하려는 경험을 바탕으로 플레이 경험을 개선하는 것을 목표로 합니다.</p>
+          <p class="mt-2 text-sm text-gray-500">간단 요약: 메이플스토리2 기반 툴·데이터 작업, 웹 프론트엔드 및 프로토타이핑 경험</p>
+        </div>
+        <div class="mt-3 md:mt-0">
+          <div class="text-center text-xs text-gray-500">Lv.</div>
+          <div class="text-center text-lg font-semibold text-pink-600">Lv. 1</div>
+        </div>
+      </div>
+
+      <!-- Cards: Skills / Account intro / Cover letter -->
+      <div class="grid gap-6 mt-6 md:grid-cols-3">
+        <!-- Skills Card -->
+        <div class="bg-white rounded-lg p-4 shadow">
+          <h3 class="font-semibold text-purple-600">스킬 & 숙련도</h3>
+          <p>※ 추후 숙련도 퍼센트 표시 제거, 중요도에 따라서 색깔 링으로 표시하는 것으로 변경 예정 ※</p>
+          <ul class="mt-3 flex flex-wrap gap-2 text-sm text-gray-700 items-center justify-center">
+            <!-- Main skills (keep these prominent) -->
+             <li class="w-24 text-center skill-item" data-percent="40%" aria-label="Unity 숙련도 40퍼센트">
+              <span class="sr-only">Unity / C# 숙련도 40퍼센트</span>
+              <div class="circular-progress-wrapper mx-auto" role="img">
+                <svg class="circular-progress-svg" viewBox="0 0 100 100" data-value="40" aria-hidden="true">
+                  <image href="assets/images/icon_unity6.png" x="14" y="14" width="72" height="72" clip-path="url(#clip-skill)" preserveAspectRatio="xMidYMid slice" />
+                  <circle class="circular-progress-bg" cx="50" cy="50" r="40" stroke-width="6" fill="none"></circle>
+                  <circle class="circular-progress-ring" cx="50" cy="50" r="40" stroke-width="6" fill="none" stroke-dasharray="251.2" stroke-dashoffset="251.2" stroke="url(#grad-skill)"></circle>
+                </svg>
+              </div>
+              <div class="mt-2 text-xs text-gray-600">Unity / C#</div>
+            </li>
+            <li class="w-24 text-center skill-item" data-percent="50%" aria-label="JavaScript 숙련도 50퍼센트">
+              <span class="sr-only">JavaScript 숙련도 50퍼센트</span>
+              <div class="circular-progress-wrapper mx-auto" role="img">
+                <svg class="circular-progress-svg" viewBox="0 0 100 100" data-value="50" aria-hidden="true">
+                  <image href="assets/images/Javascript_badge.svg" x="14" y="14" width="72" height="72" clip-path="url(#clip-skill)" preserveAspectRatio="xMidYMid slice" />
+                  <circle class="circular-progress-bg" cx="50" cy="50" r="40" stroke-width="6" fill="none"></circle>
+                  <circle class="circular-progress-ring circular-progress-fill" cx="50" cy="50" r="40" stroke-width="6" fill="none" stroke-dasharray="251.2" stroke-dashoffset="251.2" stroke="url(#grad-skill)"></circle>
+                </svg>
+              </div>
+              <div class="mt-2 text-xs text-gray-600">JavaScript</div>
+            </li>
+
+            <li class="w-24 text-center skill-item" data-percent="50%" aria-label="Excel 숙련도 50퍼센트">
+              <span class="sr-only">Excel 숙련도 50퍼센트</span>
+              <div class="circular-progress-wrapper mx-auto" role="img">
+                <svg class="circular-progress-svg" viewBox="0 0 100 100" data-value="50" aria-hidden="true">
+                  <image href="assets/images/Microsoft_Office_Excel_(2019–2025).svg.png" x="14" y="14" width="72" height="72" clip-path="url(#clip-skill)" preserveAspectRatio="xMidYMid slice" />
+                  <circle class="circular-progress-bg" cx="50" cy="50" r="40" stroke-width="6" fill="none"></circle>
+                  <circle class="circular-progress-ring" cx="50" cy="50" r="40" stroke-width="6" fill="none" stroke-dasharray="251.2" stroke-dashoffset="251.2" stroke="url(#grad-skill)"></circle>
+                </svg>
+              </div>
+              <div class="mt-2 text-xs text-gray-600">Excel</div>
+            </li>
+
+            
+          </ul>
+
+          <!-- Compact list of other skills (smaller badges) -->
+            <div class="mt-3 flex flex-wrap justify-center gap-2 text-xs text-gray-600">
+            <span class="badge">C</span>
+            <span class="badge">C++</span>
+            <span class="badge">java</span>
+
+            <span class="badge">HTML/CSS</span>
+            <span class="badge">Python</span>
+            <span class="badge">C#</span>
+            <span class="badge flex items-center gap-1"><img src="assets/images/icon_hwp.svg" class="w-4 h-4" alt="한글">한컴오피스(한글)</span>
+            <span class="badge">데이터 파싱</span>
+            <span class="badge">프로토타이핑</span>
+          </div>
+
+          <h4 class="mt-4 text-sm font-medium text-gray-700">하이라이트</h4>
+          <ul class="mt-2 text-xs text-purple-600 space-y-1">
+            <li><a href="./cashmart_test/index_cashmart_exp.html" class="hover:underline">캐시마트 아르바이트 시뮬레이션 — 데모</a></li>
+            <li><a href="https://github.com/hoevf123/M2ID" class="hover:underline">M2ID 이미지 분할 도구 (Git)</a></li>
+          </ul>
+        </div>
+
+        <!-- Account owner intro -->
+        <div class="bg-white rounded-lg p-4 shadow">
+          <h3 class="font-semibold text-purple-600">계정주 소개</h3>
+          <p class="mt-2 text-sm text-gray-700">고등학교 시절부터 게임 유즈맵/도구 제작을 시작했고, 대학과 개인 프로젝트를 통해 웹 기반 툴을 꾸준히 개발해 왔습니다.</p>
+          <div class="mt-3 text-sm text-gray-600 space-y-2">
+            <div><strong>장점:</strong> 빠른 학습 능력, 데이터/패턴 분석에 강함</div>
+            <div><strong>단점:</strong> 발표/대인 커뮤니케이션에서 긴장함 — 문서와 코드로 보완 중</div>
+          </div>
+          <div class="mt-3 flex flex-wrap gap-2">
+            <span class="badge text-xs">독학</span>
+            <span class="badge text-xs">프로토타입</span>
+            <span class="badge text-xs">게임 UX</span>
+          </div>
+        </div>
+
+        <!-- Cover letter / Self introduction -->
+        <div class="bg-white rounded-lg p-4 shadow">
+          <h3 class="font-semibold text-purple-600">자기소개서 (요약)</h3>
+          <p class="mt-2 text-sm text-gray-700">목표: 게임 시스템 기획과 웹 툴 개발을 결합해 사용자 경험을 개선하는 역할을 수행하고 싶습니다.</p>
+          <ul class="mt-3 text-sm text-gray-600 space-y-1 list-inside">
+            <li>• 관련 경험: M2ID 도구 복제/개조, 여러 웹 프로토타입 제작</li>
+            <li>• 강점: 실무 재사용 가능한 툴 제작, 빠른 프로토타이핑</li>
+            <li>• 기대 역할: 프론트엔드 구현 + 데이터/기획 브릿지</li>
+          </ul>
+          <p class="mt-3 text-xs text-gray-500">(연락처는 페이지 하단 Footer를 참고해주세요)</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Interactive Demo (Gameplay) -->
+  <section class="max-w-7xl mx-auto px-6 py-12">
+    <h2 class="text-3xl font-bold text-purple-600 text-center mb-4">Interactive Demo (Gameplay)</h2>
+    <p class="text-center text-gray-600 mb-4">간단한 충돌 데모 — 화살표로 녹색 원을 움직여 빨간 원과 충돌을 확인하세요.</p>
+    <p> ※ 글쓴이는 아래와 같은 방식의 충돌 처리를 써 왔으나, 벡터 간의 외적, 및 내젹 연산으로 충돌 처리를 해야 한다고 생각합니다. (아직 이 방식의 연산 방법을 몰라서 못 쓰는 중) ※</p>
+    <p> ※ 아래 방식으로 충돌 처리를 하면 순간가속도 범위보다 충돌 대상이 더 작으면 (충돌 이벤트 없이) 충돌 대상을 뚫고 지나가버버리는 문제가 있습니다. ※</p>
+
+    <p> 아래 예시는 Github Copilot으로 ChatGPT5 mini가 생성한 것으로, 다른 데모로 교체를 할 예정입니다.</p>
+    <div class="bg-white rounded-lg p-4 shadow">
+      <iframe src="assets/demo/collision_demo.html" class="w-full" style="height:420px;border:0;border-radius:8px;" title="Collision demo iframe"></iframe>
+      <div class="mt-3 text-sm text-gray-600">코드 스니펫과 데모는 <a href="assets/demo/collision_demo.html" class="text-purple-600 hover:underline">여기</a>에서 전체 코드를 확인할 수 있습니다.</div>
+    </div>
+  </section>
+
+  <!-- Design Sample (System / Tool) -->
+  <section class="max-w-7xl mx-auto px-6 py-12">
+    <h2 class="text-3xl font-bold text-purple-600 text-center mb-4">Design Sample (System / Tool)</h2>
+    <p class="text-center text-gray-600 mb-4">기획·시스템 직군용 샘플 문서입니다 — 핵심 목표와 아키텍처, 테스트 항목을 한 페이지로 요약했습니다.</p>
+
+    <div class="bg-white rounded-lg p-4 shadow">
+  <div class="flex flex-col md:flex-row gap-4 items-stretch">
+        <!-- Left: existing summary + link -->
+        <div class="md:w-1/2">
+          <h3 class="text-sm font-semibold text-purple-600">요약 & 링크</h3>
+          <p class="mt-2 text-sm text-gray-800">상점 고객 패턴 시뮬레이터 — 기획자가 시나리오를 빠르게 검증할 수 있는 도구 설계 예시. 원본 예시는 레포의 <code>cashmart_test</code> 폴더를 참고하세요.</p>
+          <ul class="mt-3 text-sm text-gray-700 space-y-1">
+            <li>• 요구사항: 시나리오 재현, 로그 내보내기, 빠른 전환</li>
+            <li>• 핵심: 경량 규칙 기반 시뮬레이션 + 실시간 시각화</li>
+          </ul>
+          <p class="mt-3"><a href="docs/system_design_sample.html" class="text-purple-600 hover:underline">전체 설계서 보기 →</a></p>
+          <p class="mt-2 text-xs text-gray-500">데모(레포): <a href="/cashmart_test/index_cashmart_exp.html" class="text-indigo-600 hover:underline">cashmart_test/index_cashmart_exp.html</a></p>
+        </div>
+
+  <!-- vertical divider (hidden on small screens) -->
+  <div class="hidden md:block w-px bg-gray-200 mx-3" aria-hidden="true"></div>
+
+  <!-- Right: concise design / diagram area -->
+  <div class="md:w-1/2 md:pl-4">
+          <h3 class="text-sm font-semibold text-purple-600">간단한 디자인 (요점)</h3>
+          <div class="mt-2 text-sm text-gray-700 space-y-2">
+            <div><strong>아키텍처</strong></div>
+            <ul class="ml-4 list-disc text-sm text-gray-600">
+              <li>프론트엔드: Canvas 기반 시뮬레이터 + 시나리오 에디터</li>
+              <li>시나리오 저장: JSON 파일(로컬 / Git)</li>
+              <li>로그/내보내기: CSV/JSON</li>
+            </ul>
+
+            <div class="pt-2"><strong>핵심 설계 결정</strong></div>
+            <ul class="ml-4 list-disc text-sm text-gray-600">
+              <li>경량 규칙 기반 모델로 빠른 반복과 가설 검증 우선</li>
+              <li>실시간 시각화로 기획자가 즉시 피드백 확인 가능</li>
+            </ul>
+
+            <div class="pt-2"><strong>검증 포인트</strong></div>
+            <ol class="ml-4 list-decimal text-sm text-gray-600">
+              <li>시나리오 재현성(동일 입력 → 유사 출력)</li>
+              <li>성능(초당 이벤트 목표)</li>
+              <li>사용성(기획자가 빠르게 수정 가능)</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <!-- 잡동사니 섹션 -->
+  <section class="max-w-screen-xl mx-auto px-6 py-16">
+    <h2 class="text-4xl font-bold text-pink-600 mb-2 text-center">잡동사니</h2>
+    <p class="text-gray-600 mb-12 text-center">(아무도 관심 없겠지만 혹시 몰라서 만들어 놓은 영역)</p>
+    <p class="text-gray-600 mb-12 text-center">공부나 개인 포트폴리오 등은 아니지만 활동 기록들을 정리해 놓아 보았습니다.</p>
+
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-4 junk-grid section-japdong">
+
+      <!-- 학창시절 -->
+      <div class="border-2 border-purple-300 rounded-lg p-6">
+  <h3 class="text-2xl font-semibold text-purple-500 mb-6 text-center">학창시절</h3>
+  <p class="text-2xl font-semibold text-black mb-6 text-center">2008년 ~ 2013년</p>
+        <div class="space-y-6">
+          <!-- 카드 1 -->
+          <div class="bg-white shadow-md rounded-lg p-5 hover:shadow-xl transition">
+            <div class="flex space-x-2 mb-2 items-center">
+              <img src="assets/images/icon_starcraft.png" class="h-8" alt="Starcraft Icon">
+              <span class="text-gray-700 font-semibold card-title">나라짓고 놀기..였나(?)</span>
+            </div>
+            <div class="mb-1">
+              <span class="badge text-xs bg-blue-100 text-blue-600 font-medium">개조 유즈맵</span>
+              <span class="badge text-xs bg-blue-100 text-blue-600 font-medium">첫 유즈맵 다루기</span>
+            </div>
+            <p class="text-gray-500 text-sm">스타크래프트 유즈맵을 처음 다루기 시작하게 된 트리거 1개짜리 개조 맵</p>
+            <a href="#" class="junk-link-button">자세히 보기</a>
+          </div>
+          <!-- 카드 2 -->
+          <div class="bg-white shadow-md rounded-lg p-5 hover:shadow-xl transition">
+            <div class="flex space-x-2 mb-2 items-center">
+              <img src="assets/images/icon_starcraft.png" class="h-8" alt="Starcraft Icon">
+              <span class="text-gray-700 font-semibold card-title">던파생쇼.scx</span>
+            </div>
+            <div class="mb-1">
+              <span class="badge text-xs bg-green-100 text-green-600 font-medium">유즈맵</span>
+              <span class="badge text-xs bg-green-100 text-green-600 font-medium">던전앤파이터 모방</span>
+            </div>
+            <p class="text-gray-500 text-sm">던전앤파이터 소환사(+메카닉 일부, 마도학자 일부) 구현 자작 유즈맵</p>
+            <a href="https://blog.naver.com/hoevf123/140151783548" class="junk-link-button" target="_blank" rel="noopener noreferrer">자세히 보기</a>
+          </div>
+          <!-- 카드 3 -->
+          <div class="bg-white shadow-md rounded-lg p-5 hover:shadow-xl transition">
+            <div class="flex space-x-2 mb-2 items-center">
+              <img src="assets/images/icon_starcraft.png" class="h-8" alt="Starcraft Icon">
+              <span class="text-gray-700 font-semibold card-title">해처리 보호하기.scx</span>
+            </div>
+            <div class="mb-1">
+              <span class="badge text-xs bg-green-100 text-green-600 font-medium">유즈맵</span>
+              <span class="badge text-xs bg-green-100 text-green-600 font-medium">오펜스</span>
+            </div>
+            <p class="text-gray-500 text-sm">건물로 적을 방어하며 타워로 적의 본진을 깨는 간단 유즈맵</p>
+            <div class="mt-3 flex gap-2">
+              <a href="https://blog.naver.com/hoevf123/140151783548" class="junk-link-button" target="_blank" rel="noopener noreferrer">자세히 보기</a>
+              <a href="https://youtu.be/ICMfFOLwL-s?t=4422" class="junk-link-button" target="_blank" rel="noopener noreferrer">플레이 영상</a>
+            </div>
+
+          </div>
+          <!-- 카드 4 -->
+          <div class="bg-white shadow-md rounded-lg p-5 hover:shadow-xl transition">
+            <div class="flex space-x-2 mb-2 items-center">
+              <img src="assets/images/C_Programming_Language.svg.png" class="h-8" alt="C Language">
+              <span class="text-gray-700 font-semibold card-title">(이름 까먹음)</span>
+            </div>
+            <div class="mb-1">
+              <span class="badge text-xs bg-green-100 text-green-600 font-medium">개인 C 콘솔 프로젝트</span>
+              <span class="badge text-xs bg-green-100 text-green-600 font-medium">자유낙하</span>
+              <span class="badge text-xs bg-green-100 text-green-600 font-medium">간단한 선택형 전투 게임</span>
+            </div>
+            <p class="text-gray-500 text-sm">if문으로 퀘스트를 만들어 흥미를 가지기 시작한 것으로, 여러 콘솔 프로그램을 한데 모은 프로그램.</p>
+            <a href="https://blog.naver.com/hoevf123/140151783548" class="junk-link-button" target="_blank" rel="noopener noreferrer">자세히 보기</a>
+          </div>
+          <!-- 카드 5 -->
+          <div class="bg-white shadow-md rounded-lg p-5 hover:shadow-xl transition">
+            <div class="flex space-x-2 mb-2 items-center">
+              <img src="assets/images/C_Programming_Language.svg.png" class="h-8" alt="C Language">
+              <img src="assets/images/icon_windows.png" class="h-8" alt="Win32 API">
+              <span class="text-gray-700 font-semibold card-title">창창</span>
+            </div>
+            <div class="mb-1">
+              <span class="badge text-xs bg-green-100 text-green-600 font-medium">WinAPI 연습용 프로그램</span>
+            </div>
+            <p class="text-gray-500 text-sm">던파로 사이퍼즈 공성전을 만들어보려는 혼종(?) 상태의 연습용 프로그램</p>
+            <a href="https://blog.naver.com/hoevf123/140151783548" class="junk-link-button" target="_blank" rel="noopener noreferrer">자세히 보기</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 대학교 -->
+      <div class="border-2 border-purple-300 rounded-lg p-6">
+  <h3 class="text-2xl font-semibold text-purple-500 mb-6 text-center">안양대학교</h3>
+  <p class="text-2xl font-semibold text-black mb-6 text-center">2014년 ~ 2017년</p>
+
+        <div class="space-y-6">
+          <!-- 카드 0 -->
+          <div class="bg-white shadow-md rounded-lg p-5 hover:shadow-xl transition">
+            <div class="flex space-x-2 mb-2 items-center">
+              <img src="assets/images/HTML5 Logo.svg" class="h-8" alt="HTML5">
+              <img src="assets/images/ES5.png" class="h-8" alt="ES5">
+              <span class="text-gray-700 font-semibold card-title">Print Page Project</span>
+            </div>
+            <div class="mb-1">
+              <span class="badge text-xs bg-yellow-100 text-yellow-600 font-medium">개인 프로젝트</span>
+              <span class="badge text-xs bg-yellow-100 text-yellow-600 font-medium">기능은 딱히 없음</span>
+            </div>
+            <p class="text-gray-500 text-sm">원격 프린트 기능이 있었다면(?) 이라고 싶어서 만들어 본 웹 페이지</p>
+            <a href="#" class="junk-link-button">자세히 보기</a>
+          </div>
+          <!-- 카드 1 -->
+          <div class="bg-white shadow-md rounded-lg p-5 hover:shadow-xl transition">
+            <div class="flex space-x-2 mb-2 items-center">
+              <img src="assets/images/HTML5 Logo.svg" class="h-8" alt="HTML5">
+              <img src="assets/images/ES5.png" class="h-8" alt="ES5">
+              <span class="text-gray-700 font-semibold card-title">퀸-맥클러스키 주항 구하기</span>
+            </div>
+            <div class="mb-1">
+              <span class="badge text-xs bg-yellow-100 text-yellow-600 font-medium">개인 프로젝트</span>
+              <span class="badge text-xs bg-yellow-100 text-yellow-600 font-medium">논리회로</span>
+              <span class="badge text-xs bg-yellow-100 text-yellow-600 font-medium">최적화 X</span>
+            </div>
+            <p class="text-gray-500 text-sm">1학년에 배웠던 HTML을 기반으로 퀸-맥클러스키 주항을 구해주는 프로그램을 만들고 싶어서 만들어 본 웹 프로그램</p>
+            <a href="./Qunn-Mc Decoder/main.html" class="junk-link-button">실행 페이지</a>
+          </div>
+          <!-- 카드 2 -->
+          <div class="bg-white shadow-md rounded-lg p-5 hover:shadow-xl transition">
+            <div class="flex space-x-2 mb-2 items-center">
+              <img src="assets/images/HTML5 Logo.svg" class="h-8" alt="HTML5">
+              <img src="assets/images/ES5.png" class="h-8" alt="ES5">
+              <span class="text-gray-700 font-semibold card-title">크롱의 모기 잡기</span>
+            </div>
+            <div class="mb-1">
+              <span class="badge text-xs bg-yellow-100 text-yellow-600 font-medium">2학년 2학기 웹프로그래밍 과제</span>
+              <span class="badge text-xs bg-yellow-100 text-yellow-600 font-medium">쥬니어네이버</span>
+              <span class="badge text-xs bg-yellow-100 text-yellow-600 font-medium">클리커 게임</span>
+            </div>
+            <p class="text-gray-500 text-sm">이 게임을 만들어 오라는 줄 알고, 누끼따서 그대로 온 Canvas 게임. (정작 이 게임은 설명용 예시 게임이었다)</p>
+            <a href="#" class="junk-link-button">(저작권 읍읍...)</a>
+          </div>
+          <!-- 카드 3 -->
+          <div class="bg-white shadow-md rounded-lg p-5 hover:shadow-xl transition">
+            <div class="flex space-x-2 mb-2 items-center">
+              <img src="assets/images/HTML5 Logo.svg" class="h-8" alt="HTML5">
+              <img src="assets/images/ES5.png" class="h-8" alt="ES5">
+              <span class="text-gray-700 font-semibold card-title">(이름 없음)</span>
+            </div>
+            <div class="mb-1">
+              <span class="badge text-xs bg-yellow-100 text-yellow-600 font-medium">슈퍼마리오 모작</span>
+              <span class="badge text-xs bg-yellow-100 text-yellow-600 font-medium">테스트용</span>
+            </div>
+            <p class="text-gray-500 text-sm">슈퍼마리오와 같은 게임 만들 수 있나 테스트해본 것</p>
+            <a href="Projects/MosquitoAdventure/main.html" class="junk-link-button">[웹 페이지 링크]</a>
+          </div>
+          <!-- 카드 4 -->
+          <div class="bg-white shadow-md rounded-lg p-5 hover:shadow-xl transition">
+            <div class="flex space-x-2 mb-2 items-center">
+              <img src="assets/images/Android_icon-icons.com_66772.svg" class="h-8" alt="HTML5">
+              <img src="assets/images/logo_java.png" class="h-8" alt="ES5">
+              <span class="text-gray-700 font-semibold card-title">BrickOut</span>
+            </div>
+            <div class="mb-1">
+              <span class="badge text-xs bg-yellow-100 text-yellow-600 font-medium">3학년 2학기 안드로이드 과제</span>
+            </div>
+            <p class="text-gray-500 text-sm">과제 제출용 평범한 벽돌깨기 안드로이드 앱</p>
+            <a href="#" class="junk-link-button">[링크 추후 제공 예정]</a>
+          </div>
+          <!-- 카드 5  -->
+          <div class="bg-white shadow-md rounded-lg p-5 hover:shadow-xl transition">
+            <div class="flex space-x-2 mb-2 items-center">
+              <img src="assets/images/HTML5 Logo.svg" class="h-8" alt="HTML5">
+              <img src="assets/images/ES5.png" class="h-8" alt="ES5">
+              <span class="text-gray-700 font-semibold card-title">와앙치키</span>
+            </div>
+            <div class="mb-1">
+              <span class="badge text-xs bg-yellow-100 text-yellow-600 font-medium">졸업용 프로그램</span>
+              <span class="badge text-xs bg-red-100 text-red-600 font-medium">발표/시연 안 함</span>
+              <span class="badge text-xs bg-yellow-100 text-yellow-600 font-medium">웹 IDE 모방</span>
+              <span class="badge text-xs bg-yellow-100 text-yellow-600 font-medium">프로젝트 이름은 메이플스토리2 유저 이름</span>
+            </div>
+            <p class="text-gray-500 text-sm">조금 더 직관적인 편집 IDE가 있었으면 해서 선정한 졸작 졸업용 프로그램</p>
+            <div class="mt-3 flex gap-2">
+              <a href="./와앙/waang.html" class="junk-link-button">(링크 추후에...)</a>
+              <a href="./와앙/와앙철컹.hwp" class="junk-link-button">(졸업논문 추후에...)</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 메이플스토리2 -->
+      <div class="border-2 border-purple-300 rounded-lg p-6">
+  <h3 class="text-2xl font-semibold text-purple-500 mb-6 text-center">메이플스토리2</h3>
+  <p class="text-2xl font-semibold text-black mb-6 text-center">2018년 ~ 2025년 ~ (쭈욱...)</p>
+        <div class="space-y-6">
+          
+          <!-- 카드 2 -->
+          <div class="bg-white shadow-md rounded-lg p-5 hover:shadow-xl transition">
+            <div class="flex space-x-2 mb-2 items-center">
+              <img src="assets/images/HTML5 Logo.svg" class="h-8" alt="HTML5">
+              <img src="assets/images/ES5.png" class="h-8" alt="ES5">
+              <img src="assets/images/icon_hancell.jpeg" class="h-8" alt="hancell">
+
+              <span class="text-gray-700 font-semibold card-title">캐시마트 아르바이트 시뮬레이션</span>
+            </div>
+            <div class="mb-1">
+              <span class="badge text-xs bg-pink-100 text-pink-600 font-medium">모작</span>
+              <span class="badge text-xs bg-pink-100 text-pink-600 font-medium">웹 프로그래밍 과제 재활용</span>
+            </div>
+            <p class="text-gray-500 text-sm">던전 "캐시마트 아르바이트"에서 나오는 NPC의 순서가 익숙해서 조사하여 알게 된 패턴을 가지고 만든 던전 캐시마트 아르바이트 모작</p>
+            <a href="./cashmart_test/index_cashmart_exp.html" class="junk-link-button">캐시마트 아르바이트 데모</a>
+            <!--<a href="#" class="text-purple-500 text-sm font-medium hover:underline inline-block">캐시마트 손님 방문 순서 조사 (1차)</a>
+            <a href="#" class="text-purple-500 text-sm font-medium hover:underline inline-block">캐시마트 손님 방문 순서 조사 (2차)</a>-->
+          </div>
+          <!-- 카드 3 -->
+          <div class="bg-white shadow-md rounded-lg p-5 hover:shadow-xl transition">
+            <div class="flex space-x-2 mb-2 items-center">
+              <img src="assets/images/HTML5 Logo.svg" class="h-8" alt="HTML5">
+              <img src="assets/images/ES5.png" class="h-8" alt="ES5">
+              <span class="text-gray-700 font-semibold card-title">비숍이 실험실</span>
+            </div>
+            <div class="mb-1">
+              <span class="badge text-xs bg-pink-100 text-pink-600 font-medium">모작</span>
+            </div>
+            <p class="text-gray-500 text-sm">메이플스토리2 홈페이지 따라 만들기 + 잡동사니</p>
+            <a href="/bishopi_lab/index.html" class="junk-link-button">자세히 보기</a>
+          </div>
+          <!-- 카드 4 -->
+          <div class="bg-white shadow-md rounded-lg p-5 hover:shadow-xl transition">
+            <div class="flex space-x-2 mb-2 items-center">
+              <img src="assets/images/icon_hancell.jpeg" class="h-8" alt="hancell">
+              <span class="text-gray-700 font-semibold card-title">(추후 비숍이 실험실에 추가 예정)</span>
+            </div>
+            <div class="mb-1">
+              <span class="badge text-xs bg-pink-100 text-pink-600 font-medium">메이플스토리2 조사 자료</span>
+              <span class="badge text-xs bg-pink-100 text-pink-600 font-medium">추가 옵션 및 구성 조사</span>
+            </div>
+            <p class="text-gray-500 text-sm">과거에 썼던 거 재탕이며, 자료 보관용으로 추후 추가될 예정입니다.</p>
+            <a href="#" class="junk-link-button">(일단 예시는 이런 거)</a>
+          </div>
+          <!-- 카드 5 -->
+          <div class="bg-white shadow-md rounded-lg p-5 hover:shadow-xl transition">
+            <div class="flex space-x-2 mb-2 items-center">
+              <img src="assets/images/HTML5 Logo.svg" class="h-8" alt="HTML5">
+              <img src="assets/images/ES5.png" class="h-8" alt="ES5">
+              <span class="text-gray-700 font-semibold card-title">비숍이 실험실</span>
+            </div>
+            <div class="mb-1">
+              <span class="badge text-xs">습작</span>
+            </div>
+            <p class="text-gray-500 text-sm">메이플스토리2 홈페이지 따라 만들기 + 잡동사니</p>
+            <a href="#" class="junk-link-button">자세히 보기</a>
+          </div>
+          <!-- 카드 6 -->
+          <div class="bg-white shadow-md rounded-lg p-5 hover:shadow-xl transition">
+            <div class="flex space-x-2 mb-2 items-center">
+              <img src="assets/images/Python-logo-notext.svg.png" class="h-8" alt="python">
+              <span class="text-gray-700 font-semibold card-title">M2ID (forked from Airplaner)</span>
+            </div>
+            <div class="mb-1">
+              <span class="badge text-xs">기능 추가</span>
+              <span class="badge text-xs">Python 2.7(원본) -> Python 3.9(복제)</span>
+              <span class="badge text-xs">메이플스토리2 공방도안 이미지 분할 프로그램</span>
+            </div>
+            <p class="text-gray-500 text-sm">지뉴(Airplaner)의 M2ID 개조하기</p>
+            <div class="mt-3 flex gap-2">
+              <a href="https://github.com/hoevf123/M2ID" class="junk-link-button" target="_blank" rel="noopener noreferrer">복제 Git Repository</a>
+              <a href="https://github.com/Airplaner/M2ID" class="junk-link-button" target="_blank" rel="noopener noreferrer">원본 Git Repository</a>
+            </div>
+          </div>
+          <!-- 카드 7 -->
+          <div class="bg-white shadow-md rounded-lg p-5 hover:shadow-xl transition">
+            <div class="flex space-x-2 mb-2 items-center">
+              <img src="assets/images/The_GIMP_icon_-_v3.0.svg.png" class="h-8" alt="gimp">
+              <img src="assets/images/icon_hancell.jpeg" class="h-8" alt="hancell">
+              <span class="text-gray-700 font-semibold card-title">프리스트 가이드</span>
+            </div>
+            <div class="mb-1">
+              <span class="badge text-xs">미완성</span>
+              <span class="badge text-xs">언젠가 완성할 예정</span>
+              <span class="badge text-xs">방주였으면 좋겠음</span>
+            </div>
+            <p class="text-gray-500 text-sm">프리스트 육성에 필요한 올인원 공략 자료를 만들고 싶었습니다.</p>
+            <div class="mt-3 flex gap-2">
+              <a href="https://github.com/hoevf123/KMS2PriestGuide" class="junk-link-button" target="_blank" rel="noopener noreferrer">프리스트 가이드(레포)</a>
+              <a href="https://1drv.ms/x/c/982708d4a0aa0c1a/ERoMqqDUCCcggJiFdwAAAAABf4-3oGCdXSE9X4vDgPc6aA?e=7GqD8v" class="junk-link-button" target="_blank" rel="noopener noreferrer">프리스트 스킬.xlsx</a>
+            </div>
+          </div>
+          <!-- 카드 8 -->
+          <div class="bg-white shadow-md rounded-lg p-5 hover:shadow-xl transition">
+            <div class="flex space-x-2 mb-2 items-center">
+              <img src="assets/images/Google_Slides_logo_(2014-2020).svg.png" class="h-8" alt="Google_Slides_logo">
+              <span class="text-gray-700 font-semibold card-title">메이플스토리2를 돌아보며</span>
+            </div>
+            <div class="mb-1">
+              <span class="badge text-xs">느낀 점 정리</span>
+              <span class="badge text-xs">서비스 종료</span>
+              <span class="badge text-xs">대체 불가능 게임</span>
+              <span class="badge text-xs">기능 영구 봉인</span>
+            </div>
+            <p class="text-gray-500 text-sm">메이플스토리2 서비스 종료로 인해 정리해 보는 것</p>
+            <a href="https://docs.google.com/presentation/d/11zbsSr_wGyfU_ZqMFjTw4fXNxCjuTAP3RMv24Uui2LU/edit?usp=sharing" class="junk-link-button" target="_blank" rel="noopener noreferrer">메이플스토리2.slides</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- MBC게임아카데미 -->
+      <div class="border-2   border-purple-300 rounded-lg p-6">
+  <h3 class="text-2xl font-semibold text-purple-500 mb-6 text-center">MBC게임아카데미</h3>
+  <p class="text-2xl font-semibold text-black mb-6 text-center">2025년 7월 ~ 2026년 3월</p>
+        <div class="space-y-6">
+          <!-- 카드 1 -->
+          <div class="bg-white shadow-md rounded-lg p-5 hover:shadow-xl transition">
+            <div class="flex space-x-2 mb-2 items-center">
+              <img src="assets/images/icon_unity6.png" class="h-8" alt="Unity">
+              <span class="text-gray-700 font-semibold card-title">돌 깨기</span>
+            </div>
+            <div class="mb-1">
+              <span class="badge text-xs">2D 포폴</span>
+              <span class="badge text-xs">망한 프로젝트</span>
+            </div>
+            <p class="text-gray-500 text-sm">베지어 커브만 남기고 망한 2D 과제</p>
+            <a href="#" class="junk-link-button">자세히 보기</a>
+          </div>
+          <!-- 카드 2 -->
+          <div class="bg-white shadow-md rounded-lg p-5 hover:shadow-xl transition">
+            <div class="flex space-x-2 mb-2 items-center">
+              <img src="assets/images/icon_unity6.png" class="h-8" alt="Unity">
+              <span class="text-gray-700 font-semibold card-title">Uni-Run (2D 실습용 프로젝트 개조)</span>
+            </div>
+            <div class="mb-1">
+              <span class="badge text-xs">수업 과제</span>
+            </div>
+            <p class="text-gray-500 text-sm">런 게임 예제에 슈팅 기능 추가</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Footer -->
+  <footer class="bg-pink-200 py-8 text-center text-gray-700">
+    <p class="mb-4">이 페이지는 ChatGPT5를 통해서 TailwindCSS로 제작되었습니다.</p>
+    <div class="flex flex-wrap justify-center gap-4">
+      <a href="https://open.kakao.com/o/srRK8k1"
+        class="flex items-center gap-2 px-5 py-2 bg-yellow-500 hover:bg-yellow-600 text-white rounded-full shadow-md">
+        <img src="assets/images/icon_kakaotalk.svg" class="w-6 h-6" alt="Kakao"> 비숍의하루(오픈채팅)
+      </a>
+      <div class="flex items-center gap-2 px-5 py-2 bg-indigo-500 text-white rounded-full shadow-md">
+        <img src="assets/images/icon_discord.webp" class="w-6 h-6" alt="Discord"> bishopuiharu_maplestory2
+      </div>
+      <div class="flex items-center gap-2 px-5 py-2 bg-blue-500 text-white rounded-full shadow-md">
+        <img src="assets/images/icon_naver_mail.svg" class="w-6 h-6" alt="Naver Mail"> hoevf123@naver.com
+      </div>
+      <div class="flex items-center gap-2 px-5 py-2 bg-red-500 text-white rounded-full shadow-md">
+        <img src="assets/images/icon_gmail.svg" class="w-6 h-6" alt="Gmail"> hoevf123.dongs@gmail.com
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Initialize circular image progress rings
+    (function(){
+      const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      document.querySelectorAll('.circular-progress-svg').forEach(svg => {
+        try {
+          const value = Number(svg.getAttribute('data-value')) || 0;
+          const ring = svg.querySelector('.circular-progress-ring');
+          if(!ring) return;
+          const r = Number(ring.getAttribute('r'));
+          const circumference = 2 * Math.PI * r;
+          ring.setAttribute('stroke-dasharray', String(circumference));
+          const offset = circumference * (1 - Math.max(0, Math.min(100, value)) / 100);
+          // apply offset (animate if allowed)
+          if(prefersReduced) {
+            ring.style.transition = 'none';
+            ring.style.strokeDashoffset = String(offset);
+          } else {
+            // small timeout to allow initial paint for transition
+            requestAnimationFrame(() => {
+              ring.style.strokeDashoffset = String(offset);
+            });
+          }
+        } catch(e) { console.error(e); }
+      });
+    })();
+  </script>
+
+</body>
+
+</html>

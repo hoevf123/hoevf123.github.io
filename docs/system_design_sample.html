@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>System Design Sample — 간단 설계서</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css">
+  <style>
+    body{font-family:system-ui,Segoe UI,Roboto,'Noto Sans',sans-serif;margin:24px;color:#0f172a;background:#fff}
+    .container{max-width:900px;margin:0 auto}
+    .md-body{background:#fff;padding:20px;border-radius:10px;box-shadow:0 6px 24px rgba(15,23,42,0.06)}
+    pre{background:#f3f4f6;padding:12px;border-radius:8px;overflow:auto}
+    h1{color:#7c3aed}
+    .meta{color:#374151;margin-bottom:12px}
+    .actions{margin-top:12px}
+    .btn{display:inline-block;padding:8px 12px;background:#7c3aed;color:#fff;border-radius:8px;text-decoration:none}
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/5.1.1/marked.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="md-body" id="content">Loading…</div>
+    <div class="actions">
+      <a class="btn" id="viewRaw" href="#">View raw MD</a>
+    </div>
+  </div>
+
+  <script>
+    async function loadMarkdown(){
+      try{
+        const res = await fetch('system_design_sample.md');
+        if(!res.ok) throw new Error('Failed to fetch MD');
+        const md = await res.text();
+        const html = marked.parse(md, {mangle:false, headerIds:false});
+        document.getElementById('content').innerHTML = html;
+        // highlight code blocks
+        document.querySelectorAll('#content pre code').forEach(block=>{ hljs.highlightElement(block); });
+        // set raw link
+        const rawLink = document.getElementById('viewRaw');
+        rawLink.href = 'system_design_sample.md';
+        rawLink.target = '_blank';
+      }catch(e){
+        document.getElementById('content').textContent = 'Error loading document: '+e.message;
+      }
+    }
+    loadMarkdown();
+  </script>
+</body>
+</html>

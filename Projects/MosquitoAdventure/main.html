@@ -1,0 +1,857 @@
+<!-- Making Start At 2015-10-28 THU, Made By Anyang University Department of Computer Science Engineering 201431011 Dongyeong Kim -->
+<!-- Second Assignment : Implement The game called "Catching the files" -->
+<!-- Duplicated Source : "Chrong's Catching Flies" (Origin By Flash Game for Infant, Served By Junior Naver, Character Copyrighted By Company OCon, Company IConix) -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>모기 잡기</title>
+    <!-- This Program is Based On Catching the Flies Game Data Structure -->
+    <!-- PNG FILES ARE MADE BY HAND
+
+    <!-- ORIGIN DATA INFO -->
+
+    <!-- Origin Source : http://pororo.jr.naver.com/game/territory/play.nhn?gameId=162&level=2&territory=CR -->
+    <!-- Flip Reference about Flipping Images in the Canvas(context.scale(scaleHorizontal,scaleVertical); ) : http://jsfiddle.net/yong/ZJQX5/ -->
+    <!-- PNG File Edited By Pixlr Editor(Web Photo Editor), link : https://pixlr.com/editor/ -->
+    <!-- Window Closing Function(window.close();) Referenced : http://idongmai.wo.tc/212 -->
+</head>
+<body>
+<canvas width="1024" height="800" id="canvas">CANVAS NOT SUPPORTED</canvas>
+<script type="text/javascript">
+    //CustomObject Class declaration
+
+
+    /**
+     *  Notice!!
+     *
+     *  this.FunctionName=function(Arguments...)
+     *  {
+         *  }// Means Public Function (You Can Access)
+     *
+     *  function FunctionName(Arguments...)
+     *  {
+         *  }// Means Private Function (You Can't Access, Only Used ForInner Object)
+     *
+     *
+     */
+    var CustomObject=function(){
+        this.constructor=CustomObject;
+        this.id=0;
+        this.name="undefined";
+        this.type="undefined";
+        this.hp=1;
+        this.lineWidth=0.5;
+        this.x=0;
+        this.y=0;
+        this.speed_x=0;
+        this.speed_y=0;
+        this.width=0;
+        this.height=0;
+        this.imgSrc="";
+        this.fillStyle="red";
+        this.strokeStyle="black";
+        this.display=false;
+        this.direction=1;
+        this.left=this.x-this.width/2;
+        this.right=this.x+this.width/2;
+        this.top=this.y-this.height/2;
+        this.bottom=this.y+this.height/2;
+        this.property=undefined;
+        this.shadowOffsetX=0;
+        this.shadowOffsetY=0;
+        this.shadowBlur=0;
+        this.shadowColor="transparent";
+        this.globalAlpha=1;
+        this.text=this.name;
+        this.font="14pt 궁서체"
+        this.attackcool=0
+        this.movePatternHandler=undefined;
+        this.zIndex=undefined;
+        this.eventTransparent=false;
+        this.displayName=function(context) {
+            var str="name : "+this.name+" id : "+this.id + "("+Math.round(this.x)+", "+Math.round(this.y)+")"+" hp : "+this.hp;
+            var top=this.y-this.height/2;
+            context.font=this.font;
+            context.textAlign="center";
+            context.textBaseline="bottom";
+            context.strokeStyle="rgb(192,192,192)"
+            context.fillStyle="green";
+            context.lineWidth=1;
+            context.fillText(str,this.x,top);
+            context.strokeText(str,this.x,top);
+        }
+        this.objectPoint=new Array();
+        function objectPointClear()
+        {
+            console.log(this.name+" : objectPoint Clear Function Activated!!");
+            var i=this.objectPoint.length;
+            for(;i>0;i++)
+                this.objectPoint.pop();
+            console.log(this.name+" : objectPoint Clear Function Finished!!")
+        }
+        this.move=function(time){
+            time/=1000;
+            this.x+=this.speed_x*time;
+            this.y+=this.speed_y*time;
+        }
+        this.isObjectIn=function(x,y,width,height,closePathTrue)
+        {
+            //x : Center of CustomObject XPosition
+            //y : Center of CustomObject YPosition
+            //width : all of CustomObject Width (left : x-width/2, right : x+width/2)
+            //height : all of CustomObject Height (top : y-height/2). bottom : y+height/2)
+            //closePathTrue : Consider All Paths Boundaries Are Surrounded(like context.closePath();, context.fill();), false is default.
+            //              if(this.objectPoint.length<2)return;
+            var idx;
+            var isIn=false;
+            var left=x-width/2;
+            var right=x+width/2;
+            var top=y-height/2;
+            var bottom=y+height/2;
+            //               alert("left : "+x +"\n"+"right : "+right+"\n"+"top : "+top+"\n"+"bottom : "+bottom);
+            /*                if(closePathTrue==true);
+             else {
+             for (idx = 1; idx < this.objectPoint.length; idx++) {
+
+             }
+             }*/
+            //check isIn
+            if((Math.abs(this.x-x)<=Math.abs(this.width/2+width/2)&&(Math.abs(this.y-y)<=Math.abs(this.height/2+height/2)))&&isIn==false)isIn=true;
+            else isIn=false;
+            return isIn;
+        }
+        this.draw=function(context,drawType){
+            if(this.display==false)return;
+            if(drawType=="image"){
+                context.beginPath();
+                var direction=this.direction/Math.abs(this.direction);
+                var image=new Image();
+                image.src=this.imgSrc;
+                context.save();//must written
+                context.scale(direction,1);
+                context.drawImage(image,(this.x-this.width/2)*direction,this.y-this.height/2,this.width*direction,this.height);
+                context.scale(1,1);//restore origin state
+                context.restore();//must written
+            }
+            else {
+                var idx = 0;
+                if (this.objectPoint.length <= 0)return;
+                context.beginPath();
+                context.fillStyle = this.fillStyle;
+                context.strokeStyle = this.strokeStyle;
+                context.lineWidth = this.lineWidth;
+                context.moveTo(this.objectPoint[0].x, this.objectPoint[0].y);
+                context.lineTo(this.objectPoint[0].x, this.objectPoint[0].y);
+                for (idx = 1; idx < this.objectPoint.length; idx++) {
+                    context.LineTo(this.objectPoint[idx].x, this.objectPoint[idx].y);
+                }
+                context.stroke();
+            }
+        }
+        this.setMovePattern=function(myFunc,time){
+            if(this.movePatternHandler!==undefined){
+                console.log("Error : movePatternHandler Setting Failed(Already Exist!!)");
+                return;
+            }
+            else {
+                this.movePatternHandler=setInterval(myFunc,time);
+            }
+        }
+        this.removeMovePatternHandler=function(){
+            if(this.movePatternHandler===undefined){
+                console.log("Error : removeMovePatternHandler Setting Failed!!(Alreay Exist!!)");
+                return;
+            }
+            else{
+                clearInterval(this.movePatternHandler);
+                this.movePatternHandler=undefined;
+            }
+        }
+        //abstract event functions(about Objects), THESE EVENT FUNCTION ARE MUST BE OVERRIDDEN!!(replaced only one function)
+        this.onclick=function(event)
+        {
+            console.log(this.name +"(id : "+this.id+")"+ " : onclick EventListener Occured!! ("+event.offsetX+","+event.offsetY+")");
+
+        }
+        this.onmousemove=function(event)
+        {
+
+        }
+        this.onmousedown=function(event)
+        {
+
+        }
+        this.onmouseup=function(event)
+        {
+
+        }
+        this.onkeydown=undefined;
+        this.onkeyup=undefined;
+        this.onkeypress=undefined;
+        this.addCustomObjectEventListener=function(eventType,enrollFunc)
+        {
+            switch(eventType)
+            {
+                case "click":
+                    this.onclick=enrollFunc;
+                    break;
+                case "mousemove":
+                    this.onmousemove=enrollFunc;
+                    break;
+                case "mousedown":
+                    this.onmousedown=enrollFunc;
+                    break;
+                case "mouseup":
+                    this.onmouseup=enrollFunc;
+                    break;
+                case "keydown":
+                    this.onkeydown=enrollFunc;
+                    break;
+                case "keypress":
+                    this.onkeypress=enrollFunc;
+                    break;
+                case "keyup":
+                    this.onkeyup=enrollFunc;
+                    break;
+            }
+        }
+        this.removeCustomObjectEventListener=function(eventType)
+        {
+            switch(eventType)
+            {
+                case "click":
+                    this.onclick=undefined;
+                    break;
+                case "mousemove":
+                    this.onmousemove=undefined;
+                    break;
+                case "mousedown":
+                    this.onmousedown=undefined;
+                    break;
+                case "mouseup":
+                    this.onmouseup=undefined;
+                    break;
+                case "keydown":
+                    this.onkeydown=undefined;
+                    break;
+                case "keypress":
+                    this.onkeypress=undefined;
+                    break;
+                case "keyup":
+                    this.onkeyup=undefined;
+                    break;
+            }
+        }
+        this.removeCustomObject=function(){
+            DeleteCustomObject(CustomObjectList,CustomObjectList_Wait,this.id);
+        }
+    }
+    var CustomScreen=function(CanvasName){
+        this.constructor=CustomScreen
+        var width=1024;
+        var height=800;
+        var view_x=0;
+        var view_y=0;
+        var time=30;
+        var CanvasName=CanvasName;
+        var canvas=document.getElementById(CanvasName);
+        var context=canvas.getContext("2d");
+        var screenLoad=null;//EventListener Handle Check Variable
+        var timerLoad=null;//Timer Handler Check Variable
+        var TimerFunctionList=[];/* Timer(CustomTimer, Interval) Handle Stored Array, Linear Variant Queue */
+        var handler_OnclickListener=null;
+        this.mouseEvent=undefined;
+        function CustomWM_PAINT()
+        {
+            context.clearRect(0,0,width,height);
+            context.beginPath();
+            context.globalComopsiteOperation="source-over";//set Deafault GlobalCompositeOperation
+            var temp_obj;
+            //context.fillRect(100,100,100,100);
+            var idx;
+            for(idx=0;idx<CustomObjectList.length;idx++)
+            {
+                if(CustomObjectList[idx]!=undefined){
+                    context.globalAlpha=CustomObjectList[idx].globalAlpha;
+                    context.shadowOffsetX=CustomObjectList[idx].shadowOffsetX;
+                    context.shadowOffsetY=CustomObjectList[idx].shadowOffsetY;
+                    context.shadowBlur=CustomObjectList[idx].shadowBlur;
+                    context.shadowColor=CustomObjectList[idx].shadowColor;
+                    CustomObjectList[idx].draw(context,"image");
+//                    CustomObjectList[idx].displayName(context);
+                }
+            }
+        }
+        function CustomObjectMove(){
+            var temp_obj;
+            var idx;
+            for(idx=0;idx<CustomObjectList.length;idx++)
+            {
+                if(CustomObjectList[idx]!=undefined){
+                    CustomObjectList[idx].move(time);
+                    //                       patternMosquito(CustomObjectList[idx]);
+                }
+            }
+        }
+        this.StartLoadScreen=function(){
+            if(screenLoad==null) {
+                screenLoad = setInterval(CustomWM_PAINT, time);
+                timerLoad = setInterval(CustomObjectMove, time);
+            }
+            else console.log("Display Already Loaded!!");
+        }
+        this.CloseLoadScreen=function(){
+            if(screenLoad==null)console.log("Don't Have to Close this Screen!!");
+            else{
+                clearInterval(screenLoad);
+                clearInterval(timerLoad);
+                screenLoad=null;
+            }
+        }
+        this.addCustomScreenEventListener=function()
+        {
+            var canvas=document.getElementById(CanvasName);
+            canvas.addEventListener("click",this.onclick);
+            canvas.addEventListener("mousemove",this.onmousemove);
+            canvas.addEventListener("mousedown",this.onmousedown);
+            canvas.addEventListener("mouseup",this.onmouseup);
+            window.addEventListener("keyup",this.onkeyup);
+//            this.onkeyup();
+            window.addEventListener("keydown",this.onkeydown);
+            window.addEventListener("keypress",this.onkeypress);
+        }
+        this.removeCustomScreenEventListener=function()
+        {
+            var canvas=document.getElementById(CanvasName);
+            canvas.removeEventListener("click",this.onclick);
+            canvas.removeEventListener("mousemove",this.onmousemove);
+            canvas.removeEventListener("mousedown",this.onmousedown);
+            canvas.removeEventListener("mouseup",this.onmouseup);
+            window.removeEventListener("keyup",this.onkeyup);
+            window.removeEventListener("keydown",this.onkeydown);
+            window.removeEventListener("keypress",this.onkeypress);
+        }
+        this.onclick=function(event)
+        {
+//                alert(event.offsetX+" , "+event.offsetY);
+            var mouse_x=event.offsetX;
+            var mouse_y=event.offsetY;
+            var mouse_pointer=findCustomObjectByName("MOUSE_POINTER");
+            if(mouse_pointer!==undefined){
+                mouse_pointer.x=event.offsetX;
+                mouse_pointer.y=event.offsetY;
+            }
+//                alert(CustomObjectList[3].isObjectIn(mouse_x,mouse_y,10,10)+ " , "+CustomObjectList[3].x+" , "+CustomObjectList[3].y+" , "+CustomObjectList[3].width+" , "+CustomObjectList[3].height+" , "+mouse_x+" , "+mouse_y);
+            var idx=0;
+            var eventActivated=false;
+            for(idx=CustomObjectList.length-1;idx>=0;idx--)
+            {
+                if(CustomObjectList[idx]==undefined||(CustomObjectList[idx].onclick==undefined||CustomObjectList[idx].onclick==null||(CustomObjectList[idx].eventTransparent!==true&&eventActivated==true)))continue;
+                if(CustomObjectList[idx].isObjectIn(mouse_x,mouse_y,10,10)==true)
+                {
+//                        alert(CustomObjectList[idx].name+" 이벤트 발생");
+                    CustomObjectList[idx].onclick(event);
+                    if(CustomObjectList[idx].eventTransparent!==true)eventActivated=false;
+//                        if(CustomObjectList[idx]===undefined||CustomObjectList[idx].name!=="MOUSE_POINTER")break;
+                }
+            }
+        }
+        this.onmousemove=function(event){
+            var mouse_x=event.offsetX;
+            var mouse_y=event.offsetY;
+            var mouse_pointer=findCustomObjectByName("MOUSE_POINTER");
+            if(mouse_pointer!==undefined){
+                mouse_pointer.x=event.offsetX;
+                mouse_pointer.y=event.offsetY;
+            }
+//                alert(CustomObjectList[3].isObjectIn(mouse_x,mouse_y,10,10)+ " , "+CustomObjectList[3].x+" , "+CustomObjectList[3].y+" , "+CustomObjectList[3].width+" , "+CustomObjectList[3].height+" , "+mouse_x+" , "+mouse_y);
+            var idx=0;
+            var eventActivated=false;
+            for(idx=CustomObjectList.length-1;idx>=0;idx--)
+            {
+                if(CustomObjectList[idx]==undefined||(CustomObjectList[idx].onclick==undefined||CustomObjectList[idx].onclick==null||(CustomObjectList[idx].eventTransparent!==true&&eventActivated==true)))continue;
+                if(CustomObjectList[idx].isObjectIn(mouse_x,mouse_y,10,10)==true)
+                {
+//                        alert(CustomObjectList[idx].name+" 이벤트 발생");
+                    CustomObjectList[idx].onmousemove(event);
+                    if(CustomObjectList[idx].eventTransparent!==true)eventActivated=false;
+//                        if(CustomObjectList[idx]===undefined||CustomObjectList[idx].name!=="MOUSE_POINTER")break;
+                }
+            }
+        }
+        this.onmousedown=function(event){
+            var mouse_x=event.offsetX;
+            var mouse_y=event.offsetY;
+            var mouse_pointer=findCustomObjectByName("MOUSE_POINTER");
+            if(mouse_pointer!==undefined){
+                mouse_pointer.x=event.offsetX;
+                mouse_pointer.y=event.offsetY;
+            }
+//                alert(CustomObjectList[3].isObjectIn(mouse_x,mouse_y,10,10)+ " , "+CustomObjectList[3].x+" , "+CustomObjectList[3].y+" , "+CustomObjectList[3].width+" , "+CustomObjectList[3].height+" , "+mouse_x+" , "+mouse_y);
+            var idx=0;
+            var eventActivated=false;
+            for(idx=CustomObjectList.length-1;idx>=0;idx--)
+            {
+                if(CustomObjectList[idx]==undefined||(CustomObjectList[idx].onclick==undefined||CustomObjectList[idx].onclick==null||(CustomObjectList[idx].eventTransparent!==true&&eventActivated==true)))continue;
+                if(CustomObjectList[idx].isObjectIn(mouse_x,mouse_y,10,10)==true)
+                {
+//                        alert(CustomObjectList[idx].name+" 이벤트 발생");
+                    CustomObjectList[idx].onmousedown(event);
+                    if(CustomObjectList[idx].eventTransparent!==true)eventActivated=false;
+//                        if(CustomObjectList[idx]===undefined||CustomObjectList[idx].name!=="MOUSE_POINTER")break;
+                }
+            }
+        }
+        this.onmouseup=function(event){
+            var mouse_x=event.offsetX;
+            var mouse_y=event.offsetY;
+            var mouse_pointer=findCustomObjectByName("MOUSE_POINTER");
+            if(mouse_pointer!==undefined){
+                mouse_pointer.x=event.offsetX;
+                mouse_pointer.y=event.offsetY;
+            }
+//                alert(CustomObjectList[3].isObjectIn(mouse_x,mouse_y,10,10)+ " , "+CustomObjectList[3].x+" , "+CustomObjectList[3].y+" , "+CustomObjectList[3].width+" , "+CustomObjectList[3].height+" , "+mouse_x+" , "+mouse_y);
+            var idx=0;
+            var eventActivated=false;
+            for(idx=CustomObjectList.length-1;idx>=0;idx--)
+            {
+                if(CustomObjectList[idx]==undefined||(CustomObjectList[idx].onclick==undefined||CustomObjectList[idx].onclick==null||(CustomObjectList[idx].eventTransparent!==true&&eventActivated==true)))continue;
+                if(CustomObjectList[idx].isObjectIn(mouse_x,mouse_y,10,10)==true)
+                {
+//                        alert(CustomObjectList[idx].name+" 이벤트 발생");
+                    CustomObjectList[idx].onmouseup(event);
+                    if(CustomObjectList[idx].eventTransparent!==true)eventActivated=false;
+//                        if(CustomObjectList[idx]===undefined||CustomObjectList[idx].name!=="MOUSE_POINTER")break;
+                }
+            }
+        }
+        this.onkeydown=function(evnet){
+            var idx=0;
+            var eventActivated=false;
+            console.log("onkeydown :  "+event.keyCode);
+            for(idx=CustomObjectList.length-1;idx>=0;idx--)
+            {
+                if(CustomObjectList[idx]==undefined||(CustomObjectList[idx].onkeydown==undefined||CustomObjectList[idx].onkeydown==null||(CustomObjectList[idx].eventTransparent!==true&&eventActivated==true)))continue;
+  //              if(CustomObjectList[idx].isObjectIn(mouse_x,mouse_y,10,10)==true)
+                {
+//                        alert(CustomObjectList[idx].name+" 이벤트 발생");
+                    CustomObjectList[idx].onkeydown(event);
+ //                   if(CustomObjectList[idx].eventTransparent!==true)eventActivated=false;
+//                        if(CustomObjectList[idx]===undefined||CustomObjectList[idx].name!=="MOUSE_POINTER")break;
+                }
+            }
+        }
+        this.onkeyup=function(evnet){
+            var idx=0;
+            var eventActivated=false;
+            console.log("onkeyup :  "+event.keyCode);
+            for(idx=CustomObjectList.length-1;idx>=0;idx--)
+            {
+                if(CustomObjectList[idx]==undefined||(CustomObjectList[idx].onkeyup==undefined||CustomObjectList[idx].onkeyup==null||(CustomObjectList[idx].eventTransparent!==true&&eventActivated==true)))continue;
+                //              if(CustomObjectList[idx].isObjectIn(mouse_x,mouse_y,10,10)==true)
+                {
+//                        alert(CustomObjectList[idx].name+" 이벤트 발생");
+                    CustomObjectList[idx].onkeyup(event);
+                    //                   if(CustomObjectList[idx].eventTransparent!==true)eventActivated=false;
+//                        if(CustomObjectList[idx]===undefined||CustomObjectList[idx].name!=="MOUSE_POINTER")break;
+                }
+            }
+        }
+
+        this.onkeypress=function(evnet){
+            var idx=0;
+            var eventActivated=false;
+            console.log("onkeypress :  "+event.keyCode);
+            for(idx=CustomObjectList.length-1;idx>=0;idx--)
+            {
+                if(CustomObjectList[idx]==undefined||(CustomObjectList[idx].onkeypress==undefined||CustomObjectList[idx].onkeypress==null||(CustomObjectList[idx].eventTransparent!==true&&eventActivated==true)))continue;
+                //              if(CustomObjectList[idx].isObjectIn(mouse_x,mouse_y,10,10)==true)
+                {
+//                        alert(CustomObjectList[idx].name+" 이벤트 발생");
+                    CustomObjectList[idx].onkeypress(event);
+                    //                   if(CustomObjectList[idx].eventTransparent!==true)eventActivated=false;
+//                        if(CustomObjectList[idx]===undefined||CustomObjectList[idx].name!=="MOUSE_POINTER")break;
+                }
+            }
+        }
+        this.AttackCool=function(){
+            for(idx=CustomObjectList.length-1;idx>=0;idx--)
+            {
+                if(CustomObjectList[idx].length<=0||CustomObjectList[idx]==undefined)continue;
+                else {
+                    if(CustomObjectList[idx].attackcool-time<0)
+                        CustomObjectList[idx].attackcool=0;
+                    else
+                        CustomObjectList[idx].attackcool-=time;
+                }
+            }
+        }
+        function CustomWM_TIMER(name,myFunc,time){
+            this.time=time;//per miliseconds
+            this.myFunc=myFunc;
+            this.name=name;//CustomWM_TIMER's Name
+            this.handle=undefined;
+        }
+        this.resetCustomScreenState=function(){
+            FlushCustomObject(CustomObjectList);
+            this.removeCustomScreenTimerFunctionAll();
+        }
+        this.addCustomScreenTimerFunction=function(myFunc,mytime){
+            var idx;
+            if(mytime==undefined)mytime=time;//Screen's Time;
+            idx=TimerFunctionList.length;
+            TimerFunctionList.push();
+            TimerFunctionList[idx]=new CustomWM_TIMER(idx,myFunc,mytime);
+            TimerFunctionList[idx].handle=setInterval(TimerFunctionList[idx].myFunc,TimerFunctionList[idx].time);
+        }
+        this.removeCustomScreenTimerFunction=function(idx){
+            if(TimerFunctionList.length<=0) {
+                console.log("Failed : Nothing to Remove TimerFunctionList Function!!");
+                return;
+            }
+            else if(TimerFunctionList.length-1>idx||idx<0){
+                console.log("Failed : Please Input Correct Index!!");
+                return;
+
+            }
+            clearInterval(TimerFunctionList[idx].handle);
+            TimerFunctionList[idx].handle=undefined;
+            removeArrayIndex(TimerFunctionList,idx);
+        }
+        this.removeCustomScreenTimerFunctionAll=function(){
+            for(i=TimerFunctionList.length-1;i>=0;i--){
+                this.removeCustomScreenTimerFunction(i);
+            }
+
+        }
+        this.FlushCustomScreenTimerFunction=function()
+        {
+            for(var i=TimerFunctionList.length-1;i>=0;i--){
+                clearInterval(TimerFunctionList[i].handle);
+                TimerFunctionList.pop();
+            }
+            for(var i=TimerFunctionList_Wait.length;i>0;i--)
+                TimerFunctionList_Wait.pop();
+            console.log("FlushCustomScreenTimerFunction Function Occured!!");
+        }
+    }
+    function AddCustomObject(CustomObjectList,CustomObjectList_Wait,x,y,width,height,name,imgSrc,display,zIndex,eventTransparent){
+        var idx;
+        if(!(CustomObjectList_Wait==undefined||CustomObjectList_Wait.length<1))
+        {
+            idx=CustomObjectList_Wait[0];
+            CustomObjectList_Wait.shift();
+            CustomObjectList[idx]=new CustomObject();
+            CustomObjectList[idx].x=x;
+            CustomObjectList[idx].y=y;
+            CustomObjectList[idx].width=width;
+            CustomObjectList[idx].height=height;
+            CustomObjectList[idx].name=name;
+            CustomObjectList[idx].imgSrc=imgSrc;
+            CustomObjectList[idx].id=idx;
+            CustomObjectList[idx].zIndex=zIndex;
+            CustomObjectList[idx].eventTransparent=eventTransparent;
+            if(display==true)CustomObjectList[idx].display=display;
+            else CustomObjectList[idx].display=false;
+            /*             if(onclickFunction!==undefined)
+             CustomObjectList[idx].addCustomObjectEventListener("click",onclickFunction);*/
+            return CustomObjectList[idx];
+        }
+        else{
+            idx=CustomObjectList.length;
+            CustomObjectList.push(new CustomObject());
+            CustomObjectList[idx].x=x;
+            CustomObjectList[idx].y=y;
+            CustomObjectList[idx].width=width;
+            CustomObjectList[idx].height=height;
+            CustomObjectList[idx].name=name;
+            CustomObjectList[idx].imgSrc=imgSrc;
+            CustomObjectList[idx].id=idx;
+            CustomObjectList[idx].zIndex;
+            CustomObjectList[idx].eventTransparent=eventTransparent;
+            if(display==true)CustomObjectList[idx].display=display;
+            else CustomObjectList[idx].display=false;
+            /*              if(onclickFunction!==undefined)
+             CustomObjectList[idx].addCustomObjectEventListener("click",onclickFunction);*/
+            return CustomObjectList[idx];
+        }
+    }
+
+
+    function DeleteCustomObject(CustomObjectList,CustomObjectList_Wait,idx){
+        if(idx>CustomObjectList.length-1&&idx<0){
+            console.log("Cannot Delete this index : "+idx);
+            return;
+        }
+        if(idx==CustomObjectList.length-1){
+            if(CustomObjectList[idx].movePatternHandler!==undefined)CustomObjectList[idx].removeMovePatternHandler();
+            CustomObjectList.pop();
+        }
+        else{
+            CustomObjectList_Wait.push(idx);
+            if(CustomObjectList[idx].movePatternHandler!==undefined)CustomObjectList[idx].removeMovePatternHandler();
+            CustomObjectList[idx]=undefined;
+        }
+    }
+
+    function FlushCustomObject(CustomObjectList)
+    {
+        console.log("CustomObjectList Array Flush Function Occured!!\n");
+        var idx;
+        for(idx=CustomObjectList.length-1;idx>=0;idx--)
+            CustomObjectList.pop();
+    }
+    function findCustomObjectByName(objName) {
+        var idx;
+        for (idx = CustomObjectList.length - 1; idx >= 0; idx--) {
+            if (CustomObjectList[idx] == undefined)continue;
+            if (CustomObjectList[idx].name == objName) {
+//                    console.log("found the name By CustomObjectById(" + CustomObjectList[idx].name + ")");
+                return CustomObjectList[idx];
+            }
+        }
+//            return console.log("Error : Not found the name By CustomObjectById!!("+objName+")");
+    }
+    /* CustomObject Append Function (Based On id property(replaced as index value)*/
+    /* appendArrayIndex : used For AddCustomObjectList_new Function, is Formed From Queue Structure*/
+    function appendArrayIndex(arr,index,value){
+        if(index==undefined||(index==arr.length-1&&index>=0)){
+            arr[arr.length]=value;
+            arr.length++;
+        }
+        else{
+            for(var i=arr.length;i>index;i--){arr[i]=arr[i-1];}
+            arr.length++;
+            arr[i]=value;
+        }
+    }
+    /* CustomObject remove Function (Based On id property(replaced as index value) */
+    /* removeArrayIndex : is Formed From Queue Structure */
+    function removeArrayIndex(arr, index){
+        for(var i=index;i<arr.length;i++)
+            arr[i]=arr[i+1];
+        arr.length-=1;
+    }
+    function MOUSE_POINTER_onclick(e){
+        var x=e.offsetX;
+        var y= e.offsetY;
+    }
+    function MOUSE_POINTER_onmove(e){
+        var x=e.offsetX;
+        var y= e.offsetY;
+    }
+    function enrollTitleButton(){
+        AddCustomObject(CustomObjectList,CustomObjectList_Wait,778,37,43,41,"title_question","res/title_question.PNG",true);
+        AddCustomObject(CustomObjectList,CustomObjectList_Wait,828,37,43,41,"title_fullscreen","res/title_fullscreen.PNG",true);
+        AddCustomObject(CustomObjectList,CustomObjectList_Wait,878,37,43,41,"title_retry","res/title_retry.PNG",true);
+        AddCustomObject(CustomObjectList,CustomObjectList_Wait,928,37,43,41,"title_anothergame","res/title_anothergame.PNG",true);
+        AddCustomObject(CustomObjectList,CustomObjectList_Wait,978,37,43,41,"title_exit","res/title_exit.PNG",true);
+        findCustomObjectByName("title_retry").addCustomObjectEventListener("click",Activity_Title);
+        findCustomObjectByName("title_exit").addCustomObjectEventListener("click",function(){window.close()});
+    }
+    function Activity_Title(){
+        MySrc.resetCustomScreenState();
+        AddCustomObject(CustomObjectList,CustomObjectList_Wait,512,330+80,1024,660,"intro","res/intro.PNG",true);
+        AddCustomObject(CustomObjectList,CustomObjectList_Wait,512,40,1024,80,"title","res/top.PNG",true);
+        AddCustomObject(CustomObjectList,CustomObjectList_Wait,515,80+580,269,100,"btn_start","res/btn_start.PNG",true);//Start Button
+//            AddCustomObject(CustomObjectList,CustomObjectList_Wait,350,350,100,100,"flies","res/mosquito.PNG",true);
+//            AddCustomObject(CustomObjectList,CustomObjectList_Wait,200,200,170,280,"chrong","res/chrong.PNG",true);
+        enrollTitleButton();
+//            AddCustomObject(CustomObjectList,CustomObjectList_Wait,100,100,100,100,"LOGO","res/img_logo_20151006.PNG",true);//Test Object
+        AddCustomObject(CustomObjectList,CustomObjectList_Wait,100,100,25,25,"MOUSE_POINTER","res/mousepointer.PNG",true);
+        findCustomObjectByName("MOUSE_POINTER").draw=mouseArrow_display;
+
+        findCustomObjectByName("btn_start").addCustomObjectEventListener("click",Activity_Game);
+//            var btn=findCustomObjectByName("btn_start");
+        //           btn.addCustomObjectEventListener("click",func1);
+        //           var btn2=findCustomObjectByName("flies");
+        //           btn2.addCustomObjectEventListener("click",Activity_Game);
+    }
+    function Activity_Introduction(){
+
+    }
+    function Activity_Game(){
+        MySrc.resetCustomScreenState();
+        AddCustomObject(CustomObjectList,CustomObjectList_Wait,512,330+80,1024,660,"intro","res/field.PNG",true,-1);
+        AddCustomObject(CustomObjectList,CustomObjectList_Wait,512,40,1024,80,"title","res/top.PNG",true);
+        AddCustomObject(CustomObjectList,CustomObjectList_Wait,525,365,175,280,"chrong","res/chrong.PNG",true);
+        for(var i=0;i<20;i++)
+            AddMosquito();
+
+        enrollTitleButton();
+        AddCustomObject(CustomObjectList,CustomObjectList_Wait,230,655,34,92,"button_pororo_killer1","res/button_pororo_killer_fade.PNG",true);
+        AddCustomObject(CustomObjectList,CustomObjectList_Wait,293,655,34,92,"button_pororo_killer2","res/button_pororo_killer_fade.PNG",true);
+        AddCustomObject(CustomObjectList,CustomObjectList_Wait,355,655,34,92,"button_pororo_killer3","res/button_pororo_killer_fade.PNG",true);
+        AddCustomObject(CustomObjectList,CustomObjectList_Wait,484,655,74,92,"button_web","res/button_web.PNG",true);
+        AddCustomObject(CustomObjectList,CustomObjectList_Wait,620,652,60,94,"band1","res/vailband.PNG",true);
+        AddCustomObject(CustomObjectList,CustomObjectList_Wait,684,652,60,94,"band2","res/vailband.PNG",true);
+        AddCustomObject(CustomObjectList,CustomObjectList_Wait,748,652,60,94,"band3","res/vailband.PNG",true);
+        AddCustomObject(CustomObjectList,CustomObjectList_Wait,909,662,56,56,"LOGO","res/img_logo_20151006.PNG",true);//Test Object
+        findCustomObjectByName("button_web").addCustomObjectEventListener("click",setWeb);
+        findCustomObjectByName("chrong").hp=3;
+
+        AddCustomObject(CustomObjectList,CustomObjectList_Wait,100,100,108,240,"MOUSE_POINTER","res/flycatcher.PNG",true,undefined,true);
+        findCustomObjectByName("MOUSE_POINTER").addCustomObjectEventListener("click",function(e){;});
+//            findCustomObjectByName("MOUSE_POINTER").addCustomObjectEventListener("mousedown",function(e){if(this.attackcool<=0)this.attackcool=1500;});
+        findCustomObjectByName("MOUSE_POINTER").draw=flykiller_display;
+
+        MySrc.addCustomScreenTimerFunction(MySrc.AttackCool);
+        findCustomObjectByName("LOGO").draw=function(context,drawType){
+            context.beginPath();
+            context.fillStyle="yellow";
+            context.moveTo(this.x,this.y);
+            context.arc(this.x,this.y,(this.width+this.height)/4,0-Math.PI/2,0-Math.PI/2+Math.PI*2*(60000-this.attackcool)/60000,false);
+            context.closePath();
+            context.fill();
+        }
+        MySrc.addCustomScreenTimerFunction(mosquitoPattern);
+        function mosquitoPattern(){
+            for(var i=0;i<CustomObjectList.length;i++){
+                if(CustomObjectList[i]!==undefined){
+                    if(CustomObjectList[i].name==="flies")
+                        patternMosquito(CustomObjectList[i]);
+                }
+            }
+        }
+        findCustomObjectByName("LOGO").attackcool=60000;
+        MySrc.addCustomScreenTimerFunction(Game_Over);//remove All Mosquito's Click, mousemove, mousedown EventListener
+        MySrc.addCustomScreenTimerFunction(displayChrongHPStateUsingBand);
+        MySrc.addCustomScreenTimerFunction(removeWeb);
+    }
+    function Activity_Retry(){
+        MySrc.resetCustomScreenState();
+        AddCustomObject(CustomObjectList,CustomObjectList_Wait,1024/2,744/2,1024,744,"background","res/retry.PNG",true);
+        AddCustomObject(CustomObjectList,CustomObjectList_Wait,235,342,208,84,"btn_retry","res/btn_retry.PNG",true);
+        AddCustomObject(CustomObjectList,CustomObjectList_Wait,798,342,208,84,"btn_exit","res/btn_exit.PNG",true);
+
+        enrollTitleButton();
+        AddCustomObject(CustomObjectList,CustomObjectList_Wait,0,0,25,25,"MOUSE_POINTER","res/mousepointer.PNG",true);
+        findCustomObjectByName("btn_retry").addCustomObjectEventListener("click",function(){Activity_Game();});
+        findCustomObjectByName("btn_exit").addCustomObjectEventListener("click",function(){thisexit();});
+        findCustomObjectByName("MOUSE_POINTER").draw=mouseArrow_display;
+        function thisexit(){
+            window.close();
+        }
+        findCustomObjectByName("background").attackcool=4000;
+    }
+    function Activity_Test(){
+        MySrc.resetCustomScreenState();
+        AddCustomObject(CustomObjectList,CustomObjectList_Wait,1024/2,744/2,1024,744,"background","res/background.PNG",true,undefined,true);
+        AddCustomObject(CustomObjectList,CustomObjectList_Wait,320,700-25-240,320,480,"tree","res/tree.PNG",true,undefined,true);
+        for(var i=0;i<20;i++)
+            AddCustomObject(CustomObjectList,CustomObjectList_Wait,i*50,700,50,50,"bricks","res/brick.PNG",true);
+        AddCustomObject(CustomObjectList,CustomObjectList_Wait,120,700-25-60,80,120,"player","res/player.PNG",true);
+        function playerKeyDown(e){
+            var player=findCustomObjectByName("player");
+            switch (e.keyCode){
+                case 37://VK_LEFT
+                        player.speed_x=-player.width*4;
+                    break;
+                case 38://VK_UP
+                    break;
+                case 39://VK_RIGHT
+                    player.speed_x=player.width*4;
+                    break;
+                case 40://VK_DOWN
+                    break;
+            }
+        }
+        function playerKeyPress(e){
+            var player=findCustomObjectByName("player");
+            switch (e.keyCode){
+                case 37://VK_LEFT
+                    player.speed_x=-player.width*4;
+                    break;
+                case 38://VK_UP
+                    break;
+                case 39://VK_RIGHT
+                    player.speed_x=player.width*4;
+                    break;
+                case 40://VK_DOWN
+                    break;
+            }
+        }
+        function playerKeyUp(e){
+            var player=findCustomObjectByName("player");
+            switch (e.keyCode){
+                case 37://VK_LEFT
+                    player.speed_x=0;
+                    break;
+                case 38://VK_UP
+                    break;
+                case 39://VK_RIGHT
+                    player.speed_x=0;
+                    break;
+                case 40://VK_DOWN
+                    break;
+            }
+        }
+        findCustomObjectByName("player").onkeydown=playerKeyDown;
+        findCustomObjectByName("player").onkeypress=playerKeyPress;
+        findCustomObjectByName("player").onkeyup=playerKeyUp;
+        findCustomObjectByName("player").hp=600;
+        AddCustomObject(CustomObjectList,CustomObjectList_Wait,400,50,400,50,"hp_bar","",true,undefined,true);
+        findCustomObjectByName("hp_bar").fillStyle="red";
+        function showHPStatusBar(){
+            var myCustomObject=findCustomObjectByName("hp_bar");
+            var player=findCustomObjectByName("player");
+            myCustomObject.hp=player.hp;
+        }
+        function drawHPStatusBar(context,drawimage){
+            var myCustomObject=findCustomObjectByName("hp_bar");
+            var max_hp=600;
+            if(context==undefined||myCustomObject.display!=true)return;
+            context.beginPath();
+            context.fillStyle=myCustomObject.fillStyle;
+            context.fillRect(myCustomObject.x-max_hp/2,myCustomObject.y-myCustomObject.height/2,myCustomObject.width*myCustomObject.hp/max_hp,myCustomObject.height);
+        }
+        findCustomObjectByName("hp_bar").draw=drawHPStatusBar;
+        MySrc.addCustomScreenTimerFunction(showHPStatusBar);
+        function gameTimer(){
+            var player=findCustomObjectByName("player");
+            if(player.x>600&&player.hp>0)
+                player.hp-=1;
+
+            if(player.hp==0){
+                player.attackcool=2000;
+                player.hp=-1;
+                player.removeCustomObjectEventListener("keydown");
+                player.removeCustomObjectEventListener("keyup");
+                player.removeCustomObjectEventListener("keypress");
+            }
+            if(player.hp<=0&&player.display==true){
+                player.globalAlpha=player.attackcool/2000;
+                if(player.attackcool<=0)display=false;
+            }
+        }
+        MySrc.addCustomScreenTimerFunction(gameTimer);
+        MySrc.addCustomScreenTimerFunction(MySrc.AttackCool);
+    }
+
+    //VARIABLE DECLARATION PART
+    var CustomObjectList=[];//Stack-Structure Data
+    var CustomObjectList_Wait=[];//only stored as Object index
+    var CustomObjectList_Pointer=[];//Sorted By Index, Just Pointing For Viewing, Event, Etc.
+
+    var mosquito_list=[];
+    var mosquito_list_wait=[];
+
+    MySrc=new CustomScreen("canvas");
+    MySrc.StartLoadScreen();
+    MySrc.addCustomScreenEventListener();
+
+    /* Default Initializing Part End*/
+
+    Activity_Test();
+
+    var canvas=document.getElementById("canvas");
+    var context=canvas.getContext("2d");
+
+    context.beginPath();
+    context.fillRect(0,0,100,100);
+
+</script>
+</body>
+</html>

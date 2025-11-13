@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Collision demo — Interactive</title>
+  <style>
+    body{font-family:system-ui,Segoe UI,Roboto,'Noto Sans',sans-serif;margin:0;background:#f8fafc;color:#0f172a}
+    .wrap{max-width:960px;margin:32px auto;padding:16px}
+    canvas{background:#fff;border:1px solid #e5e7eb;display:block;margin:12px 0;border-radius:8px}
+    .controls{display:flex;gap:8px;flex-wrap:wrap}
+    .kbd{background:#111827;color:#fff;padding:6px 8px;border-radius:6px;font-weight:700}
+    .badge{display:inline-block;padding:6px 8px;background:#eef2ff;color:#3730a3;border-radius:8px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Interactive Collision Demo</h1>
+    <p>This tiny demo shows simple 2D collision detection (circle vs circle). Use the arrow keys to move the green circle. When it touches the red circle, a collision event occurs.</p>
+
+    <div class="controls">
+      <div class="badge">Goal: show collision response & event</div>
+      <div class="badge">Code: vanilla JS + Canvas</div>
+      <div class="badge">Duration: ~30s to try</div>
+    </div>
+
+    <canvas id="game" width="720" height="360" aria-label="Collision demo canvas"></canvas>
+
+    <div>
+      <strong>Controls:</strong>
+      <span class="kbd">←</span>
+      <span class="kbd">↑</span>
+      <span class="kbd">→</span>
+      <span class="kbd">↓</span>
+      <span class="kbd">Space</span> (reset target)
+    </div>
+
+    <h2>Core collision snippet</h2>
+    <pre><code>// distance check
+const dx = a.x - b.x;
+const dy = a.y - b.y;
+const dist2 = dx*dx + dy*dy;
+if (dist2 <= (a.r + b.r)*(a.r + b.r)) {
+  // collision!
+}
+</code></pre>
+
+    <p class="text-muted">This demo is intentionally tiny so you can open it quickly in-browser. It demonstrates detection and a simple visual reaction.</p>
+  </div>
+
+  <script>
+    (()=>{
+      const canvas = document.getElementById('game');
+      const ctx = canvas.getContext('2d');
+      const W = canvas.width, H = canvas.height;
+
+      const player = { x: 120, y: H/2, r: 28, vx:0, vy:0, speed: 3, color: '#059669' };
+      const target = { x: 520, y: H/2, r: 36, vx:1.6, vy:0.9, color: '#dc2626' };
+      let keys = {};
+      let collided = false;
+
+      function update() {
+        // player movement
+        player.vx = 0; player.vy = 0;
+        if (keys['ArrowLeft']) player.vx = -player.speed;
+        if (keys['ArrowRight']) player.vx = player.speed;
+        if (keys['ArrowUp']) player.vy = -player.speed;
+        if (keys['ArrowDown']) player.vy = player.speed;
+        player.x += player.vx; player.y += player.vy;
+        // clamp
+        player.x = Math.max(player.r, Math.min(W-player.r, player.x));
+        player.y = Math.max(player.r, Math.min(H-player.r, player.y));
+
+        // target movement (simple bounce)
+        target.x += target.vx; target.y += target.vy;
+        if (target.x < target.r || target.x > W - target.r) target.vx *= -1;
+        if (target.y < target.r || target.y > H - target.r) target.vy *= -1;
+
+        // collision test
+        const dx = player.x - target.x, dy = player.y - target.y;
+        const dist2 = dx*dx + dy*dy;
+        const collide = dist2 <= Math.pow(player.r + target.r, 2);
+        if (collide) {
+          if (!collided) {
+            // first frame of collision
+            collided = true;
+            // small visual: push target away along vector
+            const dist = Math.sqrt(dist2) || 1;
+            const nx = dx / dist, ny = dy / dist;
+            target.x -= nx * 8;
+            target.y -= ny * 8;
+          }
+        } else {
+          collided = false;
+        }
+      }
+
+      function draw() {
+        ctx.clearRect(0,0,W,H);
+        // target
+        ctx.beginPath(); ctx.arc(target.x, target.y, target.r, 0, Math.PI*2);
+        ctx.fillStyle = collided ? '#f97316' : target.color;
+        ctx.fill();
+        ctx.lineWidth = 4; ctx.strokeStyle = '#fff'; ctx.stroke();
+
+        // player
+        ctx.beginPath(); ctx.arc(player.x, player.y, player.r, 0, Math.PI*2);
+        ctx.fillStyle = player.color; ctx.fill();
+        ctx.lineWidth = 3; ctx.strokeStyle = '#ffffffaa'; ctx.stroke();
+
+        // HUD
+        ctx.fillStyle = '#0f172a'; ctx.font = '14px system-ui';
+        ctx.fillText('Use arrow keys to move. Space to reset target.', 12, 20);
+        if (collided) {
+          ctx.fillStyle = '#b91c1c'; ctx.font = '28px system-ui';
+          ctx.fillText('Collision!', W/2 - 60, 40 + 0);
+        }
+      }
+
+      function loop(){ update(); draw(); requestAnimationFrame(loop); }
+      loop();
+
+      window.addEventListener('keydown', e=>{
+        keys[e.key] = true;
+        if (e.key === ' ') {
+          // reset
+          target.x = 520 + (Math.random()-0.5)*80;
+          target.y = H/2 + (Math.random()-0.5)*80;
+        }
+      });
+      window.addEventListener('keyup', e=>{ keys[e.key] = false; });
+    })();
+  </script>
+</body>
+</html>
