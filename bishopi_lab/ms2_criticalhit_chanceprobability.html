@@ -1,0 +1,588 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>비숍이 실험실 - 메이플스토리2 크리티컬 확률 계산기</title>
+    <link rel="stylesheet" href="common.css">
+    <script src="w3-include-html.js"></script>
+    <script src="nav-header.js"></script>
+    <style>
+        :root {
+            --panel: #ffffff;
+            --line: #d9e0ec;
+            --text: #1d2430;
+            --accent: #1f6feb;
+            --warn-bg: #fff4e8;
+            --warn-line: #f3c18a;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            color: var(--text);
+            background: linear-gradient(180deg, #eef3fb 0%, #f8faff 55%, #f2f5fb 100%);
+            font-family: "Segoe UI", "Malgun Gothic", sans-serif;
+        }
+
+        main {
+            max-width: 1040px;
+            margin: 0 auto;
+            padding: 24px 16px 48px;
+        }
+
+        h1 {
+            margin: 0 0 8px;
+            font-size: 1.8rem;
+        }
+
+        .description {
+            margin: 0 0 20px;
+            color: #445066;
+            line-height: 1.5;
+        }
+
+        .warning {
+            background: var(--warn-bg);
+            border: 1px solid var(--warn-line);
+            border-radius: 10px;
+            padding: 10px 12px;
+            margin-bottom: 14px;
+            font-size: 0.92rem;
+            line-height: 1.4;
+        }
+
+        .panel {
+            background: var(--panel);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 14px rgba(18, 33, 58, 0.05);
+        }
+
+        .panel h2 {
+            margin: 0 0 12px;
+            font-size: 1.15rem;
+        }
+
+        .panel h3 {
+            margin: 14px 0 6px;
+            font-size: 1rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 10px 12px;
+            align-items: end;
+        }
+
+        label {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            font-size: 0.92rem;
+        }
+
+        input, select, button {
+            border: 1px solid #bcc7d8;
+            border-radius: 8px;
+            padding: 8px 10px;
+            font-size: 0.95rem;
+            background: #fff;
+        }
+
+        button {
+            cursor: pointer;
+            background: var(--accent);
+            color: #fff;
+            border: 1px solid #1b61cb;
+            font-weight: 600;
+        }
+
+        .inline-actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .chip {
+            background: #f4f8ff;
+            border: 1px solid #cbd9f7;
+            color: #2f4f8a;
+            padding: 6px 10px;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            width: fit-content;
+        }
+
+        .job-icon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(86px, 1fr));
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .job-icon-btn {
+            border: 1px solid #c7d2e6;
+            background: #fff;
+            border-radius: 10px;
+            padding: 8px 4px;
+            cursor: pointer;
+            text-align: center;
+            color: #2c3850;
+            transition: border-color 0.12s ease;
+        }
+
+        .job-icon-btn.selected {
+            border-color: #1f6feb;
+            box-shadow: inset 0 0 0 1px #1f6feb;
+            background: #f5f9ff;
+        }
+
+        .job-icon-btn img {
+            width: 30px;
+            height: 30px;
+            display: block;
+            margin: 0 auto 6px;
+        }
+
+        .job-icon-btn .name {
+            font-size: 0.78rem;
+            line-height: 1.2;
+            word-break: keep-all;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 12px;
+            background: #fff;
+        }
+
+        th, td {
+            border: 1px solid var(--line);
+            padding: 8px 10px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        th { background: #edf3ff; }
+
+        .formula {
+            margin: 8px 0 0;
+            padding: 10px;
+            background: #f7faff;
+            border: 1px dashed #c6d7f5;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            line-height: 1.45;
+            word-break: keep-all;
+        }
+
+        .note {
+            margin-top: 10px;
+            color: #54627b;
+            font-size: 0.86rem;
+            line-height: 1.45;
+        }
+
+        .cap-note {
+            margin-top: 8px;
+            color: #8a4e00;
+            font-size: 0.86rem;
+        }
+
+        @media (max-width: 640px) {
+            th, td { font-size: 0.82rem; padding: 7px 6px; }
+        }
+    </style>
+</head>
+<body>
+    <div w3-include-html="nav-header.html"></div>
+
+    <main>
+        <h1>메이플스토리2 크리티컬 명중 확률 계산기</h1>
+        <p class="description">이 페이지는 chatgpt codex(ChatGPT 5.3)으로 만들었으며, 외부 파일 연동 없이 단일 페이지에서 계산합니다. 적 크리티컬 회피는 70, 90, 100 기준입니다.</p>
+
+        <div class="warning">
+            일반 규칙에서 <strong>크리티컬 명중 성공 확률의 최대치는 40%</strong>입니다.<br>
+            단, <strong>제한 무시 계산</strong>을 켜면 40%를 넘는 이론값도 함께 확인할 수 있습니다.
+        </div>
+
+        <div class="warning">
+            <strong>스킬에 의한 크리티컬 HP 회복</strong>의 크리티컬 확률 식은 확인 중에 있습니다. 양해 부탁드립니다.<br>
+            크리티컬 HP 회복은 <strong>스킬에 의한 회복</strong>(시전자의 크리티컬을 따름), <strong>라펜티어(신호탄: 그린후드의 공중지원 제외)</strong>, <strong>라펜샤드</strong>를 통한 회복 시 발동합니다.<br>
+            <strong>비상의 물약 버프 효과</strong>(효과: 버프 지속시간 동안 모든 공격이 크리티컬로 명중) 중에는 크리티컬 HP 회복이 항상 발동합니다. <br>
+            <strong>스킬에 의한 크리티컬 HP 회복</strong> 효과 발동 시 크리티컬 대미지 수치값과 관계 없이 최종 HP 회복량의 50% 만큼 추가 회복됩니다. 
+        </div>
+
+        <section class="panel">
+            <h2>기본 입력</h2>
+            <div class="grid"></div>
+            <h3>직업 아이콘 선택</h3>
+            <p>직업 아이콘을 클릭하면 해당 직업에 맞는 직업 상수와 LUK 값이 자동으로 설정됩니다.</p>
+            <div id="jobIconGrid" class="job-icon-grid"></div>
+
+            <p class="formula">
+                공식: 크리티컬 확률(%) = ((크리티컬 명중 × 5.3) + (LUK × 직업 상수)) × 1.5 ÷ (2 × 적의 크리티컬 회피)
+            </p>
+            <br>
+            <div class="grid">
+                <label>
+                    직업 상수
+                    <input id="jobConst" type="number" step="0.00001" min="0" value="3.78">
+                </label>
+                <label>
+                    LUK
+                    <input id="luk" type="number" step="1" min="0" value="35">
+                </label>
+                <label>
+                    현재 크리티컬 명중
+                    <input id="crit" type="number" step="1" min="0" value="300">
+                </label>
+            </div>
+            <div class="inline-actions">
+                <label style="flex-direction:row;align-items:center;gap:8px;">
+                    <input id="ignoreCap" type="checkbox" style="width:auto;">
+                    제한 무시 계산 사용
+                </label>
+            </div>
+            <div id="jobMeta" class="chip" style="margin-top:8px;"></div>
+            <p id="critLowWarning" class="cap-note" style="display:none;color:#b24a00;font-weight:600;">
+                경고: 크리티컬 명중 수치가 200 미만입니다. 크리티컬 명중 수치가 매우 부족한 상태입니다. 스탯 포인트를 크리티컬 명중에 우선적으로 모두 재투자 부탁드립니다.
+            </p>
+
+            
+        </section>
+
+        <section class="panel">
+            <h2>1) 현재 크리티컬 발동 확률</h2>
+            <div id="currentResult"></div>
+            <p class="cap-note">제한 무시 계산이 꺼져 있으면 표의 "적용 확률"은 40% 상한이 적용됩니다.</p>
+        </section>
+
+        <section class="panel">
+            <h2>2) 목표 확률별 요구 크리티컬 명중</h2>
+            <div class="grid">
+                <label>
+                    사용자 지정 목표 확률(%)
+                    <input id="customTarget" type="number" step="0.01" min="0" value="">
+                </label>
+            </div>
+            <div class="inline-actions">
+                <button id="addCustomTarget" type="button">사용자 목표 추가</button>
+                <button id="addFatalLv10" type="button">페이탈 어택 Lv10 목표 36%</button>
+                <button id="addFatalLv11" type="button">페이탈 어택 Lv11 목표 32%</button>
+            </div>
+            <div id="requiredResult"></div>
+            <p class="note">
+                기본 목표는 10%, 20%, 30%, 40%입니다. 요구 명중은 올림 처리됩니다.<br>
+                어쌔신 페이탈 어택 기준 최대 적용 가능 크리티컬 명중 성공 확률은 Lv10 64%, Lv11 68%이며,
+                이에 대응하는 요구 목표 확률은 각각 36%, 32%입니다.
+            </p>
+        </section>
+
+        <section class="panel">
+            <h2>스킬 버프 정보 표</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>버프/스킬</th>
+                        <th>조건</th>
+                        <th>값</th>
+                        <th>비고</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>강화 샤프 아이즈</td>
+                        <td>레벨 10</td>
+                        <td>크리티컬 명중 +78</td>
+                        <td>레인저 계열 버프 스킬. 시전자 및 파티 상태 시 파티원에 버프 부여</td>
+                    </tr>
+                    <tr>
+                        <td>강화 샤프 아이즈 추가</td>
+                        <td>레인저(시전자) 레벨 10</td>
+                        <td>추가 크리티컬 명중(제한 무시) +40</td>
+                        <td>시전자 전용 추가 버프 수치</td>
+                    </tr>
+                    <tr>
+                        <td>페이탈 히트 오브 어쌔신</td>
+                        <td>어쌔신 제외 직업, 레벨 3</td>
+                        <td>크리티컬 명중 +150</td>
+                        <td>어쌔신 직업군 사용 불가</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="panel">
+            <h2>추가 크리티컬 확률 (제한 무시) 표</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>효과</th>
+                        <th>회피 70</th>
+                        <th>회피 90</th>
+                        <th>회피 100</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>샤프 아이즈 (시전자 제외)</td><td>4.4293%</td><td>3.4450%</td><td>3.1005%</td></tr>
+                    <tr><td>샤프 아이즈 (시전자)</td><td>6.7007%</td><td>5.2117%</td><td>4.6905%</td></tr>
+                    <tr><td>페이탈 히트 오브 어쌔신</td><td>8.5179%</td><td>6.6250%</td><td>5.9625%</td></tr>
+                    <tr><td>샤프 아이즈 + 페이탈 히트 오브 어쌔신</td><td>12.9471%</td><td>10.0700%</td><td>9.0630%</td></tr>
+                    <tr><td>샤프 아이즈(시전자) + 페이탈 히트 오브 어쌔신</td><td>15.2186%</td><td>11.8367%</td><td>10.6530%</td></tr>
+                </tbody>
+            </table>
+            <p class="note">이 표의 값은 계산식으로 고정되는 추가 크리티컬 확률(제한 무시) 기준입니다.</p>
+        </section>
+
+        <section class="panel">
+            <h2>어쌔신 "페이탈 어택" 스킬 버프 적용 관련 표</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>구분</th>
+                        <th>스킬 보장 확률</th>
+                        <th>요구 목표 확률</th>
+                        <th>회피 70</th>
+                        <th>회피 90</th>
+                        <th>회피 100</th>
+                        <th>최대 적용 가능 확률</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>페이탈 어택 Lv10</td>
+                        <td>64%</td>
+                        <td>36%</td>
+                        <td>467</td>
+                        <td>648</td>
+                        <td>739</td>
+                        <td rowspan="2">Lv10: 64% / Lv11: 68%</td>
+                    </tr>
+                    <tr>
+                        <td>페이탈 어택 Lv11</td>
+                        <td>68%</td>
+                        <td>32%</td>
+                        <td>397</td>
+                        <td>558</td>
+                        <td>638</td>
+                    </tr>
+                    <tr>
+                        <td>Lv11 - Lv10 차이</td>
+                        <td>-4%</td>
+                        <td>-4%</td>
+                        <td>-70</td>
+                        <td>-90</td>
+                        <td>-101</td>
+                        <td>Lv11이 동일 목표 달성에 필요한 명중이 더 낮음</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <script>
+        (function () {
+            var enemyEvasions = [70, 90, 100];
+            var defaultTargets = [10, 20, 30, 40];
+            var MAX_CRIT_CHANCE = 40;
+
+            var jobs = [
+                { key: "beginner", name: "초보자", jobConst: 3.78, baseLuk: 35, bonusLuk: 0, icon: "data/ms2_jobclass_favicon/ico_beginner.png" },
+                { key: "knight", name: "나이트", jobConst: 3.78, baseLuk: 26, bonusLuk: 0, icon: "data/ms2_jobclass_favicon/ico_knight.png" },
+                { key: "runeblader", name: "룬 블레이더", jobConst: 3.78, baseLuk: 26, bonusLuk: 0, icon: "data/ms2_jobclass_favicon/ico_runeblader.png" },
+                { key: "berserker", name: "버서커", jobConst: 4.305, baseLuk: 26, bonusLuk: 0, icon: "data/ms2_jobclass_favicon/ico_berserker.png" },
+                { key: "wizard", name: "위자드", jobConst: 3.40375, baseLuk: 17, bonusLuk: 0, icon: "data/ms2_jobclass_favicon/ico_wizard.png" },
+                { key: "soulbinder", name: "소울 바인더", jobConst: 3.40375, baseLuk: 17, bonusLuk: 0, icon: "data/ms2_jobclass_favicon/ico_soulbinder.png" },
+                { key: "priest", name: "프리스트", jobConst: 7.34125, baseLuk: 18, bonusLuk: 0, icon: "data/ms2_jobclass_favicon/ico_priest.png" },
+                { key: "ranger", name: "레인저", jobConst: 6.4575, baseLuk: 27, bonusLuk: 0, icon: "data/ms2_jobclass_favicon/ico_ranger.png" },
+                { key: "heavygunner", name: "헤비거너", jobConst: 2.03875, baseLuk: 74, bonusLuk: 0, icon: "data/ms2_jobclass_favicon/ico_heavygunner.png" },
+                { key: "striker", name: "스트라이커", jobConst: 2.03875, baseLuk: 27, bonusLuk: 0, icon: "data/ms2_jobclass_favicon/ico_striker.png" },
+                { key: "thief", name: "시프", jobConst: 0.60375, baseLuk: 400, bonusLuk: 1207, icon: "data/ms2_jobclass_favicon/ico_theif.png" },
+                { key: "assassin", name: "어쌔신", jobConst: 0.55125, baseLuk: 400, bonusLuk: 1207, icon: "data/ms2_jobclass_favicon/ico_assassin.png" }
+            ];
+
+            var jobIconGrid = document.getElementById("jobIconGrid");
+            var jobConstInput = document.getElementById("jobConst");
+            var lukInput = document.getElementById("luk");
+            var critInput = document.getElementById("crit");
+            var ignoreCapInput = document.getElementById("ignoreCap");
+            var currentResult = document.getElementById("currentResult");
+            var requiredResult = document.getElementById("requiredResult");
+            var customTargetInput = document.getElementById("customTarget");
+            var addCustomTargetButton = document.getElementById("addCustomTarget");
+            var addFatalLv10Button = document.getElementById("addFatalLv10");
+            var addFatalLv11Button = document.getElementById("addFatalLv11");
+            var jobMeta = document.getElementById("jobMeta");
+            var critLowWarning = document.getElementById("critLowWarning");
+
+            var customTargets = [];
+
+            function toNumber(value) {
+                var n = Number(value);
+                return Number.isFinite(n) ? n : 0;
+            }
+
+            function critChancePercent(crit, luk, jobConst, enemyEvasion) {
+                return ((crit * 5.3) + (luk * jobConst)) * 1.5 / (2 * enemyEvasion);
+            }
+
+            function requiredCritForTarget(targetPct, luk, jobConst, enemyEvasion) {
+                var raw = ((targetPct * 2 * enemyEvasion) / 1.5 - (luk * jobConst)) / 5.3;
+                return Math.max(0, Math.ceil(raw));
+            }
+
+            function isIgnoreCap() {
+                return ignoreCapInput.checked;
+            }
+
+            function applyCap(value) {
+                if (isIgnoreCap()) {
+                    return value;
+                }
+                return Math.min(value, MAX_CRIT_CHANCE);
+            }
+
+            function setSelectedIcon(index) {
+                var buttons = jobIconGrid.querySelectorAll(".job-icon-btn");
+                for (var i = 0; i < buttons.length; i += 1) {
+                    buttons[i].classList.toggle("selected", Number(buttons[i].dataset.index) === index);
+                }
+            }
+
+            function renderCurrentTable() {
+                var crit = toNumber(critInput.value);
+                var luk = toNumber(lukInput.value);
+                var jobConst = toNumber(jobConstInput.value);
+
+                var html = "<table><thead><tr><th>적 크리티컬 회피</th><th>제한 무시 계산값</th><th>적용 확률(최대 40%)</th></tr></thead><tbody>";
+
+                for (var i = 0; i < enemyEvasions.length; i += 1) {
+                    var evasion = enemyEvasions[i];
+                    var rawChance = critChancePercent(crit, luk, jobConst, evasion);
+                    var effectiveChance = applyCap(rawChance);
+                    html += "<tr><td>" + evasion + "</td><td>" + rawChance.toFixed(4) + "%</td><td>" + effectiveChance.toFixed(4) + "%</td></tr>";
+                }
+
+                html += "</tbody></table>";
+                currentResult.innerHTML = html;
+            }
+
+            function renderRequiredTable() {
+                var luk = toNumber(lukInput.value);
+                var jobConst = toNumber(jobConstInput.value);
+                var targets = defaultTargets.concat(customTargets).sort(function (a, b) { return a - b; });
+                var ignoreCap = isIgnoreCap();
+
+                var html = "<table><thead><tr><th>목표 확률(%)</th><th>회피 70</th><th>회피 90</th><th>회피 100</th><th>비고</th></tr></thead><tbody>";
+
+                for (var i = 0; i < targets.length; i += 1) {
+                    var target = targets[i];
+                    var label = target.toFixed(2).replace(/\\.00$/, "") + "%";
+                    var isBlocked = !ignoreCap && target > MAX_CRIT_CHANCE;
+                    html += "<tr><td>" + label + "</td>";
+
+                    for (var j = 0; j < enemyEvasions.length; j += 1) {
+                        var evasion = enemyEvasions[j];
+                        var text = isBlocked ? "-" : String(requiredCritForTarget(target, luk, jobConst, evasion));
+                        html += "<td>" + text + "</td>";
+                    }
+
+                    if (target === 36) {
+                        html += "<td>페이탈 어택 Lv10 대응 목표</td>";
+                    } else if (target === 32) {
+                        html += "<td>페이탈 어택 Lv11 대응 목표</td>";
+                    } else if (isBlocked) {
+                        html += "<td>40% 상한 초과 (제한 무시 필요)</td>";
+                    } else {
+                        html += "<td>-</td>";
+                    }
+
+                    html += "</tr>";
+                }
+
+                html += "</tbody></table>";
+                requiredResult.innerHTML = html;
+            }
+
+            function renderAll() {
+                var crit = toNumber(critInput.value);
+                critLowWarning.style.display = crit < 200 ? "block" : "none";
+                renderCurrentTable();
+                renderRequiredTable();
+            }
+
+            function populateJobs() {
+                var iconHtml = "";
+
+                for (var i = 0; i < jobs.length; i += 1) {
+                    var job = jobs[i];
+                    iconHtml += "<button type=\"button\" class=\"job-icon-btn\" data-index=\"" + i + "\">" +
+                        "<img src=\"" + job.icon + "\" alt=\"" + job.name + "\">" +
+                        "<span class=\"name\">" + job.name + "</span></button>";
+                }
+
+                jobIconGrid.innerHTML = iconHtml;
+            }
+
+            function applySelectedJob(index) {
+                var job = jobs[index];
+                if (!job) { return; }
+
+                setSelectedIcon(index);
+
+                var totalLuk = job.baseLuk + job.bonusLuk;
+                jobConstInput.value = job.jobConst;
+                lukInput.value = totalLuk;
+
+                if (job.bonusLuk > 0) {
+                    jobMeta.textContent = job.name + " 선택: 기본 LUK " + job.baseLuk + " + 추가 LUK " + job.bonusLuk + " = " + totalLuk;
+                } else {
+                    jobMeta.textContent = job.name + " 선택: 기본 LUK " + job.baseLuk;
+                }
+
+                renderAll();
+            }
+
+            function addTarget(target) {
+                if (target <= 0) { return; }
+                if (customTargets.indexOf(target) === -1) {
+                    customTargets.push(target);
+                }
+                renderRequiredTable();
+            }
+
+            populateJobs();
+
+            jobIconGrid.addEventListener("click", function (event) {
+                var btn = event.target.closest(".job-icon-btn");
+                if (!btn) { return; }
+                applySelectedJob(Number(btn.dataset.index));
+            });
+
+            jobConstInput.addEventListener("input", renderAll);
+            lukInput.addEventListener("input", renderAll);
+            critInput.addEventListener("input", renderAll);
+            ignoreCapInput.addEventListener("change", renderAll);
+
+            addCustomTargetButton.addEventListener("click", function () {
+                var value = toNumber(customTargetInput.value);
+                customTargetInput.value = "";
+                addTarget(value);
+            });
+
+            addFatalLv10Button.addEventListener("click", function () { addTarget(36); });
+            addFatalLv11Button.addEventListener("click", function () { addTarget(32); });
+
+            applySelectedJob(0);
+        })();
+    </script>
+</body>
+</html>
