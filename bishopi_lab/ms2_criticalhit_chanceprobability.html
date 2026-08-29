@@ -110,6 +110,7 @@
         }
 
         .chip {
+            display:inline-block;
             background: #f4f8ff;
             border: 1px solid #cbd9f7;
             color: #2f4f8a;
@@ -154,6 +155,15 @@
             font-size: 0.78rem;
             line-height: 1.2;
             word-break: keep-all;
+        }
+
+        .jobstat-input-values{
+            padding:8px;
+            font-size:0.9rem;
+            border-radius: 0.4rem;
+            color:#445066;
+            /*background-color:#cbd9f7;*/
+            /*border: 0.2rem solid #bcc7d8;*/
         }
 
         table {
@@ -206,19 +216,39 @@
 
     <main>
         <h1>메이플스토리2 크리티컬 명중 확률 계산기</h1>
-        <p class="description">이 페이지는 chatgpt codex(ChatGPT 5.3)으로 만들었으며, 외부 파일 연동 없이 단일 페이지에서 계산합니다. 적 크리티컬 회피는 70, 90, 100 기준입니다.</p>
-
+        <p class="description">이 페이지는 chatgpt codex(ChatGPT 5.3), gemini 등 생성형 AI로 만들었으며, 외부 파일 연동 없이 단일 페이지에서 계산합니다.</p>
+        <h2>크리티컬 명중률(제한 무시) 안내</h2>
         <div class="warning">
             일반 규칙에서 <strong>크리티컬 명중 성공 확률의 최대치는 40%</strong>입니다.<br>
             단, <strong>제한 무시 계산</strong>을 켜면 40%를 넘는 이론값도 함께 확인할 수 있습니다.
         </div>
-
+        <h2>크리티컬 회복 안내</h2>
         <div class="warning">
-            <strong>스킬에 의한 크리티컬 HP 회복</strong>의 크리티컬 확률 식은 확인 중에 있습니다. 양해 부탁드립니다.<br>
+            <strong>스킬에 의한 크리티컬 HP 회복</strong>의 크리티컬 확률 식은 시전자(섭취자) 기준<strong>적 크리티컬 명중 50</strong>을 기준으로 계산됩니다.<br>
+            모든 크리티컬 회복은 시전자와 관계 없이 (스킬 시전 1회가 아닌) <strong>각 회복 1회 당 독립 시행</strong>으로 크리티컬 회복 확률이 결정됩니다.<br/>
             크리티컬 HP 회복은 <strong>스킬에 의한 회복</strong>(시전자의 크리티컬을 따름), <strong>라펜티어(신호탄: 그린후드의 공중지원 제외)</strong>, <strong>라펜샤드</strong>를 통한 회복 시 발동합니다.<br>
             <strong>비상의 물약 버프 효과</strong>(효과: 버프 지속시간 동안 모든 공격이 크리티컬로 명중) 중에는 크리티컬 HP 회복이 항상 발동합니다. <br>
             <strong>스킬에 의한 크리티컬 HP 회복</strong> 효과 발동 시 크리티컬 대미지 수치값과 관계 없이 최종 HP 회복량의 50% 만큼 추가 회복됩니다. 
         </div>
+        <h2>크리티컬 명중 수치 안내</h2>
+        <table>
+            <tr>
+                <th>회피 50</th>
+                <th>회피 70</th>
+                <th>회피 90</th>
+                <th>회피 100</th>
+                <th>회피 110</th>
+
+            </tr>
+            <tr>
+                <td>대부분의 적, 훈련용 허수아비(하우징, 카오스 레이드 로비 등 모든 허수아비), 크리티컬 회복, 환영 던전 보스</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+        </table>
+        <br/>
 
         <section class="panel">
             <h2>기본 입력</h2>
@@ -232,15 +262,15 @@
             </p>
             <br>
             <div class="grid">
-                <label>
+                <label id="titleJobConst">
                     직업 상수
                     <input id="jobConst" type="number" step="0.00001" min="0" value="3.78">
                 </label>
-                <label>
+                <label id="titleLuk">
                     LUK
                     <input id="luk" type="number" step="1" min="0" value="35">
                 </label>
-                <label>
+                <label id="titleCrit">
                     현재 크리티컬 명중
                     <input id="crit" type="number" step="1" min="0" value="300">
                 </label>
@@ -261,16 +291,32 @@
 
         <section class="panel">
             <h2>1) 현재 크리티컬 발동 확률</h2>
+            <div class="jobstat-input-values"></div>
+            <div class="grid">
+                <label>
+                    표에 추가할 적 크리티컬 회피
+                    <input id="customCritEvasion" type="number" step="1" min="0" value="0">
+                </label>
+                <button id="addCritEvasion" type="button">적 크리티컬 회피 수치 추가</button>
+                <button id="removeCritEvasion" type="button">적 크리티컬 회피 수치 제거</button>
+            </div>
+            
             <div id="currentResult"></div>
             <p class="cap-note">제한 무시 계산이 꺼져 있으면 표의 "적용 확률"은 40% 상한이 적용됩니다.</p>
+            <p class="cap-note">추가/삭제로 갱신된 "적의 크리티컬 회피" 수치 목록은 이 페이지의 모든 적의 크리티컬 수치 표에 즉시 반영됩니다. </p>
         </section>
 
         <section class="panel">
             <h2>2) 목표 확률별 요구 크리티컬 명중</h2>
+            <div class="jobstat-input-values"></div>
             <div class="grid">
                 <label>
                     사용자 지정 목표 확률(%)
-                    <input id="customTarget" type="number" step="0.01" min="0" value="">
+                    <input id="customTarget" type="number" step="0.01" min="0" value="" placeholder="0 (크리티컬 확률 백분율 값을 넣으세요)">
+                </label>
+                <label>
+                    비고
+                    <input id="customTargetComment" type="input" value="" placeholder="(비고에 적을 내용을 입력하세요)">
                 </label>
             </div>
             <div class="inline-actions">
@@ -322,80 +368,25 @@
 
         <section class="panel">
             <h2>추가 크리티컬 확률 (제한 무시) 표</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>효과</th>
-                        <th>회피 70</th>
-                        <th>회피 90</th>
-                        <th>회피 100</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td>샤프 아이즈 (시전자 제외)</td><td>4.4293%</td><td>3.4450%</td><td>3.1005%</td></tr>
-                    <tr><td>샤프 아이즈 (시전자)</td><td>6.7007%</td><td>5.2117%</td><td>4.6905%</td></tr>
-                    <tr><td>페이탈 히트 오브 어쌔신</td><td>8.5179%</td><td>6.6250%</td><td>5.9625%</td></tr>
-                    <tr><td>샤프 아이즈 + 페이탈 히트 오브 어쌔신</td><td>12.9471%</td><td>10.0700%</td><td>9.0630%</td></tr>
-                    <tr><td>샤프 아이즈(시전자) + 페이탈 히트 오브 어쌔신</td><td>15.2186%</td><td>11.8367%</td><td>10.6530%</td></tr>
-                </tbody>
-            </table>
-            <p class="note">이 표의 값은 계산식으로 고정되는 추가 크리티컬 확률(제한 무시) 기준입니다.</p>
+            <div id="criticalIgnorePercentageTableResult"></div>
+            <p class="cap-note">이 표의 값은 계산식으로 고정되는 추가 크리티컬 확률(제한 무시) 기준입니다. 크리티컬 명중 확률 계산식에 따라 직업 상수, LUK에 영향을 받지 않습니다.</p>
         </section>
 
         <section class="panel">
             <h2>어쌔신 "페이탈 어택" 스킬 버프 적용 관련 표</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>구분</th>
-                        <th>스킬 보장 확률</th>
-                        <th>요구 목표 확률</th>
-                        <th>회피 70</th>
-                        <th>회피 90</th>
-                        <th>회피 100</th>
-                        <th>최대 적용 가능 확률</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>페이탈 어택 Lv10</td>
-                        <td>64%</td>
-                        <td>36%</td>
-                        <td>467</td>
-                        <td>648</td>
-                        <td>739</td>
-                        <td rowspan="2">Lv10: 64% / Lv11: 68%</td>
-                    </tr>
-                    <tr>
-                        <td>페이탈 어택 Lv11</td>
-                        <td>68%</td>
-                        <td>32%</td>
-                        <td>397</td>
-                        <td>558</td>
-                        <td>638</td>
-                    </tr>
-                    <tr>
-                        <td>Lv11 - Lv10 차이</td>
-                        <td>-4%</td>
-                        <td>-4%</td>
-                        <td>-70</td>
-                        <td>-90</td>
-                        <td>-101</td>
-                        <td>Lv11이 동일 목표 달성에 필요한 명중이 더 낮음</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="jobstat-input-values"></div>
+            <div id="fatalAttackSkillBuffReqCritHitTableResult"></div>
         </section>
     </main>
 
     <script>
         (function () {
-            var enemyEvasions = [70, 90, 100];
+            var enemyEvasions = [50, 70, 90, 100,110];
             var defaultTargets = [10, 20, 30, 40];
             var MAX_CRIT_CHANCE = 40;
 
             var jobs = [
-                { key: "beginner", name: "초보자", jobConst: 3.78, baseLuk: 35, bonusLuk: 0, icon: "data/ms2_jobclass_favicon/ico_beginner.png" },
+                { key: "beginner", name: "초보자", jobConst: 1.63625, baseLuk: 35, bonusLuk: 0, icon: "data/ms2_jobclass_favicon/ico_beginner.png" },
                 { key: "knight", name: "나이트", jobConst: 3.78, baseLuk: 26, bonusLuk: 0, icon: "data/ms2_jobclass_favicon/ico_knight.png" },
                 { key: "runeblader", name: "룬 블레이더", jobConst: 3.78, baseLuk: 26, bonusLuk: 0, icon: "data/ms2_jobclass_favicon/ico_runeblader.png" },
                 { key: "berserker", name: "버서커", jobConst: 4.305, baseLuk: 26, bonusLuk: 0, icon: "data/ms2_jobclass_favicon/ico_berserker.png" },
@@ -409,6 +400,14 @@
                 { key: "assassin", name: "어쌔신", jobConst: 0.55125, baseLuk: 400, bonusLuk: 1207, icon: "data/ms2_jobclass_favicon/ico_assassin.png" }
             ];
 
+            var limitIgnoreLukCases=[
+                {effectName: "샤프 아이즈 (스킬 레벨 10, 시전자 제외)", critHitValue:78},
+                {effectName: "샤프 아이즈 (스킬 레벨 10, 시전자)", critHitValue:118},
+                {effectName: "페이탈 히트 오브 어쌔신 (스킬 레벨 3)", critHitValue:150},
+                {effectName: "샤프 아이즈 (시전자 제외) + 페이탈 히트 오브 어쌔신", critHitValue:228},
+                {effectName: "샤프 아이즈 (시전자) + 페이탈 히트 오브 어쌔신", critHitValue:268}
+            ];
+
             var jobIconGrid = document.getElementById("jobIconGrid");
             var jobConstInput = document.getElementById("jobConst");
             var lukInput = document.getElementById("luk");
@@ -417,11 +416,20 @@
             var currentResult = document.getElementById("currentResult");
             var requiredResult = document.getElementById("requiredResult");
             var customTargetInput = document.getElementById("customTarget");
+            var customTargetCommentInput = document.getElementById("customTargetCommentInput");
             var addCustomTargetButton = document.getElementById("addCustomTarget");
             var addFatalLv10Button = document.getElementById("addFatalLv10");
             var addFatalLv11Button = document.getElementById("addFatalLv11");
             var jobMeta = document.getElementById("jobMeta");
             var critLowWarning = document.getElementById("critLowWarning");
+            var jobstatInputValues = document.getElementsByClassName("jobstat-input-values");
+            var titleJobConst = document.getElementById("titleJobConst");
+            var titleLuk = document.getElementById("titleLuk");
+            var titleCrit = document.getElementById("titleCrit");
+            var criticalIgnorePercentageTableResult = document.getElementById("criticalIgnorePercentageTableResult");
+            var customCritEvasionInput = document.getElementById("customCritEvasion");
+            var addCritEvasion = document.getElementById("addCritEvasion");
+            var removeCritEvasion = document.getElementById("removeCritEvasion");
 
             var customTargets = [];
 
@@ -462,13 +470,13 @@
                 var luk = toNumber(lukInput.value);
                 var jobConst = toNumber(jobConstInput.value);
 
-                var html = "<table><thead><tr><th>적 크리티컬 회피</th><th>제한 무시 계산값</th><th>적용 확률(최대 40%)</th></tr></thead><tbody>";
+                var html = "<table><thead><tr><th>적 크리티컬 회피</th><th>제한 무시 계산값</th><th>적용 확률(최대 40%)</th><th>비고</th></tr></thead><tbody>";
 
                 for (var i = 0; i < enemyEvasions.length; i += 1) {
                     var evasion = enemyEvasions[i];
                     var rawChance = critChancePercent(crit, luk, jobConst, evasion);
                     var effectiveChance = applyCap(rawChance);
-                    html += "<tr><td>" + evasion + "</td><td>" + rawChance.toFixed(4) + "%</td><td>" + effectiveChance.toFixed(4) + "%</td></tr>";
+                    html += "<tr><td>" + evasion + "</td><td>" + rawChance.toFixed(4) + "%</td><td>" + effectiveChance.toFixed(4) +  "%</td><td>"+ "-" +"</td></tr>" ;
                 }
 
                 html += "</tbody></table>";
@@ -480,8 +488,10 @@
                 var jobConst = toNumber(jobConstInput.value);
                 var targets = defaultTargets.concat(customTargets).sort(function (a, b) { return a - b; });
                 var ignoreCap = isIgnoreCap();
+                var strEvasionTitleName = "회피";
+                var strTagHeaderEvasions = Array.from(enemyEvasions).reduce((a,c)=>a.concat(`<th>${strEvasionTitleName} ${c}</th>`),"");
 
-                var html = "<table><thead><tr><th>목표 확률(%)</th><th>회피 70</th><th>회피 90</th><th>회피 100</th><th>비고</th></tr></thead><tbody>";
+                var html = `<table><thead><tr><th>목표 확률(%)</th>${strTagHeaderEvasions}<th>비고</th></tr></thead><tbody>`;
 
                 for (var i = 0; i < targets.length; i += 1) {
                     var target = targets[i];
@@ -515,8 +525,139 @@
             function renderAll() {
                 var crit = toNumber(critInput.value);
                 critLowWarning.style.display = crit < 200 ? "block" : "none";
+                renderJobInputValues(); //입력값 결과에 표시 작업
                 renderCurrentTable();
                 renderRequiredTable();
+                renderAdditionalCriticalRateLimitIgnoreTable();
+                renderFatalAttackSkillBuffReqCritHitTable();
+            }
+
+            function renderJobInputValues(){
+                var crit = toNumber(critInput.value);
+                var luk = toNumber(lukInput.value);
+                var jobConst = toNumber(jobConstInput.value);
+
+                //입력 문자열 이름 가져오기
+                var str_titleJobConst = titleJobConst.innerText;
+                var str_titleLuk = titleLuk.innerText;
+                var str_titleCrit = titleCrit.innerText;
+
+                //입력 내용 조합 (직업 상수, LUK, 크리티컬 회피 순서)
+                var str_critNameHTML = `${[[str_titleJobConst, jobConst],[str_titleLuk, luk],[str_titleCrit, crit]].reduce((a,c)=>{
+                    a += `<label class="chip">${c[0]}: ${c[1]}</label>`;
+                    return a;
+                },"")}`;
+                
+                //모든 직업 스탯 입력 값 클래스에 조립된 입력 내용을 갱신.
+                Array.from(jobstatInputValues).forEach((e)=>{
+                    e.innerHTML = str_critNameHTML;
+                });
+            }
+
+            function renderAdditionalCriticalRateLimitIgnoreTable() {
+
+                /**
+                 * 표 구성
+                 * [효과]                 | [회피 critRate] ...
+                 * [limitIgnoreLukCases] | [critPet%]
+                */
+
+                // 1. thead 생성 (map 사용)
+                const theadHTML = `
+                    <thead>
+                    <tr>
+                        <th>효과</th>
+                        <th>크리티컬 명중<br/>(제한 무시)</th>
+                        ${enemyEvasions.map(e => `<th>회피 ${e}</th>`).join('')}
+                    </tr>
+                    </thead>
+                `;
+
+                // 2. tbody 생성 (map 사용)
+                const tbodyHTML = `
+                    <tbody>
+                    ${limitIgnoreLukCases.map(c => {
+                        // 각 적 회피도별 td 생성 (jobConst 인자 정상 전달)
+                        const tds = enemyEvasions.map(e => {
+                        const percent = toNumber(critChancePercent(c.critHitValue, 0, 0, e)).toFixed(4);
+                        return `<td>${percent}%</td>`;
+                        }).join('');
+
+                        return `<tr><td>${c.effectName}</td><td>${c.critHitValue}</td>${tds}</tr>`;
+                    }).join('')}
+                    </tbody>
+                `;
+
+                // 3. HTML 반환 및 출력
+                criticalIgnorePercentageTableResult.innerHTML = `<table>${theadHTML}${tbodyHTML}</table>`;
+            }
+
+            function renderFatalAttackSkillBuffReqCritHitTable() {
+                var luk = toNumber(lukInput.value);
+                var jobConst = toNumber(jobConstInput.value);
+
+                // 페이탈 어택 케이스 정의 (Lv10: 보장 64% -> 목표 36%, Lv11: 보장 68% -> 목표 32%)
+                var fatalCases = [
+                    { name: "페이탈 어택 Lv10", guarantee: "64%", target: 36 },
+                    { name: "페이탈 어택 Lv11", guarantee: "68%", target: 32 }
+                ];
+
+                // 1. thead 생성
+                const theadHTML = `
+                    <thead>
+                        <tr>
+                            <th>구분</th>
+                            <th>스킬 보장 확률</th>
+                            <th>요구 목표 확률</th>
+                            ${enemyEvasions.map(e => `<th>회피 ${e}</th>`).join('')}
+                            <th>최대 적용 가능 확률</th>
+                        </tr>
+                    </thead>
+                `;
+
+                // 2. tbody 생성 (Lv10, Lv11 요구 명중 계산)
+                var lv10Reqs = enemyEvasions.map(e => requiredCritForTarget(36, luk, jobConst, e));
+                var lv11Reqs = enemyEvasions.map(e => requiredCritForTarget(32, luk, jobConst, e));
+
+                var rows = fatalCases.map((c, idx) => {
+                    var reqs = idx === 0 ? lv10Reqs : lv11Reqs;
+                    var tds = reqs.map(req => `<td>${req}</td>`).join('');
+                    
+                    // 첫 번째 행에만 rowspan 적용
+                    var maxChanceTd = idx === 0 
+                        ? `<td rowspan="2">Lv10: 64% / Lv11: 68%</td>` 
+                        : '';
+
+                    return `<tr>
+                        <td>${c.name}</td>
+                        <td>${c.guarantee}</td>
+                        <td>${c.target}%</td>
+                        ${tds}
+                        ${maxChanceTd}
+                    </tr>`;
+                });
+
+                // 3. Lv11 - Lv10 차이 행 생성
+                var diffTds = enemyEvasions.map((_, i) => {
+                    var diff = lv11Reqs[i] - lv10Reqs[i];
+                    return `<td>${diff}</td>`;
+                }).join('');
+
+                rows.push(`<tr>
+                    <td>Lv11 - Lv10 차이</td>
+                    <td>-4%</td>
+                    <td>-4%</td>
+                    ${diffTds}
+                    <td>Lv11이 동일 목표 달성에 필요한 명중이 더 낮음</td>
+                </tr>`);
+
+                const tbodyHTML = `<tbody>${rows.join('')}</tbody>`;
+
+                // 4. HTML 반환 및 출력
+                var fatalResultElem = document.getElementById("fatalAttackSkillBuffReqCritHitTableResult");
+                if (fatalResultElem) {
+                    fatalResultElem.innerHTML = `<table>${theadHTML}${tbodyHTML}</table>`;
+                }
             }
 
             function populateJobs() {
@@ -580,6 +721,36 @@
 
             addFatalLv10Button.addEventListener("click", function () { addTarget(36); });
             addFatalLv11Button.addEventListener("click", function () { addTarget(32); });
+
+
+            //적의 크리티컬 회피 경우 추가/삭제 기능 + 기능을 버튼에 이벤트 등록
+            function addCustomCriticalEvasion(){
+                var isChangedValue = false;
+                var enemyCritEva = toNumber(customCritEvasionInput.value);
+                if(!(enemyEvasions.includes(enemyCritEva))){
+                    enemyEvasions.push(enemyCritEva);
+                    enemyEvasions.sort((a,b)=> a - b);
+                    isChangedValue = true;
+                }
+                if(isChangedValue){
+                    renderAll();
+                }
+            }
+
+            function removeCustomCriticalEvasion(){
+                var isChangedValue = false;
+                var enemyCritEva = toNumber(customCritEvasionInput.value);
+                if(enemyEvasions.includes(enemyCritEva)){
+                    enemyEvasions = enemyEvasions.filter((e)=> e !== enemyCritEva);
+                    isChangedValue = true;
+                }
+                if(isChangedValue){
+                    renderAll();
+                }
+            }
+
+            addCritEvasion.addEventListener("click", addCustomCriticalEvasion);
+            removeCritEvasion.addEventListener("click", removeCustomCriticalEvasion);
 
             applySelectedJob(0);
         })();
